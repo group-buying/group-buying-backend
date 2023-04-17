@@ -10,8 +10,8 @@ insert into rate(user_id, rate_name, rate_point, rate_img) values(4, '별사탕�
 
 insert into my_location(user_id, state, city, town) values(1, '부산광역시', '부산진구', '부전동');
 
-insert into board(category_id, title, organizer_id, content, img, event_id, status_code, views, recommend, created_at) values(3, '삼각김밥 1+1 같이 사실분?', 1, '서면 1번출구 편의점에서 삼각김밥 같이 사실분 구합니다. 직거래 우선이요', null, 1, 200, 50, 0, now());
-insert into board(category_id, title, organizer_id, content, img, event_id, status_code, views, recommend, created_at) values(3, '편의점 할인 행사 같이 사실분', 1, '서면 1번출구 편의점에서 같이 사실분 구합니다. 직거래 우선이요', null, 2, 200, 50, 0, now());
+insert into board(category_id, title, organizer_id, content, img, event_id, status_code, views, recommend, state, city, town, created_at) values(3, '삼각김밥 1+1 같이 사실분?', 1, '서면 1번출구 편의점에서 삼각김밥 같이 사실분 구합니다. 직거래 우선이요', null, 1, 200, 50, 0, '부산', '부산진구', '부전동', now());
+insert into board(category_id, title, organizer_id, content, img, event_id, status_code, views, recommend, state, city, town, created_at) values(3, '편의점 할인 행사 같이 사실분', 1, '서면 1번출구 편의점에서 같이 사실분 구합니다. 직거래 우선이요', null, 2, 200, 50, 0, '부산', '부산진구', '부전동', now());
 
 insert into event(latitude, longtitude, qty, payment_type, start_at, end_at, status_code, price) values(35.156834, 129.058987, 1, '직거래', now(), now(), 200, 900);
 insert into event(latitude, longtitude, qty, payment_type, start_at, end_at, status_code, price) values(35.156834, 129.058987, 1, '직거래', now(), now(), 200, 900);

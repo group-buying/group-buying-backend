@@ -1,16 +1,16 @@
 CREATE TABLE user_tb
 (
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
-    username    varchar(255)  NOT NULL UNIQUE,
-    password    varchar(65535)      NOT NULL,
-    email       varchar(255)        NOT NULL,
-    name        varchar(255)        NOT NULL,
+    username    varchar(255)   NOT NULL UNIQUE,
+    password    varchar(65535) NOT NULL,
+    email       varchar(255)   NOT NULL,
+    name        varchar(255)   NOT NULL,
     profile     varchar(65535),
-    rate_id     Bigint       NOT NULL UNIQUE ,
+    rate_id     Bigint         NOT NULL UNIQUE,
     type        varchar(255),
-    role        varchar(255)        NOT NULL,
-    status_code int                 NOT NULL,
-    created_at  timestamp           NOT NULL
+    role        varchar(255)   NOT NULL,
+    status_code int            NOT NULL,
+    created_at  timestamp      NOT NULL
 );
 
 CREATE TABLE rate
@@ -41,6 +41,9 @@ CREATE TABLE board
     status_code  int          NOT NULL,
     views        int          NOT NULL,
     recommend    boolean,
+    state        varchar(255) NOT NULL,
+    city         varchar(255) NOT NULL,
+    town         varchar(255) NOT NULL,
     created_at   timestamp    NOT NULL
 );
 

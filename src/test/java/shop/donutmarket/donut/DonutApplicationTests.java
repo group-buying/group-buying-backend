@@ -1,4 +1,4 @@
-package shop.mtcoding.donut;
+package shop.donutmarket.donut;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
