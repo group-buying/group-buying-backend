@@ -14,6 +14,7 @@ import shop.donutmarket.donut.domain.review.model.Rate;
 
 @Getter
 @Entity
+@Table(name = "user_tb")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
     

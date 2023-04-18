@@ -13,7 +13,7 @@ CREATE TABLE user_tb
     created_at  timestamp      NOT NULL
 );
 
-CREATE TABLE rate // review 하위
+CREATE TABLE rate
 (
     id         Bigint AUTO_INCREMENT PRIMARY KEY,
     user_id    Bigint UNIQUE,
@@ -23,7 +23,7 @@ CREATE TABLE rate // review 하위
     created_at timestamp      NOT NULL
 );
 
-CREATE TABLE category // admin 하위
+CREATE TABLE category
 (
     id         Bigint AUTO_INCREMENT PRIMARY KEY,
     name       varchar(255) UNIQUE NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE board
     created_at   timestamp    NOT NULL
 );
 
-CREATE TABLE event // board 하위
+CREATE TABLE event
 (
     id           Bigint AUTO_INCREMENT PRIMARY KEY,
     latitude     double       NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE event // board 하위
     created_at   timestamp    NOT NULL
 );
 
-CREATE TABLE tag // board 하위
+CREATE TABLE tag
 (
     id         Bigint AUTO_INCREMENT PRIMARY KEY,
     board_id   Bigint    NOT NULL,
@@ -77,7 +77,6 @@ CREATE TABLE participant
     event_id    Bigint    NOT NULL,
     user_id     Bigint    NOT NULL,
     qty         int       NOT NULL,
-    created_at  timestamp NOT NULL,
     limit_time  timestamp,
     status_code int       NOT NULL,
     created_at  timestamp NOT NULL
@@ -116,7 +115,7 @@ CREATE TABLE chatroom
     created_at  timestamp NOT NULL
 );
 
-CREATE TABLE chatter_list // chatroom 하위
+CREATE TABLE chatter_list
 (
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
     chatroom_id Bigint    NOT NULL,
