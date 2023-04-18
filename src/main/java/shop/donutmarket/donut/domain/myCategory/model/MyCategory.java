@@ -1,34 +1,33 @@
 package shop.donutmarket.donut.domain.myCategory.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import shop.donutmarket.donut.domain.admin.model.Category;
+import shop.donutmarket.donut.domain.user.model.User;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "my_category")
 public class MyCategory {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "user_id")
-    private Long userId;
+    private User user;
+    @OneToOne(fetch = FetchType.LAZY)
     @Column(name = "category_id")
-    private Long categoryId;
+    private Category category;
 
     @Builder
-    public MyCategory(Long id, Long userId, Long categoryId) {
+    public MyCategory(Long id, User user, Category category) {
         this.id = id;
-        this.userId = userId;
-        this.categoryId = categoryId;
+        this.user = user;
+        this.category = category;
     }
-
 }
