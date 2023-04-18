@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import shop.donutmarket.donut.domain.board.model.Event;
 
-@Repository
 public interface EventRepository extends JpaRepository<Event, Long>{
     
 }

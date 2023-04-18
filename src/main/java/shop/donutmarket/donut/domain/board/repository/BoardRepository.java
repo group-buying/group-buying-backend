@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import shop.donutmarket.donut.domain.board.model.Board;
 
-@Repository
 public interface BoardRepository extends JpaRepository<Board, Long>{
 
 }

@@ -1,10 +1,6 @@
 package shop.donutmarket.donut.domain.board.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,14 +13,15 @@ public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "board_id")
-    private Long boardId;
+    private Board board;
     private String comment;
 
     @Builder
-    public Tag(Long id, Long boardId, String comment) {
+    public Tag(Long id, Board board, String comment) {
         this.id = id;
-        this.boardId = boardId;
+        this.board = board;
         this.comment = comment;
     }
 }
