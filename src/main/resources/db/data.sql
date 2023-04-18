@@ -34,9 +34,9 @@ insert into blacklist(user_id, blocked_user_id, created_at) values(1, 4, now());
 
 insert into chatroom(status_code, created_at) values(500, now());
 
-insert into chatter_list(chatroom_id, user_id) values(1, 1, now());
-insert into chatter_list(chatroom_id, user_id) values(1, 2, now());
-insert into chatter_list(chatroom_id, user_id) values(1, 3, now());
+insert into chatter_list(chatroom_id, user_id, created_at) values(1, 1, now());
+insert into chatter_list(chatroom_id, user_id, created_at) values(1, 2, now());
+insert into chatter_list(chatroom_id, user_id, created_at) values(1, 3, now());
 
 insert into review(reviewer_id, reviewed_id, score, comment, created_at) values(2, 1, 5, '빠른 거래 좋아요', now());
 
