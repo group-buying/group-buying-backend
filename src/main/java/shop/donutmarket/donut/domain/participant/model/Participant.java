@@ -2,41 +2,43 @@ package shop.donutmarket.donut.domain.participant.model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import shop.donutmarket.donut.domain.admin.model.StatusCode;
+import shop.donutmarket.donut.domain.board.model.Event;
+import shop.donutmarket.donut.domain.user.model.User;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Participant {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "event_id")
-    private Long eventId;
+    private Event event;
+    @OneToOne(fetch = FetchType.LAZY)
     @Column(name = "user_id")
-    private Long userId;
+    private User user;
     private int qty;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @Column(name = "limit_time")
     private LocalDateTime limitTime;
+    @OneToOne(fetch = FetchType.LAZY)
     @Column(name = "status_code")
-    private int statusCode;
+    private StatusCode statusCode;
 
     @Builder
-    public Participant(Long id, Long eventId, Long userId, int qty, LocalDateTime createdAt, LocalDateTime limitTime,
-            int statusCode) {
+    public Participant(Long id, Event event, User user, int qty, LocalDateTime createdAt, LocalDateTime limitTime, StatusCode statusCode) {
         this.id = id;
-        this.eventId = eventId;
-        this.userId = userId;
+        this.event = event;
+        this.user = user;
         this.qty = qty;
         this.createdAt = createdAt;
         this.limitTime = limitTime;

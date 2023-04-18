@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import shop.donutmarket.donut.domain.user.model.User;
 
 
-@Repository
 public interface UserRepository extends JpaRepository<User, Long>{
     
 }

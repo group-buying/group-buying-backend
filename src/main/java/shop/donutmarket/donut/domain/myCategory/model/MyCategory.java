@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.user.model.User;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,11 +25,14 @@ public class MyCategory {
     @OneToOne(fetch = FetchType.LAZY)
     @Column(name = "category_id")
     private Category category;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @Builder
-    public MyCategory(Long id, User user, Category category) {
+    public MyCategory(Long id, User user, Category category, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.category = category;
+        this.createdAt = createdAt;
     }
 }
