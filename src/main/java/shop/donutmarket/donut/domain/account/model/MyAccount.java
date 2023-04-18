@@ -19,7 +19,7 @@ public class MyAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
     private String brand;
     @Column(name = "account_number")

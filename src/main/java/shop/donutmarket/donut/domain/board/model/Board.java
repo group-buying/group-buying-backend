@@ -20,19 +20,19 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne(fetch = FetchType.LAZY)
-    @Column(name = "category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
     private String title;
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "organizer_id")
+    @JoinColumn(name = "organizer_id")
     private User organizer;
     private String content;
     private String img;
     @OneToOne(fetch = FetchType.LAZY)
-    @Column(name = "event_id")
+    @JoinColumn(name = "event_id")
     private Event event;
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(name = "status_code")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_code")
     private StatusCode statusCode;
     private int views;
     private boolean recommend;

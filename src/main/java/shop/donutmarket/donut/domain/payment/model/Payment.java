@@ -19,12 +19,12 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne(fetch = FetchType.LAZY)
-    @Column(name = "participant_id")
+    @JoinColumn(name = "participant_id")
     private Participant participant;
     @Column(name = "payment_type")
     private String paymentType;
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(name = "status_code")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_code")
     private StatusCode statusCode;
     private boolean confirmed;
     @Column(name = "created_at")
