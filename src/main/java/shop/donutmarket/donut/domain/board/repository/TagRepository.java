@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import shop.donutmarket.donut.domain.board.model.Tag;
 
-@Repository
 public interface TagRepository extends JpaRepository<Tag, Long>{
     
 }

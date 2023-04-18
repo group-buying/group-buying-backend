@@ -2,17 +2,15 @@ package shop.donutmarket.donut.domain.board.model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import shop.donutmarket.donut.domain.admin.model.StatusCode;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Event {
     
@@ -28,13 +26,15 @@ public class Event {
     private LocalDateTime startAt;
     @Column(name = "end_at")
     private LocalDateTime endAt;
+    @OneToOne(fetch = FetchType.LAZY)
     @Column(name = "status_code")
-    private int statusCode;
+    private StatusCode statusCode;
     private int price;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @Builder
-    public Event(Long id, double latitude, double longtitude, int qty, String paymentType, LocalDateTime startAt,
-            LocalDateTime endAt, int statusCode, int price) {
+    public Event(Long id, double latitude, double longtitude, int qty, String paymentType, LocalDateTime startAt, LocalDateTime endAt, StatusCode statusCode, int price, LocalDateTime createdAt) {
         this.id = id;
         this.latitude = latitude;
         this.longtitude = longtitude;
@@ -44,6 +44,6 @@ public class Event {
         this.endAt = endAt;
         this.statusCode = statusCode;
         this.price = price;
+        this.createdAt = createdAt;
     }
-    
 }
