@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.account.repository.MyAccountRepository;
+import shop.donutmarket.donut.domain.user.UserConst;
 
 @DataJpaTest
 @Transactional
@@ -23,7 +24,7 @@ public class AccountRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        MyAccount myAccount = MyAccount.builder().id(1L).userId(1L).brand("신한").accountNumber("123-123-123456").build();
+        MyAccount myAccount = MyAccount.builder().id(1L).user(new UserConst()).brand("신한").accountNumber("123-123-123456").build();
         myAccountRepository.save(myAccount);
     }
 
@@ -41,7 +42,7 @@ public class AccountRepositoryTest {
     void save_Test(){
         // given
         Long id = 2L;
-        MyAccount myAccount = MyAccount.builder().id(2L).userId(1L).brand("농협").accountNumber("1-2312-3-123456").build();
+        MyAccount myAccount = MyAccount.builder().id(2L).user(new UserConst()).brand("농협").accountNumber("1-2312-3-123456").build();
         
         // when
         myAccountRepository.save(myAccount);

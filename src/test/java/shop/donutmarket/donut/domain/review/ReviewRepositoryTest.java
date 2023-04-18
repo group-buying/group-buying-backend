@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import shop.donutmarket.donut.domain.review.model.Review;
 import shop.donutmarket.donut.domain.review.repository.ReviewRepository;
+import shop.donutmarket.donut.domain.user.UserConst;
 
 @DataJpaTest
 @Transactional
@@ -24,7 +25,7 @@ public class ReviewRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        Review review = Review.builder().id(1L).reviewerId(1L).reviewedId(2L).score(5).comment("리뷰내용").createdAt(LocalDateTime.now()).build();
+        Review review = Review.builder().id(1L).reviewer(new UserConst()).reviewed(new UserConst()).score(5).comment("리뷰내용").createdAt(LocalDateTime.now()).build();
         reviewRepository.save(review);
     }
 
@@ -44,7 +45,7 @@ public class ReviewRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        Review review = Review.builder().id(id).reviewerId(1L).reviewedId(3L).score(4).comment("리뷰내용2").createdAt(LocalDateTime.now()).build();
+        Review review = Review.builder().id(id).reviewer(new UserConst()).reviewed(new UserConst()).score(4).comment("리뷰내용2").createdAt(LocalDateTime.now()).build();
         
         // when
         reviewRepository.save(review);

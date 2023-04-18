@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import shop.donutmarket.donut.domain.myLocation.model.MyLocation;
 import shop.donutmarket.donut.domain.myLocation.repository.MyLocationRepository;
+import shop.donutmarket.donut.domain.user.UserConst;
 
 @DataJpaTest
 @Transactional
@@ -23,7 +24,7 @@ public class MyLocationRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        MyLocation myLocation = MyLocation.builder().id(1L).userId(1L).state("부산광역시").city("부산진구").town("부전동").build();
+        MyLocation myLocation = MyLocation.builder().id(1L).user(new UserConst()).state("부산광역시").city("부산진구").town("부전동").build();
         myLocationRepository.save(myLocation);
     }
 
@@ -43,7 +44,7 @@ public class MyLocationRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        MyLocation myLocation = MyLocation.builder().id(2L).userId(1L).state("부산광역시").city("부산진구").town("부암동").build();
+        MyLocation myLocation = MyLocation.builder().id(2L).user(new UserConst()).state("부산광역시").city("부산진구").town("부암동").build();
         
         // when
         myLocationRepository.save(myLocation);

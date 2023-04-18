@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import shop.donutmarket.donut.domain.report.model.Report;
 import shop.donutmarket.donut.domain.report.repository.ReportRepository;
+import shop.donutmarket.donut.domain.user.StatusCodeConst;
+import shop.donutmarket.donut.domain.user.UserConst;
 
 @DataJpaTest
 @Transactional
@@ -24,7 +26,7 @@ public class ReportRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        Report report = Report.builder().id(1L).reporterId(1L).reportedId(2L).title("신고").content("신고내용").reportType("일반").statusCode(500).createdAt(LocalDateTime.now()).build();
+        Report report = Report.builder().id(1L).reporter(new UserConst()).reported(new UserConst()).title("신고").content("신고내용").reportType("일반").statusCode(new StatusCodeConst()).createdAt(LocalDateTime.now()).build();
         reportRepository.save(report);
     }
 
@@ -44,7 +46,7 @@ public class ReportRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        Report report = Report.builder().id(id).reporterId(1L).reportedId(3L).title("신고2").content("신고내용2").reportType("일반").statusCode(500).createdAt(LocalDateTime.now()).build();
+        Report report = Report.builder().id(id).reporter(new UserConst()).reported(new UserConst()).title("신고2").content("신고내용2").reportType("일반").statusCode(new StatusCodeConst()).createdAt(LocalDateTime.now()).build();
         
         // when
         reportRepository.save(report);
