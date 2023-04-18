@@ -16,7 +16,7 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "board_id")
+    @JoinColumn(name = "board_id")
     private Board board;
     private String comment;
     @Column(name = "created_at")

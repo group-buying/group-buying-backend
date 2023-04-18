@@ -20,18 +20,18 @@ public class Participant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "event_id")
+    @JoinColumn(name = "event_id")
     private Event event;
     @OneToOne(fetch = FetchType.LAZY)
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
     private int qty;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @Column(name = "limit_time")
     private LocalDateTime limitTime;
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(name = "status_code")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_code")
     private StatusCode statusCode;
 
     @Builder

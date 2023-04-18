@@ -20,10 +20,10 @@ public class MyCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
     @OneToOne(fetch = FetchType.LAZY)
-    @Column(name = "category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
     @Column(name = "created_at")
     private LocalDateTime createdAt;

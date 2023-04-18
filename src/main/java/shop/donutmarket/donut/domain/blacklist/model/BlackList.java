@@ -2,15 +2,12 @@ package shop.donutmarket.donut.domain.blacklist.model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import shop.donutmarket.donut.domain.user.model.User;
 
 @Getter
 @Entity
@@ -20,19 +17,20 @@ public class BlackList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "user_id")
-    private Long userId;
-    @Column(name = "blocked_user_id")
-    private Long blockedUserId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "blocked_user_id")
+    private User blockedUser;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Builder
-    public BlackList(Long id, Long userId, Long blockedUserId, LocalDateTime createdAt) {
+    public BlackList(Long id, User user, User blockedUser, LocalDateTime createdAt) {
         this.id = id;
-        this.userId = userId;
-        this.blockedUserId = blockedUserId;
+        this.user = user;
+        this.blockedUser = blockedUser;
         this.createdAt = createdAt;
     }
-
 }

@@ -26,8 +26,8 @@ public class Event {
     private LocalDateTime startAt;
     @Column(name = "end_at")
     private LocalDateTime endAt;
-    @OneToOne
-    @Column(name = "status_code")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_code")
     private StatusCode statusCode;
     private int price;
     @Column(name = "created_at")
