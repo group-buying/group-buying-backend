@@ -3,6 +3,7 @@ package shop.donutmarket.donut.domain.board;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityManager;
 import shop.donutmarket.donut.domain.board.model.Board;
+import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.model.Tag;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
+import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.board.repository.TagRepository;
 
 @DataJpaTest
@@ -27,6 +30,9 @@ public class BoardRepositoryTest {
 
     @Autowired
     private TagRepository tagRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
 
     @Autowired
     EntityManager em;
@@ -118,17 +124,53 @@ public class BoardRepositoryTest {
         // then
         assertNotNull(boardRepository.findById(id));
     }
-
-
+    
+    
     @Test
     void tag_DeleteById_Test(){
         // given
         Long id = 1L;
-    
+        Tag tag = Tag.builder().id(id).boardId(1L).comment("편의점").build();
+        tagRepository.save(tag);
+        
         // when
         tagRepository.deleteById(id);
-    
+        
         // then
         assertEquals(Optional.empty(), tagRepository.findById(id)); 
     }
+    
+    
+    @Test
+    void event_Save_Test(){
+        // given
+        Long id = 1L;
+        LocalDateTime time = LocalDateTime.now();
+        Event event = Event.builder().id(id).latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(200).price(1000).build();
+        
+        eventRepository.save(event);
+        // when
+        
+        // then
+        assertNotNull(eventRepository.findById(id));
+        
+    }
+
+
+    @Test
+    void event_Delete_Test(){
+        // given
+        Long id = 1L;
+        LocalDateTime time = LocalDateTime.now();
+        Event event = Event.builder().id(id).latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(200).price(1000).build();
+        eventRepository.save(event);
+        
+        // when
+        eventRepository.deleteById(id);
+
+        // then
+        assertNotNull(eventRepository.findById(id));
+        
+    }
+
 }
