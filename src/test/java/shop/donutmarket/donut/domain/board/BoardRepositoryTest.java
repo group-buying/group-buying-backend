@@ -14,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityManager;
 import shop.donutmarket.donut.domain.board.model.Board;
+import shop.donutmarket.donut.domain.board.model.Tag;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
+import shop.donutmarket.donut.domain.board.repository.TagRepository;
 
 @DataJpaTest
 @Transactional
@@ -22,6 +24,9 @@ public class BoardRepositoryTest {
     
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @Autowired
     EntityManager em;
@@ -98,5 +103,32 @@ public class BoardRepositoryTest {
 
         // then
         assertEquals(Optional.empty(), boardRepository.findById(id)); 
+    }
+    
+    @Test
+    void tag_Save_Test(){
+        // given
+        Long board_id = 1L;
+        Long id = 1L;
+        Tag tag = Tag.builder().id(id).boardId(board_id).comment("편의점").build();
+        
+        // when
+        tagRepository.save(tag);
+        
+        // then
+        assertNotNull(boardRepository.findById(id));
+    }
+
+
+    @Test
+    void tag_DeleteById_Test(){
+        // given
+        Long id = 1L;
+    
+        // when
+        tagRepository.deleteById(id);
+    
+        // then
+        assertEquals(Optional.empty(), tagRepository.findById(id)); 
     }
 }
