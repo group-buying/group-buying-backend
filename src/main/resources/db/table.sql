@@ -19,13 +19,15 @@ CREATE TABLE rate // review 하위
     user_id    Bigint UNIQUE,
     rate_name  varchar(255)   NOT NULL,
     rate_point int            NOT NULL,
-    rate_img   varchar(65535) NOT NULL
+    rate_img   varchar(65535) NOT NULL,
+    created_at timestamp      NOT NULL
 );
 
 CREATE TABLE category // admin 하위
 (
-    id   Bigint AUTO_INCREMENT PRIMARY KEY,
-    name varchar(255) UNIQUE NOT NULL
+    id         Bigint AUTO_INCREMENT PRIMARY KEY,
+    name       varchar(255) UNIQUE NOT NULL,
+    created_at timestamp           NOT NULL
 );
 
 
@@ -57,14 +59,16 @@ CREATE TABLE event // board 하위
     start_at     timestamp    NOT NULL,
     end_at       timestamp    NOT NULL,
     status_code  int          NOT NULL,
-    price        int          NOT NULL
+    price        int          NOT NULL,
+    created_at   timestamp    NOT NULL
 );
 
 CREATE TABLE tag // board 하위
 (
-    id       Bigint AUTO_INCREMENT PRIMARY KEY,
-    board_id Bigint NOT NULL,
-    comment  varchar(65535)
+    id         Bigint AUTO_INCREMENT PRIMARY KEY,
+    board_id   Bigint    NOT NULL,
+    comment    varchar(65535),
+    created_at timestamp NOT NULL
 );
 
 CREATE TABLE participant
@@ -75,7 +79,8 @@ CREATE TABLE participant
     qty         int       NOT NULL,
     created_at  timestamp NOT NULL,
     limit_time  timestamp,
-    status_code int       NOT NULL
+    status_code int       NOT NULL,
+    created_at  timestamp NOT NULL
 );
 
 CREATE TABLE payment
@@ -90,16 +95,18 @@ CREATE TABLE payment
 
 CREATE TABLE wishlist
 (
-    id       Bigint AUTO_INCREMENT PRIMARY KEY,
-    user_id  Bigint NOT NULL,
-    board_id Bigint NOT NULL
+    id         Bigint AUTO_INCREMENT PRIMARY KEY,
+    user_id    Bigint    NOT NULL,
+    board_id   Bigint    NOT NULL,
+    created_at timestamp NOT NULL
 );
 
 CREATE TABLE my_category
 (
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
-    user_id     Bigint NOT NULL,
-    category_id Bigint NOT NULL
+    user_id     Bigint    NOT NULL,
+    category_id Bigint    NOT NULL,
+    created_at  timestamp NOT NULL
 );
 
 CREATE TABLE chatroom
@@ -112,17 +119,19 @@ CREATE TABLE chatroom
 CREATE TABLE chatter_list // chatroom 하위
 (
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
-    chatroom_id Bigint NOT NULL,
-    user_id     Bigint NOT NULL
+    chatroom_id Bigint    NOT NULL,
+    user_id     Bigint    NOT NULL,
+    created_at  timestamp NOT NULL
 );
 
 CREATE TABLE my_location
 (
-    id      Bigint AUTO_INCREMENT PRIMARY KEY,
-    user_id Bigint       NOT NULL,
-    state   varchar(255) NOT NULL,
-    city    varchar(255) NOT NULL,
-    town    varchar(255) NOT NULL
+    id         Bigint AUTO_INCREMENT PRIMARY KEY,
+    user_id    Bigint       NOT NULL,
+    state      varchar(255) NOT NULL,
+    city       varchar(255) NOT NULL,
+    town       varchar(255) NOT NULL,
+    created_at timestamp    NOT NULL
 );
 
 CREATE TABLE blacklist
@@ -161,12 +170,14 @@ CREATE TABLE my_account
     id             Bigint PRIMARY KEY AUTO_INCREMENT,
     user_id        Bigint       NOT NULL,
     brand          varchar(255) NOT NULL,
-    account_number varchar(255) NOT NULL
+    account_number varchar(255) NOT NULL,
+    created_at     timestamp    NOT NULL
 );
 
 CREATE TABLE status_code
 (
-    id     int PRIMARY KEY,
-    type   varchar(255) NOT NULL,
-    status varchar(255) NOT NULL
+    id         int PRIMARY KEY,
+    type       varchar(255) NOT NULL,
+    status     varchar(255) NOT NULL,
+    created_at timestamp    NOT NULL
 );
