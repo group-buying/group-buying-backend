@@ -2,38 +2,38 @@ package shop.donutmarket.donut.domain.payment.model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import shop.donutmarket.donut.domain.admin.model.StatusCode;
+import shop.donutmarket.donut.domain.participant.model.Participant;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Payment {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @OneToOne(fetch = FetchType.LAZY)
     @Column(name = "participant_id")
-    private Long participantId;
+    private Participant participant;
     @Column(name = "payment_type")
     private String paymentType;
+    @OneToOne(fetch = FetchType.LAZY)
     @Column(name = "status_code")
-    private int statusCode;
+    private StatusCode statusCode;
     private boolean confirmed;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Builder
-    public Payment(Long id, Long participantId, String paymentType, int statusCode, boolean confirmed,
-            LocalDateTime createdAt) {
+    public Payment(Long id, Participant participant, String paymentType, StatusCode statusCode, boolean confirmed, LocalDateTime createdAt) {
         this.id = id;
-        this.participantId = participantId;
+        this.participant = participant;
         this.paymentType = paymentType;
         this.statusCode = statusCode;
         this.confirmed = confirmed;

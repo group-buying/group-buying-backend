@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import shop.donutmarket.donut.domain.wishlist.model.Wishlist;
 
-@Repository
 public interface WishlistRepository extends JpaRepository<Wishlist, Long>{
     
 }

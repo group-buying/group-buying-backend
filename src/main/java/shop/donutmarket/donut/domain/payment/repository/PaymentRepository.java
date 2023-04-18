@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import shop.donutmarket.donut.domain.payment.model.Payment;
 
-@Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long>{
     
 }

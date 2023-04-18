@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import shop.donutmarket.donut.domain.review.model.Review;
 
-@Repository
 public interface ReviewRepository extends JpaRepository<Review, Long>{
     
 }

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.donutmarket.donut.domain.user.model.User;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,13 +24,16 @@ public class MyLocation {
     private String state;
     private String city;
     private String town;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @Builder
-    public MyLocation(Long id, User user, String state, String city, String town) {
+    public MyLocation(Long id, User user, String state, String city, String town, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.state = state;
         this.city = city;
         this.town = town;
+        this.createdAt = createdAt;
     }
 }
