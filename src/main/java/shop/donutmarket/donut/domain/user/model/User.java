@@ -4,18 +4,17 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import shop.donutmarket.donut.domain.admin.model.StatusCode;
+import shop.donutmarket.donut.domain.review.model.Rate;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
     
     @Id
@@ -27,25 +26,26 @@ public class User {
     private String email;
     private String name;
     private String profile;
-    @Column(name = "rate_id")
-    private Long rateId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rate_id")
+    private Rate rate;
     private String type;
     private String role;
-    @Column(name = "status_code")
-    private int statusCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_code")
+    private StatusCode statusCode;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Builder
-    public User(Long id, String username, String password, String email, String name, String profile, Long rateId,
-            String type, String role, int statusCode, LocalDateTime createdAt) {
+    public User(Long id, String username, String password, String email, String name, String profile, Rate rate, String type, String role, StatusCode statusCode, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.name = name;
         this.profile = profile;
-        this.rateId = rateId;
+        this.rate = rate;
         this.type = type;
         this.role = role;
         this.statusCode = statusCode;
