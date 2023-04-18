@@ -1,31 +1,37 @@
 package shop.donutmarket.donut.domain.wishlist.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import shop.donutmarket.donut.domain.board.model.Board;
+import shop.donutmarket.donut.domain.user.model.User;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Wishlist {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "user_id")
-    private Long userId;
-    @Column(name = "board_id")
-    private Long boardId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
+    private Board board;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @Builder
-    public Wishlist(Long id, Long userId, Long boardId) {
+    public Wishlist(Long id, User user, Board board, LocalDateTime createdAt) {
         this.id = id;
-        this.userId = userId;
-        this.boardId = boardId;
+        this.user = user;
+        this.board = board;
+        this.createdAt = createdAt;
     }
 }
