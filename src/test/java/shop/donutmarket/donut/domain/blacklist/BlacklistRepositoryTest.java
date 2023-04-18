@@ -2,7 +2,6 @@ package shop.donutmarket.donut.domain.blacklist;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -15,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import shop.donutmarket.donut.domain.blacklist.model.BlackList;
 import shop.donutmarket.donut.domain.blacklist.repository.BlackListRepository;
+import shop.donutmarket.donut.domain.user.UserConst;
 
 @DataJpaTest
 @Transactional
@@ -25,7 +25,7 @@ public class BlacklistRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        BlackList blackList = BlackList.builder().id(1L).userId(1L).blockedUserId(2L).createdAt(LocalDateTime.now()).build();
+        BlackList blackList = BlackList.builder().id(1L).user(new UserConst()).blockedUser(new UserConst()).createdAt(LocalDateTime.now()).build();
         blackListRepository.save(blackList);
     }
     
@@ -44,7 +44,7 @@ public class BlacklistRepositoryTest {
     void save_Test(){
         // given
         Long id = 2L;
-        BlackList blackList = BlackList.builder().id(id).userId(1L).blockedUserId(3L).createdAt(LocalDateTime.now()).build();
+        BlackList blackList = BlackList.builder().id(id).user(new UserConst()).blockedUser(new UserConst()).createdAt(LocalDateTime.now()).build();
         
         // when
         blackListRepository.save(blackList);

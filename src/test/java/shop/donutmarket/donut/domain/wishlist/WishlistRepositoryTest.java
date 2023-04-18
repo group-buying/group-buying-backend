@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import shop.donutmarket.donut.domain.board.BoardConst;
+import shop.donutmarket.donut.domain.user.UserConst;
 import shop.donutmarket.donut.domain.wishlist.model.Wishlist;
 import shop.donutmarket.donut.domain.wishlist.repository.WishlistRepository;
 
@@ -23,7 +25,7 @@ public class WishlistRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        Wishlist wishlist = Wishlist.builder().id(1L).userId(1L).boardId(1L).build();
+        Wishlist wishlist = Wishlist.builder().id(1L).user(new UserConst()).board(new BoardConst()).build();
         wishlistRepository.save(wishlist);
     }
     
@@ -44,7 +46,7 @@ public class WishlistRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        Wishlist wishlist = Wishlist.builder().id(id).userId(1L).boardId(2L).build();
+        Wishlist wishlist = Wishlist.builder().id(id).user(new UserConst()).board(new BoardConst()).build();
         
         // when
         wishlistRepository.save(wishlist);

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
 import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
+import shop.donutmarket.donut.domain.user.UserConst;
 
 @DataJpaTest
 @Transactional
@@ -23,7 +24,7 @@ public class MyCategoryRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        MyCategory myCategory = MyCategory.builder().id(1L).userId(1L).categoryId(1L).build();
+        MyCategory myCategory = MyCategory.builder().id(1L).user(new UserConst()).category(new CategoryConst()).build();
         myCategoryRepository.save(myCategory);
     }
     
@@ -43,7 +44,7 @@ public class MyCategoryRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        MyCategory myCategory = MyCategory.builder().id(id).userId(1L).categoryId(2L).build();
+        MyCategory myCategory = MyCategory.builder().id(id).user(new UserConst()).category(new CategoryConst()).build();
 
         // when
         myCategoryRepository.save(myCategory);

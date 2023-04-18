@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import shop.donutmarket.donut.domain.board.EventConst;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.participant.repository.ParticipantRepository;
+import shop.donutmarket.donut.domain.user.StatusCodeConst;
+import shop.donutmarket.donut.domain.user.UserConst;
 
 @DataJpaTest
 @Transactional
@@ -24,7 +27,7 @@ public class ParticipantRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        Participant participant = Participant.builder().id(1L).eventId(1L).userId(1L).qty(2).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).statusCode(300).build();
+        Participant participant = Participant.builder().id(1L).event(new EventConst()).user(new UserConst()).qty(2).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).statusCode(new StatusCodeConst()).build();
         participantRepository.save(participant);
     }
     
@@ -44,7 +47,7 @@ public class ParticipantRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        Participant participant = Participant.builder().id(id).eventId(1L).userId(2L).qty(2).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).statusCode(300).build();
+        Participant participant = Participant.builder().id(id).event(new EventConst()).user(new UserConst()).qty(2).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).statusCode(new StatusCodeConst()).build();
         
         // when
         participantRepository.save(participant);

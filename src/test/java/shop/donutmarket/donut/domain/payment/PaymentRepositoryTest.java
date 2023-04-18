@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import shop.donutmarket.donut.domain.participant.ParticipantConst;
 import shop.donutmarket.donut.domain.payment.model.Payment;
 import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
+import shop.donutmarket.donut.domain.user.StatusCodeConst;
 
 @DataJpaTest
 @Transactional
@@ -24,7 +26,7 @@ public class PaymentRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        Payment payment = Payment.builder().id(1L).participantId(1L).paymentType("직거래").statusCode(400).confirmed(true).createdAt(LocalDateTime.now()).build();
+        Payment payment = Payment.builder().id(1L).participant(new ParticipantConst()).paymentType("직거래").statusCode(new StatusCodeConst()).confirmed(true).createdAt(LocalDateTime.now()).build();
         paymentRepository.save(payment);
     }
 
@@ -44,7 +46,7 @@ public class PaymentRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        Payment payment = Payment.builder().id(id).participantId(2L).paymentType("직거래").statusCode(400).confirmed(true).createdAt(LocalDateTime.now()).build();
+        Payment payment = Payment.builder().id(id).participant(new ParticipantConst()).paymentType("직거래").statusCode(new StatusCodeConst()).confirmed(true).createdAt(LocalDateTime.now()).build();
         
         // when
         paymentRepository.save(payment);

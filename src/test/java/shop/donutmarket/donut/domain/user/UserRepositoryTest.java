@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import shop.donutmarket.donut.domain.review.RateConst;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 
@@ -24,7 +25,7 @@ public class UserRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        User user1 = User.builder().id(1L).username("ssar").password("1234").email("ssar@ssar").name("ssar").rateId(1L).role("user").statusCode(100).createdAt(LocalDateTime.now()).build();
+        User user1 = User.builder().id(1L).username("ssar").password("1234").email("ssar@ssar").name("ssar").rate(new RateConst()).role("user").statusCode(new StatusCodeConst()).createdAt(LocalDateTime.now()).build();
         userRepository.save(user1);
     }
 
@@ -44,7 +45,7 @@ public class UserRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        User user = User.builder().id(2L).username("cos").password("1234").email("cos@").name("cos").rateId(2L).role("user").statusCode(100).createdAt(LocalDateTime.now()).build();
+        User user = User.builder().id(2L).username("cos").password("1234").email("cos@").name("cos").rate(new RateConst()).role("user").statusCode(new StatusCodeConst()).createdAt(LocalDateTime.now()).build();
         
         // when
         userRepository.save(user);
