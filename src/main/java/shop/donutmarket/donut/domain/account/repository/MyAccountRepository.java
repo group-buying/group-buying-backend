@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import shop.donutmarket.donut.domain.account.model.MyAccount;
 
-@Repository
 public interface MyAccountRepository extends JpaRepository<MyAccount, Long>{
     
 }
