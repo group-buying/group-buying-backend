@@ -11,10 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.transaction.annotation.Transactional;
 
-import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.myLocation.model.MyLocation;
 import shop.donutmarket.donut.domain.myLocation.repository.MyLocationRepository;
-import shop.donutmarket.donut.domain.user.UserConst;
 import shop.donutmarket.donut.domain.user.model.User;
 
 import static org.junit.jupiter.api.Assertions.*;

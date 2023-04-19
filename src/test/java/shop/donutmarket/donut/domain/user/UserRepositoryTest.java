@@ -1,35 +1,44 @@
 package shop.donutmarket.donut.domain.user;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import shop.donutmarket.donut.domain.review.RateConst;
+import shop.donutmarket.donut.domain.admin.model.StatusCode;
+import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @DataJpaTest
-@Transactional
 public class UserRepositoryTest {
     
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EntityManager em;
+
+    @Autowired
+    private TestEntityManager tem; // 테스트하기 위한 EntityManager
+
     @BeforeEach
     void setUp(){
-        User user1 = User.builder().id(1L).password("1234").email("ssar@ssar").name("ssar").rate(new RateConst()).role("user").statusCode(new StatusCodeConst()).createdAt(LocalDateTime.now()).build();
-        userRepository.save(user1);
+        autoincrementReset(); // autoincrement 보장해주는 메서드
+        dataSetting(); // 초기 dummy 데이터 세팅
+        tem.clear(); // 영속성 컨텍스트 비우기
     }
 
     @Test
+    @DisplayName("User 개별 id조회 테스트")
     void findById_Test(){
         // given
         Long id = 1L;
@@ -38,31 +47,54 @@ public class UserRepositoryTest {
         Optional<User> user = userRepository.findById(id);
         
         // then
-        assertNotNull(user);
+        user.ifPresent(user1 -> {
+            assertNotNull(user1);
+            assertEquals(user1.getId(), 1L);
+        });
     }
     
     @Test
+    @DisplayName("User 생성 테스트")
     void save_Test() {
         // given
-        Long id = 2L;
-        User user = User.builder().id(2L).password("1234").email("cos@").name("cos").rate(new RateConst()).role("user").statusCode(new StatusCodeConst()).createdAt(LocalDateTime.now()).build();
-        
+        Rate rate = Rate.builder().build();
+        StatusCode statusCode = StatusCode.builder().build();
+        User user = User.builder().password("1234").email("cos@cos").name("cos").rate(rate).role("user").statusCode(statusCode).createdAt(LocalDateTime.now()).build();
+
         // when
         userRepository.save(user);
-        
+
         // then
-        assertNotNull(userRepository.findById(id));
+        assertNotNull(user);
+        assertEquals(user.getId(), 2L);
+        assertEquals(user.getName(), "cos");
     }
 
     @Test
+    @DisplayName("User 삭제 테스트")
     void deleteById_Test(){
         // given
         Long id = 1L;
-        
+        User user = tem.find(User.class, id);
+
         // when
-        userRepository.deleteById(id);
+        if (user != null) {
+            tem.remove(user);
+            tem.flush();
+        }
 
         // then
-        assertEquals(Optional.empty(), userRepository.findById(id));
+        assertNull(tem.find(User.class, id));
+    }
+
+    private void dataSetting() {
+        Rate rate = Rate.builder().build();
+        StatusCode statusCode = StatusCode.builder().build();
+        User user = User.builder().password("1234").email("ssar@ssar").name("ssar").rate(rate).role("user").statusCode(statusCode).createdAt(LocalDateTime.now()).build();
+        userRepository.save(user);
+    }
+
+    private void autoincrementReset() {
+        em.createNativeQuery("ALTER TABLE user_tb ALTER COLUMN id RESTART WITH 1").executeUpdate();
     }
 }

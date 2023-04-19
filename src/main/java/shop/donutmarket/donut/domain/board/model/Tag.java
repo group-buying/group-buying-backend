@@ -29,4 +29,10 @@ public class Tag {
         this.comment = comment;
         this.createdAt = createdAt;
     }
+
+    public void updateTag(Board board, String comment, LocalDateTime createdAt) {
+        this.board = board;
+        this.comment = comment;
+        this.createdAt = createdAt;
+    }
 }

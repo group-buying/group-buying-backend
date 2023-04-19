@@ -10,20 +10,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityManager;
-import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.admin.model.Category;
+import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.model.Tag;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.board.repository.TagRepository;
-import shop.donutmarket.donut.domain.mycategory.CategoryConst;
-import shop.donutmarket.donut.domain.user.StatusCodeConst;
-import shop.donutmarket.donut.domain.user.UserConst;
 import shop.donutmarket.donut.domain.user.model.User;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -154,7 +150,8 @@ public class BoardRepositoryTest {
     void event_Save_Test() {
         // given
         LocalDateTime time = LocalDateTime.now();
-        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(new StatusCodeConst()).price(1000).build();
+        StatusCode statusCode = StatusCode.builder().build();
+        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(statusCode).price(1000).build();
 
         // when
         eventRepository.save(event);
@@ -171,7 +168,8 @@ public class BoardRepositoryTest {
     void event_Delete_Test() {
         // given
         LocalDateTime time = LocalDateTime.now();
-        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(new StatusCodeConst()).price(1000).build();
+        StatusCode statusCode = StatusCode.builder().build();
+        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(statusCode).price(1000).build();
         eventRepository.save(event);
 
         // when

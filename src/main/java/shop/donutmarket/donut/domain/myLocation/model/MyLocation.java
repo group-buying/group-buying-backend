@@ -36,4 +36,11 @@ public class MyLocation {
         this.town = town;
         this.createdAt = createdAt;
     }
+
+    public void updateMyLocation(String state, String city, String town, LocalDateTime createdAt) {
+        this.state = state;
+        this.city = city;
+        this.town = town;
+        this.createdAt = createdAt;
+    }
 }
