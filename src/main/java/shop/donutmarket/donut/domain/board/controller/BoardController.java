@@ -3,9 +3,9 @@ package shop.donutmarket.donut.domain.board.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,6 @@ import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardDetailRespDTO;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Tag;
-import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.board.service.BoardService;
 import shop.donutmarket.donut.domain.board.service.TagService;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -65,5 +64,13 @@ public class BoardController {
         boardService.업데이트(boardUpdateReqDTO);
 
         return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/boards")
+    public @ResponseBody ResponseEntity<?> delete(Long boardId){
+
+        boardService.삭제(boardId);
+
+        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK); 
     }
 }

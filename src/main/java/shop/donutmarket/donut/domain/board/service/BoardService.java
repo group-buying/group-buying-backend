@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.model.Board;
@@ -101,5 +102,14 @@ public class BoardService {
             tagRepository.save(tag);
         }
         
+    }
+
+    @Transactional
+    public void 삭제(Long boardId) {
+        
+        StatusCode deletedCode = StatusCode.builder().id(203L).type("board").status("삭제").createdAt(LocalDateTime.now()).build();
+        
+        Board board = Board.builder().id(boardId).statusCode(deletedCode).build();
+        boardRepository.save(board);
     }
 }
