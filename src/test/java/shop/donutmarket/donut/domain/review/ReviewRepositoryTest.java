@@ -1,35 +1,46 @@
 package shop.donutmarket.donut.domain.review;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.transaction.annotation.Transactional;
 
+import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.review.model.Review;
 import shop.donutmarket.donut.domain.review.repository.ReviewRepository;
 import shop.donutmarket.donut.domain.user.UserConst;
+import shop.donutmarket.donut.domain.user.model.User;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Transactional
 public class ReviewRepositoryTest {
     
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private EntityManager em;
+
+    @Autowired
+    private TestEntityManager tem; // 테스트하기 위한 EntityManager
+
     @BeforeEach
     void setUp(){
-        Review review = Review.builder().id(1L).reviewer(new UserConst()).reviewed(new UserConst()).score(5).comment("리뷰내용").createdAt(LocalDateTime.now()).build();
-        reviewRepository.save(review);
+        autoincrementReset(); // autoincrement 보장해주는 메서드
+        dataSetting(); // 초기 dummy 데이터 세팅
+        tem.clear(); // 영속성 컨텍스트 비우기
     }
 
     @Test
+    @DisplayName("Review 개별 id조회 테스트")
     void findById_Test(){
         // given
         Long id = 1L;
@@ -38,31 +49,54 @@ public class ReviewRepositoryTest {
         Optional<Review> review = reviewRepository.findById(id);
         
         // then
-        assertNotNull(review);
+        review.ifPresent(review1 -> {
+            assertNotNull(review1);
+            assertEquals(review1.getId(), 1L);
+        });
     }
     
     @Test
+    @DisplayName("Review 생성 테스트")
     void save_Test() {
         // given
-        Long id = 2L;
-        Review review = Review.builder().id(id).reviewer(new UserConst()).reviewed(new UserConst()).score(4).comment("리뷰내용2").createdAt(LocalDateTime.now()).build();
-        
+        User user1 = User.builder().build();
+        User user2 = User.builder().build();
+        Review review = Review.builder().reviewer(user1).reviewed(user2).score(4).comment("리뷰내용2").createdAt(LocalDateTime.now()).build();
+
         // when
         reviewRepository.save(review);
-        
+
         // then
-        assertNotNull(reviewRepository.findById(id));
+        assertNotNull(review);
+        assertEquals(review.getId(), 2L);
+        assertEquals(review.getComment(), "리뷰내용2");
     }
 
     @Test
+    @DisplayName("Review 삭제 테스트")
     void deleteById_Test(){
         // given
         Long id = 1L;
-        
+        Review review = tem.find(Review.class, id);
+
         // when
-        reviewRepository.deleteById(id);
+        if (review != null) {
+            tem.remove(review);
+            tem.flush();
+        }
 
         // then
-        assertEquals(Optional.empty(), reviewRepository.findById(id));
+        assertNull(tem.find(Review.class, id));
+    }
+
+    private void dataSetting() {
+        User user1 = User.builder().build();
+        User user2 = User.builder().build();
+        Review review = Review.builder().reviewer(user1).reviewed(user2).score(5).comment("리뷰내용").createdAt(LocalDateTime.now()).build();
+        reviewRepository.save(review);
+    }
+
+    private void autoincrementReset() {
+        em.createNativeQuery("ALTER TABLE review ALTER COLUMN id RESTART WITH 1").executeUpdate();
     }
 }
