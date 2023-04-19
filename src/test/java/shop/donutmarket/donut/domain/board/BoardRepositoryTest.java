@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import jakarta.persistence.EntityManager;
+import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Board;
@@ -108,6 +109,32 @@ public class BoardRepositoryTest {
 
         // then
         assertNull(tem.find(Board.class, id));
+    }
+
+    @Test
+    @DisplayName("Board 수정 테스트")
+    void updateById_Test() {
+        // given
+        Long id = 1L;
+        Board board = tem.find(Board.class, id);
+
+        User user = User.builder().build();
+        tem.persist(user);
+        Category category = Category.builder().build();
+        tem.persist(category);
+        Event event = Event.builder().build();
+        tem.persist(event);
+        StatusCode statusCode = StatusCode.builder().build();
+        tem.persist(statusCode);
+        LocalDateTime time = LocalDateTime.now();
+
+        // when
+        board.updateBoard(category, "제목", user, "내용", "이미지", event, statusCode, 50, true, "부산시", "부산진구", "양정동",  time);
+        tem.persistAndFlush(board);
+
+        // then
+        assertEquals(board.getTitle(), "제목");
+        assertEquals(board.getImg(), "이미지");
     }
 
     @Test
