@@ -1,6 +1,7 @@
 package shop.donutmarket.donut.domain.payment;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
+import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.payment.model.Payment;
 import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
@@ -36,6 +38,18 @@ public class PaymentRepositoryTest {
         autoincrementReset(); // autoincrement 보장해주는 메서드
         dataSetting(); // 초기 dummy 데이터 세팅
         tem.clear(); // 영속성 컨텍스트 비우기
+    }
+
+    @Test
+    @DisplayName("Payment 전체 조회 테스트")
+    void findAll_Test() {
+        // given
+
+        // when
+        List<Payment> payments = paymentRepository.findAll();
+
+        // then
+        assertEquals(payments.size(), 1);
     }
 
     @Test

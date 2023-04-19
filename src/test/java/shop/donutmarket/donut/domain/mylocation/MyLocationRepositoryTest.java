@@ -1,6 +1,7 @@
 package shop.donutmarket.donut.domain.mylocation;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import shop.donutmarket.donut.domain.account.model.MyAccount;
+import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.myLocation.model.MyLocation;
 import shop.donutmarket.donut.domain.myLocation.repository.MyLocationRepository;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -37,6 +39,18 @@ public class MyLocationRepositoryTest {
         autoincrementReset(); // autoincrement 보장해주는 메서드
         dataSetting(); // 초기 dummy 데이터 세팅
         tem.clear(); // 영속성 컨텍스트 비우기
+    }
+
+    @Test
+    @DisplayName("MyLocation 전체 조회 테스트")
+    void findAll_Test() {
+        // given
+
+        // when
+        List<MyLocation> myLocations = myLocationRepository.findAll();
+
+        // then
+        assertEquals(myLocations.size(), 1);
     }
 
     @Test
