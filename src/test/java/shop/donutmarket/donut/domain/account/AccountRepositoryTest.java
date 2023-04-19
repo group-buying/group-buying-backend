@@ -1,66 +1,117 @@
 package shop.donutmarket.donut.domain.account;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.Optional;
 
+import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.account.repository.MyAccountRepository;
 import shop.donutmarket.donut.domain.user.UserConst;
+import shop.donutmarket.donut.domain.user.model.User;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Transactional
 public class AccountRepositoryTest {
     
     @Autowired
     private MyAccountRepository myAccountRepository;
 
+    @Autowired
+    private EntityManager em;
+
+    @Autowired
+    private TestEntityManager tem; // 테스트하기 위한 EntityManager
+
     @BeforeEach
     void setUp() {
-        MyAccount myAccount = MyAccount.builder().id(1L).user(new UserConst()).brand("신한").accountNumber("123-123-123456").build();
-        myAccountRepository.save(myAccount);
+        autoincrementReset(); // autoincrement 보장해주는 메서드
+        dataSetting(); // 초기 dummy 데이터 세팅
+        tem.clear(); // 영속성 컨텍스트 비우기
     }
 
     @Test
+    @DisplayName("Account 개별 id조회 테스트")
     void findById_Test(){
         // given
         Long id = 1L;
+
         // when
         Optional<MyAccount> myAccount = myAccountRepository.findById(id);
+
         // then
-        assertNotNull(myAccount);
+        myAccount.ifPresent(myAccount1 -> {
+            assertNotNull(myAccount1);
+            assertEquals(myAccount1.getId(), 1L);
+            assertEquals(myAccount1.getBrand(), "신한");
+        });
     }
 
     @Test
+    @DisplayName("Account 생성 테스트")
     void save_Test(){
         // given
-        Long id = 2L;
-        MyAccount myAccount = MyAccount.builder().id(2L).user(new UserConst()).brand("농협").accountNumber("1-2312-3-123456").build();
+        User user = User.builder().build();
+        MyAccount myAccount = MyAccount.builder().user(user).brand("농협").accountNumber("1-2312-3-123456").build();
         
         // when
         myAccountRepository.save(myAccount);
         
         // then
-        assertNotNull(myAccountRepository.findById(id));
+        assertNotNull(myAccount);
+        assertEquals(myAccount.getId(), 2L);
+        assertEquals(myAccount.getBrand(), "농협");
     }
 
     @Test
+    @DisplayName("Account 삭제 테스트")
     void deleteById_Test(){
         // given
         Long id = 1L;
+        MyAccount myAccount = tem.find(MyAccount.class, id);
 
         // when
-        myAccountRepository.deleteById(id);
+        if (myAccount != null) {
+            tem.remove(myAccount);
+            tem.flush();
+        }
 
         // then
-        assertEquals(Optional.empty(), myAccountRepository.findById(id)); 
+        assertNull(tem.find(MyAccount.class, id));
     }
-    
+
+    @Test
+    @DisplayName("Account 수정 테스트")
+    void updateById_Test() {
+        // given
+        Long id = 1L;
+        MyAccount myAccount = tem.find(MyAccount.class, id);
+
+        // when
+        myAccount.updateMyAccount("경남은행", "111-111-111111");
+        tem.persistAndFlush(myAccount);
+
+        // then
+        assertEquals(myAccount.getBrand(), "경남은행");
+        assertEquals(myAccount.getAccountNumber(), "111-111-111111");
+    }
+
+    private void dataSetting() {
+        User user = User.builder().build();
+        MyAccount myAccount = MyAccount.builder().user(user).brand("신한").accountNumber("123-123-123456").build();
+        myAccountRepository.save(myAccount);
+    }
+
+    private void autoincrementReset() {
+        em.createNativeQuery("ALTER TABLE my_account ALTER COLUMN id RESTART WITH 1").executeUpdate();
+    }
 }

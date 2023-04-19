@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import shop.donutmarket.donut.domain.board.BoardConst;
 import shop.donutmarket.donut.domain.user.UserConst;
 import shop.donutmarket.donut.domain.wishlist.model.Wishlist;
 import shop.donutmarket.donut.domain.wishlist.repository.WishlistRepository;

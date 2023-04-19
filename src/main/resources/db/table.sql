@@ -1,13 +1,12 @@
 CREATE TABLE user_tb
 (
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
-    username    varchar(255)   NOT NULL UNIQUE,
     password    varchar(65535) NOT NULL,
-    email       varchar(255)   NOT NULL,
+    email       varchar(255)   NOT NULL UNIQUE,
     name        varchar(255)   NOT NULL,
     profile     varchar(65535),
     rate_id     Bigint         NOT NULL UNIQUE,
-    type        varchar(255),
+    type        boolean,
     role        varchar(255)   NOT NULL,
     status_code int            NOT NULL,
     created_at  timestamp      NOT NULL
@@ -126,7 +125,7 @@ CREATE TABLE chatter_list
 CREATE TABLE my_location
 (
     id         Bigint AUTO_INCREMENT PRIMARY KEY,
-    user_id    Bigint       NOT NULL,
+    user_id    Bigint       NOT NULL UNIQUE,
     state      varchar(255) NOT NULL,
     city       varchar(255) NOT NULL,
     town       varchar(255) NOT NULL,
