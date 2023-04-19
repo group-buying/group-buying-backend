@@ -23,26 +23,22 @@ public class Rate {
     private String rateName;
     @Column(name = "rate_point")
     private int ratePoint;
-    @Column(name = "rate_img")
-    private String rateImg;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Builder
-    public Rate(Long id, Long userId, String rateName, int ratePoint, String rateImg, LocalDateTime createdAt) {
+    public Rate(Long id, Long userId, String rateName, int ratePoint, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.rateName = rateName;
         this.ratePoint = ratePoint;
-        this.rateImg = rateImg;
         this.createdAt = createdAt;
     }
 
-    public void updateRate(Long userId, String rateName, int ratePoint, String rateImg, LocalDateTime createdAt) {
+    public void updateRate(Long userId, String rateName, int ratePoint, LocalDateTime createdAt) {
         this.userId = userId;
         this.rateName = rateName;
         this.ratePoint = ratePoint;
-        this.rateImg = rateImg;
         this.createdAt = createdAt;
     }
 }

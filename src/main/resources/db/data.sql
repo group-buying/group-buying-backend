@@ -3,10 +3,10 @@ insert into user_tb(password, email, name, profile, rate_id, type, role, status_
 insert into user_tb(password, email, name, profile, rate_id, type, role, status_code, created_at) values('1234', 'qqwe@naver.com', 'qqwe', null, 3, true, 'user', 1, now());
 insert into user_tb(password, email, name, profile, rate_id, type, role, status_code, created_at) values('1234', 'ppoi@naver.com', 'ppoi', null, 4, false, 'user', 1, now());
 
-insert into rate(user_id, rate_name, rate_point, rate_img, created_at) values(1, '글레이즈드', 30, 'temp', now());
-insert into rate(user_id, rate_name, rate_point, rate_img, created_at) values(2, '딸기도넛', 70, 'temp', now());
-insert into rate(user_id, rate_name, rate_point, rate_img, created_at) values(3, '초코도넛', 40,'temp', now());
-insert into rate(user_id, rate_name, rate_point, rate_img, created_at) values(4, '별사탕도넛', 120, 'temp', now());
+insert into rate(user_id, rate_name, rate_point, created_at) values(1, '글레이즈드', 30, now());
+insert into rate(user_id, rate_name, rate_point, created_at) values(2, '딸기도넛', 70, now());
+insert into rate(user_id, rate_name, rate_point, created_at) values(3, '초코도넛', 40, now());
+insert into rate(user_id, rate_name, rate_point, created_at) values(4, '별사탕도넛', 120, now());
 
 insert into my_location(user_id, state, city, town, created_at) values(1, '부산광역시', '부산진구', '부전동', now());
 

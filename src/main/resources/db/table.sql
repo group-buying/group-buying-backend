@@ -18,7 +18,6 @@ CREATE TABLE rate
     user_id    Bigint UNIQUE,
     rate_name  varchar(255)   NOT NULL,
     rate_point int            NOT NULL,
-    rate_img   varchar(65535) NOT NULL,
     created_at timestamp      NOT NULL
 );
 
