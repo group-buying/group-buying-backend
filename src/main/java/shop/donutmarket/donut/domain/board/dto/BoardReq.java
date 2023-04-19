@@ -53,6 +53,7 @@ public class BoardReq {
 
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class BoardUpdateReqDTO {
         // board
         private Long id;
