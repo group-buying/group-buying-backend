@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
+import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.report.model.Report;
 import shop.donutmarket.donut.domain.report.repository.ReportRepository;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -85,6 +87,29 @@ public class ReportRepositoryTest {
 
         // then
         assertNull(tem.find(Report.class, id));
+    }
+    @Test
+    @DisplayName("Report 수정 테스트")
+    void updateById_Test() {
+        // given
+        Long id = 1L;
+        Report report = tem.find(Report.class, id);
+        User user1 = User.builder().build();
+        User user2 = User.builder().build();
+        StatusCode statusCode = StatusCode.builder().build();
+        Board board = Board.builder().build();
+        LocalDateTime time = LocalDateTime.now();
+        tem.persist(user1);
+        tem.persist(user2);
+        tem.persist(board);
+        tem.persist(statusCode);
+
+        // when
+        report.updateReport(user1, user2, board, "제목", "내용", "사기", statusCode, time);
+        tem.persistAndFlush(report);
+
+        // then
+        assertEquals(report.getReportType(), "사기");
     }
 
     private void dataSetting() {

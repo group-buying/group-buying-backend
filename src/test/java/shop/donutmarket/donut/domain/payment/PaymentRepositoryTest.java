@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.payment.model.Payment;
@@ -84,6 +85,26 @@ public class PaymentRepositoryTest {
 
         // then
         assertNull(tem.find(Payment.class, id));
+    }
+
+    @Test
+    @DisplayName("Payment 수정 테스트")
+    void updateById_Test() {
+        // given
+        Long id = 1L;
+        Payment payment = tem.find(Payment.class, id);
+        Participant participant = Participant.builder().build();
+        StatusCode statusCode = StatusCode.builder().build();
+        LocalDateTime time = LocalDateTime.now();
+        tem.persist(participant);
+        tem.persist(statusCode);
+
+        // when
+        payment.updatePayment(participant, "직거래", statusCode, false, time);
+        tem.persistAndFlush(payment);
+
+        // then
+        assertEquals(payment.getPaymentType(), "직거래");
     }
 
     private void dataSetting() {
