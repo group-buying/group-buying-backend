@@ -39,6 +39,7 @@ public class BoardController {
     @PostMapping("/boards")
     public @ResponseBody ResponseEntity<?> save(@RequestBody BoardSaveReqDTO boardSaveReqDTO, BindingResult bindingResult) {
         
+        // 인증 체크 필요
         // 임시 작성 추후 로그인 방식이 정립되면 변경
         User user = (User) session.getAttribute("principal");
 
@@ -61,6 +62,8 @@ public class BoardController {
     @PutMapping("/boards")
     public @ResponseBody ResponseEntity<?> update(@RequestBody BoardUpdateReqDTO boardUpdateReqDTO, BindingResult bindingResult) {
 
+        // 인증 체크 필요
+
         boardService.업데이트(boardUpdateReqDTO);
 
         return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.CREATED);
@@ -68,6 +71,8 @@ public class BoardController {
 
     @DeleteMapping("/boards")
     public @ResponseBody ResponseEntity<?> delete(Long boardId){
+
+        // 인증 체크 필요
 
         boardService.삭제(boardId);
 

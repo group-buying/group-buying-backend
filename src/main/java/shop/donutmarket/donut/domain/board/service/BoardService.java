@@ -75,6 +75,8 @@ public class BoardService {
     @Transactional
     public void 업데이트(BoardUpdateReqDTO boardUpdateReqDTO) {
 
+        // 인가 체크 필요
+
         Board boardPS = boardRepository.findById(boardUpdateReqDTO.getId()).get();
         if (boardPS.getStatusCode().getId() == 203L) {
             // 해당 게시글은 삭제되었습니다. 리턴
@@ -115,6 +117,8 @@ public class BoardService {
     @Transactional
     public void 삭제(Long boardId) {
         
+        // 인가 체크 필요
+
         StatusCode deletedCode = StatusCode.builder().id(203L).type("board").status("삭제").createdAt(LocalDateTime.now()).build();
         
         Board board = Board.builder().id(boardId).statusCode(deletedCode).build();
