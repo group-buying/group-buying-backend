@@ -66,11 +66,19 @@ public class BoardService {
     public Board 상세보기(Long id) {
 
         Board boardPS = boardRepository.findById(id).get();
+        if (boardPS.getStatusCode().getId() == 203L) {
+            // 해당 게시글은 삭제되었습니다. 리턴
+        }
         return boardPS;
     }
 
     @Transactional
     public void 업데이트(BoardUpdateReqDTO boardUpdateReqDTO) {
+
+        Board boardPS = boardRepository.findById(boardUpdateReqDTO.getId()).get();
+        if (boardPS.getStatusCode().getId() == 203L) {
+            // 해당 게시글은 삭제되었습니다. 리턴
+        }
 
         Event event = Event.builder().id(boardUpdateReqDTO.getId()).latitude(boardUpdateReqDTO.getLatitude())
         .longtitude(boardUpdateReqDTO.getLongtitude()).qty(boardUpdateReqDTO.getQty())
