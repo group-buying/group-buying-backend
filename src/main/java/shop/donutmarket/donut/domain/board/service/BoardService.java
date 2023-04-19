@@ -2,6 +2,8 @@ package shop.donutmarket.donut.domain.board.service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.model.Tag;
@@ -28,28 +31,34 @@ public class BoardService {
     private final TagRepository tagRepository;
 
     @Transactional
-    public void 공고작성(BoardSaveReqDTO boardSaveReqDTO, User user) {
+    public BoardSaveRespDTO 공고작성(BoardSaveReqDTO boardSaveReqDTO, User user) {
 
         // event 먼저 save
         Event event = boardSaveReqDTO.toEventEntity();
         event = eventRepository.save(event);
 
         // image base64화
-        String image = null;
-        try {
-            image = MyBase64Decoder.saveImage(boardSaveReqDTO.getImg());
-        } catch (IOException e) {
-            // Exception 처리 필요
-        }
-        Board board = boardSaveReqDTO.toBoardEntity(event, image);
+        // String image = null;
+        // try {
+        //     image = MyBase64Decoder.saveImage(boardSaveReqDTO.getImg());
+        // } catch (IOException e) {
+        //     // Exception 처리 필요
+        // }
+        Board board = boardSaveReqDTO.toBoardEntity(event, boardSaveReqDTO.getImg());
         board = boardRepository.save(board);
 
         // tag save
+        List<Tag> tagList = new ArrayList<>();
         for (String comment : boardSaveReqDTO.getComment()) {
             Tag tag = Tag.builder().board(board).comment(comment)
             .createdAt(LocalDateTime.now()).build();
             tagRepository.save(tag);
+            tagList.add(tag);
         }
+
+        BoardSaveRespDTO boardSaveRespDTO = new BoardSaveRespDTO(board, event, tagList);
+
+        return boardSaveRespDTO;
     }
 
     public Board 상세보기(Long id) {
