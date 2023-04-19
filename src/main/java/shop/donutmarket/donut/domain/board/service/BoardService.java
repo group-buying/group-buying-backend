@@ -14,6 +14,7 @@ import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardUpdateRespDTO;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.model.Tag;
@@ -73,37 +74,41 @@ public class BoardService {
     }
 
     @Transactional
-    public void 업데이트(BoardUpdateReqDTO boardUpdateReqDTO) {
+    public BoardUpdateRespDTO 업데이트(BoardUpdateReqDTO boardUpdateReqDTO) {
 
         // 인가 체크 필요
 
         Board boardPS = boardRepository.findById(boardUpdateReqDTO.getId()).get();
-        if (boardPS.getStatusCode().getId() == 203L) {
-            // 해당 게시글은 삭제되었습니다. 리턴
-        }
+        // if (boardPS.getStatusCode().getId() == 203L) {
+        //     // 해당 게시글은 삭제되었습니다. 리턴
+        // }
 
         Event event = boardUpdateReqDTO.toEventEntity();
 
-        // image base64화
-        String image = null;
-        try {
-            image = MyBase64Decoder.saveImage(boardUpdateReqDTO.getImg());
-        } catch (IOException e) {
-            // Exception 처리 필요
-        }
-        Board board = boardUpdateReqDTO.toBoardEntity(event, image);
+        // // image base64화
+        // String image = null;
+        // try {
+        //     image = MyBase64Decoder.saveImage(boardUpdateReqDTO.getImg());
+        // } catch (IOException e) {
+        //     // Exception 처리 필요
+        // }
+        Board board = boardUpdateReqDTO.toBoardEntity(event, boardUpdateReqDTO.getImg());
         
         // tag는 삭제 후 재생성 수정x
         tagRepository.deleteAllByBoardId(boardUpdateReqDTO.getId());
         eventRepository.save(event);
         boardRepository.save(board);
-        
+
+        List<Tag> tagList = new ArrayList<>();
         for (String comment : boardUpdateReqDTO.getComment()) {
             Tag tag = Tag.builder().board(board).comment(comment)
             .createdAt(LocalDateTime.now()).build();
             tagRepository.save(tag);
+            tagList.add(tag);
         }
-        
+
+        BoardUpdateRespDTO boardUpdateRespDTO = new BoardUpdateRespDTO(board, event, tagList);
+        return boardUpdateRespDTO;
     }
 
     @Transactional

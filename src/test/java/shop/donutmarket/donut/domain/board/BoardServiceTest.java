@@ -1,6 +1,7 @@
 package shop.donutmarket.donut.domain.board;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,7 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardUpdateRespDTO;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
@@ -52,6 +56,7 @@ public class BoardServiceTest {
     ObjectMapper om;
 
     @Test
+    @DisplayName("공고작성 테스트")
     public void 공고작성_test() throws Exception {
         // given
         User user1 = User.builder().id(1L).username("ssar").password("1234")
@@ -85,7 +90,9 @@ public class BoardServiceTest {
     }
 
     @Test
-    public void 상세보기_test() throws Exception {     
+    @DisplayName("상세보기 테스트")
+    public void 상세보기_test() throws Exception {  
+        // given   
         Long id = 1L;
 
         Board tempBoard = Board.builder().id(id).category(new CategoryConst()).title("제목")
@@ -93,7 +100,9 @@ public class BoardServiceTest {
         .statusCode(new StatusCodeConst()).state("부산").city("부산진")
         .town("부전").createdAt(LocalDateTime.now()).build();
 
+        // stub
         when(boardRepository.findById(1L)).thenReturn(Optional.of(tempBoard));
+
         // when
         Board boardPS = boardService.상세보기(id);
 
@@ -101,5 +110,45 @@ public class BoardServiceTest {
         assertThat(boardPS.getTitle()).isEqualTo("제목");
         assertThat(boardPS.getCity()).isEqualTo("부산진");
     
+    }
+
+    @Test
+    @DisplayName("업데이트 테스트")
+    public void 업데이트_test() throws Exception {
+        // given   
+        List<String> comment = new ArrayList<String>();
+        comment.add("편의점");
+        comment.add("1+1");
+
+        BoardSaveReqDTO boardSaveReqDTO = new BoardSaveReqDTO(
+            new CategoryConst(),"제목1", new UserConst(),"내용1","img1",null,
+            "부산시","부산진구","부전동",139.123123,39.123123,
+            3,"직거래",LocalDateTime.now(),1000,comment);
+
+        BoardUpdateReqDTO boardUpdateReqDTO = new BoardUpdateReqDTO(1L, new CategoryConst(),"제목업데이트","내용업데이트","img1",null,
+        "부산시","해운대구","우동",139.123123,39.123123,
+        3,"직거래",LocalDateTime.now(),LocalDateTime.now(),1000,comment);
+
+        Event event = boardSaveReqDTO.toEventEntity();
+        Board board = boardSaveReqDTO.toBoardEntity(event, "img");
+
+        // stub
+        when(eventRepository.save(event)).thenReturn(event);
+        when(boardRepository.save(board)).thenReturn(board);
+        when(boardRepository.findById(any())).thenReturn(Optional.of(board));
+
+        eventRepository.save(event);
+        boardRepository.save(board);
+
+        // when
+        BoardUpdateRespDTO boardUpdateRespDTO = boardService.업데이트(boardUpdateReqDTO);
+        om.registerModule(new JavaTimeModule());
+        String responseBody = om.writeValueAsString(boardUpdateRespDTO);
+        System.out.println("Test : " + responseBody);
+
+        // then
+        assertThat(boardUpdateReqDTO.getTitle()).isEqualTo(boardUpdateRespDTO.getBoard().getTitle());
+        assertThat(boardUpdateReqDTO.getCity()).isEqualTo(boardUpdateRespDTO.getBoard().getCity());
+
     }
 }

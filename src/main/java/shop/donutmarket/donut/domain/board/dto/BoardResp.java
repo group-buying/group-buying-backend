@@ -28,5 +28,14 @@ public class BoardResp {
         private Event event;
         private List<Tag> tagList;
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class BoardUpdateRespDTO {
+        private Board board;
+        private Event event;
+        private List<Tag> tagList;
+    }
 }
 
