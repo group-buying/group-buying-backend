@@ -10,4 +10,5 @@ import shop.donutmarket.donut.domain.board.service.BoardService;
 public class BoardController {
     
     private final BoardService boardService;
+    
 }
