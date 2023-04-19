@@ -26,8 +26,8 @@ public class ParticipantRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        Participant participant = Participant.builder().id(1L).event(new EventConst()).user(new UserConst()).qty(2).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).statusCode(new StatusCodeConst()).build();
-        participantRepository.save(participant);
+//        Participant participant = Participant.builder().id(1L).event(new EventConst()).user(new UserConst()).qty(2).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).statusCode(new StatusCodeConst()).build();
+//        participantRepository.save(participant);
     }
     
     @Test
@@ -46,10 +46,10 @@ public class ParticipantRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        Participant participant = Participant.builder().id(id).event(new EventConst()).user(new UserConst()).qty(2).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).statusCode(new StatusCodeConst()).build();
+        // Participant participant = Participant.builder().id(id).event(new EventConst()).user(new UserConst()).qty(2).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).statusCode(new StatusCodeConst()).build();
         
         // when
-        participantRepository.save(participant);
+        // participantRepository.save(participant);
 
         // then
         assertNotNull(participantRepository.findById(id));

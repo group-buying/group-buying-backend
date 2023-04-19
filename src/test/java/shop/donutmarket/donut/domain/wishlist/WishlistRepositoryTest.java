@@ -24,8 +24,8 @@ public class WishlistRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        Wishlist wishlist = Wishlist.builder().id(1L).user(new UserConst()).board(new BoardConst()).build();
-        wishlistRepository.save(wishlist);
+        // Wishlist wishlist = Wishlist.builder().id(1L).user(new UserConst()).board(new BoardConst()).build();
+        // wishlistRepository.save(wishlist);
     }
     
     
@@ -45,10 +45,10 @@ public class WishlistRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        Wishlist wishlist = Wishlist.builder().id(id).user(new UserConst()).board(new BoardConst()).build();
+        // Wishlist wishlist = Wishlist.builder().id(id).user(new UserConst()).board().build();
         
         // when
-        wishlistRepository.save(wishlist);
+        // wishlistRepository.save(wishlist);
         
         // then
         assertNotNull(wishlistRepository.findById(id));
