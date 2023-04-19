@@ -50,4 +50,15 @@ public class Report {
         this.statusCode = statusCode;
         this.createdAt = createdAt;
     }
+
+    public void updateReport(User reporter, User reported, Board board, String title, String content, String reportType, StatusCode statusCode, LocalDateTime createdAt) {
+        this.reporter = reporter;
+        this.reported = reported;
+        this.board = board;
+        this.title = title;
+        this.content = content;
+        this.reportType = reportType;
+        this.statusCode = statusCode;
+        this.createdAt = createdAt;
+    }
 }

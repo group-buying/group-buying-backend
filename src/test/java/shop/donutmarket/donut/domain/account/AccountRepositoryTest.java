@@ -3,19 +3,15 @@ package shop.donutmarket.donut.domain.account;
 import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.account.repository.MyAccountRepository;
-import shop.donutmarket.donut.domain.user.UserConst;
 import shop.donutmarket.donut.domain.user.model.User;
 
 import static org.junit.jupiter.api.Assertions.*;

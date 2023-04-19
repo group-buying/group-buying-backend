@@ -34,4 +34,9 @@ public class Wishlist {
         this.board = board;
         this.createdAt = createdAt;
     }
+
+    public void updateWishlist(Board board, LocalDateTime createdAt) {
+        this.board = board;
+        this.createdAt = createdAt;
+    }
 }

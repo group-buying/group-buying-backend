@@ -59,4 +59,20 @@ public class Board {
         this.town = town;
         this.createdAt = createdAt;
     }
+
+    public void updateBoard(Category category, String title, User organizer, String content, String img, Event event, StatusCode statusCode, int views, boolean recommend, String state, String city, String town, LocalDateTime createdAt) {
+        this.category = category;
+        this.title = title;
+        this.organizer = organizer;
+        this.content = content;
+        this.img = img;
+        this.event = event;
+        this.statusCode = statusCode;
+        this.views = views;
+        this.recommend = recommend;
+        this.state = state;
+        this.city = city;
+        this.town = town;
+        this.createdAt = createdAt;
+    }
 }

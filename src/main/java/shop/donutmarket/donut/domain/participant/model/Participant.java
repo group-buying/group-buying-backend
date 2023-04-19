@@ -44,4 +44,13 @@ public class Participant {
         this.limitTime = limitTime;
         this.statusCode = statusCode;
     }
+
+    public void updateParticipant(Event event, User user, int qty, LocalDateTime createdAt, LocalDateTime limitTime, StatusCode statusCode) {
+        this.event = event;
+        this.user = user;
+        this.qty = qty;
+        this.createdAt = createdAt;
+        this.limitTime = limitTime;
+        this.statusCode = statusCode;
+    }
 }

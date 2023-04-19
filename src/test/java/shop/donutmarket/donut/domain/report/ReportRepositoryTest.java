@@ -10,14 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.transaction.annotation.Transactional;
 
-import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.report.model.Report;
 import shop.donutmarket.donut.domain.report.repository.ReportRepository;
-import shop.donutmarket.donut.domain.user.StatusCodeConst;
-import shop.donutmarket.donut.domain.user.UserConst;
 import shop.donutmarket.donut.domain.user.model.User;
 
 import static org.junit.jupiter.api.Assertions.*;

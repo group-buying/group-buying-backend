@@ -39,4 +39,12 @@ public class Payment {
         this.confirmed = confirmed;
         this.createdAt = createdAt;
     }
+
+    public void updatePayment(Participant participant, String paymentType, StatusCode statusCode, boolean confirmed, LocalDateTime createdAt) {
+        this.participant = participant;
+        this.paymentType = paymentType;
+        this.statusCode = statusCode;
+        this.confirmed = confirmed;
+        this.createdAt = createdAt;
+    }
 }

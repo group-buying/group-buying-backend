@@ -37,4 +37,12 @@ public class Rate {
         this.rateImg = rateImg;
         this.createdAt = createdAt;
     }
+
+    public void updateRate(Long userId, String rateName, int ratePoint, String rateImg, LocalDateTime createdAt) {
+        this.userId = userId;
+        this.rateName = rateName;
+        this.ratePoint = ratePoint;
+        this.rateImg = rateImg;
+        this.createdAt = createdAt;
+    }
 }

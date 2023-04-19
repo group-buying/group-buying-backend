@@ -46,4 +46,16 @@ public class Event {
         this.price = price;
         this.createdAt = createdAt;
     }
+
+    public void updateEvent(double latitude, double longtitude, int qty, String paymentType, LocalDateTime startAt, LocalDateTime endAt, StatusCode statusCode, int price, LocalDateTime createdAt) {
+        this.latitude = latitude;
+        this.longtitude = longtitude;
+        this.qty = qty;
+        this.paymentType = paymentType;
+        this.startAt = startAt;
+        this.endAt = endAt;
+        this.statusCode = statusCode;
+        this.price = price;
+        this.createdAt = createdAt;
+    }
 }

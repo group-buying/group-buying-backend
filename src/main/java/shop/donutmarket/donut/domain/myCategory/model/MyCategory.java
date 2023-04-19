@@ -35,4 +35,9 @@ public class MyCategory {
         this.category = category;
         this.createdAt = createdAt;
     }
+
+    public void updateMyCategory(Category category, LocalDateTime createdAt) {
+        this.category = category;
+        this.createdAt = createdAt;
+    }
 }

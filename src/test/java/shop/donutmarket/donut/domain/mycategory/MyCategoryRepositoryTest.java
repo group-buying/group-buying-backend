@@ -9,14 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.transaction.annotation.Transactional;
 
 import shop.donutmarket.donut.domain.admin.model.Category;
-import shop.donutmarket.donut.domain.board.model.Board;
-import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
 import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
-import shop.donutmarket.donut.domain.user.UserConst;
 import shop.donutmarket.donut.domain.user.model.User;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,14 +56,16 @@ public class MyCategoryRepositoryTest {
     @DisplayName("MyCategory 생성 테스트")
     void save_Test() {
         // given
-        Long id = 2L;
-        MyCategory myCategory = MyCategory.builder().id(id).user(new UserConst()).category(new CategoryConst()).build();
+        User user = User.builder().build();
+        Category category = Category.builder().build();
+        MyCategory myCategory = MyCategory.builder().user(user).category(category).build();
+        myCategoryRepository.save(myCategory);
 
         // when
         myCategoryRepository.save(myCategory);
 
         // then
-        assertNotNull(myCategoryRepository.findById(id));
+        assertNotNull(myCategoryRepository.findById(2L));
     }
 
     @Test

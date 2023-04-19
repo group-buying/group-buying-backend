@@ -37,4 +37,12 @@ public class Review {
         this.comment = comment;
         this.createdAt = createdAt;
     }
+
+    public void updateReview(User reviewer, User reviewed, int score, String comment, LocalDateTime createdAt) {
+        this.reviewer = reviewer;
+        this.reviewed = reviewed;
+        this.score = score;
+        this.comment = comment;
+        this.createdAt = createdAt;
+    }
 }
