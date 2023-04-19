@@ -1,5 +1,6 @@
 package shop.donutmarket.donut.domain.wishlist;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.wishlist.model.Wishlist;
@@ -82,6 +84,24 @@ public class WishlistRepositoryTest {
 
         // then
         assertNull(tem.find(Wishlist.class, id));
+    }
+
+    @Test
+    @DisplayName("Wishlist 수정 테스트")
+    void updateById_Test() {
+        // given
+        Long id = 1L;
+        Wishlist wishlist = tem.find(Wishlist.class, id);
+        Board board = Board.builder().content("내용입니다").build();
+        LocalDateTime time = LocalDateTime.now();
+        tem.persist(board);
+
+        // when
+        wishlist.updateWishlist(board, time);
+        tem.persistAndFlush(wishlist);
+
+        // then
+        assertEquals(wishlist.getBoard().getContent(), "내용입니다");
     }
 
     private void dataSetting() {
