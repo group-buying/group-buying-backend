@@ -1,6 +1,7 @@
 package shop.donutmarket.donut.domain.report;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
@@ -37,6 +38,18 @@ public class ReportRepositoryTest {
         autoincrementReset(); // autoincrement 보장해주는 메서드
         dataSetting(); // 초기 dummy 데이터 세팅
         tem.clear(); // 영속성 컨텍스트 비우기
+    }
+
+    @Test
+    @DisplayName("Report 전체 조회 테스트")
+    void findAll_Test() {
+        // given
+
+        // when
+        List<Report> reports = reportRepository.findAll();
+
+        // then
+        assertEquals(reports.size(), 1);
     }
 
     @Test
