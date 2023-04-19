@@ -1,6 +1,7 @@
 package shop.donutmarket.donut.domain.blacklist;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
@@ -35,6 +36,18 @@ public class BlacklistRepositoryTest {
         autoincrementReset(); // autoincrement 보장해주는 메서드
         dataSetting(); // 초기 dummy 데이터 세팅
         tem.clear(); // 영속성 컨텍스트 비우기
+    }
+
+    @Test
+    @DisplayName("Blacklist 전체 조회 테스트")
+    void findAll_Test() {
+        // given
+
+        // when
+        List<Blacklist> blacklists = blackListRepository.findAll();
+
+        // then
+        assertEquals(blacklists.size(), 1);
     }
     
     @Test
