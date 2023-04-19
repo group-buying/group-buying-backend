@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.participant.model.Participant;
@@ -86,6 +87,29 @@ public class ParticipantRepositoryTest {
 
         // then
         assertNull(tem.find(Participant.class, id));
+    }
+
+    @Test
+    @DisplayName("Participant 수정 테스트")
+    void updateById_Test() {
+        // given
+        Long id = 1L;
+        Participant participant = tem.find(Participant.class, id);
+        Event event = Event.builder().build();
+        User user = User.builder().build();
+        StatusCode statusCode = StatusCode.builder().build();
+        LocalDateTime time1 = LocalDateTime.now();
+        LocalDateTime time2 = LocalDateTime.now();
+        tem.persist(event);
+        tem.persist(user);
+        tem.persist(statusCode);
+
+        // when
+        participant.updateParticipant(event, user, 10, time1, time2, statusCode);
+        tem.persistAndFlush(participant);
+
+        // then
+        assertEquals(participant.getQty(), 10);
     }
 
     private void dataSetting() {
