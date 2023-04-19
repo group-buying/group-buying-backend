@@ -45,7 +45,7 @@ public class SecurityConfig {
         http.formLogin().disable();
 
         // 6. httpBasic 정책 해제 (BasicAuthenticationFilter 해제)
-         http.httpBasic().disable();
+        http.httpBasic().disable();
 
         // 7. XSS(lucy 필터 by naver)
 
@@ -74,7 +74,7 @@ public class SecurityConfig {
         });
 
         // 11. 인증, 권한 필터 설정
-        http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/users/**").fullyAuthenticated()
+        http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/users/**").authenticated()
                 .requestMatchers("/admin/**").hasRole("ADMIN").anyRequest().permitAll());
 
         return http.build();
