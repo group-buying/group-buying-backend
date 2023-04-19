@@ -31,13 +31,9 @@ public class BoardService {
     public void 공고작성(BoardSaveReqDTO boardSaveReqDTO, User user) {
 
         // event 먼저 save
-        Event event = Event.builder().latitude(boardSaveReqDTO.getLatitude())
-        .longtitude(boardSaveReqDTO.getLongtitude()).qty(boardSaveReqDTO.getQty())
-        .paymentType(boardSaveReqDTO.getPaymentType()).startAt(LocalDateTime.now())
-        .endAt(boardSaveReqDTO.getEndAt()).price(boardSaveReqDTO.getPrice()).build();
-        
+        Event event = boardSaveReqDTO.toEventEntity();
         event = eventRepository.save(event);
-        
+
         // image base64화
         String image = null;
         try {
@@ -45,14 +41,7 @@ public class BoardService {
         } catch (IOException e) {
             // Exception 처리 필요
         }
-
-        // board save
-        Board board = Board.builder().category(boardSaveReqDTO.getCategory())
-        .title(boardSaveReqDTO.getTitle()).organizer(user).event(event).img(image)
-        .content(boardSaveReqDTO.getContent()).statusCode(boardSaveReqDTO.getStatusCode())
-        .state(boardSaveReqDTO.getState()).city(boardSaveReqDTO.getCity())
-        .town(boardSaveReqDTO.getTown()).createdAt(LocalDateTime.now()).build();
-
+        Board board = boardSaveReqDTO.toBoardEntity(event, image);
         board = boardRepository.save(board);
 
         // tag save
@@ -82,10 +71,7 @@ public class BoardService {
             // 해당 게시글은 삭제되었습니다. 리턴
         }
 
-        Event event = Event.builder().id(boardUpdateReqDTO.getId()).latitude(boardUpdateReqDTO.getLatitude())
-        .longtitude(boardUpdateReqDTO.getLongtitude()).qty(boardUpdateReqDTO.getQty())
-        .paymentType(boardUpdateReqDTO.getPaymentType()).startAt(boardUpdateReqDTO.getStartAt())
-        .endAt(boardUpdateReqDTO.getEndAt()).price(boardUpdateReqDTO.getPrice()).build();
+        Event event = boardUpdateReqDTO.toEventEntity();
 
         // image base64화
         String image = null;
@@ -94,12 +80,7 @@ public class BoardService {
         } catch (IOException e) {
             // Exception 처리 필요
         }
-
-        Board board = Board.builder().id(boardUpdateReqDTO.getId()).category(boardUpdateReqDTO.getCategory())
-        .title(boardUpdateReqDTO.getTitle()).event(event).img(image)
-        .content(boardUpdateReqDTO.getContent()).statusCode(boardUpdateReqDTO.getStatusCode())
-        .state(boardUpdateReqDTO.getState()).city(boardUpdateReqDTO.getCity())
-        .town(boardUpdateReqDTO.getTown()).createdAt(LocalDateTime.now()).build();
+        Board board = boardUpdateReqDTO.toBoardEntity(event, image);
         
         // tag는 삭제 후 재생성 수정x
         tagRepository.deleteAllByBoardId(boardUpdateReqDTO.getId());
@@ -118,8 +99,8 @@ public class BoardService {
     public void 삭제(Long boardId) {
         
         // 인가 체크 필요
-
-        StatusCode deletedCode = StatusCode.builder().id(203L).type("board").status("삭제").createdAt(LocalDateTime.now()).build();
+        StatusCode deletedCode = StatusCode.builder().id(203L).type("board")
+        .status("삭제").createdAt(LocalDateTime.now()).build();
         
         Board board = Board.builder().id(boardId).statusCode(deletedCode).build();
         boardRepository.save(board);
