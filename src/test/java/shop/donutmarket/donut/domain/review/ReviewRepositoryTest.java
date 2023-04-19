@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.review.model.Review;
 import shop.donutmarket.donut.domain.review.repository.ReviewRepository;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -84,6 +85,26 @@ public class ReviewRepositoryTest {
 
         // then
         assertNull(tem.find(Review.class, id));
+    }
+
+    @Test
+    @DisplayName("Review 수정 테스트")
+    void updateById_Test() {
+        // given
+        Long id = 1L;
+        Review review = tem.find(Review.class, id);
+        User user1 = User.builder().build();
+        User user2 = User.builder().build();
+        LocalDateTime time = LocalDateTime.now();
+        tem.persist(user1);
+        tem.persist(user2);
+
+        // when
+        review.updateReview(user1, user2, 5, "좋은 거래였습니다", time);
+        tem.persistAndFlush(review);
+
+        // then
+        assertEquals(review.getComment(), "좋은 거래였습니다");
     }
 
     private void dataSetting() {
