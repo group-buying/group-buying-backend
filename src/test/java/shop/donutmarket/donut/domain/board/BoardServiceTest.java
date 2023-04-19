@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +30,7 @@ import shop.donutmarket.donut.domain.board.service.BoardService;
 import shop.donutmarket.donut.domain.mycategory.CategoryConst;
 import shop.donutmarket.donut.domain.review.RateConst;
 import shop.donutmarket.donut.domain.user.StatusCodeConst;
+import shop.donutmarket.donut.domain.user.UserConst;
 import shop.donutmarket.donut.domain.user.model.User;
 
 @ExtendWith(MockitoExtension.class)
@@ -65,20 +67,39 @@ public class BoardServiceTest {
             "부산시","부산진구","부전동",139.123123,39.123123,
             3,"직거래",LocalDateTime.now(),1000,comment);
   
-            Event event = boardSaveReqDTO.toEventEntity();
-            Board board = boardSaveReqDTO.toBoardEntity(event, boardSaveReqDTO.getImg());
+        Event event = boardSaveReqDTO.toEventEntity();
+        Board board = boardSaveReqDTO.toBoardEntity(event, boardSaveReqDTO.getImg());
 
-            when(eventRepository.save(any())).thenReturn(event);
-            when(boardRepository.save(any())).thenReturn(board);
+        // stub
+        when(eventRepository.save(any())).thenReturn(event);
+        when(boardRepository.save(any())).thenReturn(board);
 
-            // when
-            BoardSaveRespDTO boardSaveRespDTO = boardService.공고작성(boardSaveReqDTO, user1);
-            om.registerModule(new JavaTimeModule());
-            String responseBody = om.writeValueAsString(boardSaveRespDTO);
-            System.out.println("Test : " + responseBody);
+        // when
+        BoardSaveRespDTO boardSaveRespDTO = boardService.공고작성(boardSaveReqDTO, user1);
+        om.registerModule(new JavaTimeModule());
+        String responseBody = om.writeValueAsString(boardSaveRespDTO);
+        System.out.println("Test : " + responseBody);
 
-            // then
-            assertThat(boardSaveRespDTO.getBoard().getTitle()).isEqualTo("제목1");
-        }
+        // then
+        assertThat(boardSaveRespDTO.getBoard().getTitle()).isEqualTo("제목1");
+    }
 
+    @Test
+    public void 상세보기_test() throws Exception {     
+        Long id = 1L;
+
+        Board tempBoard = Board.builder().id(id).category(new CategoryConst()).title("제목")
+        .organizer(new UserConst()).content("내용1").event(new EventConst())
+        .statusCode(new StatusCodeConst()).state("부산").city("부산진")
+        .town("부전").createdAt(LocalDateTime.now()).build();
+
+        when(boardRepository.findById(1L)).thenReturn(Optional.of(tempBoard));
+        // when
+        Board boardPS = boardService.상세보기(id);
+
+        // then
+        assertThat(boardPS.getTitle()).isEqualTo("제목");
+        assertThat(boardPS.getCity()).isEqualTo("부산진");
+    
+    }
 }

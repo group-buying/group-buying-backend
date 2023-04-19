@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,10 +64,11 @@ public class BoardService {
 
     public Board 상세보기(Long id) {
 
-        Board boardPS = boardRepository.findById(id).get();
-        if (boardPS.getStatusCode().getId() == 203L) {
-            // 해당 게시글은 삭제되었습니다. 리턴
-        }
+        Optional<Board> boardOptional = boardRepository.findById(id);
+        Board boardPS = boardOptional.get();
+        // if (boardPS.getStatusCode().getId() == 203L) {
+        //     // 해당 게시글은 삭제되었습니다. 리턴
+        // }
         return boardPS;
     }
 
