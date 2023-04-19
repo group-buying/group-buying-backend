@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.model.Tag;
@@ -54,10 +55,11 @@ public class BoardService {
         board = boardRepository.save(board);
 
         // tag save
-        Tag tag = Tag.builder().board(board).comment(boardSaveReqDTO.getComment())
-        .createdAt(LocalDateTime.now()).build();
-
-        tagRepository.save(tag);
+        for (String comment : boardSaveReqDTO.getComment()) {
+            Tag tag = Tag.builder().board(board).comment(comment)
+            .createdAt(LocalDateTime.now()).build();
+            tagRepository.save(tag);
+        }
     }
 
     public Board 상세보기(Long id) {
@@ -66,4 +68,38 @@ public class BoardService {
         return boardPS;
     }
 
+    @Transactional
+    public void 업데이트(BoardUpdateReqDTO boardUpdateReqDTO) {
+
+        Event event = Event.builder().id(boardUpdateReqDTO.getId()).latitude(boardUpdateReqDTO.getLatitude())
+        .longtitude(boardUpdateReqDTO.getLongtitude()).qty(boardUpdateReqDTO.getQty())
+        .paymentType(boardUpdateReqDTO.getPaymentType()).startAt(boardUpdateReqDTO.getStartAt())
+        .endAt(boardUpdateReqDTO.getEndAt()).price(boardUpdateReqDTO.getPrice()).build();
+
+        // image base64화
+        String image = null;
+        try {
+            image = MyBase64Decoder.saveImage(boardUpdateReqDTO.getImg());
+        } catch (IOException e) {
+            // Exception 처리 필요
+        }
+
+        Board board = Board.builder().id(boardUpdateReqDTO.getId()).category(boardUpdateReqDTO.getCategory())
+        .title(boardUpdateReqDTO.getTitle()).event(event).img(image)
+        .content(boardUpdateReqDTO.getContent()).statusCode(boardUpdateReqDTO.getStatusCode())
+        .state(boardUpdateReqDTO.getState()).city(boardUpdateReqDTO.getCity())
+        .town(boardUpdateReqDTO.getTown()).createdAt(LocalDateTime.now()).build();
+        
+        // tag는 삭제 후 재생성 수정x
+        tagRepository.deleteAllByBoardId(boardUpdateReqDTO.getId());
+        eventRepository.save(event);
+        boardRepository.save(board);
+        
+        for (String comment : boardUpdateReqDTO.getComment()) {
+            Tag tag = Tag.builder().board(board).comment(comment)
+            .createdAt(LocalDateTime.now()).build();
+            tagRepository.save(tag);
+        }
+        
+    }
 }
