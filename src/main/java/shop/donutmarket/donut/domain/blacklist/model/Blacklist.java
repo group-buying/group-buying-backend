@@ -12,7 +12,7 @@ import shop.donutmarket.donut.domain.user.model.User;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BlackList {
+public class Blacklist {
         
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class BlackList {
     private LocalDateTime createdAt;
 
     @Builder
-    public BlackList(Long id, User user, User blockedUser, LocalDateTime createdAt) {
+    public Blacklist(Long id, User user, User blockedUser, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.blockedUser = blockedUser;

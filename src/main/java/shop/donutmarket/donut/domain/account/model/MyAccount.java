@@ -35,4 +35,9 @@ public class MyAccount {
         this.accountNumber = accountNumber;
         this.createdAt = createdAt;
     }
+
+    public void updateMyAccount(String brand, String accountNumber) {
+        this.brand = brand;
+        this.accountNumber = accountNumber;
+    }
 }

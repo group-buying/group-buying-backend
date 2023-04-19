@@ -25,7 +25,7 @@ public class UserRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        User user1 = User.builder().id(1L).username("ssar").password("1234").email("ssar@ssar").name("ssar").rate(new RateConst()).role("user").statusCode(new StatusCodeConst()).createdAt(LocalDateTime.now()).build();
+        User user1 = User.builder().id(1L).password("1234").email("ssar@ssar").name("ssar").rate(new RateConst()).role("user").statusCode(new StatusCodeConst()).createdAt(LocalDateTime.now()).build();
         userRepository.save(user1);
     }
 
@@ -45,7 +45,7 @@ public class UserRepositoryTest {
     void save_Test() {
         // given
         Long id = 2L;
-        User user = User.builder().id(2L).username("cos").password("1234").email("cos@").name("cos").rate(new RateConst()).role("user").statusCode(new StatusCodeConst()).createdAt(LocalDateTime.now()).build();
+        User user = User.builder().id(2L).password("1234").email("cos@").name("cos").rate(new RateConst()).role("user").statusCode(new StatusCodeConst()).createdAt(LocalDateTime.now()).build();
         
         // when
         userRepository.save(user);

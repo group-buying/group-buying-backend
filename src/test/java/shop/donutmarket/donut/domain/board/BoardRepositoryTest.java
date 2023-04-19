@@ -1,18 +1,20 @@
 package shop.donutmarket.donut.domain.board;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityManager;
+import shop.donutmarket.donut.domain.account.model.MyAccount;
+import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.model.Tag;
@@ -22,11 +24,13 @@ import shop.donutmarket.donut.domain.board.repository.TagRepository;
 import shop.donutmarket.donut.domain.mycategory.CategoryConst;
 import shop.donutmarket.donut.domain.user.StatusCodeConst;
 import shop.donutmarket.donut.domain.user.UserConst;
+import shop.donutmarket.donut.domain.user.model.User;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Transactional
 public class BoardRepositoryTest {
-    
+
     @Autowired
     private BoardRepository boardRepository;
 
@@ -37,142 +41,158 @@ public class BoardRepositoryTest {
     private EventRepository eventRepository;
 
     @Autowired
-    EntityManager em;
+    private EntityManager em;
+
+    @Autowired
+    private TestEntityManager tem; // 테스트하기 위한 EntityManager
 
     @BeforeEach
     public void setUp() {
-        Board board = Board.builder().id(1L).category(new CategoryConst()).title("삼각김밥 1+1 사실분").organizer(new UserConst()).event(new EventConst()).content("서면역 1번출구에서").build();
-        boardRepository.save(board);
+        autoincrementReset(); // autoincrement 보장해주는 메서드
+        dataSetting(); // 초기 dummy 데이터 세팅
+        tem.clear(); // 영속성 컨텍스트 비우기
     }
-    
-    // @Test
-    // void findAll_Test(){
-    //     // given
-
-    //     // when
-    //     List<Board> boards = boardRepository.findAll();
-        
-    //     // then
-    //     assertEquals(boards.size(), 1);
-    // }
-
-    // findAll은 Lazy Loading이 아닌 Eager Loading 이기에 모든 연관 엔티티를 미리 로딩해야하므로 테스트가 어려움
 
     @Test
+    @DisplayName("Board 전체 조회 테스트")
+    void findAll_Test() {
+        // given
+
+        // when
+        List<Board> boards = boardRepository.findAll();
+
+        // then
+        assertEquals(boards.size(), 1);
+    }
+
+    @Test
+    @DisplayName("Board 개별 id조회 테스트")
     void findById_Test() {
         // given
         Long id = 1L;
+
         // when
-        Optional<Board> optionalboard = boardRepository.findById(id);
+        Optional<Board> board = boardRepository.findById(id);
+
         // then
-        assertNotNull(optionalboard);
+        board.ifPresent(board1 -> {
+            assertNotNull(board1);
+            assertEquals(board1.getId(), 1L);
+        });
     }
-    
+
     @Test
-    void save_Test(){
+    @DisplayName("Board 생성 테스트")
+    void save_Test() {
         // given
-        Long id = 2L;
-        Board board = Board.builder().id(id).category(new CategoryConst()).title("도시락 1+1 사실분").organizer(new UserConst()).event(new EventConst()).content("서면역 2번출구에서").build();
-        
+        User user = User.builder().build();
+        Category category = Category.builder().build();
+        Event event = Event.builder().build();
+        Board board = Board.builder().category(category).title("삼각김밥 1+1 사실분").organizer(user).event(event).content("서면역 1번출구에서").build();
+
         // when
         boardRepository.save(board);
-        
+
         // then
-        assertNotNull(boardRepository.findById(id));
+        assertNotNull(boardRepository.findById(2L));
     }
-    
-    // @Test
-    // void update_Test() {
-    //     // given
-    //     Long id = 1L;
-    //     String newTitle = "콜라 2+1 사실분";
 
-    //     // when
-    //     Board board = boardRepository.findById(id).get();
-    //     board.setTitle(newTitle);
-
-    //     em.merge(board);
-    //     em.flush();
-        
-    //     // then
-    //     Optional<Board> boardPS = boardRepository.findById(id);
-    //     assertNotNull(boardPS);
-
-    //     // System.out.println("DEBUG : " + boardPS.get().getTitle());
-    //     assertEquals(newTitle, boardPS.get().getTitle()); 
-    // }
-    
     @Test
-    void deleteById_Test(){
+    @DisplayName("Board 삭제 테스트")
+    void deleteById_Test() {
         // given
         Long id = 1L;
+        Board board = tem.find(Board.class, id);
 
         // when
-        boardRepository.deleteById(id);
+        if (board != null) {
+            tem.remove(board);
+            tem.flush();
+        }
 
         // then
-        assertEquals(Optional.empty(), boardRepository.findById(id)); 
+        assertNull(tem.find(Board.class, id));
     }
-    
+
     @Test
-    void tag_Save_Test(){
+    @DisplayName("Tag 생성 테스트")
+    void tag_Save_Test() {
         // given
         Long id = 1L;
-        Tag tag = Tag.builder().id(id).board(new BoardConst()).comment("편의점").build();
-        
+        Board board = tem.find(Board.class, id);
+        Tag tag = Tag.builder().board(board).comment("편의점").build();
+
         // when
         tagRepository.save(tag);
-        
+
         // then
-        assertNotNull(boardRepository.findById(id));
+        assertNotNull(tag);
+        assertEquals(tag.getId(), 1L);
     }
-    
-    
+
+
     @Test
-    void tag_DeleteById_Test(){
+    @DisplayName("Tag 삭제 테스트")
+    void tag_DeleteById_Test() {
         // given
         Long id = 1L;
-        Tag tag = Tag.builder().id(id).board(new BoardConst()).comment("편의점").build();
+        Board board = tem.find(Board.class, id);
+        Tag tag = Tag.builder().board(board).comment("편의점").build();
         tagRepository.save(tag);
-        
+
         // when
-        tagRepository.deleteById(id);
-        
+        tem.remove(tag);
+        tem.flush();
+
         // then
-        assertEquals(Optional.empty(), tagRepository.findById(id)); 
-    }
-    
-    
-    @Test
-    void event_Save_Test(){
-        // given
-        Long id = 1L;
-        LocalDateTime time = LocalDateTime.now();
-        Event event = Event.builder().id(id).latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(new StatusCodeConst()).price(1000).build();
-        
-        eventRepository.save(event);
-        // when
-        
-        // then
-        assertNotNull(eventRepository.findById(id));
-        
+        assertNull(tem.find(Tag.class, id));
     }
 
 
     @Test
-    void event_Delete_Test(){
+    @DisplayName("Event 생성 테스트")
+    void event_Save_Test() {
         // given
-        Long id = 1L;
         LocalDateTime time = LocalDateTime.now();
-        Event event = Event.builder().id(id).latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(new StatusCodeConst()).price(1000).build();
-        eventRepository.save(event);
-        
+        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(new StatusCodeConst()).price(1000).build();
+
         // when
-        eventRepository.deleteById(id);
+        eventRepository.save(event);
 
         // then
-        assertNotNull(eventRepository.findById(id));
-        
+        assertNotNull(event);
+        assertEquals(event.getLatitude(), 139.123123);
+        assertEquals(event.getLongtitude(), 39.123123);
+    }
+
+
+    @Test
+    @DisplayName("Event 삭제 테스트")
+    void event_Delete_Test() {
+        // given
+        LocalDateTime time = LocalDateTime.now();
+        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(new StatusCodeConst()).price(1000).build();
+        eventRepository.save(event);
+
+        // when
+        tem.remove(event);
+        tem.flush();
+
+        // then
+        assertNull(tem.find(Event.class, 1L));
+    }
+
+    private void dataSetting() {
+        User user = User.builder().build();
+        Category category = Category.builder().build();
+        Event event = Event.builder().build();
+        Board board = Board.builder().category(category).title("삼각김밥 1+1 사실분").organizer(user).event(event).content("서면역 1번출구에서").build();
+
+        boardRepository.save(board);
+    }
+
+    private void autoincrementReset() {
+        em.createNativeQuery("ALTER TABLE board ALTER COLUMN id RESTART WITH 1").executeUpdate();
     }
 
 }

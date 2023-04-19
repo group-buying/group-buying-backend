@@ -14,14 +14,14 @@ import java.time.LocalDateTime;
 public class StatusCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String type;
     private String status;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Builder
-    public StatusCode(Long id, String type, String status, LocalDateTime createdAt) {
+    public StatusCode(int id, String type, String status, LocalDateTime createdAt) {
         this.id = id;
         this.type = type;
         this.status = status;

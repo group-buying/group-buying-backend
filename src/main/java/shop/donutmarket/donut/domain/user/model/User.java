@@ -21,7 +21,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
     @JsonIgnore
     private String password;
     private String email;
@@ -30,7 +29,7 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rate_id")
     private Rate rate;
-    private String type;
+    private boolean type;
     private String role;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_code")
@@ -39,9 +38,8 @@ public class User {
     private LocalDateTime createdAt;
 
     @Builder
-    public User(Long id, String username, String password, String email, String name, String profile, Rate rate, String type, String role, StatusCode statusCode, LocalDateTime createdAt) {
+    public User(Long id, String password, String email, String name, String profile, Rate rate, boolean type, String role, StatusCode statusCode, LocalDateTime createdAt) {
         this.id = id;
-        this.username = username;
         this.password = password;
         this.email = email;
         this.name = name;
