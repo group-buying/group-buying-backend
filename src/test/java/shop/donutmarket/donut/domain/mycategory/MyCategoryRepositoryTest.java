@@ -1,5 +1,6 @@
 package shop.donutmarket.donut.domain.mycategory;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
 import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
@@ -83,6 +85,24 @@ public class MyCategoryRepositoryTest {
 
         // then
         assertNull(tem.find(MyCategory.class, id));
+    }
+
+    @Test
+    @DisplayName("MyCategory 수정 테스트")
+    void updateById_Test() {
+        // given
+        Long id = 1L;
+        MyCategory myCategory = tem.find(MyCategory.class, id);
+        Category category = Category.builder().name("도서").build();
+        tem.persist(category);
+        LocalDateTime time = LocalDateTime.now();
+
+        // when
+        myCategory.updateMyCategory(category, time);
+        tem.persistAndFlush(myCategory);
+
+        // then
+        assertEquals(myCategory.getCategory().getName(), "도서");
     }
 
     private void dataSetting() {

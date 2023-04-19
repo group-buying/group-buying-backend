@@ -1,5 +1,6 @@
 package shop.donutmarket.donut.domain.mylocation;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.transaction.annotation.Transactional;
 
+import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.myLocation.model.MyLocation;
 import shop.donutmarket.donut.domain.myLocation.repository.MyLocationRepository;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -85,6 +87,23 @@ public class MyLocationRepositoryTest {
         // then
         assertNull(tem.find(MyLocation.class, id));
     }
+
+    @Test
+    @DisplayName("MyLocation 수정 테스트")
+    void updateById_Test() {
+        // given
+        Long id = 1L;
+        MyLocation myLocation = tem.find(MyLocation.class, id);
+        LocalDateTime time = LocalDateTime.now();
+
+        // when
+        myLocation.updateMyLocation("부산광역시", "부산진구", "양정동", time);
+        tem.persistAndFlush(myLocation);
+
+        // then
+        assertEquals(myLocation.getTown(), "양정동");
+    }
+
 
     private void dataSetting() {
         User user = User.builder().build();
