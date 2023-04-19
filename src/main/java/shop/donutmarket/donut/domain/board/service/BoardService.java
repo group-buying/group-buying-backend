@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
@@ -24,6 +25,7 @@ public class BoardService {
     private final EventRepository eventRepository;
     private final TagRepository tagRepository;
 
+    @Transactional
     public void 공고작성(BoardSaveReqDTO boardSaveReqDTO, User user) {
 
         // event 먼저 save
@@ -56,6 +58,12 @@ public class BoardService {
         .createdAt(LocalDateTime.now()).build();
 
         tagRepository.save(tag);
+    }
+
+    public Board 상세보기(Long id) {
+
+        Board boardPS = boardRepository.findById(id).get();
+        return boardPS;
     }
 
 }
