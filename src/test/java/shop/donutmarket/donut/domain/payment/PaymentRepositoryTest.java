@@ -1,69 +1,104 @@
 package shop.donutmarket.donut.domain.payment;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.transaction.annotation.Transactional;
 
+import shop.donutmarket.donut.domain.account.model.MyAccount;
+import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.participant.ParticipantConst;
+import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.payment.model.Payment;
 import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
 import shop.donutmarket.donut.domain.user.StatusCodeConst;
+import shop.donutmarket.donut.domain.user.model.User;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Transactional
 public class PaymentRepositoryTest {
     
     @Autowired
     private PaymentRepository paymentRepository;
 
+    @Autowired
+    private EntityManager em;
+
+    @Autowired
+    private TestEntityManager tem; // 테스트하기 위한 EntityManager
+
     @BeforeEach
     void setUp(){
-        Payment payment = Payment.builder().id(1L).participant(new ParticipantConst()).paymentType("직거래").statusCode(new StatusCodeConst()).confirmed(true).createdAt(LocalDateTime.now()).build();
-        paymentRepository.save(payment);
+        autoincrementReset(); // autoincrement 보장해주는 메서드
+        dataSetting(); // 초기 dummy 데이터 세팅
+        tem.clear(); // 영속성 컨텍스트 비우기
     }
 
     @Test
+    @DisplayName("Payment 개별 id조회 테스트")
     void findById_Test(){
         // given
         Long id = 1L;
         
         // when
         Optional<Payment> payment = paymentRepository.findById(id);
-        
+
         // then
-        assertNotNull(payment);
+        payment.ifPresent(payment1 -> {
+            assertNotNull(payment1);
+            assertEquals(payment1.getId(), 1L);
+        });
     }
     
     @Test
+    @DisplayName("Payment 생성 테스트")
     void save_Test() {
         // given
-        Long id = 2L;
-        Payment payment = Payment.builder().id(id).participant(new ParticipantConst()).paymentType("직거래").statusCode(new StatusCodeConst()).confirmed(true).createdAt(LocalDateTime.now()).build();
-        
+        Participant participant = Participant.builder().build();
+        StatusCode statusCode = StatusCode.builder().build();
+        Payment payment = Payment.builder().participant(participant).paymentType("직거래").statusCode(statusCode).confirmed(true).createdAt(LocalDateTime.now()).build();
+
         // when
         paymentRepository.save(payment);
 
         // then
-        assertNotNull(paymentRepository.findById(id));
+        assertNotNull(payment);
+        assertEquals(payment.getId(), 2L);
     }
 
     @Test
+    @DisplayName("Payment 삭제 테스트")
     void deleteById_Test(){
         // given
         Long id = 1L;
-        
+        Payment payment = tem.find(Payment.class, id);
+
         // when
-        paymentRepository.deleteById(id);
+        if (payment != null) {
+            tem.remove(payment);
+            tem.flush();
+        }
 
         // then
-        assertEquals(Optional.empty(), paymentRepository.findById(id));
+        assertNull(tem.find(Payment.class, id));
+    }
+
+    private void dataSetting() {
+        Participant participant = Participant.builder().build();
+        StatusCode statusCode = StatusCode.builder().build();
+        Payment payment = Payment.builder().id(1L).participant(participant).paymentType("직거래").statusCode(statusCode).confirmed(true).createdAt(LocalDateTime.now()).build();
+        paymentRepository.save(payment);
+    }
+
+    private void autoincrementReset() {
+        em.createNativeQuery("ALTER TABLE payment ALTER COLUMN id RESTART WITH 1").executeUpdate();
     }
 }
