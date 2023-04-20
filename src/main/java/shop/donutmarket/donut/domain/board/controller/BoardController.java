@@ -37,7 +37,7 @@ public class BoardController {
     private final HttpSession session;
 
     @PostMapping("/boards")
-    public @ResponseBody ResponseEntity<?> save(@RequestBody BoardSaveReqDTO boardSaveReqDTO, BindingResult bindingResult) {
+    public @ResponseBody ResponseEntity<?> save(@RequestBody @Vaild BoardSaveReqDTO boardSaveReqDTO, BindingResult bindingResult) {
         
         // 인증 체크 필요
         // 임시 작성 추후 로그인 방식이 정립되면 변경
@@ -60,7 +60,7 @@ public class BoardController {
     }
 
     @PutMapping("/boards")
-    public @ResponseBody ResponseEntity<?> update(@RequestBody BoardUpdateReqDTO boardUpdateReqDTO, BindingResult bindingResult) {
+    public @ResponseBody ResponseEntity<?> update(@RequestBody @Vaild BoardUpdateReqDTO boardUpdateReqDTO, BindingResult bindingResult) {
 
         // 인증 체크 필요
 

@@ -21,21 +21,39 @@ public class BoardReq {
     @AllArgsConstructor
     public static class BoardSaveReqDTO {
         // board
+        @NotBlank
         private Category category;
+        @NotBlank
+        @Size(min = 2)
         private String title;
+        @NotBlank
         private User organizer;
+        @NotBlank
+        @Size(min = 2)
         private String content;
         private String img;
+        @NotBlank
         private StatusCode statusCode;
+        @NotBlank
         private String state;
+        @NotBlank
         private String city;
+        @NotBlank
         private String town;
         //event
+        @NotBlank
         private double latitude;
+        @NotBlank
         private double longtitude;
+        @NotBlank
+        @Size(min = 2)
         private int qty;
+        @NotBlank
         private String paymentType;
+        @NotBlank
         private LocalDateTime endAt;
+        @NotBlank
+        @Size(min = 10)
         private int price;
         // tag
         private List<String> comment;
@@ -56,22 +74,40 @@ public class BoardReq {
     @AllArgsConstructor
     public static class BoardUpdateReqDTO {
         // board
+        @NotBlank
         private Long id;
+        @NotBlank
         private Category category;
+        @NotBlank
+        @Size(min = 2)
         private String title;
+        @NotBlank
+        @Size(min = 2)
         private String content;
         private String img;
+        @NotBlank
         private StatusCode statusCode;
+        @NotBlank
         private String state;
+        @NotBlank
         private String city;
+        @NotBlank
         private String town;
         //event
+        @NotBlank
         private double latitude;
+        @NotBlank
         private double longtitude;
+        @NotBlank
+        @Size(min = 2)
         private int qty;
+        @NotBlank
         private String paymentType;
         private LocalDateTime startAt;
+        @NotBlank
         private LocalDateTime endAt;
+        @NotBlank
+        @Size(min = 10)
         private int price;
         // tag
         private List<String> comment;
