@@ -1,5 +1,6 @@
 package shop.donutmarket.donut.domain.user.service;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -8,14 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.donutmarket.donut.domain.user.dto.UserReq;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
+import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.jwt.MyJwtProvider;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    
+
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -28,11 +31,25 @@ public class UserService {
      */
 
     @Transactional
-    public void 회원가입(UserReq.JoinDTO joinDTO) {
+    public String 회원가입(UserReq.JoinDTO joinDTO) {
+        // 회원가입 로직
         String rawPassword = joinDTO.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword); // 60Byte
         joinDTO.setPassword(encPassword);
         userRepository.save(joinDTO.toEntity());
+
+        // JWT 인증 로직
+        Optional<User> userOP = userRepository.findByEmail(joinDTO.getEmail());
+        if (userOP.isPresent()) {
+            User userPS = userOP.get(); // 조회하는 객체는 PS
+            if (passwordEncoder.matches(rawPassword, userPS.getPassword())) {
+                String jwt = MyJwtProvider.create(userPS);
+                return jwt;
+            }
+            throw new RuntimeException("패스워드 유효성 실패");
+        } else {
+            throw new RuntimeException("이메일 유효성 실패");
+        }
     }
 
     @Transactional(readOnly = true)
@@ -49,5 +66,16 @@ public class UserService {
             throw new RuntimeException("이메일 유효성 실패");
         }
     }
-    
+
+    @Transactional
+    public Optional<User> 회원수정(@AuthenticationPrincipal MyUserDetails myUserDetails, UserReq.UpdateDTO updateDTO) {
+        Optional<User> userOP = userRepository.findById(myUserDetails.getUser().getId());
+        if (userOP.isPresent()) {
+            User userPS = userOP.get();
+            LocalDateTime localDateTime = LocalDateTime.now();
+            userPS.updateUser(updateDTO.getPassword(), updateDTO.getName(), updateDTO.getProfile(), localDateTime);
+        }
+        Optional<User> data = userRepository.findById(myUserDetails.getUser().getId());
+        return data;
+    }
 }
