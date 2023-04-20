@@ -1,13 +1,16 @@
 package shop.donutmarket.donut.domain.participant.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSaveReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSelectReqDTO;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantCancleRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSaveRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSelectRespDTO;
 import shop.donutmarket.donut.domain.participant.model.Participant;
@@ -45,6 +48,20 @@ public class ParticipantService {
         ParticipantSelectRespDTO selectRespDTO = new ParticipantSelectRespDTO(
             particiPS.getId(), particiPS.getEvent(), particiPS.getUser(), particiPS.getStatusCode());
         return selectRespDTO;
+    }
+
+    @Transactional
+    public ParticipantCancleRespDTO 취소하기(Long id) {
+        StatusCode cancled = new StatusCode(303, "participant", "참가 취소", LocalDateTime.now());
+        
+        Participant participant = Participant.builder().id(id).statusCode(cancled).build();
+        
+        Participant particiPS = participantRepository.save(participant);
+        
+        ParticipantCancleRespDTO cancleRespDTO = new ParticipantCancleRespDTO(
+        particiPS.getId(), particiPS.getEvent(), particiPS.getUser(), particiPS.getStatusCode());
+            
+        return cancleRespDTO;
     }
 
 }
