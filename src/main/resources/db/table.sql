@@ -1,14 +1,14 @@
 CREATE TABLE user_tb
 (
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
-    password    varchar(65535) NOT NULL,
     email       varchar(255)   NOT NULL UNIQUE,
-    name        varchar(255)   NOT NULL,
-    profile     varchar(65535),
-    rate_id     Bigint         NOT NULL UNIQUE,
-    type        boolean,
-    role        varchar(255)   NOT NULL,
-    status_code int            NOT NULL,
+    password    text NOT NULL,
+    name        varchar(255),
+    profile     text,
+    rate_id     Bigint,
+    type        boolean      DEFAULT FALSE,
+    role        varchar(255) DEFAULT 'USER',
+    status_code int          DEFAULT '100',
     created_at  timestamp      NOT NULL
 );
 
@@ -16,9 +16,9 @@ CREATE TABLE rate
 (
     id         Bigint AUTO_INCREMENT PRIMARY KEY,
     user_id    Bigint UNIQUE,
-    rate_name  varchar(255)   NOT NULL,
-    rate_point int            NOT NULL,
-    created_at timestamp      NOT NULL
+    rate_name  varchar(255) NOT NULL,
+    rate_point int          NOT NULL,
+    created_at timestamp    NOT NULL
 );
 
 CREATE TABLE category
@@ -35,8 +35,8 @@ CREATE TABLE board
     category_id  Bigint,
     title        varchar(255) NOT NULL,
     organizer_id Bigint       NOT NULL,
-    content      varchar(65535),
-    img          varchar(65535),
+    content      text,
+    img          text,
     event_id     Bigint       NOT NULL,
     status_code  int          NOT NULL,
     views        int          NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE tag
 (
     id         Bigint AUTO_INCREMENT PRIMARY KEY,
     board_id   Bigint    NOT NULL,
-    comment    varchar(65535),
+    comment    text,
     created_at timestamp NOT NULL
 );
 
@@ -146,7 +146,7 @@ CREATE TABLE report
     reported_id Bigint         NOT NULL,
     board_id    Bigint,
     title       varchar(255)   NOT NULL,
-    content     varchar(65535) NOT NULL,
+    content     text NOT NULL,
     report_type varchar(255)   NOT NULL,
     status_code int            NOT NULL,
     created_at  timestamp      NOT NULL

@@ -5,8 +5,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import shop.donutmarket.donut.domain.user.dto.UserRequest;
-import shop.donutmarket.donut.domain.user.dto.UserResponse;
+import shop.donutmarket.donut.domain.user.dto.UserReq;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.jwt.MyJwtProvider;
@@ -29,15 +28,15 @@ public class UserService {
      */
 
     @Transactional
-    public UserResponse.JoinDTO 회원가입(UserRequest.JoinDTO joinDTO) {
+    public void 회원가입(UserReq.JoinDTO joinDTO) {
         String rawPassword = joinDTO.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword); // 60Byte
         joinDTO.setPassword(encPassword);
-        User userPS = userRepository.save(joinDTO.toEntity());
-        return new UserResponse.JoinDTO(userPS);
+        userRepository.save(joinDTO.toEntity());
     }
 
-    public String 로그인(UserRequest.LoginDTO loginDTO) {
+    @Transactional(readOnly = true)
+    public String 로그인(UserReq.LoginDTO loginDTO) {
         Optional<User> userOP = userRepository.findByEmail(loginDTO.getEmail());
         if (userOP.isPresent()) {
             User userPS = userOP.get();
