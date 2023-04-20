@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSaveReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSelectReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantCancleRespDTO;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantDropRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSaveRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSelectRespDTO;
 import shop.donutmarket.donut.domain.participant.model.Participant;
@@ -53,6 +54,13 @@ public class ParticipantController {
         ParticipantCancleRespDTO cancleRespDTO = participantService.취소하기(id);
         
         return new ResponseEntity<>(new ResponseDTO<>().data(cancleRespDTO), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/participants")
+    public @ResponseBody ResponseEntity<?> drop(Long id) {
+        ParticipantDropRespDTO dropRespDTO = participantService.강퇴하기(id);
+
+        return new ResponseEntity<>(new ResponseDTO<>().data(dropRespDTO), HttpStatus.CREATED);
     }
 
 }
