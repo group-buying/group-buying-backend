@@ -21,29 +21,29 @@ public class BoardReq {
     @AllArgsConstructor
     public static class BoardSaveReqDTO {
         // board
-        @NotBlank
+        @NotBlank(message = "카테고리를 설정해주세요")
         private Category category;
-        @NotBlank
+        @NotBlank(message = "제목을 최소 2자이상 작성해주세요")
         @Size(min = 2)
         private String title;
         @NotBlank
         private User organizer;
-        @NotBlank
+        @NotBlank(message = "내용을 최소 2자이상 작성해주세요")
         @Size(min = 2)
         private String content;
         private String img;
         @NotBlank
         private StatusCode statusCode;
-        @NotBlank
+        @NotBlank(message = "위치를 설정해주세요")
         private String state;
-        @NotBlank
+        @NotBlank(message = "위치를 설정해주세요")
         private String city;
-        @NotBlank
+        @NotBlank(message = "위치를 설정해주세요")
         private String town;
         //event
-        @NotBlank
+        @NotBlank(message = "위치를 설정해주세요")
         private double latitude;
-        @NotBlank
+        @NotBlank(message = "위치를 설정해주세요")
         private double longtitude;
         @NotBlank
         @Size(min = 2)
@@ -76,49 +76,24 @@ public class BoardReq {
         // board
         @NotBlank
         private Long id;
-        @NotBlank
-        private Category category;
-        @NotBlank
-        @Size(min = 2)
-        private String title;
-        @NotBlank
-        @Size(min = 2)
-        private String content;
-        private String img;
-        @NotBlank
-        private StatusCode statusCode;
-        @NotBlank
-        private String state;
-        @NotBlank
-        private String city;
-        @NotBlank
-        private String town;
         //event
         @NotBlank
-        private double latitude;
-        @NotBlank
-        private double longtitude;
-        @NotBlank
-        @Size(min = 2)
+        @Size(min = 2)(message = "수량을 설정해주세요")
         private int qty;
-        @NotBlank
+        @NotBlank(message = "결제방식을 설정해주세요")
         private String paymentType;
         private LocalDateTime startAt;
-        @NotBlank
+        @NotBlank(message = "시간을 설정해주세요")
         private LocalDateTime endAt;
-        @NotBlank
-        @Size(min = 10)
-        private int price;
         // tag
         private List<String> comment;
 
-        public Board toBoardEntity(Event event, String Base64img){
-            return Board.builder().id(id).category(category).title(title).event(event).img(Base64img).content(content)
-            .statusCode(statusCode).state(state).city(city).town(town).createdAt(LocalDateTime.now()).build();
+        public Board toBoardEntity(Event event){
+            return Board.builder().id(id).event(event).createdAt(LocalDateTime.now()).build();
         }
         public Event toEventEntity(){
-            return Event.builder().id(id).latitude(latitude).longtitude(longtitude).qty(qty)
-            .paymentType(paymentType).startAt(startAt).endAt(endAt).price(price).build();
+            return Event.builder().id(id).qty(qty).paymentType(paymentType)
+            .startAt(startAt).endAt(endAt).build();
         }
     }
 }
