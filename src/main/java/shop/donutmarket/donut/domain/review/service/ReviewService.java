@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.review.dto.ReviewReq.ReviewSaveReqDTO;
+import shop.donutmarket.donut.domain.review.dto.ReviewResp.ReviewSaveRespDTO;
 import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.review.model.Review;
 import shop.donutmarket.donut.domain.review.repository.RateRepository;
@@ -29,20 +30,22 @@ public class ReviewService {
     }
 
     @Transactional
-    public void 리뷰작성(ReviewSaveReqDTO reviewSaveReqDTO) {
+    public ReviewSaveRespDTO 리뷰작성(ReviewSaveReqDTO reviewSaveReqDTO) {
         User reviewedUser = boardRepository.findById(reviewSaveReqDTO.getBoardId()).get().getOrganizer();
 
         // 리뷰 생성
         Review review = Review.builder().reviewer(reviewSaveReqDTO.getReviewer()).reviewed(reviewedUser)
         .score(reviewSaveReqDTO.getScore()).comment(reviewSaveReqDTO.getComment()).createdAt(LocalDateTime.now()).build();
 
-        reviewRepository.save(review);
+        Review reviewPS = reviewRepository.save(review);
 
         // 평점 변경 1점 추가
         Rate rate = rateRepository.findByUserId(reviewedUser.getId()).get();
         Rate changeRate = Rate.builder().id(rate.getId()).ratePoint(rate.getRatePoint()+1).build();
 
         rateRepository.save(changeRate);
-        
+
+        ReviewSaveRespDTO saveRespDTO = new ReviewSaveRespDTO(reviewPS.getScore(), reviewPS.getComment());
+        return saveRespDTO;
     }
 }
