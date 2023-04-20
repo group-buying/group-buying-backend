@@ -36,4 +36,14 @@ public class ParticipantResp {
         private StatusCode statusCode;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class ParticipantCancleRespDTO {
+        private Long id;
+        private Event event;
+        private User user;
+        private StatusCode statusCode;
+    }
+
 }
