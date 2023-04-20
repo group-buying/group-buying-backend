@@ -40,6 +40,7 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+
     @Builder
     public User(Long id, String password, String email, String name, String profile, Rate rate, boolean type, String role, StatusCode statusCode, LocalDateTime createdAt) {
         this.id = id;
@@ -54,14 +55,10 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public void updateUser(String password, String name, String profile, Rate rate, boolean type, String role, StatusCode statusCode, LocalDateTime createdAt) {
+    public void updateUser(String password, String name, String profile, LocalDateTime createdAt) {
         this.password = password;
         this.name = name;
         this.profile = profile;
-        this.rate = rate;
-        this.type = type;
-        this.role = role;
-        this.statusCode = statusCode;
         this.createdAt = createdAt;
     }
 }
