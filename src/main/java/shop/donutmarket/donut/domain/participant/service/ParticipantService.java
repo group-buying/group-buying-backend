@@ -11,6 +11,7 @@ import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSaveReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSelectReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantCancleRespDTO;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantDropRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSaveRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSelectRespDTO;
 import shop.donutmarket.donut.domain.participant.model.Participant;
@@ -62,6 +63,19 @@ public class ParticipantService {
         particiPS.getId(), particiPS.getEvent(), particiPS.getUser(), particiPS.getStatusCode());
             
         return cancleRespDTO;
+    }
+
+    @Transactional
+    public ParticipantDropRespDTO 강퇴하기(Long id) {
+        StatusCode droped = new StatusCode(301, "participant", "미채택", LocalDateTime.now());
+            
+        Participant participant = Participant.builder().id(id).statusCode(droped).build();
+        Participant particiPS = participantRepository.save(participant);
+
+        ParticipantDropRespDTO dropRespDTO = new ParticipantDropRespDTO(
+        particiPS.getId(), particiPS.getEvent(), particiPS.getUser(), particiPS.getStatusCode());
+            
+        return dropRespDTO;
     }
 
 }
