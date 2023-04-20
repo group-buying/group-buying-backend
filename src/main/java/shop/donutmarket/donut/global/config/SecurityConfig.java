@@ -6,12 +6,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import shop.donutmarket.donut.global.jwt.JwtAuthorizationFilter;
 
 @Slf4j
 @Configuration
@@ -27,10 +30,20 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    // JWT 커스텀 필터
+    public class CustomSecurityFilterManager extends AbstractHttpConfigurer<CustomSecurityFilterManager, HttpSecurity> {
+        @Override
+        public void configure(HttpSecurity builder) throws Exception {
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+            builder.addFilter(new JwtAuthorizationFilter(authenticationManager));
+            super.configure(builder);
+        }
+    }
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // 1. CSRF 해제
-        http.csrf().disable(); // POSTMAN 접근해야 함!! - CSR할 때
+        http.csrf().disable(); // POSTMAN 접근을 위해 - CSR
 
         // 2. iframe 거부
         http.headers().frameOptions().disable();
@@ -50,6 +63,7 @@ public class SecurityConfig {
         // 7. XSS(lucy 필터 by naver)
 
         // 8. 커스텀 필터 적용(시큐리티 필터 교환)
+        http.apply(new CustomSecurityFilterManager());
 
         // 9. 인증 실패 처리
         http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
