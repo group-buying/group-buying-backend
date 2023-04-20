@@ -14,12 +14,17 @@ public class ParticipantReq {
     
     @Getter
     @Setter
-    @AllArgsConstructor
     public static class ParticipantSaveReqDTO {
+        @NotBlank
         private Event event;
+        @NotBlank
         private User user;
+        @NotBlank
+        @Size(min = 1)
         private int qty;
+        @NotBlank
         private LocalDateTime limitTime;
+        @NotBlank
         private StatusCode statusCode;
 
         public Participant toEntity(){
@@ -30,10 +35,12 @@ public class ParticipantReq {
 
     @Getter
     @Setter
-    @AllArgsConstructor
     public static class ParticipantSelectReqDTO {
+        @NotBlank
         private Long id;
+        @NotBlank
         private Event event;
+        @NotBlank
         private User user;
 
         public Participant toEntity(){
