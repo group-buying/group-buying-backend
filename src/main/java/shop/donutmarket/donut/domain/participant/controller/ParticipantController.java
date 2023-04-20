@@ -6,12 +6,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSaveReqDTO;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSelectReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSaveRespDTO;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSelectRespDTO;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.participant.service.ParticipantService;
 import shop.donutmarket.donut.global.dto.ResponseDTO;
@@ -34,6 +37,13 @@ public class ParticipantController {
         ParticipantSaveRespDTO saveRespDTO = participantService.참가하기(participantSaveReqDTO);
 
         return new ResponseEntity<>(new ResponseDTO<>().data(saveRespDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/participants")
+    public @ResponseBody ResponseEntity<?> select(ParticipantSelectReqDTO participantSelectReqDTO) {
+        ParticipantSelectRespDTO selectRespDTO = participantService.채택하기(participantSelectReqDTO);
+
+        return new ResponseEntity<>(new ResponseDTO<>().data(selectRespDTO), HttpStatus.CREATED);
     }
 
 }

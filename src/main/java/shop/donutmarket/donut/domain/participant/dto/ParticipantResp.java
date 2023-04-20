@@ -25,4 +25,15 @@ public class ParticipantResp {
 
     }
 
+    
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class ParticipantSelectRespDTO {
+        private Long id;
+        private Event event;
+        private User user;
+        private StatusCode statusCode;
+    }
+
 }

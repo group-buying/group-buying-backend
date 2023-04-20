@@ -27,4 +27,18 @@ public class ParticipantReq {
             .statusCode(statusCode).createdAt(LocalDateTime.now()).build();
         }
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class ParticipantSelectReqDTO {
+        private Long id;
+        private Event event;
+        private User user;
+
+        public Participant toEntity(){
+            StatusCode selected = new StatusCode(302, "participant", "채택", LocalDateTime.now());
+            return Participant.builder().id(id).event(event).user(user).statusCode(selected).build();
+        }
+    }
 }
