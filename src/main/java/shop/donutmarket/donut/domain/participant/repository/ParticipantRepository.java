@@ -10,7 +10,7 @@ import shop.donutmarket.donut.domain.participant.model.Participant;
 
 public interface ParticipantRepository extends JpaRepository<Participant, Long>{
 
-    @Query("select from participant where user_id = :userId")
+    @Query("select p from Participant p where p.user.id = :userId")
     List<Participant> findAllByUserId(@Param("userId") Long userId);
     
 }

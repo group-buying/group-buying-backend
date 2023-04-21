@@ -56,7 +56,6 @@ CREATE TABLE event
     payment_type varchar(255) NOT NULL,
     start_at     timestamp    NOT NULL,
     end_at       timestamp    NOT NULL,
-    status_code  int          NOT NULL,
     price        int          NOT NULL,
     created_at   timestamp    NOT NULL
 );

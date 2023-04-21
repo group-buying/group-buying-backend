@@ -40,10 +40,10 @@ public class ReviewService {
         Review reviewPS = reviewRepository.save(review);
 
         // 평점 변경 1점 추가
-        Rate rate = rateRepository.findByUserId(reviewedUser.getId()).get();
-        Rate changeRate = Rate.builder().id(rate.getId()).ratePoint(rate.getRatePoint()+1).build();
+        // Rate rate = rateRepository.findByUserId(reviewedUser.getId()).get();
+        // Rate changeRate = Rate.builder().id(rate.getId()).ratePoint(rate.getRatePoint()+1).build();
 
-        rateRepository.save(changeRate);
+        // rateRepository.save(changeRate);
 
         ReviewSaveRespDTO saveRespDTO = new ReviewSaveRespDTO(reviewPS.getScore(), reviewPS.getComment());
         return saveRespDTO;

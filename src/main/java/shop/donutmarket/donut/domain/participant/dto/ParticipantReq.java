@@ -2,7 +2,8 @@ package shop.donutmarket.donut.domain.participant.dto;
 
 import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;

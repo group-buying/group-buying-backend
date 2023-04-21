@@ -1,5 +1,6 @@
 package shop.donutmarket.donut.domain.review.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -13,7 +14,7 @@ public class ReviewReq {
         private User reviewer;
         @NotBlank
         private Long boardId;
-        @NotBlank(min = 1, max = 5)
+        @NotBlank
         private int score;
         @NotBlank
         private String comment;

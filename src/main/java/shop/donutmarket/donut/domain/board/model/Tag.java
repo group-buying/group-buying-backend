@@ -15,23 +15,22 @@ public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
-    private Board board;
+    @Column(name = "board_id")
+    private Long boardId;
     private String comment;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Builder
-    public Tag(Long id, Board board, String comment, LocalDateTime createdAt) {
+    public Tag(Long id, Long boardId, String comment, LocalDateTime createdAt) {
         this.id = id;
-        this.board = board;
+        this.boardId = boardId;
         this.comment = comment;
         this.createdAt = createdAt;
     }
 
-    public void updateTag(Board board, String comment, LocalDateTime createdAt) {
-        this.board = board;
+    public void updateTag(Long boardId, String comment, LocalDateTime createdAt) {
+        this.boardId = boardId;
         this.comment = comment;
         this.createdAt = createdAt;
     }

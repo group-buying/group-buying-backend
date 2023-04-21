@@ -129,7 +129,6 @@ public class BoardRepositoryTest {
         LocalDateTime time = LocalDateTime.now();
 
         // when
-        board.updateBoard(category, "제목", user, "내용", "이미지", event, statusCode, 50, true, "부산시", "부산진구", "양정동",  time);
         tem.persistAndFlush(board);
 
         // then
