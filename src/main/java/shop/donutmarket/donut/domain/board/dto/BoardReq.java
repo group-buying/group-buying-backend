@@ -68,4 +68,14 @@ public class BoardReq {
         private List<String> comment;
 
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class BoardDeleteReqDTO {
+        // board
+        private Long boardId;
+    }
 }
+
