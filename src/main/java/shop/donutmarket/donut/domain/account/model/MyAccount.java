@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.LastModifiedDate;
 import shop.donutmarket.donut.domain.user.model.User;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,7 @@ public class MyAccount {
     private String accountNumber;
     @Column(name = "created_at")
     @CreationTimestamp
+    @LastModifiedDate
     private LocalDateTime createdAt;
 
     @Builder

@@ -12,6 +12,7 @@ import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -43,5 +44,18 @@ public class MyAccountService {
             return 1;
         }
         return  -1;
+    }
+
+    @Transactional
+    public Optional<MyAccount> 계좌수정(Long userId, AccountReq.updateDTO updateDTO) {
+        Optional<MyAccount> myAccountOP = myAccountRepository.findByUserId(userId);
+        if (myAccountOP.isPresent()) {
+            MyAccount myAccountPS = myAccountOP.get();
+            System.out.println(updateDTO.getBrand());
+            System.out.println(updateDTO.getAccountNumber());
+            myAccountPS.updateMyAccount(updateDTO.getBrand(), updateDTO.getAccountNumber());
+        }
+        Optional<MyAccount> data = myAccountRepository.findByUserId(userId);
+        return data;
     }
 }
