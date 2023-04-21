@@ -19,7 +19,7 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
     private String title;
@@ -60,19 +60,8 @@ public class Board {
         this.createdAt = createdAt;
     }
 
-    public void updateBoard(Category category, String title, User organizer, String content, String img, Event event, StatusCode statusCode, int views, boolean recommend, String state, String city, String town, LocalDateTime createdAt) {
-        this.category = category;
-        this.title = title;
-        this.organizer = organizer;
-        this.content = content;
-        this.img = img;
-        this.event = event;
+    public void deleteBoard(StatusCode statusCode){
         this.statusCode = statusCode;
-        this.views = views;
-        this.recommend = recommend;
-        this.state = state;
-        this.city = city;
-        this.town = town;
-        this.createdAt = createdAt;
     }
+
 }

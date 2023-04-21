@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.review.dto.ReviewReq.ReviewSaveReqDTO;
 import shop.donutmarket.donut.domain.review.dto.ReviewResp.ReviewSaveRespDTO;
@@ -30,7 +31,7 @@ public class ReviewController {
     }
 
     @PostMapping("/reviews")
-    public @ResponseBody ResponseEntity<?> save(@RequestBody @Vaild ReviewSaveReqDTO reviewSaveReqDTO) {
+    public @ResponseBody ResponseEntity<?> save(@RequestBody @Valid ReviewSaveReqDTO reviewSaveReqDTO) {
         ReviewSaveRespDTO saveRespDTO = reviewService.리뷰작성(reviewSaveReqDTO);
         return new ResponseEntity<>(new ResponseDTO<>().data(saveRespDTO), HttpStatus.CREATED);
     }

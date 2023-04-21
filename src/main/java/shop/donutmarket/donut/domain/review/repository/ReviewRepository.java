@@ -10,7 +10,7 @@ import shop.donutmarket.donut.domain.review.model.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long>{
 
-    @Query("select from review where reviewer_id = :userId")
+    @Query("select r from Review r where r.reviewer.id = :userId")
     List<Review> findAllByUserId(@Param("userId") Long userId);
     
 }
