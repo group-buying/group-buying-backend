@@ -39,7 +39,7 @@ public class BoardController {
     private final TagService tagService;
 
     @PostMapping
-    public ResponseEntity<?> save(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody BoardSaveReqDTO boardSaveReqDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> save(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardSaveReqDTO boardSaveReqDTO, BindingResult bindingResult) {
         
         if(myUserDetails == null) {
             // 예외 처리
