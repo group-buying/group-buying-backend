@@ -109,15 +109,15 @@ public class BoardService {
 
         BoardUpdateRespDTO boardUpdateRespDTO = new BoardUpdateRespDTO();
         System.out.println("Tag");
-        List<Tag> tagList = new ArrayList<>();
+        List<String> tagList = new ArrayList<>();
         for (String comment : boardUpdateReqDTO.getComment()) {
             if(comment.isBlank()){
                 break;
             }
-            Tag tag = Tag.builder().board(boardPS).comment(comment)
+            Tag tag = Tag.builder().boardId(boardPS.getId()).comment(comment)
             .createdAt(LocalDateTime.now()).build();
             tagRepository.save(tag);
-            tagList.add(tag);
+            tagList.add(comment);
         }
         System.out.println("RespDTO");
         boardUpdateRespDTO.updateRespDTO(boardUpdateReqDTO.getQty(),boardUpdateReqDTO.getPaymentType(),
