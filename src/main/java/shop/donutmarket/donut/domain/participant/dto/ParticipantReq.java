@@ -3,6 +3,7 @@ package shop.donutmarket.donut.domain.participant.dto;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,19 +17,20 @@ public class ParticipantReq {
     @Getter
     @Setter
     public static class ParticipantSaveReqDTO {
-        @NotBlank
+
+        @NotNull
         private Event event;
-        @NotBlank
         private User user;
-        @NotBlank
-        @Size(min = 1)
+        @NotNull
         private int qty;
-        @NotBlank
+        @NotNull
         private LocalDateTime limitTime;
-        @NotBlank
         private StatusCode statusCode;
 
-        public Participant toEntity(){
+        public Participant toEntity(User user){
+            StatusCode statusCode = StatusCode.builder().id(300).type("participant")
+            .status("참가").createdAt(LocalDateTime.now()).build();
+
             return Participant.builder().event(event).user(user).qty(qty).limitTime(limitTime)
             .statusCode(statusCode).createdAt(LocalDateTime.now()).build();
         }
