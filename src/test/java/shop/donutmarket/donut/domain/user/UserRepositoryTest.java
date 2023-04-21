@@ -108,14 +108,10 @@ public class UserRepositoryTest {
         // given
         Long id = 1L;
         User user = tem.find(User.class, id);
-        Rate rate = Rate.builder().build();
-        StatusCode statusCode = StatusCode.builder().build();
         LocalDateTime time = LocalDateTime.now();
-        tem.persist(rate);
-        tem.persist(statusCode);
 
         // when
-        user.updateUser("3456", "홍길동", "프로필", rate, true, "user", statusCode, time);
+        user.updateUser("3456", "홍길동", "프로필", time);
         tem.persistAndFlush(user);
 
         // then

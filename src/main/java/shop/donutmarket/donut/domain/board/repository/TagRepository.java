@@ -11,11 +11,11 @@ import shop.donutmarket.donut.domain.board.model.Tag;
 
 public interface TagRepository extends JpaRepository<Tag, Long>{
 
-    @Query("select from tag where board_id = :BoardId")
+    @Query("select t from Tag t where t.board.id = :BoardId")
     List<Tag> findAllByBoardId(@Param("BoardId") Long BoardId);
 
     @Modifying
-    @Query("delete from tag where board_id = :BoardId")
+    @Query("delete from Tag t where t.board.id = :BoardId")
     void deleteAllByBoardId(@Param("BoardId") Long BoardId);
     
 }
