@@ -43,12 +43,27 @@ public class ParticipantReq {
         private Long id;
         @NotNull
         private Event event;
+        @NotNull 
+        private User user;
+    }
+    
+    @Getter
+    @Setter
+    public static class ParticipantCancelReqDTO {
+        @NotNull
+        private Long id;
         @NotNull
         private User user;
+    }
 
-        public Participant toEntity(){
-            StatusCode selected = new StatusCode(302, "participant", "채택", LocalDateTime.now());
-            return Participant.builder().id(id).event(event).user(user).statusCode(selected).build();
-        }
+    @Getter
+    @Setter
+    public static class ParticipantDropReqDTO {
+        @NotNull
+        private Long id;
+        @NotNull
+        private Event event;
+        @NotNull 
+        private User user;
     }
 }

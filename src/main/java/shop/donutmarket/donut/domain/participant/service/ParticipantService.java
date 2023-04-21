@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantCancelReqDTO;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantDropReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSaveReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSelectReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantCancleRespDTO;
@@ -76,9 +78,8 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantSelectRespDTO 채택하기(ParticipantSelectReqDTO participantSelectReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        Participant participantReq = participantSelectReqDTO.toEntity();
 
-        Optional<Participant> particiOP = participantRepository.findById(participantReq.getId());
+        Optional<Participant> particiOP = participantRepository.findById(participantSelectReqDTO.getId());
         if (!particiOP.isPresent()) {
             // 없을때 예외처리
         }
@@ -115,28 +116,65 @@ public class ParticipantService {
     }
 
     @Transactional
-    public ParticipantCancleRespDTO 취소하기(Long id) {
-        StatusCode cancled = new StatusCode(303, "participant", "참가 취소", LocalDateTime.now());
+    public ParticipantCancleRespDTO 취소하기(ParticipantCancelReqDTO participantCancelReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+
+        Optional<Participant> particiOP = participantRepository.findById(participantCancelReqDTO.getId());
+        if (!particiOP.isPresent()) {
+            // 없을때 예외처리
+        }
+        Participant particiPS = particiOP.get();
         
-        Participant participant = Participant.builder().id(id).statusCode(cancled).build();
+        if(!(particiPS.getUser().getId() == myUserDetails.getUser().getId())){
+            // 인증 없을때 예외처리
+        }
+
+        StatusCode canceled = new StatusCode(303, "participant", "참가 취소", LocalDateTime.now());
         
-        Participant particiPS = participantRepository.save(participant);
+        particiPS.canceled(canceled);
+
+        Event eventPS = particiPS.getEvent();
+        Event event = Event.builder().id(eventPS.getId()).latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
+        .qty(eventPS.getQty()).paymentType(eventPS.getPaymentType()).startAt(eventPS.getStartAt()).endAt(eventPS.getEndAt())
+        .price(eventPS.getPrice()).createdAt(eventPS.getCreatedAt()).build();
         
         ParticipantCancleRespDTO cancleRespDTO = new ParticipantCancleRespDTO(
-        particiPS.getId(), particiPS.getEvent(), particiPS.getUser(), particiPS.getStatusCode());
+            particiPS.getId(), event, myUserDetails.getUser(), canceled);
             
         return cancleRespDTO;
     }
 
     @Transactional
-    public ParticipantDropRespDTO 강퇴하기(Long id) {
+    public ParticipantDropRespDTO 강퇴하기(ParticipantDropReqDTO participantDropReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        
+        Optional<Participant> particiOP = participantRepository.findById(participantDropReqDTO.getId());
+        if (!particiOP.isPresent()) {
+            // 없을때 예외처리
+        }
+        Participant particiPS = particiOP.get();
+        
+        Long organizerId = boardRepository.findByEventId(particiPS.getEvent().getId());
+
+        if(!(organizerId == myUserDetails.getUser().getId())){
+            // 권한없을때 처리
+        }
+
         StatusCode droped = new StatusCode(301, "participant", "미채택", LocalDateTime.now());
-            
-        Participant participant = Participant.builder().id(id).statusCode(droped).build();
-        Participant particiPS = participantRepository.save(participant);
+
+        Event eventPS = particiPS.getEvent();
+        Event event = Event.builder().id(eventPS.getId()).latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
+        .qty(eventPS.getQty()).paymentType(eventPS.getPaymentType()).startAt(eventPS.getStartAt()).endAt(eventPS.getEndAt())
+        .price(eventPS.getPrice()).createdAt(eventPS.getCreatedAt()).build();
+
+        User userPS = particiPS.getUser();
+
+        Rate userRate = Rate.builder().userId(userPS.getId()).rateName(userPS.getRate().getRateName())
+        .ratePoint(userPS.getRate().getRatePoint()).build();
+
+        User user = User.builder().id(userPS.getId()).name(userPS.getName())
+        .profile(userPS.getProfile()).rate(userRate).build();
 
         ParticipantDropRespDTO dropRespDTO = new ParticipantDropRespDTO(
-        particiPS.getId(), particiPS.getEvent(), particiPS.getUser(), particiPS.getStatusCode());
+            particiPS.getId(), event, user, droped);
             
         return dropRespDTO;
     }

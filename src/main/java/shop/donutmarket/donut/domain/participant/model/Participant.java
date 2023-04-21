@@ -57,4 +57,8 @@ public class Participant {
     public void selected(StatusCode statusCode) {
         this.statusCode = statusCode;
     }
+
+    public void canceled(StatusCode statusCode) {
+        this.statusCode = statusCode;
+    }
 }

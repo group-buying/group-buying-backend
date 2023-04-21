@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantCancelReqDTO;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantDropReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSaveReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSelectReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantCancleRespDTO;
@@ -56,15 +58,15 @@ public class ParticipantController {
     }
 
     @PutMapping("/cancel")
-    public ResponseEntity<?> cancel(@RequestBody Long id) {
-        ParticipantCancleRespDTO cancleRespDTO = participantService.취소하기(id);
+    public ResponseEntity<?> cancel(@RequestBody ParticipantCancelReqDTO participantCancelReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        ParticipantCancleRespDTO cancleRespDTO = participantService.취소하기(participantCancelReqDTO, myUserDetails);
         
         return new ResponseEntity<>(new ResponseDTO<>().data(cancleRespDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/drop")
-    public ResponseEntity<?> drop(@RequestBody Long id) {
-        ParticipantDropRespDTO dropRespDTO = participantService.강퇴하기(id);
+    public ResponseEntity<?> drop(@RequestBody ParticipantDropReqDTO participantDropReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        ParticipantDropRespDTO dropRespDTO = participantService.강퇴하기(participantDropReqDTO, myUserDetails);
 
         return new ResponseEntity<>(new ResponseDTO<>().data(dropRespDTO), HttpStatus.CREATED);
     }
