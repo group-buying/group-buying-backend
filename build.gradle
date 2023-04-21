@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'io.github.bootpay:backend:+'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation group: 'com.auth0', name: 'java-jwt', version: '4.3.0'
