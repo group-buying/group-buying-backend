@@ -17,14 +17,13 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-//@RequestMapping(value = "/account")
 public class MyAccountController {
 
     private final MyAccountService myAccountService;
 
     @PostMapping("/account")
     public ResponseEntity<?> insert(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid AccountReq.insertDTO insertDTO) {
-        Optional<MyAccount> myAccountOP = myAccountService.계좌등록(myUserDetails, insertDTO);
+        Optional<MyAccount> myAccountOP = myAccountService.계좌등록(myUserDetails.getUser().getId(), insertDTO);
         if (myAccountOP.isPresent()) {
             MyAccount myAccountPS = myAccountOP.get();
             AccountResp.insertDTO resp = new AccountResp.insertDTO();
@@ -33,6 +32,15 @@ public class MyAccountController {
             resp.setBrand(myAccountPS.getBrand());
             resp.setAccountNumber(myAccountPS.getAccountNumber());
             return ResponseEntity.ok().body(resp);
+        }
+        return ResponseEntity.badRequest().body("잘못된 요청입니다");
+    }
+
+    @DeleteMapping("/account")
+    public ResponseEntity<?> delete(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        int result = myAccountService.계좌삭제(myUserDetails.getUser().getId());
+        if (result == 1) {
+            return ResponseEntity.ok().body("계좌가 삭제되었습니다");
         }
         return ResponseEntity.badRequest().body("잘못된 요청입니다");
     }
