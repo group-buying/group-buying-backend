@@ -44,4 +44,8 @@ public class Rate {
         this.ratePoint = ratePoint;
         this.createdAt = createdAt;
     }
+
+    public void rateUp(){
+        this.ratePoint++;
+    }
 }
