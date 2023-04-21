@@ -23,7 +23,6 @@ import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.Participant
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantListRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSaveRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSelectRespDTO;
-import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.participant.service.ParticipantService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.dto.ResponseDTO;
