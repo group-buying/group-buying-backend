@@ -23,14 +23,8 @@ public class MyAccountController {
 
     @PostMapping("/account")
     public ResponseEntity<?> insert(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid AccountReq.insertDTO insertDTO) {
-        Optional<MyAccount> myAccountOP = myAccountService.계좌등록(myUserDetails.getUser().getId(), insertDTO);
-        if (myAccountOP.isPresent()) {
-            MyAccount myAccountPS = myAccountOP.get();
-            AccountResp.insertDTO resp = new AccountResp.insertDTO();
-            resp.setId(myAccountPS.getId());
-            resp.setUserId(myAccountPS.getUser().getId());
-            resp.setBrand(myAccountPS.getBrand());
-            resp.setAccountNumber(myAccountPS.getAccountNumber());
+        AccountResp.insertDTO resp = myAccountService.계좌등록(myUserDetails.getUser().getId(), insertDTO);
+        if (resp != null) {
             return ResponseEntity.ok().body(resp);
         }
         return ResponseEntity.badRequest().body("잘못된 요청입니다");
@@ -47,14 +41,17 @@ public class MyAccountController {
 
     @PutMapping("/account")
     public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody AccountReq.updateDTO updateDTO) {
-        Optional<MyAccount> myAccountOP = myAccountService.계좌수정(myUserDetails.getUser().getId(), updateDTO);
-        if (myAccountOP.isPresent()) {
-            MyAccount myAccountPS = myAccountOP.get();
-            AccountResp.updateDTO resp = new AccountResp.updateDTO();
-            resp.setId(myAccountPS.getId());
-            resp.setUserId(myAccountPS.getUser().getId());
-            resp.setBrand(myAccountPS.getBrand());
-            resp.setAccountNumber(myAccountPS.getAccountNumber());
+        AccountResp.updateDTO resp = myAccountService.계좌수정(myUserDetails.getUser().getId(), updateDTO);
+        if (resp != null) {
+            return ResponseEntity.ok().body(resp);
+        }
+        return ResponseEntity.badRequest().body("잘못된 요청입니다");
+    }
+
+    @GetMapping("/account")
+    public ResponseEntity<?> select(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        AccountResp.selectDTO resp = myAccountService.계좌조회(myUserDetails.getUser().getId());
+        if (resp != null) {
             return ResponseEntity.ok().body(resp);
         }
         return ResponseEntity.badRequest().body("잘못된 요청입니다");
