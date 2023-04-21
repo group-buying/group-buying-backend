@@ -1,6 +1,7 @@
 package shop.donutmarket.donut.domain.participant.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantS
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSelectReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantCancleRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantDropRespDTO;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantListRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSaveRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSelectRespDTO;
 import shop.donutmarket.donut.domain.participant.model.Participant;
@@ -27,10 +29,27 @@ public class ParticipantService {
     
     private final ParticipantRepository participantRepository;
 
-    public List<Participant> 내참가목록(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public List<ParticipantListRespDTO> 내참가목록(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         
-        List<Participant> myParticipants = participantRepository.findAllByUserId(myUserDetails.getUser().getId());
-        return myParticipants;
+        List<Participant> myParticipantsPS = participantRepository.findAllByUserId(myUserDetails.getUser().getId());
+        List<ParticipantListRespDTO> participantList = new ArrayList<>();
+        
+        for (Participant participant : myParticipantsPS) {
+            Event eventPS = participant.getEvent();
+            Event event = Event.builder().id(participant.getId()).latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
+            .qty(eventPS.getQty()).paymentType(eventPS.getPaymentType()).startAt(eventPS.getStartAt()).endAt(eventPS.getEndAt())
+            .price(eventPS.getPrice()).createdAt(eventPS.getCreatedAt()).build();
+
+            StatusCode statusCodePS = participant.getStatusCode();
+            StatusCode statusCode = StatusCode.builder().id(statusCodePS.getId()).type(statusCodePS.getType())
+            .status(statusCodePS.getStatus()).createdAt(statusCodePS.getCreatedAt()).build();
+
+            ParticipantListRespDTO participantDTO = ParticipantListRespDTO.builder().event(event).user(myUserDetails.getUser())
+            .qty(participant.getQty()).limitTime(participant.getLimitTime()).statusCode(statusCode)
+            .createdAt(participant.getCreatedAt()).build();
+            participantList.add(participantDTO);
+        }
+        return participantList;
     }
 
     @Transactional

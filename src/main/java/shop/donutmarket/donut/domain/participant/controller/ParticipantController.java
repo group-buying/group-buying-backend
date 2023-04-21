@@ -18,6 +18,7 @@ import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantS
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSelectReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantCancleRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantDropRespDTO;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantListRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSaveRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSelectRespDTO;
 import shop.donutmarket.donut.domain.participant.model.Participant;
@@ -35,7 +36,7 @@ public class ParticipantController {
     @GetMapping
     public ResponseEntity<?> myParticipants(@AuthenticationPrincipal MyUserDetails myUserDetails) {
 
-        List<Participant> participantList = participantService.내참가목록(myUserDetails);
+        List<ParticipantListRespDTO> participantList = participantService.내참가목록(myUserDetails);
 
         return new ResponseEntity<>(new ResponseDTO<>().data(participantList), HttpStatus.OK);
     }
