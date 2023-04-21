@@ -39,11 +39,11 @@ public class ParticipantReq {
     @Getter
     @Setter
     public static class ParticipantSelectReqDTO {
-        @NotBlank
+        @NotNull
         private Long id;
-        @NotBlank
+        @NotNull
         private Event event;
-        @NotBlank
+        @NotNull
         private User user;
 
         public Participant toEntity(){

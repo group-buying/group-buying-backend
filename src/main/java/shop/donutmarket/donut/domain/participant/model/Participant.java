@@ -53,4 +53,8 @@ public class Participant {
         this.limitTime = limitTime;
         this.statusCode = statusCode;
     }
+
+    public void selected(StatusCode statusCode) {
+        this.statusCode = statusCode;
+    }
 }
