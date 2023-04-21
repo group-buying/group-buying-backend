@@ -49,8 +49,8 @@ public class ParticipantController {
     }
 
     @PutMapping("/select")
-    public ResponseEntity<?> select(@RequestBody @Valid ParticipantSelectReqDTO participantSelectReqDTO) {
-        ParticipantSelectRespDTO selectRespDTO = participantService.채택하기(participantSelectReqDTO);
+    public ResponseEntity<?> select(@RequestBody @Valid ParticipantSelectReqDTO participantSelectReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        ParticipantSelectRespDTO selectRespDTO = participantService.채택하기(participantSelectReqDTO, myUserDetails);
 
         return new ResponseEntity<>(new ResponseDTO<>().data(selectRespDTO), HttpStatus.CREATED);
     }
