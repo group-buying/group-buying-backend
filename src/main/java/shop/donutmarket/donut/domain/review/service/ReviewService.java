@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.review.dto.ReviewReq.ReviewSaveReqDTO;
 import shop.donutmarket.donut.domain.review.dto.ReviewResp.ReviewSaveRespDTO;
 import shop.donutmarket.donut.domain.review.model.Rate;
