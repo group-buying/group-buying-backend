@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import shop.donutmarket.donut.domain.board.model.Board;
-import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.model.Tag;
 
 

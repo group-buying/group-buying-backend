@@ -6,17 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
@@ -26,10 +23,8 @@ import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardDetailRespDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardUpdateRespDTO;
 import shop.donutmarket.donut.domain.board.model.Board;
-import shop.donutmarket.donut.domain.board.model.Tag;
 import shop.donutmarket.donut.domain.board.service.BoardService;
 import shop.donutmarket.donut.domain.board.service.TagService;
-import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.dto.ResponseDTO;
 
@@ -42,7 +37,6 @@ public class BoardController {
     
     private final BoardService boardService;
     private final TagService tagService;
-    private final HttpSession session;
 
     @PostMapping
     public ResponseEntity<?> save(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody BoardSaveReqDTO boardSaveReqDTO, BindingResult bindingResult) {
@@ -50,9 +44,6 @@ public class BoardController {
         if(myUserDetails == null) {
             // 예외 처리
         }
-
-        User user = (User) session.getAttribute("principal");
-
         BoardSaveRespDTO saveRespDTO = boardService.공고작성(boardSaveReqDTO, myUserDetails);
         return new ResponseEntity<>(new ResponseDTO<>().data(saveRespDTO), HttpStatus.CREATED);
     }
