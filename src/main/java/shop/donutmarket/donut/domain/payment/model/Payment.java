@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 
@@ -14,11 +15,11 @@ import shop.donutmarket.donut.domain.participant.model.Participant;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Payment {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "participant_id")
     private Participant participant;
     @Column(name = "payment_type")
