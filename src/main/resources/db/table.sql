@@ -167,7 +167,7 @@ CREATE TABLE my_account
     id             Bigint PRIMARY KEY AUTO_INCREMENT,
     user_id        Bigint       NOT NULL,
     brand          varchar(255) NOT NULL,
-    account_number varchar(255) NOT NULL,
+    account_number varchar(255) NOT NULL UNIQUE,
     created_at     timestamp    NOT NULL
 );
 

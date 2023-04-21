@@ -115,7 +115,7 @@ public class BoardService {
     public void 삭제(Long boardId) {
         
         // 인가 체크 필요
-        StatusCode deletedCode = StatusCode.builder().id(203L).type("board")
+        StatusCode deletedCode = StatusCode.builder().id(203).type("board")
         .status("삭제").createdAt(LocalDateTime.now()).build();
         
         Board board = Board.builder().id(boardId).statusCode(deletedCode).build();

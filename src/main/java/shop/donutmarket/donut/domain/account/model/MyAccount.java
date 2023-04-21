@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import shop.donutmarket.donut.domain.user.model.User;
 
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class MyAccount {
     @Column(name = "account_number")
     private String accountNumber;
     @Column(name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder
