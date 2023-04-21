@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardDetailRespDTO;
@@ -80,14 +81,14 @@ public class BoardController {
         return new ResponseEntity<>(new ResponseDTO<>().data(updateRespDTO), HttpStatus.CREATED);
     }
 
-    @DeleteMapping
-    public @ResponseBody ResponseEntity<?> delete(Long boardId, @AuthenticationPrincipal MyUserDetails myUserDetails){
+    @PutMapping("/delete")
+    public ResponseEntity<?> delete(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardDeleteReqDTO boardDeleteReqDTO){
 
         if(myUserDetails == null) {
             // 예외 처리
         }
 
-        boardService.삭제(boardId, myUserDetails);
+        boardService.삭제(boardDeleteReqDTO, myUserDetails);
 
         return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK); 
     }

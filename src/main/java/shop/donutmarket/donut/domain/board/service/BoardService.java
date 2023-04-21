@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
+import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
@@ -128,10 +129,10 @@ public class BoardService {
     
 
     @Transactional
-    public void 삭제(Long boardId, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public void 삭제(BoardDeleteReqDTO boardDeleteReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
         User userOP = myUserDetails.getUser();
-        Optional<Board> boardOP = boardRepository.findById(boardId);
+        Optional<Board> boardOP = boardRepository.findById(boardDeleteReqDTO.getBoardId());
         if(!boardOP.isPresent()){
             // 없음 예외처리
         }
