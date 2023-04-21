@@ -61,7 +61,7 @@ public class BoardController {
     public ResponseEntity<?> detail(@PathVariable Long id) {
 
         Board board = boardService.상세보기(id);
-        List<Tag> tags = tagService.상세보기(id);
+        List<String> tags = tagService.상세보기(id);
 
         BoardDetailRespDTO detailRespDTO = new BoardDetailRespDTO(board, tags);
 
