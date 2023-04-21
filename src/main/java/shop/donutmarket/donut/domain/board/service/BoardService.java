@@ -22,7 +22,9 @@ import shop.donutmarket.donut.domain.board.model.Tag;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.board.repository.TagRepository;
+import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.user.model.User;
+import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 
 @Service
@@ -32,6 +34,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final EventRepository eventRepository;
     private final TagRepository tagRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public BoardSaveRespDTO 공고작성(BoardSaveReqDTO boardSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -68,10 +71,24 @@ public class BoardService {
 
         Optional<Board> boardOptional = boardRepository.findById(id);
         Board boardPS = boardOptional.get();
-        // if (boardPS.getStatusCode().getId() == 203L) {
+
+        Event eventPS = boardPS.getEvent();
+
+        // if (boardPS.getStatusCode().getId() == 203) {
         //     // 해당 게시글은 삭제되었습니다. 리턴
         // }
-        return boardPS;
+        User userPS = userRepository.findById(boardPS.getOrganizer().getId()).get();
+        Rate rate = Rate.builder().rateName(userPS.getRate().getRateName()).build();
+        User organizer = User.builder().name(userPS.getName()).profile(userPS.getProfile()).rate(rate).build();
+        Event event = Event.builder().latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
+        .qty(eventPS.getQty()).paymentType(eventPS.getPaymentType()).startAt(eventPS.getStartAt())
+        .endAt(eventPS.getEndAt()).price(eventPS.getPrice()).createdAt(eventPS.getCreatedAt()).build();
+
+        Board board = Board.builder().id(boardPS.getId()).title(boardPS.getTitle()).organizer(organizer)
+        .content(boardPS.getContent()).img(boardPS.getImg()).event(event).state(boardPS.getState())
+        .city(boardPS.getCity()).town(boardPS.getTown()).build();
+
+        return board;
     }
 
     @Transactional

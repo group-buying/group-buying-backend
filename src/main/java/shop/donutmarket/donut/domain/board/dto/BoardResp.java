@@ -20,7 +20,7 @@ public class BoardResp {
     @NoArgsConstructor
     public static class BoardDetailRespDTO {
         private Board board;
-        private List<Tag> tagList;
+        private List<String> tagList;
     }
 
     @Getter
