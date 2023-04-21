@@ -72,7 +72,7 @@ public class MyAccountService {
         return null;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public AccountResp.selectDTO 계좌조회(Long userId) {
         Optional<MyAccount> myAccountOP = myAccountRepository.findByUserId(userId);
         if (myAccountOP.isPresent()) {
