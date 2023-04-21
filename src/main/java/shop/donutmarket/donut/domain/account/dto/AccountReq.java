@@ -32,4 +32,11 @@ public class AccountReq {
         private String brand;
         private String accountNumber;
     }
+
+    @Getter
+    @Setter
+    public static class updateDTO {
+        private String brand;
+        private String accountNumber;
+    }
 }

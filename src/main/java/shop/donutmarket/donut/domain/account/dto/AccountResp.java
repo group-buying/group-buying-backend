@@ -15,4 +15,12 @@ public class AccountResp {
         private String brand;
         private String accountNumber;
     }
+    @Getter
+    @Setter
+    public static class updateDTO {
+        private Long id;
+        private Long userId;
+        private String brand;
+        private String accountNumber;
+    }
 }

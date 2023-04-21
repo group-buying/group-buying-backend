@@ -44,4 +44,19 @@ public class MyAccountController {
         }
         return ResponseEntity.badRequest().body("잘못된 요청입니다");
     }
+
+    @PutMapping("/account")
+    public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody AccountReq.updateDTO updateDTO) {
+        Optional<MyAccount> myAccountOP = myAccountService.계좌수정(myUserDetails.getUser().getId(), updateDTO);
+        if (myAccountOP.isPresent()) {
+            MyAccount myAccountPS = myAccountOP.get();
+            AccountResp.updateDTO resp = new AccountResp.updateDTO();
+            resp.setId(myAccountPS.getId());
+            resp.setUserId(myAccountPS.getUser().getId());
+            resp.setBrand(myAccountPS.getBrand());
+            resp.setAccountNumber(myAccountPS.getAccountNumber());
+            return ResponseEntity.ok().body(resp);
+        }
+        return ResponseEntity.badRequest().body("잘못된 요청입니다");
+    }
 }
