@@ -3,6 +3,8 @@ package shop.donutmarket.donut.domain.board.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,21 +23,34 @@ public class BoardReq {
     @AllArgsConstructor
     public static class BoardSaveReqDTO {
         // board
+        @NotNull
         private Category category;
+        @NotBlank
         private String title;
+        @NotNull
         private User organizer;
+        @NotBlank
         private String content;
         private String img;
         private StatusCode statusCode;
+        @NotBlank
         private String state;
+        @NotBlank
         private String city;
+        @NotBlank
         private String town;
         //event
+        @NotNull
         private double latitude;
+        @NotNull
         private double longtitude;
+        @NotNull
         private int qty;
+        @NotBlank
         private String paymentType;
+        @NotNull
         private LocalDateTime endAt;
+        @NotNull
         private int price;
         // tag
         private List<String> comment;
@@ -57,11 +72,16 @@ public class BoardReq {
     @NoArgsConstructor
     public static class BoardUpdateReqDTO {
         // board
+        @NotNull
         private Long id;
         //event
+        @NotNull
         private int qty;
+        @NotBlank
         private String paymentType;
+        @NotNull
         private LocalDateTime startAt;
+        @NotNull
         private LocalDateTime endAt;
         private int price;
         // tag
@@ -75,6 +95,7 @@ public class BoardReq {
     @NoArgsConstructor
     public static class BoardDeleteReqDTO {
         // board
+        @NotNull
         private Long boardId;
     }
 }
