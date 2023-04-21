@@ -23,4 +23,13 @@ public class AccountResp {
         private String brand;
         private String accountNumber;
     }
+
+    @Getter
+    @Setter
+    public static class selectDTO {
+        private Long id;
+        private Long userId;
+        private String brand;
+        private String accountNumber;
+    }
 }
