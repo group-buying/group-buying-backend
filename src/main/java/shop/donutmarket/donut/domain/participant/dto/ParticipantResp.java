@@ -15,7 +15,6 @@ public class ParticipantResp {
     @Setter
     @AllArgsConstructor
     public static class ParticipantSaveRespDTO {
-        private Long id;
         private Event event;
         private User user;
         private int qty;
