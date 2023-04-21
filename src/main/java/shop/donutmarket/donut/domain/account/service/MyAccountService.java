@@ -22,15 +22,26 @@ public class MyAccountService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Optional<MyAccount> 계좌등록(@AuthenticationPrincipal MyUserDetails myUserDetails, AccountReq.insertDTO insertDTO) {
-        Optional<User> userOP = userRepository.findById(myUserDetails.getUser().getId());
+    public Optional<MyAccount> 계좌등록(Long userId, AccountReq.insertDTO insertDTO) {
+        Optional<User> userOP = userRepository.findById(userId);
         if (userOP.isPresent()) {
             User userPS = userOP.get();
             insertDTO.setUser(userPS);
             myAccountRepository.save(insertDTO.toEntity());
-            Optional<MyAccount> myAccount = myAccountRepository.findByUserId(myUserDetails.getUser().getId());
+            Optional<MyAccount> myAccount = myAccountRepository.findByUserId(userId);
             return myAccount;
         }
         return null;
+    }
+
+    @Transactional
+    public int 계좌삭제(Long userId) {
+        Optional<MyAccount> myAccountOP = myAccountRepository.findByUserId(userId);
+        if (myAccountOP.isPresent()) {
+            MyAccount myAccountPS = myAccountOP.get();
+            myAccountRepository.delete(myAccountPS);
+            return 1;
+        }
+        return  -1;
     }
 }
