@@ -182,7 +182,8 @@ CREATE TABLE status_code
 CREATE TABLE payment_info
 (
     id                   BIGINT AUTO_INCREMENT,
-    participant_id       Bigint,
+    event_id             Bigint NOT NULL,
+    user_id              Bigint NOT NULL,
     event                VARCHAR(255),
     receipt_id           VARCHAR(255),
     order_id             VARCHAR(255),

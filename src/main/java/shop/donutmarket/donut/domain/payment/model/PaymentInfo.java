@@ -16,7 +16,8 @@ public class PaymentInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long participantId;
+    private Long eventId;
+    private Long userId;
     private String event;
     @Embedded
     private PaymentData data;
@@ -24,9 +25,10 @@ public class PaymentInfo {
     private LocalDateTime createdAt;
 
     @Builder
-    public PaymentInfo(Long id, Long participantId, String event, PaymentData data, LocalDateTime createdAt) {
+    public PaymentInfo(Long id, Long eventId, Long userId, String event, PaymentData data, LocalDateTime createdAt) {
         this.id = id;
-        this.participantId = participantId;
+        this.eventId = eventId;
+        this.userId = userId;
         this.event = event;
         this.data = data;
         this.createdAt = createdAt;
