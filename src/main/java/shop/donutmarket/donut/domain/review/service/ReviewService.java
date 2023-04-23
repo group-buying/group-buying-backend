@@ -26,6 +26,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final RateRepository rateRepository;
 
+<<<<<<< HEAD
     public List<Review> 내리뷰목록(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         List<Review> myReviews = reviewRepository.findAllByReviewerId(myUserDetails.getUser().getId());
 
@@ -37,6 +38,11 @@ public class ReviewService {
             reviewList.add(review);
         }
         return reviewList;
+=======
+    public List<Review> 내리뷰목록(Long id) {
+        List<Review> myReviews = reviewRepository.findAllByReviewerId(id);
+        return myReviews;
+>>>>>>> 45375e1 (Feat: PaymentInfoReq, PaymentInfoRepository 생성)
     }
 
     @Transactional

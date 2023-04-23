@@ -1,15 +1,15 @@
 CREATE TABLE user_tb
 (
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
-    email       varchar(255)   NOT NULL UNIQUE,
-    password    text NOT NULL,
+    email       varchar(255) NOT NULL UNIQUE,
+    password    text         NOT NULL,
     name        varchar(255),
     profile     text,
     rate_id     Bigint,
     type        boolean      DEFAULT FALSE,
     role        varchar(255) DEFAULT 'USER',
     status_code int          DEFAULT '100',
-    created_at  timestamp      NOT NULL
+    created_at  timestamp    NOT NULL
 );
 
 CREATE TABLE rate
@@ -141,14 +141,14 @@ CREATE TABLE blacklist
 CREATE TABLE report
 (
     id          Bigint PRIMARY KEY AUTO_INCREMENT,
-    reporter_id Bigint         NOT NULL,
-    reported_id Bigint         NOT NULL,
+    reporter_id Bigint       NOT NULL,
+    reported_id Bigint       NOT NULL,
     board_id    Bigint,
-    title       varchar(255)   NOT NULL,
-    content     text NOT NULL,
-    report_type varchar(255)   NOT NULL,
-    status_code int            NOT NULL,
-    created_at  timestamp      NOT NULL
+    title       varchar(255) NOT NULL,
+    content     text         NOT NULL,
+    report_type varchar(255) NOT NULL,
+    status_code int          NOT NULL,
+    created_at  timestamp    NOT NULL
 );
 
 CREATE TABLE review
@@ -177,3 +177,41 @@ CREATE TABLE status_code
     status     varchar(255) NOT NULL,
     created_at timestamp    NOT NULL
 );
+
+CREATE TABLE payment_info
+(
+    id                   BIGINT AUTO_INCREMENT,
+    event                VARCHAR(255),
+    receipt_id           VARCHAR(255),
+    order_id             VARCHAR(255),
+    price                BIGINT,
+    tax_free             BIGINT,
+    cancelled_price      BIGINT,
+    cancelled_tax_free   BIGINT,
+    order_name           VARCHAR(255),
+    company_name         VARCHAR(255),
+    gateway_url          VARCHAR(255),
+    metadata             TEXT,
+    sandbox              BOOLEAN,
+    pg                   VARCHAR(255),
+    method               VARCHAR(255),
+    method_symbol        VARCHAR(255),
+    method_origin        VARCHAR(255),
+    method_origin_symbol VARCHAR(255),
+    currency             VARCHAR(255),
+    receipt_url          VARCHAR(255),
+    purchased_at         timestamp,
+    cancelled_at         timestamp,
+    requested_at         timestamp,
+    escrow_status_locale VARCHAR(255),
+    escrow_status        VARCHAR(255),
+    status_locale        VARCHAR(255),
+    status               BIGINT,
+    card_data            TEXT,
+    phone_data           TEXT,
+    bank_data            TEXT,
+    vbank_data           TEXT,
+    created_at           timestamp
+);
+
+

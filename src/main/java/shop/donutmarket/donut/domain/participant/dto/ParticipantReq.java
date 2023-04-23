@@ -1,7 +1,6 @@
 package shop.donutmarket.donut.domain.participant.dto;
 
 import java.time.LocalDateTime;
-
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;

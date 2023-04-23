@@ -2,6 +2,7 @@ package shop.donutmarket.donut.domain.review.controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -33,9 +34,15 @@ public class ReviewController {
         return new ResponseEntity<>(new ResponseDTO<>().data(reviewList), HttpStatus.OK);
     }
 
+<<<<<<< HEAD
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid ReviewSaveReqDTO reviewSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ReviewSaveRespDTO saveRespDTO = reviewService.리뷰작성(reviewSaveReqDTO, myUserDetails);
+=======
+    @PostMapping("/reviews")
+    public @ResponseBody ResponseEntity<?> save(@RequestBody @Valid ReviewSaveReqDTO reviewSaveReqDTO) {
+        ReviewSaveRespDTO saveRespDTO = reviewService.리뷰작성(reviewSaveReqDTO);
+>>>>>>> 45375e1 (Feat: PaymentInfoReq, PaymentInfoRepository 생성)
         return new ResponseEntity<>(new ResponseDTO<>().data(saveRespDTO), HttpStatus.CREATED);
     }
 }
