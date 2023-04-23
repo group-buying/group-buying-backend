@@ -11,6 +11,6 @@ import shop.donutmarket.donut.domain.payment.model.Payment;
 import java.util.List;
 
 public interface PaymentRepository extends JpaRepository<Payment, Long>{
-    @Query("select b from Board b where b.organizer.id =:organizerId")
-    List<MyPageResp.MyBoardDTO> findByOrganizerId(@Param("organizerId") Long organizerId);
+    @Query("select p from Payment p where p.userId =:userId")
+    List<MyPageResp.MyPaymentDTO> findByUserId(@Param("userId") Long userId);
 }

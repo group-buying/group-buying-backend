@@ -20,13 +20,13 @@ public class MyPageService {
 
     @Transactional(readOnly = true)
     public List<MyPageResp.MyBoardDTO> 나의게시글보기(Long id) {
-        List<MyPageResp.MyBoardDTO> myBoardDTO = boardRepository.findByOrganizerId(id);
-        return myBoardDTO;
+        List<MyPageResp.MyBoardDTO> myBoardDTOS = boardRepository.findByOrganizerId(id);
+        return myBoardDTOS;
     }
     @Transactional(readOnly = true)
-    public void 나의구매내역보기(Long id) {
-        List<MyPageResp.MyBoardDTO> myBoardDTO = paymentRepository.findByOrganizerId(id);
-        return myBoardDTO;
+    public List<MyPageResp.MyPaymentDTO> 나의구매내역보기(Long id) {
+        List<MyPageResp.MyPaymentDTO> myPaymentDTOS = paymentRepository.findByUserId(id);
+        return myPaymentDTOS;
     }
 
 }

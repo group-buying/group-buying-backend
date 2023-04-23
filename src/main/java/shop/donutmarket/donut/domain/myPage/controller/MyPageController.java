@@ -27,8 +27,8 @@ public class MyPageController {
 
     @GetMapping("/payment")
     public ResponseEntity<?> myPayment(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        myPageService.나의구매내역보기();
-        return ResponseEntity.ok().body();
+        List<MyPageResp.MyPaymentDTO> myPaymentDTOS = myPageService.나의구매내역보기(myUserDetails.getUser().getId());
+        return ResponseEntity.ok().body(myPaymentDTOS);
     }
 
 
