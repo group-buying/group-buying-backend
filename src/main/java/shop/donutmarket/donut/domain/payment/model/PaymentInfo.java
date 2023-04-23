@@ -1,10 +1,8 @@
 package shop.donutmarket.donut.domain.payment.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,51 +17,16 @@ public class PaymentInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String event;
-    private String receiptId;
-    private String orderId;
-    private Long price;
-    private Long taxFree;
-    private Long cancelledPrice;
-    private Long cancelledTaxFree;
-    private String orderName;
-    private String companyName;
-    private String gatewayUrl;
-    private String metadata;
-    private boolean sandbox;
-    private String pg;
-    private String method;
-    private String methodSymbol;
-    private String methodOrigin;
-    private String methodOriginSymbol;
-    private String currency;
-    private String receiptUrl;
+    @Embedded
+    private PaymentData data;
     @CreationTimestamp
-    private LocalDateTime purchasedAt;
-    @CreationTimestamp
-    private LocalDateTime cancelledAt;
-    @CreationTimestamp
-    private LocalDateTime requestedAt;
-    private String escrowStatusLocale;
-    private String escrowStatus;
-    private String statusLocale;
-    private Long status;
-    private Long cardApproveNo;
-    private Long cardNo;
-    private Long cardQuota;
-    private String cardCompanyCode;
-    private String cardCompany;
-    private String cardReceiptUrl;
-    private Long authNo;
-    private Long phone;
-    private Long bankCode;
-    private String bankName;
-    private Long cashReceiptNo;
-    private Long vBankCode;
-    private String vBankName;
-    private Long vBankAccount;
-    private String vBankUsername;
-    private String senderName;
-    @CreationTimestamp
-    private LocalDateTime vBankExpiredAt;
-    private String vBankCashReceiptNo;
+    private LocalDateTime createdAt;
+
+    @Builder
+    public PaymentInfo(Long id, String event, PaymentData data, LocalDateTime createdAt) {
+        this.id = id;
+        this.event = event;
+        this.data = data;
+        this.createdAt = createdAt;
+    }
 }
