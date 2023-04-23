@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import shop.donutmarket.donut.domain.board.model.Board;
+import shop.donutmarket.donut.domain.myPage.dto.MyPageResp;
 
 import javax.swing.plaf.PanelUI;
 import java.util.List;
@@ -15,5 +16,5 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
     public Long findByEventId(@Param("eventId") Long eventId);
 
     @Query("select b from Board b where b.organizer.id =:organizerId")
-    List<Board> findByOrganizerId(@Param("organizerId") Long organizerId);
+    List<MyPageResp.MyBoardDTO> findByOrganizerId(@Param("organizerId") Long organizerId);
 }
