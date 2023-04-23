@@ -29,6 +29,7 @@ public class Payment {
     private StatusCode statusCode;
     private boolean confirmed;
     @Column(name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

@@ -12,9 +12,11 @@ public class PaymentInfoReq {
     public static class insertDTO {
         private String event;
         private PaymentData data;
+        private Long participantId;
 
         public PaymentInfo toEntity() {
             return PaymentInfo.builder()
+                    .participantId(participantId)
                     .event(event)
                     .data(data)
                     .build();
