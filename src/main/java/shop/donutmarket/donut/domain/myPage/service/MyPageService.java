@@ -20,4 +20,10 @@ public class MyPageService {
         List<MyPageResp.MyBoardDTO> myBoardDTO = boardRepository.findByOrganizerId(id);
         return myBoardDTO;
     }
+    @Transactional(readOnly = true)
+    public void 나의구매내역보기(Long id) {
+        List<MyPageResp.MyBoardDTO> myBoardDTO = boardRepository.findByOrganizerId(id);
+        return myBoardDTO;
+    }
+
 }
