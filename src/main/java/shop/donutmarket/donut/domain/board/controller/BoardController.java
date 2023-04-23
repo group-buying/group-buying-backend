@@ -26,7 +26,7 @@ import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.service.BoardService;
 import shop.donutmarket.donut.domain.board.service.TagService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
-import shop.donutmarket.donut.global.dto.ResponseDTO;
+import shop.donutmarket.donut.global.dto.ResponseDto;
 
 
 
@@ -45,7 +45,7 @@ public class BoardController {
             // 예외 처리
         }
         BoardSaveRespDTO saveRespDTO = boardService.공고작성(boardSaveReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(saveRespDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseDto<>().data(saveRespDTO), HttpStatus.CREATED);
     }
     
     @GetMapping("/{id}")
@@ -57,7 +57,7 @@ public class BoardController {
         BoardDetailRespDTO detailRespDTO = new BoardDetailRespDTO(board, tags);
 
         // tag도 같이 줘야함
-        return new ResponseEntity<>(new ResponseDTO<>().data(detailRespDTO), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDto<>().data(detailRespDTO), HttpStatus.OK);
     }
 
     @PutMapping
@@ -69,7 +69,7 @@ public class BoardController {
 
         BoardUpdateRespDTO updateRespDTO = boardService.업데이트(boardUpdateReqDTO, myUserDetails);
 
-        return new ResponseEntity<>(new ResponseDTO<>().data(updateRespDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseDto<>().data(updateRespDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/delete")
@@ -81,6 +81,6 @@ public class BoardController {
 
         boardService.삭제(boardDeleteReqDTO, myUserDetails);
 
-        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK); 
+        return new ResponseEntity<>(new ResponseDto<>(), HttpStatus.OK);
     }
 }

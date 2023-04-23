@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantCancelReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantDropReqDTO;
@@ -25,7 +24,7 @@ import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.Participant
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSelectRespDTO;
 import shop.donutmarket.donut.domain.participant.service.ParticipantService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
-import shop.donutmarket.donut.global.dto.ResponseDTO;
+import shop.donutmarket.donut.global.dto.ResponseDto;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,30 +38,30 @@ public class ParticipantController {
 
         List<ParticipantListRespDTO> participantList = participantService.내참가목록(myUserDetails);
 
-        return new ResponseEntity<>(new ResponseDTO<>().data(participantList), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDto<>().data(participantList), HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid ParticipantSaveReqDTO participantSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantSaveRespDTO saveRespDTO = participantService.참가하기(participantSaveReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(saveRespDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseDto<>().data(saveRespDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/select")
     public ResponseEntity<?> select(@RequestBody @Valid ParticipantSelectReqDTO participantSelectReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantSelectRespDTO selectRespDTO = participantService.채택하기(participantSelectReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(selectRespDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseDto<>().data(selectRespDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/cancel")
     public ResponseEntity<?> cancel(@RequestBody ParticipantCancelReqDTO participantCancelReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantCancleRespDTO cancleRespDTO = participantService.취소하기(participantCancelReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(cancleRespDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseDto<>().data(cancleRespDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/drop")
     public ResponseEntity<?> drop(@RequestBody ParticipantDropReqDTO participantDropReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantDropRespDTO dropRespDTO = participantService.강퇴하기(participantDropReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(dropRespDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseDto<>().data(dropRespDTO), HttpStatus.CREATED);
     }
 
 }
