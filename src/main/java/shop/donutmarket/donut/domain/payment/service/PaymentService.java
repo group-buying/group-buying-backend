@@ -22,7 +22,9 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
 
     @Transactional
-    public void 결제성공(PaymentReq.insertDTO insertDTO) {
+    public void 결제성공(Long eventId, Long userId, PaymentReq.insertDTO insertDTO) {
+        insertDTO.setEventId(eventId);
+        insertDTO.setUserId(userId);
         // 결제 정보 insert
         paymentRepository.save(insertDTO.toEntity());
     }
