@@ -19,9 +19,8 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "participant_id")
-    private Participant participant;
+    private Long userId;
+    private Long eventId;
     @Column(name = "payment_type")
     private String paymentType;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,17 +32,10 @@ public class Payment {
     private LocalDateTime createdAt;
 
     @Builder
-    public Payment(Long id, Participant participant, String paymentType, StatusCode statusCode, boolean confirmed, LocalDateTime createdAt) {
+    public Payment(Long id, Long userId, Long eventId, String paymentType, StatusCode statusCode, boolean confirmed, LocalDateTime createdAt) {
         this.id = id;
-        this.participant = participant;
-        this.paymentType = paymentType;
-        this.statusCode = statusCode;
-        this.confirmed = confirmed;
-        this.createdAt = createdAt;
-    }
-
-    public void updatePayment(Participant participant, String paymentType, StatusCode statusCode, boolean confirmed, LocalDateTime createdAt) {
-        this.participant = participant;
+        this.userId = userId;
+        this.eventId = eventId;
         this.paymentType = paymentType;
         this.statusCode = statusCode;
         this.confirmed = confirmed;

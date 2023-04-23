@@ -81,12 +81,13 @@ CREATE TABLE participant
 
 CREATE TABLE payment
 (
-    id             Bigint AUTO_INCREMENT PRIMARY KEY,
-    participant_id Bigint       NOT NULL,
-    payment_type   varchar(255) NOT NULL,
-    status_code    int          NOT NULL,
-    confirmed      boolean      NOT NULL,
-    created_at     timestamp    NOT NULL
+    id           Bigint AUTO_INCREMENT PRIMARY KEY,
+    event_id     Bigint       NOT NULL,
+    user_id      Bigint       NOT NULL,
+    payment_type varchar(255) NOT NULL,
+    status_code  int          NOT NULL,
+    confirmed    boolean      NOT NULL,
+    created_at   timestamp    NOT NULL
 );
 
 CREATE TABLE wishlist
