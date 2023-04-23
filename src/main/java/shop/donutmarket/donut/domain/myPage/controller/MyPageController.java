@@ -16,7 +16,8 @@ public class MyPageController {
 
     @GetMapping()
     public ResponseEntity<?> myBoard(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-
+        myPageService.나의게시글보기(myUserDetails.getUser().getId());
+        return ResponseEntity.ok().body();
     }
 
 }
