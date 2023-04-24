@@ -45,4 +45,7 @@ public class ChatterList {
         this.createdAt = createdAt;
     }
 
+    public void exit(StatusCode statusCode){
+        this.statusCode = statusCode;
+    }
 }
