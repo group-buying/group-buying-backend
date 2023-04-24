@@ -14,7 +14,7 @@ public interface ChatterListRepository extends JpaRepository<ChatterList, Long>{
     @Query("select c from ChatterList c where c.chatroomId = chatroomId")
     List<ChatterList> findAllByChatroomId(@Param("chatroomId") Long chatroomId);
 
-    @Query("select c from ChatterList c join fetch c.chatroomId where c.userId = :userId")
+    @Query("select c from ChatterList c join fetch c.chatroomId where c.statusCode = 700 and c.userId = :userId")
     List<ChatterList> findAllByUserId(@Param("userId") User userId);
     
 }

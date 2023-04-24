@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import shop.donutmarket.donut.domain.chat.dto.ChatRespDto.MyChatListRespDTO;
+import shop.donutmarket.donut.domain.chat.dto.ChatResp.MyChatListRespDTO;
 import shop.donutmarket.donut.domain.chat.service.ChatterListService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.dto.ResponseDTO;
@@ -25,6 +25,12 @@ public class ChatController {
     public ResponseEntity<?> roomList(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         MyChatListRespDTO chatList = chatterListService.채팅목록(myUserDetails);
         return new ResponseEntity<>(new ResponseDTO<>().data(chatList), HttpStatus.OK);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<?> room(@PathVariable Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        // 임시 저장
+        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
     }
 
 }
