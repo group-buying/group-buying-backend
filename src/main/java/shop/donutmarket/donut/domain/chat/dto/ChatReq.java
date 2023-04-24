@@ -20,4 +20,15 @@ public class ChatReq {
         @NotNull
         private Long chatroomId;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ChatKickReqDTO {
+        @NotNull
+        private Long chatterListId;
+        @NotNull
+        private Long eventId;
+    }
 }

@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
+import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatInviteReqDTO;
+import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatKickReqDTO;
 import shop.donutmarket.donut.domain.chat.dto.ChatResp.MyChatListRespDTO;
 import shop.donutmarket.donut.domain.chat.model.Chatroom;
 import shop.donutmarket.donut.domain.chat.model.ChatterList;
@@ -83,5 +85,18 @@ public class ChatterListService {
 
         StatusCode exitedCode = StatusCode.builder().id(701).type("chatter").status("나감").build();
         chatterPS.exit(exitedCode);
+    }
+
+    public void 강퇴하기(ChatKickReqDTO chatKickReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Optional<Board> boardOP = boardRepository.findByEventId(chatKickReqDTO.getEventId());
+        Board boardPS = boardOP.get();
+        if(!(boardPS.getOrganizer().getId() == myUserDetails.getUser().getId())){
+            // 권한 없음
+        }
+        
+        Optional<ChatterList> chatterOP = chatterListRepository.findById(chatKickReqDTO.getChatterListId());
+        ChatterList chatterPS = chatterOP.get();
+        StatusCode kickedCode = StatusCode.builder().id(702).type("chatter").status("강퇴당함").build();
+        chatterPS.kick(kickedCode);
     }
 }

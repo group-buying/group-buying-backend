@@ -48,4 +48,8 @@ public class ChatterList {
     public void exit(StatusCode statusCode){
         this.statusCode = statusCode;
     }
+
+    public void kick(StatusCode statusCode){
+        this.statusCode = statusCode;
+    }
 }
