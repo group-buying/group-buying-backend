@@ -8,6 +8,8 @@ CREATE TABLE user_tb
     rate_id     Bigint,
     type        boolean      DEFAULT FALSE,
     role        varchar(255) DEFAULT 'USER',
+    provider    varchar(255),
+    provider_id varchar(255),
     status_code int          DEFAULT '100',
     created_at  timestamp    NOT NULL
 );
