@@ -5,23 +5,22 @@ import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-@Setter
-public class ResponseDto<T> {
-    private Integer status;
-    private String msg; // 제목
-    private T data; // 상세내용
+public class ResponseDTO<T> {
+    private Integer status; // Exception시에 상태코드
+    private String msg; // Exception시에 제목
+    private T data; // Exception시에 상세 내용
 
-    public ResponseDto() {
+    public ResponseDTO() {
         this.status = 200;
         this.msg = "성공";
     }
 
-    public ResponseDto<?> data(T data) {
+    public ResponseDTO<?> data(T data) {
         this.data = data;
         return this;
     }
 
-    public ResponseDto<?> fail(HttpStatus status, String msg, T data) {
+    public ResponseDTO<?> fail(HttpStatus status, String msg, T data) {
         this.status = status.value();
         this.msg = msg;
         this.data = data;

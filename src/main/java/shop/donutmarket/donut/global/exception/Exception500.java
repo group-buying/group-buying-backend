@@ -2,7 +2,7 @@ package shop.donutmarket.donut.global.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import shop.donutmarket.donut.global.dto.ResponseDto;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 // 서버 에러
 @Getter
@@ -11,8 +11,8 @@ public class Exception500 extends RuntimeException{
         super(message);
     }
 
-    public ResponseDto<?> body(){
-        ResponseDto<String> responseDto = new ResponseDto<>();
+    public ResponseDTO<?> body(){
+        ResponseDTO<String> responseDto = new ResponseDTO<>();
         responseDto.fail(HttpStatus.INTERNAL_SERVER_ERROR, "serverError", getMessage());
         return responseDto;
     }
