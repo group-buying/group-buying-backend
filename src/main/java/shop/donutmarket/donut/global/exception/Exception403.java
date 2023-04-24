@@ -2,7 +2,7 @@ package shop.donutmarket.donut.global.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import shop.donutmarket.donut.global.dto.ResponseDto;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 // 권한 없음
 @Getter
@@ -11,8 +11,8 @@ public class Exception403 extends RuntimeException{
         super(message);
     }
 
-    public ResponseDto<?> body(){
-        ResponseDto<String> responseDto = new ResponseDto<>();
+    public ResponseDTO<?> body(){
+        ResponseDTO<String> responseDto = new ResponseDTO<>();
         responseDto.fail(HttpStatus.FORBIDDEN, "forbidden", getMessage());
         return responseDto;
     }
