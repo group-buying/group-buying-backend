@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatInviteReqDTO;
+import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatKickReqDTO;
 import shop.donutmarket.donut.domain.chat.dto.ChatResp.MyChatListRespDTO;
 import shop.donutmarket.donut.domain.chat.service.ChatterListService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
@@ -48,6 +49,12 @@ public class ChatController {
     @PutMapping("/exit/{id}")
     public ResponseEntity<?> exit(@PathVariable Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         chatterListService.나가기(id, myUserDetails);
+        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
+    }
+
+    @PutMapping("/kick")
+    public ResponseEntity<?> kick(@RequestBody @Valid ChatKickReqDTO chatKickReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        chatterListService.강퇴하기(chatKickReqDTO, myUserDetails);
         return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
     }
 }
