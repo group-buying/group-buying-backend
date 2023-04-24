@@ -33,15 +33,9 @@ public class ReviewController {
         return new ResponseEntity<>(new ResponseDto<>().data(reviewList), HttpStatus.OK);
     }
 
-<<<<<<< HEAD
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid ReviewSaveReqDTO reviewSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ReviewSaveRespDTO saveRespDTO = reviewService.리뷰작성(reviewSaveReqDTO, myUserDetails);
-=======
-    @PostMapping("/reviews")
-    public @ResponseBody ResponseEntity<?> save(@RequestBody @Valid ReviewSaveReqDTO reviewSaveReqDTO) {
-        ReviewSaveRespDTO saveRespDTO = reviewService.리뷰작성(reviewSaveReqDTO);
->>>>>>> 45375e1 (Feat: PaymentInfoReq, PaymentInfoRepository 생성)
         return new ResponseEntity<>(new ResponseDto<>().data(saveRespDTO), HttpStatus.CREATED);
     }
 }
