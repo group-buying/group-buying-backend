@@ -11,11 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
-import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatInviteReqDTO;
-import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatKickReqDTO;
 import shop.donutmarket.donut.domain.chat.dto.ChatResp.MyChatListRespDTO;
 import shop.donutmarket.donut.domain.chat.model.Chatroom;
 import shop.donutmarket.donut.domain.chat.model.ChatterList;
@@ -51,6 +49,29 @@ public class ChatterListService {
         return listRespDTO;
     }
 
+    @Transactional
+    public void 초대하기(ChatInviteReqDTO chatInviteReqDTO) {
+        Optional<Participant> particiOP = participantRepository.findById(chatInviteReqDTO.getParticipantId());
+        Participant particiPS = particiOP.get();
+        // 참가자 채택됨 변환
+        StatusCode selectedCode = StatusCode.builder().id(302).type("participant").status("채택").build();
+        particiPS.selected(selectedCode);
+        
+        Optional<User> userOP = userRepository.findById(chatInviteReqDTO.getInvitedUserId());
+        User userPS = userOP.get();
+        Optional<Chatroom> chatroomOP = chatroomRepository.findById(chatInviteReqDTO.getChatroomId());
+        Chatroom chatroomPS = chatroomOP.get();
+        // 채팅 참가 목록 생성
+        Event eventPS = chatroomPS.getEvent();
+        Event event = Event.builder().id(eventPS.getId()).latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
+        .paymentType(eventPS.getPaymentType()).startAt(eventPS.getStartAt()).endAt(eventPS.getEndAt())
+        .createdAt(eventPS.getCreatedAt()).build();
 
+        StatusCode invitedCode = StatusCode.builder().id(700).type("chatter").status("참가").build();
+        StatusCode roomCode = StatusCode.builder().id(500).type("chatroom").status("활성화").build();
+        Chatroom room = Chatroom.builder().id(chatroomPS.getId()).event(event).statusCode(roomCode).build();
+        ChatterList newchatter = ChatterList.builder().userId(userPS).chatroomId(room).statusCode(invitedCode).createdAt(LocalDateTime.now()).build();
+        chatterListRepository.save(newchatter);
+    }
     
 }
