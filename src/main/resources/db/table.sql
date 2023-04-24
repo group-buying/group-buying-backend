@@ -109,6 +109,7 @@ CREATE TABLE my_category
 CREATE TABLE chatroom
 (
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
+    event_id    Bigint    NOT NULL,
     status_code int       NOT NULL,
     created_at  timestamp NOT NULL
 );
@@ -118,6 +119,7 @@ CREATE TABLE chatter_list
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
     chatroom_id Bigint    NOT NULL,
     user_id     Bigint    NOT NULL,
+    status_code int       NOT NULL,
     created_at  timestamp NOT NULL
 );
 

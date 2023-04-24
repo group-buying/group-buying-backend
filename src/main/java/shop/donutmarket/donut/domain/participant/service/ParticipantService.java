@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
+import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantCancelReqDTO;
@@ -85,7 +86,9 @@ public class ParticipantService {
         }
         Participant particiPS = particiOP.get();
 
-        Long organizerId = boardRepository.findByEventId(particiPS.getEvent().getId());
+        Optional<Board> boardOP = boardRepository.findByEventId(particiPS.getEvent().getId());
+        Board boardPS = boardOP.get();
+        Long organizerId = boardPS.getOrganizer().getId();
 
         if(!(organizerId == myUserDetails.getUser().getId())){
             // 권한없을때 처리
@@ -152,7 +155,9 @@ public class ParticipantService {
         }
         Participant particiPS = particiOP.get();
         
-        Long organizerId = boardRepository.findByEventId(particiPS.getEvent().getId());
+        Optional<Board> boardOP = boardRepository.findByEventId(particiPS.getEvent().getId());
+        Board boardPS = boardOP.get();
+        Long organizerId = boardPS.getOrganizer().getId();
 
         if(!(organizerId == myUserDetails.getUser().getId())){
             // 권한없을때 처리

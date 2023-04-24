@@ -32,11 +32,11 @@ insert into report(reporter_id, reported_id, board_id, title, content, report_ty
 
 insert into blacklist(user_id, blocked_user_id, created_at) values(1, 4, now());
 
-insert into chatroom(status_code, created_at) values(500, now());
+insert into chatroom(event_id, status_code, created_at) values(1, 500, now());
 
-insert into chatter_list(chatroom_id, user_id, created_at) values(1, 1, now());
-insert into chatter_list(chatroom_id, user_id, created_at) values(1, 2, now());
-insert into chatter_list(chatroom_id, user_id, created_at) values(1, 3, now());
+insert into chatter_list(chatroom_id, user_id, status_code, created_at) values(1, 1, 700, now());
+insert into chatter_list(chatroom_id, user_id, status_code, created_at) values(1, 2, 700, now());
+insert into chatter_list(chatroom_id, user_id, status_code, created_at) values(1, 3, 701, now());
 
 insert into review(reviewer_id, reviewed_id, score, comment, created_at) values(2, 1, 5, '빠른 거래 좋아요', now());
 
@@ -75,5 +75,8 @@ insert into status_code(id, type, status, created_at) values(502, 'chatroom', '�
 insert into status_code(id, type, status, created_at) values(600, 'report', '대기', now());
 insert into status_code(id, type, status, created_at) values(601, 'report', '처리중', now());
 insert into status_code(id, type, status, created_at) values(602, 'report', '처리완료', now());
+insert into status_code(id, type, status, created_at) values(700, 'chatter', '참가', now());
+insert into status_code(id, type, status, created_at) values(701, 'chatter', '나감', now());
+insert into status_code(id, type, status, created_at) values(702, 'chatter', '강퇴당함', now());
 
 commit;

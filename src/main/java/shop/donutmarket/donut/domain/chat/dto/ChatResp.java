@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.donutmarket.donut.domain.chat.model.ChatterList;
 
-public class ChatRespDto {
+public class ChatResp {
     
     @Getter
     @NoArgsConstructor
