@@ -22,7 +22,7 @@ insert into tag(board_id, comment, created_at) values(1, '1+1', now());
 insert into participant(event_id, user_id, qty, created_at, status_code) values(1, 2, 1, now(), 300);
 insert into participant(event_id, user_id, qty, created_at, status_code) values(1, 3, 1, now(), 300);
 
-insert into payment(participant_id, payment_type, status_code, confirmed, created_at) values(1, '직거래', 401, 0, now());
+insert into payment(event_id, user_id, payment_type, status_code, confirmed, created_at) values(1, 1, '직거래', 401, 0, now());
 
 insert into wishlist(user_id, board_id, created_at) values(2, 1, now());
 
