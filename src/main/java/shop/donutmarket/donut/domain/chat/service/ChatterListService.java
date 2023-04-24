@@ -74,4 +74,14 @@ public class ChatterListService {
         chatterListRepository.save(newchatter);
     }
     
+    public void 나가기(Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Optional<ChatterList> chatterOP = chatterListRepository.findById(id);
+        ChatterList chatterPS = chatterOP.get();
+        if(!(chatterPS.getUserId().getId() == myUserDetails.getUser().getId())){
+            // 권한 없음
+        }
+
+        StatusCode exitedCode = StatusCode.builder().id(701).type("chatter").status("나감").build();
+        chatterPS.exit(exitedCode);
+    }
 }
