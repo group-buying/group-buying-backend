@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
+import shop.donutmarket.donut.global.auth.MyUserDetails;
 
 import java.util.Map;
 import java.util.Optional;
@@ -53,13 +54,14 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             user = User.builder()
                     .username(naverUserInfo.getProvider() + "_" + naverUserInfo.getProviderId())
                     .email(naverUserInfo.getEmail())
-                    .role("USER")
+                    .role("ROLE_USER")
                     .provider(naverUserInfo.getProvider())
                     .providerId(naverUserInfo.getProviderId())
                     .build();
+
             userRepository.save(user);
         }
 
-        return new PrincipalDetails(user, oAuth2User.getAttributes());
+        return new MyUserDetails(user, naverUserInfo.getAttributes());
     }
 }

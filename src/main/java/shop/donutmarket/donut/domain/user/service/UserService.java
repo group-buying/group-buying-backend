@@ -54,7 +54,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public String 로그인(UserReq.LoginDTO loginDTO) {
-        Optional<User> userOP = userRepository.findByUsername(loginDTO.getEmail());
+        Optional<User> userOP = userRepository.findByUsername(loginDTO.getUsername());
         if (userOP.isPresent()) {
             User userPS = userOP.get();
             if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {

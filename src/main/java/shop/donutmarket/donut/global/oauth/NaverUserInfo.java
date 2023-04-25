@@ -10,6 +10,11 @@ public class NaverUserInfo {
         this.attributes = attributes;
     }
 
+    // 리소스 서버로부터 받는 회원정보
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
     public String getProviderId() {
         return (String) attributes.get("id");
     }

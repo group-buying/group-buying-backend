@@ -25,7 +25,7 @@ public class UserReq {
     @Setter
     public static class LoginDTO {
         @Email(message = "이메일 형식으로 적어주세요")
-        private String email;
+        private String username;
         @NotBlank(message = "비밀번호를 적어주세요")
         private String password;
     }
