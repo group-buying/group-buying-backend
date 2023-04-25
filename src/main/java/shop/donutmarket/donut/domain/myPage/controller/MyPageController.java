@@ -30,4 +30,10 @@ public class MyPageController {
         List<MyPageResp.MyPaymentDTO> myPaymentDTOS = myPageService.나의구매내역보기(myUserDetails.getUser().getId());
         return ResponseEntity.ok().body(myPaymentDTOS);
     }
+
+    @GetMapping("/blacklist")
+    public ResponseEntity<?> myBlacklist(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        List<MyPageResp.MyBlacklistDTO> myBlacklistDTOS = myPageService.나의블랙리스트보기(myUserDetails.getUser().getId());
+        return ResponseEntity.ok().body(myBlacklistDTOS);
+    }
 }
