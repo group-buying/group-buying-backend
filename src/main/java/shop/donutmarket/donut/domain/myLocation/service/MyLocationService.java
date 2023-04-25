@@ -6,8 +6,11 @@ import java.util.Optional;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import shop.donutmarket.donut.domain.myLocation.dto.MyLocationReq.MyLocationSaveReqDTO;
 import shop.donutmarket.donut.domain.myLocation.dto.MyLocationResp.DefaultMyLocationRespDTO;
+import shop.donutmarket.donut.domain.myLocation.dto.MyLocationResp.MyLocationSaveRespDTO;
 import shop.donutmarket.donut.domain.myLocation.model.MyLocation;
 import shop.donutmarket.donut.domain.myLocation.repository.MyLocationRepository;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -37,5 +40,16 @@ public class MyLocationService {
         DefaultMyLocationRespDTO defaultLocationDTO = new DefaultMyLocationRespDTO(
             myLocationPS.getState(), myLocationPS.getCity(), myLocationPS.getTown(), myLocationPS.getCreatedAt()); 
         return defaultLocationDTO;
+    }
+
+    public MyLocationSaveRespDTO 내지역변경(MyLocationSaveReqDTO myLocationSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        User user = myUserDetails.getUser();
+        Optional<MyLocation> myLocationOP = myLocationRepository.findByUserId(user.getId());
+        MyLocation myLocationPS = myLocationOP.get();
+        myLocationPS.updateMyLocation(myLocationSaveReqDTO.getState(), myLocationSaveReqDTO.getCity(),
+        myLocationSaveReqDTO.getTown(), LocalDateTime.now());
+        MyLocationSaveRespDTO saveRespDTO = new MyLocationSaveRespDTO(myLocationSaveReqDTO.getState(), myLocationSaveReqDTO.getCity(),
+        myLocationSaveReqDTO.getTown(), LocalDateTime.now());
+        return saveRespDTO;
     }
 }
