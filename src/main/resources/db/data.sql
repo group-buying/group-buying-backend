@@ -1,7 +1,7 @@
-insert into user_tb(password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('1234', 'ssar@naver.com', 'ssar', null, 1, true, 'user', '', '', 100, now());
-insert into user_tb(password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('1234', 'zzxc@naver.com', 'zzxc', null, 2, true, 'user', '', '', 100, now());
-insert into user_tb(password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('1234', 'qqwe@naver.com', 'qqwe', null, 3, true, 'user', '', '', 100, now());
-insert into user_tb(password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('1234', 'ppoi@naver.com', 'ppoi', null, 4, false, 'user', '', '', 100, now());
+insert into user_tb(username, password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('ssar@naver.com', '1234', 'ssar@naver.com', 'ssar', null, 1, true, 'user', '', '', 100, now());
+insert into user_tb(username, password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('ssar@naver.com', '1234', 'zzxc@naver.com', 'zzxc', null, 2, true, 'user', '', '', 100, now());
+insert into user_tb(username, password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('ssar@naver.com', '1234', 'qqwe@naver.com', 'qqwe', null, 3, true, 'user', '', '', 100, now());
+insert into user_tb(username, password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('ssar@naver.com', '1234', 'ppoi@naver.com', 'ppoi', null, 4, false, 'user', '', '', 100, now());
 
 insert into rate(user_id, rate_name, rate_point, created_at) values(1, '글레이즈드', 30, now());
 insert into rate(user_id, rate_name, rate_point, created_at) values(2, '딸기도넛', 70, now());

@@ -39,7 +39,7 @@ public class UserService {
         userRepository.save(joinDTO.toEntity());
 
         // JWT 인증 로직
-        Optional<User> userOP = userRepository.findByEmail(joinDTO.getEmail());
+        Optional<User> userOP = userRepository.findByUsername(joinDTO.getEmail());
         if (userOP.isPresent()) {
             User userPS = userOP.get(); // 조회하는 객체는 PS
             if (passwordEncoder.matches(rawPassword, userPS.getPassword())) {
@@ -54,7 +54,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public String 로그인(UserReq.LoginDTO loginDTO) {
-        Optional<User> userOP = userRepository.findByEmail(loginDTO.getEmail());
+        Optional<User> userOP = userRepository.findByUsername(loginDTO.getEmail());
         if (userOP.isPresent()) {
             User userPS = userOP.get();
             if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {
