@@ -37,7 +37,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         if (userRequest.getClientRegistration().getRegistrationId().equals("naver")){
             naverUserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
         } else {
-
+            System.out.println("실패");
         }
 
         Optional<User> userOptional =
