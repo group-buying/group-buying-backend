@@ -13,20 +13,12 @@ import java.util.Map;
 
 // Authentication 객체에 저장할 수 있는 유일한 타입
 @Getter
-public class MyUserDetails implements UserDetails, OAuth2User {
+public class MyUserDetails implements UserDetails {
 
     private User user;
-    private Map<String, Object> attributes;
 
-    // 일반 시큐리티 로그인 시
     public MyUserDetails(User user) {
         this.user = user;
-    }
-
-    // OAuth2.0 로그인시
-    public MyUserDetails(User user, Map<String, Object> attributes) {
-        this.user = user;
-        this.attributes = attributes;
     }
 
     @Override
@@ -63,11 +55,5 @@ public class MyUserDetails implements UserDetails, OAuth2User {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    // User의 PrimaryKey
-    @Override
-    public String getName() {
-        return user.getId()+"";
     }
 }
