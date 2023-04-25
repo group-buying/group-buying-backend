@@ -41,4 +41,20 @@ public class BlackListService {
         }
         return null;
     }
+
+    @Transactional
+    public void 블랙리스트삭제(Long blacklistId, Long userId) {
+        try {
+            Optional<User> userOP = userRepository.findById(userId);
+            Optional<Blacklist> blacklistOP = blackListRepository.findByIdWithUserId(blacklistId, userId);
+
+            if (userOP.isPresent() && blacklistOP.isPresent()) {
+                Blacklist blacklistPS = blacklistOP.get();
+                blackListRepository.delete(blacklistPS);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
