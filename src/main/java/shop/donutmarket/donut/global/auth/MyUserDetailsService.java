@@ -19,8 +19,8 @@ public class MyUserDetailsService implements UserDetailsService {
     // /login + POST + FormUrlEncoded + username, password
     // Authentication 객체 만들어짐
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> userOP = userRepository.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> userOP = userRepository.findByUsername(username);
         if (userOP.isPresent()) {
             return new MyUserDetails(userOP.get());
         } else {
