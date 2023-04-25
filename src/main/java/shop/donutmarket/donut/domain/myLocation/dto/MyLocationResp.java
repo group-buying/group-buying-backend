@@ -18,4 +18,13 @@ public class MyLocationResp {
         private LocalDateTime createdAt;
     }
 
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyLocationSaveRespDTO {
+        private String state;
+        private String city;
+        private String town;
+        private LocalDateTime createdAt;
+    }
 }
