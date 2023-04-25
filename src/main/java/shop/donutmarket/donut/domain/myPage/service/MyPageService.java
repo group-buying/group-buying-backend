@@ -7,6 +7,7 @@ import shop.donutmarket.donut.domain.blacklist.repository.BlackListRepository;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.myPage.dto.MyPageResp;
 import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
+import shop.donutmarket.donut.domain.report.repository.ReportRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class MyPageService {
     private final PaymentRepository paymentRepository;
 
     private final BlackListRepository blackListRepository;
+
+    private final ReportRepository reportRepository;
 
     @Transactional(readOnly = true)
     public List<MyPageResp.MyBoardDTO> 나의게시글보기(Long id) {
@@ -36,5 +39,11 @@ public class MyPageService {
     public List<MyPageResp.MyBlacklistDTO> 나의블랙리스트보기(Long id) {
         List<MyPageResp.MyBlacklistDTO> myBlacklistDTOS = blackListRepository.findByUserId(id);
         return myBlacklistDTOS;
+    }
+
+    @Transactional(readOnly = true)
+    public List<MyPageResp.MyReportDTO> 나의신고내역보기(Long id) {
+        List<MyPageResp.MyReportDTO> myReportDTOS = reportRepository.findByReporterId(id);
+        return myReportDTOS;
     }
 }

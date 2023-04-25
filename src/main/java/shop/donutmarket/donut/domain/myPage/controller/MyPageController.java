@@ -14,26 +14,32 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/mypage")
+@RequestMapping("/mypages")
 public class MyPageController {
 
     private final MyPageService myPageService;
 
-    @GetMapping("/board")
-    public ResponseEntity<?> myBoard(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+    @GetMapping("/boards")
+    public ResponseEntity<?> myBoards(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         List<MyPageResp.MyBoardDTO> myBoardDTOS = myPageService.나의게시글보기(myUserDetails.getUser().getId());
         return ResponseEntity.ok().body(myBoardDTOS);
     }
 
-    @GetMapping("/payment")
-    public ResponseEntity<?> myPayment(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+    @GetMapping("/payments")
+    public ResponseEntity<?> myPayments(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         List<MyPageResp.MyPaymentDTO> myPaymentDTOS = myPageService.나의구매내역보기(myUserDetails.getUser().getId());
         return ResponseEntity.ok().body(myPaymentDTOS);
     }
 
-    @GetMapping("/blacklist")
-    public ResponseEntity<?> myBlacklist(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+    @GetMapping("/blacklists")
+    public ResponseEntity<?> myBlacklists(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         List<MyPageResp.MyBlacklistDTO> myBlacklistDTOS = myPageService.나의블랙리스트보기(myUserDetails.getUser().getId());
         return ResponseEntity.ok().body(myBlacklistDTOS);
+    }
+
+    @GetMapping("/reports")
+    public ResponseEntity<?> myReports(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        List<MyPageResp.MyReportDTO> myReportDTOS = myPageService.나의신고내역보기(myUserDetails.getUser().getId());
+        return ResponseEntity.ok().body(myReportDTOS);
     }
 }
