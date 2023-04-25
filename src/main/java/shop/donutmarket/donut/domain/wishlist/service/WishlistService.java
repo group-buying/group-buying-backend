@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.user.model.User;
+import shop.donutmarket.donut.domain.wishlist.dto.WishlistReq.WishListDeleteReqDTO;
 import shop.donutmarket.donut.domain.wishlist.dto.WishlistReq.WishListSaveReqDTO;
 import shop.donutmarket.donut.domain.wishlist.dto.WishlistResp.WishListSaveRespDTO;
 import shop.donutmarket.donut.domain.wishlist.model.Wishlist;
@@ -35,6 +36,18 @@ public class WishlistService {
 
         WishListSaveRespDTO saveRespDTO = new WishListSaveRespDTO(boardPS.getTitle(), boardPS.getState(), boardPS.getCity(), LocalDateTime.now());
         return saveRespDTO;
+    }
+
+    @Transactional
+    public void 관심등록제거(WishListDeleteReqDTO wishListDeleteReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        User user = myUserDetails.getUser();
+        Optional<Wishlist> wishlistOP = wishlistRepository.findById(wishListDeleteReqDTO.getWishlistId());
+        Wishlist wishlistPS = wishlistOP.get();
+        if (!(wishlistPS.getUser().getId() == user.getId())) {
+            // 권한 없음 체크
+        }
+
+        wishlistRepository.deleteById(wishListDeleteReqDTO.getWishlistId());
     }
 
 }
