@@ -18,6 +18,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatInviteReqDTO;
 import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatKickReqDTO;
+import shop.donutmarket.donut.domain.chat.dto.ChatResp.ChatroomListFirebaseRespDTO;
 import shop.donutmarket.donut.domain.chat.dto.ChatResp.ChatterListFirebaseRespDTO;
 import shop.donutmarket.donut.domain.chat.dto.ChatResp.MyChatListRespDTO;
 import shop.donutmarket.donut.domain.chat.service.ChatterListFirebaseService;
@@ -45,9 +46,15 @@ public class ChatController {
         return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
     }
 
-    @GetMapping("/firebase/chatterList")
+    @GetMapping("/firebase/chatter")
     public ResponseEntity<?> chatterList() throws Exception {
-        List<ChatterListFirebaseRespDTO> list = chatterListFirebaseService.geChatterList();
+        List<ChatterListFirebaseRespDTO> list = chatterListFirebaseService.getChatterList();
+        return new ResponseEntity<>(new ResponseDTO<>().data(list), HttpStatus.OK);
+    }
+
+    @GetMapping("/firebase/chatroom")
+    public ResponseEntity<?> chatroomList() throws Exception {
+        List<ChatroomListFirebaseRespDTO> list = chatterListFirebaseService.getChatroomList();
         return new ResponseEntity<>(new ResponseDTO<>().data(list), HttpStatus.OK);
     }
     

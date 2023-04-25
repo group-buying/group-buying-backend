@@ -28,4 +28,12 @@ public class ChatResp {
         private Long statusCode;
         private LocalDateTime createdAt;
     }
+
+    @Getter
+    @AllArgsConstructor
+    public static class ChatroomListFirebaseRespDTO {
+        private Long eventId;
+        private Long statusCode;
+        private LocalDateTime createdAt;
+    }
 }
