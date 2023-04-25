@@ -1,14 +1,25 @@
 package shop.donutmarket.donut.domain.myCategory.model;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.user.model.User;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -39,5 +50,13 @@ public class MyCategory {
     public void updateMyCategory(Category category, LocalDateTime createdAt) {
         this.category = category;
         this.createdAt = createdAt;
+    }
+
+    public static List<Long> defaultList(){
+        List<Long> defaultList = new ArrayList<>();
+        defaultList.add(1L); defaultList.add(2L); defaultList.add(3L); defaultList.add(5L);
+        defaultList.add(6L); defaultList.add(7L); defaultList.add(12L); defaultList.add(14L);
+        // 생활가전, 스포츠, 잡화, 의류, 식품, 미용, 편의점, 도매상
+        return defaultList;
     }
 }
