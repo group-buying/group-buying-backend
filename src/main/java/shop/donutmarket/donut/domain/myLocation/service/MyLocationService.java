@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.myLocation.dto.MyLocationReq.MyLocationSaveReqDTO;
 import shop.donutmarket.donut.domain.myLocation.dto.MyLocationResp.DefaultMyLocationRespDTO;
@@ -22,6 +22,7 @@ public class MyLocationService {
     
     private final MyLocationRepository myLocationRepository;
 
+    @Transactional
     public DefaultMyLocationRespDTO 디폴트지역(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         User user = myUserDetails.getUser();
         Optional<MyLocation> myLocationOP = myLocationRepository.findByUserId(user.getId());
@@ -42,6 +43,7 @@ public class MyLocationService {
         return defaultLocationDTO;
     }
 
+    @Transactional
     public MyLocationSaveRespDTO 내지역변경(MyLocationSaveReqDTO myLocationSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         User user = myUserDetails.getUser();
         Optional<MyLocation> myLocationOP = myLocationRepository.findByUserId(user.getId());
