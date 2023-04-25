@@ -17,4 +17,10 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 
     @Query("select b from Board b where b.organizer.id =:organizerId")
     List<MyPageResp.MyBoardDTO> findByOrganizerId(@Param("organizerId") Long organizerId);
+
+    @Query("select b from Board b join fetch b.event where b.id = :boardId")
+    Optional<Board> findByIdWithEvent(@Param("boardId") Long boardId);
+
+    @Query("select b from Board b join fetch b.category c join fetch b.event e join fetch b.organizer o join fetch o.rate join fetch o.statusCode join fetch b.statusCode where b.id = :boardId")
+    Optional<Board> findByIdWithAll(@Param("boardId") Long boardId);
 }
