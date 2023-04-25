@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import shop.donutmarket.donut.domain.chat.dto.ChatResp.ChatroomListFirebaseRespDTO;
 import shop.donutmarket.donut.domain.chat.dto.ChatResp.ChatterListFirebaseRespDTO;
 import shop.donutmarket.donut.domain.chat.repository.ChatDao;
 
@@ -16,8 +17,13 @@ public class ChatterListServiceImpl implements ChatterListFirebaseService {
     private final ChatDao chatDao;
 
     @Override
-    public List<ChatterListFirebaseRespDTO> geChatterList() throws ExecutionException, InterruptedException {
+    public List<ChatterListFirebaseRespDTO> getChatterList() throws ExecutionException, InterruptedException {
         return chatDao.getChatterList();
+    }
+
+    @Override
+    public List<ChatroomListFirebaseRespDTO> getChatroomList() throws ExecutionException, InterruptedException {
+        return chatDao.getChatroomList();
     }
 
 }
