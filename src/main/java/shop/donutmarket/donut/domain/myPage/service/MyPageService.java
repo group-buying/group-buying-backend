@@ -3,6 +3,7 @@ package shop.donutmarket.donut.domain.myPage.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.donutmarket.donut.domain.blacklist.repository.BlackListRepository;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.myPage.dto.MyPageResp;
 import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
@@ -18,6 +19,8 @@ public class MyPageService {
 
     private final PaymentRepository paymentRepository;
 
+    private final BlackListRepository blackListRepository;
+
     @Transactional(readOnly = true)
     public List<MyPageResp.MyBoardDTO> 나의게시글보기(Long id) {
         List<MyPageResp.MyBoardDTO> myBoardDTOS = boardRepository.findByOrganizerId(id);
@@ -29,4 +32,9 @@ public class MyPageService {
         return myPaymentDTOS;
     }
 
+    @Transactional(readOnly = true)
+    public List<MyPageResp.MyBlacklistDTO> 나의블랙리스트보기(Long id) {
+        List<MyPageResp.MyBlacklistDTO> myBlacklistDTOS = blackListRepository.findByUserId(id);
+        return myBlacklistDTOS;
+    }
 }
