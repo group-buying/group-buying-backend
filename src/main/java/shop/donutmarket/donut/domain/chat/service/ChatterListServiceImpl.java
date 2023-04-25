@@ -12,7 +12,7 @@ import shop.donutmarket.donut.domain.chat.repository.ChatDao;
 
 @Service
 @RequiredArgsConstructor
-public class ChatterListServiceImpl implements ChatterListFirebaseService {
+public class ChatterListServiceImpl implements ChatterListFirebaseService { // 구현 클래스
 
     private final ChatDao chatDao;
 
