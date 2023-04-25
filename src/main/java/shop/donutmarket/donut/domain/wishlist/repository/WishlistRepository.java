@@ -10,6 +10,6 @@ import shop.donutmarket.donut.domain.wishlist.model.Wishlist;
 
 public interface WishlistRepository extends JpaRepository<Wishlist, Long>{
     
-    @Query("select w from Wishlist w where w.user.id = :userId")
+    @Query("select w from Wishlist w join fetch w.board b join fetch b.organizer join fetch b.event where w.user.id = :userId")
     List<Wishlist> findAllByUserId(@Param("userId") Long userId);
 }
