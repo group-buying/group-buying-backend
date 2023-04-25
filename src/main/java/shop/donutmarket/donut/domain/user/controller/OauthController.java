@@ -17,12 +17,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OauthController {
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private static final String SECRET = System.getenv("HS512_SECRET");
 
     @PostMapping("/oauth/naver")
     public String jwtCreate(@RequestBody Map<String, Object> data) {
+
         NaverUserInfo naverUser =
-                new NaverUserInfo((Map<String, Object>) data.get("profileObj"));
+                new NaverUserInfo((Map<String, Object>) data.get("response"));
 
         Optional<User> userOP =
                 userRepository.findByUsername(naverUser.getProvider() + "_" + naverUser.getProviderId());
@@ -30,7 +32,7 @@ public class OauthController {
         if (userOP.isEmpty()) {
             User user = User.builder()
                     .username(naverUser.getProvider() + "_" + naverUser.getProviderId())
-                    .password(bCryptPasswordEncoder.encode("겟인데어"))
+                    .password(passwordEncoder.encode(SECRET))
                     .email(naverUser.getEmail())
                     .provider(naverUser.getProvider())
                     .providerId(naverUser.getProviderId())
@@ -44,6 +46,9 @@ public class OauthController {
 
         } else {
             User userPS = userOP.get();
+            // user가 존재하면 update 해주기
+            userPS.updateEmail(naverUser.getEmail());
+            userRepository.save(userPS);
             String jwt = MyJwtProvider.create(userPS);
 
             return jwt;
