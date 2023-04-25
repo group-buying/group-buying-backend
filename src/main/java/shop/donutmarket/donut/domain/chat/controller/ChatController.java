@@ -1,6 +1,8 @@
 package shop.donutmarket.donut.domain.chat.controller;
 
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,7 +18,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatInviteReqDTO;
 import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatKickReqDTO;
+import shop.donutmarket.donut.domain.chat.dto.ChatResp.ChatterListFirebaseRespDTO;
 import shop.donutmarket.donut.domain.chat.dto.ChatResp.MyChatListRespDTO;
+import shop.donutmarket.donut.domain.chat.service.ChatterListFirebaseService;
 import shop.donutmarket.donut.domain.chat.service.ChatterListService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.dto.ResponseDTO;
@@ -27,6 +31,7 @@ import shop.donutmarket.donut.global.dto.ResponseDTO;
 public class ChatController {
     
     private final ChatterListService chatterListService;
+    private final ChatterListFirebaseService chatterListFirebaseService;
 
     @GetMapping
     public ResponseEntity<?> roomList(@AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -36,10 +41,16 @@ public class ChatController {
     
     @GetMapping("/{id}")
     public ResponseEntity<?> room(@PathVariable Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        // 임시 저장
+        // 임시 저장===
         return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
     }
 
+    @GetMapping("/firebase/chatterList")
+    public ResponseEntity<?> chatterList() throws Exception {
+        List<ChatterListFirebaseRespDTO> list = chatterListFirebaseService.geChatterList();
+        return new ResponseEntity<>(new ResponseDTO<>().data(list), HttpStatus.OK);
+    }
+    
     @PostMapping("/invite")
     public ResponseEntity<?> invite(@RequestBody @Valid ChatInviteReqDTO chatInviteReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         chatterListService.초대하기(chatInviteReqDTO);
