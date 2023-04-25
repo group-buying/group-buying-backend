@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
+import shop.donutmarket.donut.domain.admin.model.Category;
 
 public class MyCategoryResp {
     
@@ -13,6 +13,13 @@ public class MyCategoryResp {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class defaultMyCategoryRespDTO {
-        List<MyCategory> list;
+        List<Category> list;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyCategoryUpdateRespDTO {
+        List<Category> list;
     }
 }
