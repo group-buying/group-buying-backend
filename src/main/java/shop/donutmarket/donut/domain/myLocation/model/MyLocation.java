@@ -43,4 +43,11 @@ public class MyLocation {
         this.town = town;
         this.createdAt = createdAt;
     }
+    
+    public void defaultLocation(){
+        this.state = "부산광역시";
+        this.city = "부산진구";
+        this.town = "부전동";
+        this.createdAt = LocalDateTime.now();
+    }
 }
