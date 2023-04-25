@@ -22,9 +22,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    // 일반 유저는 username에 email 사용, oauth 유저는 oauth 아이디
+    @Column(unique = true)
+    private String username;
     @JsonIgnore
     private String password;
-    @Column(unique = true)
     private String email;
     private String name;
     private String profile;
@@ -44,8 +46,9 @@ public class User {
     private LocalDateTime createdAt;
 
     @Builder
-    public User(Long id, String password, String email, String name, String profile, Rate rate, boolean type, String role, String provider, String providerId, StatusCode statusCode, LocalDateTime createdAt) {
+    public User(Long id, String username, String password, String email, String name, String profile, Rate rate, boolean type, String role, String provider, String providerId, StatusCode statusCode, LocalDateTime createdAt) {
         this.id = id;
+        this.username = username;
         this.password = password;
         this.email = email;
         this.name = name;
@@ -64,5 +67,9 @@ public class User {
         this.name = name;
         this.profile = profile;
         this.createdAt = createdAt;
+    }
+
+    public void updateEmail(String email) {
+        this.email = email;
     }
 }
