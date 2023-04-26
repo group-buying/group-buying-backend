@@ -60,7 +60,8 @@ public class Participant {
         this.statusCode = seletedCode;
     }
 
-    public void canceled(StatusCode statusCode) {
-        this.statusCode = statusCode;
+    public void canceled() {
+        StatusCode canceled = new StatusCode(303, "participant", "참가 취소", LocalDateTime.now());
+        this.statusCode = canceled;
     }
 }
