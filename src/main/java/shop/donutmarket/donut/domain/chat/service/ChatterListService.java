@@ -87,7 +87,6 @@ public class ChatterListService {
         
         Optional<ChatterList> chatterOP = chatterListRepository.findById(chatKickReqDTO.getChatterListId());
         ChatterList chatterPS = chatterOP.get();
-        StatusCode kickedCode = StatusCode.builder().id(702).type("chatter").status("강퇴당함").build();
-        chatterPS.kick(kickedCode);
+        chatterPS.kick();
     }
 }

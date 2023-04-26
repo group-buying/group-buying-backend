@@ -50,8 +50,9 @@ public class ChatterList {
         this.statusCode = exitedCode;
     }
 
-    public void kick(StatusCode statusCode){
-        this.statusCode = statusCode;
+    public void kick(){
+        StatusCode kickedCode = StatusCode.builder().id(702).type("chatter").status("강퇴당함").build();
+        this.statusCode = kickedCode;
     }
     
     public void partici(){
