@@ -11,7 +11,7 @@ public class ResponseDTO<T> {
     private T data; // Exception시에 상세 내용
 
     public ResponseDTO() {
-        this.status = 200;
+        this.status = HttpStatus.OK.value();
         this.msg = "성공";
     }
 

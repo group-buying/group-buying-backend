@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import shop.donutmarket.donut.domain.board.model.Board;
+import shop.donutmarket.donut.domain.main.dto.MainResp;
 import shop.donutmarket.donut.domain.myPage.dto.MyPageResp;
 
 public interface BoardRepository extends JpaRepository<Board, Long>{
@@ -23,4 +24,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 
     @Query("select b from Board b join fetch b.category c join fetch b.event e join fetch b.organizer o join fetch o.rate join fetch o.statusCode join fetch b.statusCode where b.id = :boardId")
     Optional<Board> findByIdWithAll(@Param("boardId") Long boardId);
+
+    @Query("select b from Board b join fetch b.statusCode")
+    List<Board> findBoardAndStatusCode();
 }
