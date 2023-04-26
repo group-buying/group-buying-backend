@@ -75,8 +75,7 @@ public class ChatterListService {
             // 권한 없음
         }
 
-        StatusCode exitedCode = StatusCode.builder().id(701).type("chatter").status("나감").build();
-        chatterPS.exit(exitedCode);
+        chatterPS.exit();
     }
 
     public void 강퇴하기(ChatKickReqDTO chatKickReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
