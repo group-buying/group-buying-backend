@@ -52,4 +52,9 @@ public class ChatterList {
     public void kick(StatusCode statusCode){
         this.statusCode = statusCode;
     }
+    
+    public void partici(){
+        StatusCode particiCode = StatusCode.builder().id(700).type("chatter").status("참가").build();
+        this.statusCode = particiCode;
+    }
 }
