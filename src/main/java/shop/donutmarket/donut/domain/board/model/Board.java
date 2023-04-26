@@ -60,8 +60,10 @@ public class Board {
         this.createdAt = createdAt;
     }
 
-    public void deleteBoard(StatusCode statusCode){
-        this.statusCode = statusCode;
+    public void deleteBoard() {
+        StatusCode deletedCode = StatusCode.builder().id(203).type("board")
+        .status("삭제").createdAt(LocalDateTime.now()).build();
+        this.statusCode = deletedCode;
     }
 
 }

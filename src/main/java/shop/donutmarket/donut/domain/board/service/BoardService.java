@@ -158,11 +158,7 @@ public class BoardService {
         // 권한 체크
 		if(boardPS.getOrganizer().getId() == userOP.getId()){
 			// 권한 없음 처리
-		}
-        // 상태코드는 추후 분리
-        StatusCode deletedCode = StatusCode.builder().id(203).type("board")
-        .status("삭제").createdAt(LocalDateTime.now()).build();
-        
-        boardPS.deleteBoard(deletedCode);
+		}  
+        boardPS.deleteBoard();
     }
 }
