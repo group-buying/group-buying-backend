@@ -45,8 +45,9 @@ public class ChatterList {
         this.createdAt = createdAt;
     }
 
-    public void exit(StatusCode statusCode){
-        this.statusCode = statusCode;
+    public void exit(){
+        StatusCode exitedCode = StatusCode.builder().id(701).type("chatter").status("나감").build();
+        this.statusCode = exitedCode;
     }
 
     public void kick(StatusCode statusCode){
