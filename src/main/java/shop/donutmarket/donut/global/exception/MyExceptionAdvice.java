@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import shop.donutmarket.donut.global.dto.ResponseDTO;
 
+import java.io.IOException;
+
 @RequiredArgsConstructor
 @RestControllerAdvice
 public class MyExceptionAdvice {
@@ -56,6 +58,16 @@ public class MyExceptionAdvice {
     public ResponseEntity<?> serverError(Exception500 e){
         Sentry.captureException(e);
         return new ResponseEntity<>(e.body(), e.status());
+    }
+
+    // ioError
+    // 외부 통신 에러
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<?> ioError(IOException e){
+        Sentry.captureException(e);
+        ResponseDTO<String> responseDto = new ResponseDTO<>();
+        responseDto.fail(HttpStatus.FORBIDDEN, "IO Error", e.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.FORBIDDEN);
     }
 
     // 나머지 모든 예외

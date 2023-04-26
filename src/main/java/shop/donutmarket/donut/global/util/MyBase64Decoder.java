@@ -1,5 +1,7 @@
 package shop.donutmarket.donut.global.util;
 
+import shop.donutmarket.donut.global.exception.Exception400;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URLConnection;
@@ -12,7 +14,7 @@ import java.util.UUID;
 public class MyBase64Decoder {
     private static void checkExist(String base64Image) {
         if (base64Image.isEmpty()) {
-            // throw new CustomApiException("사진이 전송되지 않았습니다");
+            throw new Exception400("사진 파일이 전송되지 않았습니다");
         }
     }
 
@@ -30,7 +32,7 @@ public class MyBase64Decoder {
         mimeType = URLConnection.guessContentTypeFromStream(new ByteArrayInputStream(decodedData));
 
         if (!mimeType.startsWith("image/")) {
-            // throw new CustomApiException("사진 파일만 업로드 할 수 있습니다.");
+            throw new Exception400("사진 파일만 업로드가 가능합니다");
         }
         return mimeType;
     }

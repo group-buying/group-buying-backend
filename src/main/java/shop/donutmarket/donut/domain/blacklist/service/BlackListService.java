@@ -11,6 +11,7 @@ import shop.donutmarket.donut.domain.blacklist.repository.BlackListRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.exception.Exception401;
+import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
 
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class BlackListService {
         Optional<User> userOP = userRepository.findById(userId);
         Optional<User> blockedUserOP = userRepository.findById(blockedUserId);
         if (userOP.isEmpty() || blockedUserOP.isEmpty()) {
-            throw new Exception401("존재하지 않는 유저입니다");
+            throw new Exception404("존재하지 않는 유저입니다");
         }
         try {
             User userPS = userOP.get();
@@ -49,7 +50,7 @@ public class BlackListService {
         Optional<Blacklist> blacklistOP = blackListRepository.findByIdWithUserId(blacklistId, userId);
 
         if (userOP.isEmpty() || blacklistOP.isEmpty()) {
-            throw new Exception401("존재하지 않는 유저입니다");
+            throw new Exception404("존재하지 않는 유저입니다");
         }
         try {
             Blacklist blacklistPS = blacklistOP.get();

@@ -13,18 +13,19 @@ import shop.donutmarket.donut.global.auth.MyUserDetails;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/blacklists")
 public class BlackListController {
     
     private final BlackListService blackListService;
 
-    @PostMapping("/blacklists/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<?> insert(@PathVariable Long id,
                                     @AuthenticationPrincipal MyUserDetails myUserDetails) {
         BlacklistResp.select resp = blackListService.블랙리스트추가(myUserDetails.getUser().getId(), id);
         return ResponseEntity.ok(resp);
     }
 
-    @DeleteMapping("/blacklists/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id,
                                     @AuthenticationPrincipal MyUserDetails myUserDetails) {
         blackListService.블랙리스트삭제(id, myUserDetails.getUser().getId());

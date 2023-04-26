@@ -39,48 +39,30 @@ public class BoardController {
     private final TagService tagService;
 
     @PostMapping
-    public ResponseEntity<?> save(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardSaveReqDTO boardSaveReqDTO, BindingResult bindingResult) {
-        
-        if(myUserDetails == null) {
-            // 예외 처리
-        }
-        BoardSaveRespDTO saveRespDTO = boardService.공고작성(boardSaveReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(saveRespDTO), HttpStatus.CREATED);
+    public ResponseEntity<?> save(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardSaveReqDTO boardSaveReqDTO) {
+        BoardSaveRespDTO saveRespDTO = boardService.게시글작성(boardSaveReqDTO, myUserDetails);
+        return ResponseEntity.ok(saveRespDTO);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<?> detail(@PathVariable Long id) {
 
-        Board board = boardService.상세보기(id);
+        Board board = boardService.게시글상세보기(id);
         List<String> tags = tagService.상세보기(id);
 
         BoardDetailRespDTO detailRespDTO = new BoardDetailRespDTO(board, tags);
-
-        // tag도 같이 줘야함
-        return new ResponseEntity<>(new ResponseDTO<>().data(detailRespDTO), HttpStatus.OK);
+        return ResponseEntity.ok(detailRespDTO);
     }
 
     @PutMapping
     public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardUpdateReqDTO boardUpdateReqDTO) {
-
-        if(myUserDetails == null) {
-            // 예외 처리
-        }
-
-        BoardUpdateRespDTO updateRespDTO = boardService.업데이트(boardUpdateReqDTO, myUserDetails);
-
-        return new ResponseEntity<>(new ResponseDTO<>().data(updateRespDTO), HttpStatus.CREATED);
+        BoardUpdateRespDTO updateRespDTO = boardService.게시글수정(boardUpdateReqDTO, myUserDetails);
+        return ResponseEntity.ok(updateRespDTO);
     }
 
     @PutMapping("/delete")
     public ResponseEntity<?> delete(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardDeleteReqDTO boardDeleteReqDTO){
-
-        if(myUserDetails == null) {
-            // 예외 처리
-        }
-
-        boardService.삭제(boardDeleteReqDTO, myUserDetails);
-
-        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
+        boardService.게시글삭제(boardDeleteReqDTO, myUserDetails);
+        return ResponseEntity.ok("게시글 삭제 성공");
     }
 }

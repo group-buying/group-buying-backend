@@ -1,8 +1,10 @@
 package shop.donutmarket.donut.domain.board.service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +25,8 @@ import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.board.repository.TagRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.exception.*;
+import shop.donutmarket.donut.global.util.MyBase64Decoder;
 
 @Service
 @RequiredArgsConstructor
@@ -33,116 +37,129 @@ public class BoardService {
     private final TagRepository tagRepository;
 
     @Transactional
-    public BoardSaveRespDTO 공고작성(BoardSaveReqDTO boardSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public BoardSaveRespDTO 게시글작성(BoardSaveReqDTO boardSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        try {
+            // event 먼저 save
+            Event event = boardSaveReqDTO.toEventEntity();
+            event = eventRepository.save(event);
+            User user = myUserDetails.getUser();
 
-        // event 먼저 save
-        Event event = boardSaveReqDTO.toEventEntity();
-        event = eventRepository.save(event);
-        User user = myUserDetails.getUser();
-        // image base64화
-        // String image = null;
-        // try {
-        //     image = MyBase64Decoder.saveImage(boardSaveReqDTO.getImg());
-        // } catch (IOException e) {
-        //     // Exception 처리 필요
-        // }
-        Board board = boardSaveReqDTO.toBoardEntity(event, boardSaveReqDTO.getImg(), user);
-        board = boardRepository.save(board);
+            // image base64화
+            String image = MyBase64Decoder.saveImage(boardSaveReqDTO.getImg());
+            Board board = boardRepository.save(boardSaveReqDTO.toBoardEntity(event, image, user));
 
-        // tag save
-        List<Tag> tagList = new ArrayList<>();
-        for (String comment : boardSaveReqDTO.getComment()) {
-            Tag tag = Tag.builder().boardId(board.getId()).comment(comment)
-            .createdAt(LocalDateTime.now()).build();
-            tagRepository.save(tag);
-            tagList.add(tag);
+            // tag save
+            List<Tag> tagList = new ArrayList<>();
+            for (String comment : boardSaveReqDTO.getComment()) {
+                Tag tag = Tag.builder().boardId(board.getId()).comment(comment)
+                        .createdAt(LocalDateTime.now()).build();
+                tagRepository.save(tag);
+                tagList.add(tag);
+            }
+
+            BoardSaveRespDTO boardSaveRespDTO = new BoardSaveRespDTO(board, tagList);
+            return boardSaveRespDTO;
+        } catch (Exception e) {
+            throw new Exception500("게시글 작성 실패 : " + e.getMessage());
         }
-
-        BoardSaveRespDTO boardSaveRespDTO = new BoardSaveRespDTO(board, tagList);
-
-        return boardSaveRespDTO;
     }
 
-    public Board 상세보기(Long id) {
-        Optional<Board> boardOptional = boardRepository.findByIdWithAll(id);
-        Board boardPS = boardOptional.get();
+    @Transactional(readOnly = true)
+    public Board 게시글상세보기(Long id) {
+        Optional<Board> boardOp = boardRepository.findByIdWithAll(id);
+        if (boardOp.isEmpty()) {
+            throw new Exception404("존재하지 않는 게시글입니다");
+        }
 
-        // if (boardPS.getStatusCode().getId() == 203) {
-        //     // 해당 게시글은 삭제되었습니다. 리턴
-        // }
+        Board boardPS = boardOp.get();
 
-        User organizer = boardPS.getOrganizer();
-        Event event = boardPS.getEvent();
-        Board board = Board.builder().id(boardPS.getId()).category(boardPS.getCategory()).title(boardPS.getTitle())
-        .organizer(organizer).content(boardPS.getContent()).img(boardPS.getImg()).event(event).statusCode(boardPS.getStatusCode())
-        .state(boardPS.getState()).city(boardPS.getCity()).town(boardPS.getTown()).createdAt(boardPS.getCreatedAt()).build();
-        return board;
+        if (boardPS.getStatusCode().getId() == 203) {
+            throw new Exception400("이미 삭제된 게시글입니다");
+        }
+
+        try {
+            User organizer = boardPS.getOrganizer();
+            Event event = boardPS.getEvent();
+            Board board = Board.builder().id(boardPS.getId()).category(boardPS.getCategory()).title(boardPS.getTitle())
+                    .organizer(organizer).content(boardPS.getContent()).img(boardPS.getImg()).event(event).statusCode(boardPS.getStatusCode())
+                    .state(boardPS.getState()).city(boardPS.getCity()).town(boardPS.getTown()).createdAt(boardPS.getCreatedAt()).build();
+            return board;
+        } catch (Exception e) {
+            throw new Exception500("게시글 상세보기 실패 : " + e.getMessage());
+        }
     }
 
     @Transactional
-    public BoardUpdateRespDTO 업데이트(BoardUpdateReqDTO boardUpdateReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-
+    public BoardUpdateRespDTO 게시글수정(BoardUpdateReqDTO boardUpdateReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         User userOP = myUserDetails.getUser();
         Optional<Board> boardOP = boardRepository.findByIdWithEvent(boardUpdateReqDTO.getId());
-        if(!boardOP.isPresent()){
-            // 없음 예외처리
+        if (boardOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 게시글입니다");
         }
         Board boardPS = boardOP.get();
 
-        // 권한 체크
-		if(!(boardPS.getOrganizer().getId() == userOP.getId())){
-			// 권한 없음 처리
-		}
-
         if (boardPS.getStatusCode().getId() == 203) {
-            // 해당 게시글은 삭제되었습니다. 리턴
+            throw new Exception400("이미 삭제된 게시글입니다");
         }
 
-        boardPS.getEvent().updateEvent(
-            boardUpdateReqDTO.getQty(),boardUpdateReqDTO.getPaymentType(),
-            boardUpdateReqDTO.getStartAt(),boardUpdateReqDTO.getEndAt()
-        );
+        // 권한 체크
+        if (!Objects.equals(boardPS.getOrganizer().getId(), userOP.getId())) {
+            throw new Exception403("게시글을 수정할 권한이 없습니다");
+        }
+        try {
+            boardPS.getEvent().updateEvent(
+                    boardUpdateReqDTO.getQty(), boardUpdateReqDTO.getPaymentType(),
+                    boardUpdateReqDTO.getStartAt(), boardUpdateReqDTO.getEndAt()
+            );
 
-        BoardUpdateRespDTO boardUpdateRespDTO = new BoardUpdateRespDTO();
-        List<String> tagList = new ArrayList<>();
+            List<String> tagList = new ArrayList<>();
 
-        tagRepository.deleteAllByBoardId(boardUpdateReqDTO.getId());
-        for (String comment : boardUpdateReqDTO.getComment()) {
-            if(comment.isBlank()){
-                break;
+            tagRepository.deleteAllByBoardId(boardUpdateReqDTO.getId());
+            for (String comment : boardUpdateReqDTO.getComment()) {
+                if (comment == null) {
+                    break;
+                }
+                Tag tag = Tag.builder().boardId(boardPS.getId()).comment(comment)
+                        .createdAt(LocalDateTime.now()).build();
+                tagRepository.save(tag);
+                tagList.add(comment);
             }
-            Tag tag = Tag.builder().boardId(boardPS.getId()).comment(comment)
-            .createdAt(LocalDateTime.now()).build();
-            tagRepository.save(tag);
-            tagList.add(comment);
+
+            BoardUpdateRespDTO boardUpdateRespDTO = new BoardUpdateRespDTO();
+            boardUpdateRespDTO.updateRespDTO(boardUpdateReqDTO.getQty(), boardUpdateReqDTO.getPaymentType(),
+                    boardUpdateReqDTO.getStartAt(), boardUpdateReqDTO.getEndAt(), boardUpdateReqDTO.getPrice(), tagList);
+
+            return boardUpdateRespDTO;
+        } catch (Exception e) {
+            throw new Exception500("게시글 수정하기 실패 : " + e.getMessage());
         }
-
-        boardUpdateRespDTO.updateRespDTO(boardUpdateReqDTO.getQty(),boardUpdateReqDTO.getPaymentType(),
-        boardUpdateReqDTO.getStartAt(),boardUpdateReqDTO.getEndAt(),boardUpdateReqDTO.getPrice(), tagList);
-
-        return boardUpdateRespDTO;
     }
-    
+
 
     @Transactional
-    public void 삭제(BoardDeleteReqDTO boardDeleteReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public void 게시글삭제(BoardDeleteReqDTO boardDeleteReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
         User userOP = myUserDetails.getUser();
         Optional<Board> boardOP = boardRepository.findById(boardDeleteReqDTO.getBoardId());
-        if(!boardOP.isPresent()){
-            // 없음 예외처리
+        if (boardOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 게시글입니다");
         }
+
         Board boardPS = boardOP.get();
 
         // 권한 체크
-		if(boardPS.getOrganizer().getId() == userOP.getId()){
-			// 권한 없음 처리
-		}
-        
-        if (boardPS.getStatusCode().getId() == 203) {
-            // 해당 게시글은 삭제되었습니다. 리턴
+        if (!Objects.equals(boardPS.getOrganizer().getId(), userOP.getId())) {
+            throw new Exception403("게시글을 삭제할 권한이 없습니다");
         }
 
-        boardPS.deleteBoard();
+        if (boardPS.getStatusCode().getId() == 203) {
+            throw new Exception400("이미 삭제된 게시글입니다");
+        }
+
+        try {
+            boardPS.deleteBoard();
+        } catch (Exception e) {
+            throw new Exception500("게시글 삭제하기 실패 : " + e.getMessage());
+        }
     }
 }
