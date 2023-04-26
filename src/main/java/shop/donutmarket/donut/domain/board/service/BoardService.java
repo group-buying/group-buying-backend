@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
@@ -22,9 +21,7 @@ import shop.donutmarket.donut.domain.board.model.Tag;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.board.repository.TagRepository;
-import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.user.model.User;
-import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 
 @Service
@@ -34,7 +31,6 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final EventRepository eventRepository;
     private final TagRepository tagRepository;
-    private final UserRepository userRepository;
 
     @Transactional
     public BoardSaveRespDTO 공고작성(BoardSaveReqDTO boardSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -87,7 +83,7 @@ public class BoardService {
     public BoardUpdateRespDTO 업데이트(BoardUpdateReqDTO boardUpdateReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
         User userOP = myUserDetails.getUser();
-        Optional<Board> boardOP = boardRepository.findById(boardUpdateReqDTO.getId());
+        Optional<Board> boardOP = boardRepository.findByIdWithEvent(boardUpdateReqDTO.getId());
         if(!boardOP.isPresent()){
             // 없음 예외처리
         }
@@ -102,23 +98,12 @@ public class BoardService {
             // 해당 게시글은 삭제되었습니다. 리턴
         }
 
-        boardOP.get().getEvent().updateEvent(
+        boardPS.getEvent().updateEvent(
             boardUpdateReqDTO.getQty(),boardUpdateReqDTO.getPaymentType(),
             boardUpdateReqDTO.getStartAt(),boardUpdateReqDTO.getEndAt()
         );
 
-        // 더디체킹
-
-        // // image base64화
-        // String image = null;
-        // try {
-        //     image = MyBase64Decoder.saveImage(boardUpdateReqDTO.getImg());
-        // } catch (IOException e) {
-        //     // Exception 처리 필요
-        // }
-
         BoardUpdateRespDTO boardUpdateRespDTO = new BoardUpdateRespDTO();
-        System.out.println("Tag");
         List<String> tagList = new ArrayList<>();
         for (String comment : boardUpdateReqDTO.getComment()) {
             if(comment.isBlank()){
@@ -129,7 +114,7 @@ public class BoardService {
             tagRepository.save(tag);
             tagList.add(comment);
         }
-        System.out.println("RespDTO");
+
         boardUpdateRespDTO.updateRespDTO(boardUpdateReqDTO.getQty(),boardUpdateReqDTO.getPaymentType(),
         boardUpdateReqDTO.getStartAt(),boardUpdateReqDTO.getEndAt(),boardUpdateReqDTO.getPrice(), tagList);
 
