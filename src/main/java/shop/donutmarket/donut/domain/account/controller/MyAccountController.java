@@ -24,36 +24,24 @@ public class MyAccountController {
     @PostMapping("/account")
     public ResponseEntity<?> insert(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid AccountReq.insertDTO insertDTO) {
         AccountResp.insertDTO resp = myAccountService.계좌등록(myUserDetails.getUser().getId(), insertDTO);
-        if (resp != null) {
-            return ResponseEntity.ok().body(resp);
-        }
-        return ResponseEntity.badRequest().body("잘못된 요청입니다");
+        return ResponseEntity.ok(resp);
     }
 
     @DeleteMapping("/account")
     public ResponseEntity<?> delete(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        int result = myAccountService.계좌삭제(myUserDetails.getUser().getId());
-        if (result == 1) {
-            return ResponseEntity.ok().body("계좌가 삭제되었습니다");
-        }
-        return ResponseEntity.badRequest().body("잘못된 요청입니다");
+        myAccountService.계좌삭제(myUserDetails.getUser().getId());
+        return ResponseEntity.ok("삭제 성공");
     }
 
     @PutMapping("/account")
     public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody AccountReq.updateDTO updateDTO) {
         AccountResp.updateDTO resp = myAccountService.계좌수정(myUserDetails.getUser().getId(), updateDTO);
-        if (resp != null) {
-            return ResponseEntity.ok().body(resp);
-        }
-        return ResponseEntity.badRequest().body("잘못된 요청입니다");
+        return ResponseEntity.ok(resp);
     }
 
     @GetMapping("/account")
     public ResponseEntity<?> select(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         AccountResp.selectDTO resp = myAccountService.계좌조회(myUserDetails.getUser().getId());
-        if (resp != null) {
-            return ResponseEntity.ok().body(resp);
-        }
-        return ResponseEntity.badRequest().body("잘못된 요청입니다");
+        return ResponseEntity.ok(resp);
     }
 }
