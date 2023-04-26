@@ -54,8 +54,10 @@ public class Participant {
         this.statusCode = statusCode;
     }
 
-    public void selected(StatusCode statusCode) {
-        this.statusCode = statusCode;
+    public void selected() {
+        StatusCode seletedCode = StatusCode.builder().id(302).type("participant")
+        .status("채택").createdAt(LocalDateTime.now()).build();
+        this.statusCode = seletedCode;
     }
 
     public void canceled(StatusCode statusCode) {

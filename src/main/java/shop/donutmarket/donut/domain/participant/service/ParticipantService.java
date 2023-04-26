@@ -56,17 +56,16 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantSaveRespDTO 참가하기(ParticipantSaveReqDTO participantSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        
+        // 이미 참가한 내용 재참가 막는 예외 처리 필요
+
         Participant participant = participantSaveReqDTO.toEntity(myUserDetails.getUser());
-        Participant particiPS = participantRepository.save(participant);
-        Event eventPS = particiPS.getEvent();
-        Event event = Event.builder().id(eventPS.getId()).latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
-        .paymentType(eventPS.getPaymentType()).price(eventPS.getPrice()).startAt(eventPS.getStartAt())
-        .endAt(eventPS.getEndAt()).createdAt(LocalDateTime.now()).build();
+        participantRepository.save(participant);
 
-
+        Event eventPS = participantSaveReqDTO.getEvent();
 
         ParticipantSaveRespDTO saveRespDTO = new ParticipantSaveRespDTO(
-            event, myUserDetails.getUser(), participant.getQty(),
+            eventPS, myUserDetails.getUser(), participant.getQty(),
             participant.getLimitTime(), participant.getStatusCode(), participant.getCreatedAt());
 
         return saveRespDTO;
@@ -75,7 +74,7 @@ public class ParticipantService {
     @Transactional
     public ParticipantSelectRespDTO 채택하기(ParticipantSelectReqDTO participantSelectReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
-        Optional<Participant> particiOP = participantRepository.findById(participantSelectReqDTO.getId());
+        Optional<Participant> particiOP = participantRepository.findByIdwithEvent(participantSelectReqDTO.getId());
         if (!particiOP.isPresent()) {
             // 없을때 예외처리
         }
@@ -88,27 +87,16 @@ public class ParticipantService {
         if(!(organizerId == myUserDetails.getUser().getId())){
             // 권한없을때 처리
         }
-
-        StatusCode seletedCode = StatusCode.builder().id(302).type("participant")
-        .status("채택").createdAt(LocalDateTime.now()).build();
-
-        particiPS.selected(seletedCode);
+        particiPS.selected();
 
         Event eventPS = particiPS.getEvent();
-        Event event = Event.builder().id(eventPS.getId()).latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
-        .qty(eventPS.getQty()).paymentType(eventPS.getPaymentType()).startAt(eventPS.getStartAt()).endAt(eventPS.getEndAt())
-        .price(eventPS.getPrice()).createdAt(eventPS.getCreatedAt()).build();
-
         User userPS = particiPS.getUser();
 
-        Rate userRate = Rate.builder().userId(userPS.getId()).rateName(userPS.getRate().getRateName())
-        .ratePoint(userPS.getRate().getRatePoint()).build();
-
         User user = User.builder().id(userPS.getId()).name(userPS.getName())
-        .profile(userPS.getProfile()).rate(userRate).build();
+        .profile(userPS.getProfile()).rate(userPS.getRate()).build();
 
         ParticipantSelectRespDTO selectRespDTO = new ParticipantSelectRespDTO(
-            particiPS.getId(), event, user, seletedCode);
+            particiPS.getId(), eventPS, user, "채택함");
 
         return selectRespDTO;
     }
