@@ -37,23 +37,18 @@ public class ParticipantService {
     private final BoardRepository boardRepository;
 
     public List<ParticipantListRespDTO> 내참가목록(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        
-        List<Participant> myParticipantsPS = participantRepository.findAllByUserId(myUserDetails.getUser().getId());
+        User user = myUserDetails.getUser();
+        List<Participant> myParticipantsPS = participantRepository.findAllByUserIdwithEvent(user.getId());
         List<ParticipantListRespDTO> participantList = new ArrayList<>();
         
         for (Participant participant : myParticipantsPS) {
             Event eventPS = participant.getEvent();
-            Event event = Event.builder().id(participant.getId()).latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
-            .qty(eventPS.getQty()).paymentType(eventPS.getPaymentType()).startAt(eventPS.getStartAt()).endAt(eventPS.getEndAt())
-            .price(eventPS.getPrice()).createdAt(eventPS.getCreatedAt()).build();
-
             StatusCode statusCodePS = participant.getStatusCode();
-            StatusCode statusCode = StatusCode.builder().id(statusCodePS.getId()).type(statusCodePS.getType())
-            .status(statusCodePS.getStatus()).createdAt(statusCodePS.getCreatedAt()).build();
 
-            ParticipantListRespDTO participantDTO = ParticipantListRespDTO.builder().event(event).user(myUserDetails.getUser())
-            .qty(participant.getQty()).limitTime(participant.getLimitTime()).statusCode(statusCode)
+            ParticipantListRespDTO participantDTO = ParticipantListRespDTO.builder().event(eventPS).user(user)
+            .qty(participant.getQty()).limitTime(participant.getLimitTime()).statusCode(statusCodePS)
             .createdAt(participant.getCreatedAt()).build();
+
             participantList.add(participantDTO);
         }
         return participantList;
