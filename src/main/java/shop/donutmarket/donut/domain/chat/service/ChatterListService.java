@@ -57,7 +57,7 @@ public class ChatterListService {
         Participant particiPS = particiOP.get();
         // 참가자 채택됨 변환
         StatusCode selectedCode = StatusCode.builder().id(302).type("participant").status("채택").build();
-        particiPS.selected(selectedCode);
+//        particiPS.selected(selectedCode);
         
         Optional<User> userOP = userRepository.findById(chatInviteReqDTO.getInvitedUserId());
         User userPS = userOP.get();
