@@ -10,6 +10,6 @@ import shop.donutmarket.donut.domain.chat.model.Chatroom;
 
 public interface ChatroomRepository extends JpaRepository<Chatroom, Long>{
     
-    @Query("select c from Chatroom c join fetch c.event join fetch c.statusCode where p.id = :chatroomId")
+    @Query("select c from Chatroom c join fetch c.event join fetch c.statusCode where c.id = :chatroomId")
     Optional<Chatroom> findByIdwithEvent(@Param("chatroomId") Long chatroomId);
 }
