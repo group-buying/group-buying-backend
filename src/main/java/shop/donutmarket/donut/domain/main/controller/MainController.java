@@ -20,6 +20,6 @@ public class MainController {
     @GetMapping("/main")
     public ResponseEntity<?> main(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         MainResp mainResp = mainService.게시글목록보기(myUserDetails.getUser().getId());
-        return ResponseEntity.ok().body(mainResp);
+        return ResponseEntity.ok(mainResp);
     }
 }

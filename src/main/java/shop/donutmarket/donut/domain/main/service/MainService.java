@@ -35,7 +35,7 @@ public class MainService {
             MainResp mainResp = new MainResp(myCategoryListPS, myLocationDTO, boards);
             return mainResp;
         } catch (Exception e) {
-            throw new Exception500("게시글 목록 보기가 실패했습니다");
+            throw new Exception500("게시글 목록보기 실패 : " + e.getMessage());
         }
     }
 }
