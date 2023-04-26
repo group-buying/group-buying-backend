@@ -104,7 +104,7 @@ public class ParticipantService {
     @Transactional
     public ParticipantCancleRespDTO 취소하기(ParticipantCancelReqDTO participantCancelReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
-        Optional<Participant> particiOP = participantRepository.findById(participantCancelReqDTO.getId());
+        Optional<Participant> particiOP = participantRepository.findByIdwithEvent(participantCancelReqDTO.getId());
         if (!particiOP.isPresent()) {
             // 없을때 예외처리
         }
@@ -114,17 +114,12 @@ public class ParticipantService {
             // 인증 없을때 예외처리
         }
 
-        StatusCode canceled = new StatusCode(303, "participant", "참가 취소", LocalDateTime.now());
-        
-        particiPS.canceled(canceled);
+        particiPS.canceled();
 
         Event eventPS = particiPS.getEvent();
-        Event event = Event.builder().id(eventPS.getId()).latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
-        .qty(eventPS.getQty()).paymentType(eventPS.getPaymentType()).startAt(eventPS.getStartAt()).endAt(eventPS.getEndAt())
-        .price(eventPS.getPrice()).createdAt(eventPS.getCreatedAt()).build();
         
         ParticipantCancleRespDTO cancleRespDTO = new ParticipantCancleRespDTO(
-            particiPS.getId(), event, myUserDetails.getUser(), canceled);
+            particiPS.getId(), eventPS, myUserDetails.getUser(), "취소함");
             
         return cancleRespDTO;
     }
