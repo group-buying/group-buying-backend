@@ -105,6 +105,8 @@ public class BoardService {
 
         BoardUpdateRespDTO boardUpdateRespDTO = new BoardUpdateRespDTO();
         List<String> tagList = new ArrayList<>();
+
+        tagRepository.deleteAllByBoardId(boardUpdateReqDTO.getId());
         for (String comment : boardUpdateReqDTO.getComment()) {
             if(comment.isBlank()){
                 break;
