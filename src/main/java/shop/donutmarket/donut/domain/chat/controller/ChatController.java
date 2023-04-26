@@ -37,7 +37,7 @@ public class ChatController {
     @GetMapping
     public ResponseEntity<?> roomList(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         MyChatListRespDTO chatList = chatterListService.채팅목록(myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(chatList), HttpStatus.OK);
+        return ResponseEntity.ok(chatList);
     }
     
     @GetMapping("/{id}")
@@ -49,13 +49,13 @@ public class ChatController {
     @GetMapping("/firebase/chatter")
     public ResponseEntity<?> chatterList() throws Exception {
         List<ChatterListFirebaseRespDTO> list = chatterListFirebaseService.getChatterList();
-        return new ResponseEntity<>(new ResponseDTO<>().data(list), HttpStatus.OK);
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/firebase/chatroom")
     public ResponseEntity<?> chatroomList() throws Exception {
         List<ChatroomListFirebaseRespDTO> list = chatterListFirebaseService.getChatroomList();
-        return new ResponseEntity<>(new ResponseDTO<>().data(list), HttpStatus.OK);
+        return ResponseEntity.ok(list);
     }
     
     @PostMapping("/invite")
