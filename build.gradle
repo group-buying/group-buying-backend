@@ -19,7 +19,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.sentry:sentry:6.17.0'
+    implementation 'io.sentry:sentry-spring-boot-starter-jakarta:6.17.0'
+    implementation 'io.sentry:sentry-logback:6.17.0'
     implementation 'com.google.firebase:firebase-admin:9.1.1'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'io.github.bootpay:backend:+'
