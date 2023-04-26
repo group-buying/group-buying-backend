@@ -1,6 +1,5 @@
 package shop.donutmarket.donut.domain.participant.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +24,6 @@ import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.Participant
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSelectRespDTO;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.participant.repository.ParticipantRepository;
-import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 
@@ -127,7 +125,7 @@ public class ParticipantService {
     @Transactional
     public ParticipantDropRespDTO 강퇴하기(ParticipantDropReqDTO participantDropReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         
-        Optional<Participant> particiOP = participantRepository.findById(participantDropReqDTO.getId());
+        Optional<Participant> particiOP = participantRepository.findByIdwithEvent(participantDropReqDTO.getId());
         if (!particiOP.isPresent()) {
             // 없을때 예외처리
         }
@@ -141,23 +139,17 @@ public class ParticipantService {
             // 권한없을때 처리
         }
 
-        StatusCode droped = new StatusCode(301, "participant", "미채택", LocalDateTime.now());
-
+        particiPS.droped();
         Event eventPS = particiPS.getEvent();
-        Event event = Event.builder().id(eventPS.getId()).latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
-        .qty(eventPS.getQty()).paymentType(eventPS.getPaymentType()).startAt(eventPS.getStartAt()).endAt(eventPS.getEndAt())
-        .price(eventPS.getPrice()).createdAt(eventPS.getCreatedAt()).build();
-
+ 
         User userPS = particiPS.getUser();
 
-        Rate userRate = Rate.builder().userId(userPS.getId()).rateName(userPS.getRate().getRateName())
-        .ratePoint(userPS.getRate().getRatePoint()).build();
 
         User user = User.builder().id(userPS.getId()).name(userPS.getName())
-        .profile(userPS.getProfile()).rate(userRate).build();
+        .profile(userPS.getProfile()).rate(userPS.getRate()).build();
 
         ParticipantDropRespDTO dropRespDTO = new ParticipantDropRespDTO(
-            particiPS.getId(), event, user, droped);
+            particiPS.getId(), eventPS, user, "강퇴함");
             
         return dropRespDTO;
     }
