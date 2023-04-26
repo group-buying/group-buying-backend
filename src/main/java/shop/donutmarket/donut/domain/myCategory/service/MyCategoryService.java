@@ -19,55 +19,65 @@ import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
 import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.exception.Exception500;
 
 @Service
 @RequiredArgsConstructor
 public class MyCategoryService {
-    
+
     private final MyCategoryRepository myCategoryRepository;
     private final CategoryRepository categoryRepository;
 
     @Transactional
     public defaultMyCategoryRespDTO 디폴트카테고리(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        User user = myUserDetails.getUser();
-        List<Long> defaulList = MyCategory.defaultList();
-        List<Category> myCategoryList = new ArrayList<>();
-        myCategoryRepository.deleteAllByUserId(user.getId());
-        for (Long id : defaulList) {
-            Optional<Category> categoryOP = categoryRepository.findById(id);
-            Category categoryPS = categoryOP.get();
+        try {
+            User user = myUserDetails.getUser();
+            List<Long> defaulList = MyCategory.defaultList();
+            List<Category> myCategoryList = new ArrayList<>();
+            myCategoryRepository.deleteAllByUserId(user.getId());
+            for (Long id : defaulList) {
+                Optional<Category> categoryOP = categoryRepository.findById(id);
+                Category categoryPS = categoryOP.get();
 
-            MyCategory myCategory = MyCategory.builder().user(user).category(categoryPS).createdAt(LocalDateTime.now()).build();
-            myCategoryRepository.save(myCategory);
-            myCategoryList.add(categoryPS);
+                MyCategory myCategory = MyCategory.builder().user(user).category(categoryPS).createdAt(LocalDateTime.now()).build();
+                myCategoryRepository.save(myCategory);
+                myCategoryList.add(categoryPS);
+            }
+            defaultMyCategoryRespDTO defaultDTO = new defaultMyCategoryRespDTO(myCategoryList);
+            return defaultDTO;
+        } catch (Exception e) {
+            throw new Exception500("디폴트카테고리 불러오기 실패 : " + e.getMessage());
         }
-        defaultMyCategoryRespDTO defaultDTO = new defaultMyCategoryRespDTO(myCategoryList);
-        return defaultDTO;
     }
 
     @Transactional
     public MyCategoryUpdateRespDTO 카테고리업데이트(MyCategoryUpdateReqDTO myCategoryUpdateReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        User user = myUserDetails.getUser();
-        List<Long> categoryList = new ArrayList<>();
-        
-        // 비어있을경우 디폴트
-        if(myCategoryUpdateReqDTO.getCategoryId().isEmpty()){
-            categoryList = MyCategory.defaultList();
-        } else {
-            categoryList = myCategoryUpdateReqDTO.getCategoryId();
+        try {
+            User user = myUserDetails.getUser();
+            List<Long> categoryList;
+
+            // 비어있을경우 디폴트
+            if (myCategoryUpdateReqDTO.getCategoryId().isEmpty()) {
+                categoryList = MyCategory.defaultList();
+            } else {
+                categoryList = myCategoryUpdateReqDTO.getCategoryId();
+            }
+
+            List<Category> myCategoryList = new ArrayList<>();
+
+            myCategoryRepository.deleteAllByUserId(user.getId());
+            for (Long id : categoryList) {
+                Optional<Category> categoryOP = categoryRepository.findById(id);
+                Category categoryPS = categoryOP.get();
+
+                MyCategory myCategory = MyCategory.builder().user(user).category(categoryPS).createdAt(LocalDateTime.now()).build();
+                myCategoryRepository.save(myCategory);
+                myCategoryList.add(categoryPS);
+            }
+            MyCategoryUpdateRespDTO updateRespDTO = new MyCategoryUpdateRespDTO(myCategoryList);
+            return updateRespDTO;
+        } catch (Exception e) {
+            throw new Exception500("카테고리 업데이트 실패 : " + e.getMessage());
         }
-        
-        List<Category> myCategoryList = new ArrayList<>();
-        myCategoryRepository.deleteAllByUserId(user.getId());
-        for (Long id : categoryList) {
-            Optional<Category> categoryOP = categoryRepository.findById(id);
-            Category categoryPS = categoryOP.get();
-            
-            MyCategory myCategory = MyCategory.builder().user(user).category(categoryPS).createdAt(LocalDateTime.now()).build();
-            myCategoryRepository.save(myCategory);
-            myCategoryList.add(categoryPS);
-        }
-        MyCategoryUpdateRespDTO updateRespDTO = new MyCategoryUpdateRespDTO(myCategoryList);
-        return updateRespDTO;
     }
 }

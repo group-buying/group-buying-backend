@@ -26,13 +26,13 @@ public class MyCategoryController {
     @PostMapping("/default")
     public ResponseEntity<?> defaultCategory(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         defaultMyCategoryRespDTO defaultDTO = myCategoryService.디폴트카테고리(myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(defaultDTO), HttpStatus.CREATED);
+        return ResponseEntity.ok(defaultDTO);
     }
 
     @PostMapping
     public ResponseEntity<?> updateCategory(@RequestBody MyCategoryUpdateReqDTO myCategoryUpdateReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         MyCategoryUpdateRespDTO updateRespDTO = myCategoryService.카테고리업데이트(myCategoryUpdateReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(updateRespDTO), HttpStatus.CREATED);
+        return ResponseEntity.ok(updateRespDTO);
     }
     
 }
