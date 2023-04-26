@@ -44,3 +44,9 @@ logging:
 
 meta:
   name: ${HS512_SECRET} # _대신 .을 쓸 수도 있다.
+
+sentry:
+  dsn: ${SENTRY}
+  traces-sample-rate: 1.0
+  logging:
+    minimum-event-level: info
