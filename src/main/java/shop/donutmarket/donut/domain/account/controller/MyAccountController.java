@@ -21,25 +21,25 @@ public class MyAccountController {
 
     private final MyAccountService myAccountService;
 
-    @PostMapping("/account")
+    @PostMapping("/accounts")
     public ResponseEntity<?> insert(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid AccountReq.insertDTO insertDTO) {
         AccountResp.insertDTO resp = myAccountService.계좌등록(myUserDetails.getUser().getId(), insertDTO);
         return ResponseEntity.ok(resp);
     }
 
-    @DeleteMapping("/account")
+    @DeleteMapping("/accounts")
     public ResponseEntity<?> delete(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         myAccountService.계좌삭제(myUserDetails.getUser().getId());
-        return ResponseEntity.ok("삭제 성공");
+        return ResponseEntity.ok("계좌 삭제 성공");
     }
 
-    @PutMapping("/account")
+    @PutMapping("/accounts")
     public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody AccountReq.updateDTO updateDTO) {
         AccountResp.updateDTO resp = myAccountService.계좌수정(myUserDetails.getUser().getId(), updateDTO);
         return ResponseEntity.ok(resp);
     }
 
-    @GetMapping("/account")
+    @GetMapping("/accounts")
     public ResponseEntity<?> select(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         AccountResp.selectDTO resp = myAccountService.계좌조회(myUserDetails.getUser().getId());
         return ResponseEntity.ok(resp);
