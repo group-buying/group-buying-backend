@@ -15,6 +15,7 @@ import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.exception.Exception401;
+import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
 
 import java.time.LocalDateTime;
@@ -31,7 +32,7 @@ public class MyAccountService {
     public AccountResp.insertDTO 계좌등록(Long userId, AccountReq.insertDTO insertDTO) {
         Optional<User> userOP = userRepository.findById(userId);
         if (userOP.isEmpty()) {
-            throw new Exception401("존재하지 않는 유저입니다");
+            throw new Exception404("존재하지 않는 유저입니다");
         }
         try {
             User userPS = userOP.get();
@@ -48,7 +49,7 @@ public class MyAccountService {
             resp.setAccountNumber(myAccountPS.getAccountNumber());
             return resp;
         } catch (Exception e) {
-            throw new Exception500("계좌등록 실패 : " + e.getMessage());
+            throw new Exception500("계좌 등록 실패 : " + e.getMessage());
         }
     }
 
@@ -56,13 +57,13 @@ public class MyAccountService {
     public void 계좌삭제(Long userId) {
         Optional<MyAccount> myAccountOP = myAccountRepository.findByUserId(userId);
         if (myAccountOP.isEmpty()) {
-            throw new Exception401("존재하지 않는 유저입니다");
+            throw new Exception404("존재하지 않는 유저입니다");
         }
         try {
             MyAccount myAccountPS = myAccountOP.get();
             myAccountRepository.delete(myAccountPS);
         } catch (Exception e) {
-            throw new Exception500("계좌삭제 실패 : " + e.getMessage());
+            throw new Exception500("계좌 삭제 실패 : " + e.getMessage());
         }
     }
 
@@ -70,7 +71,7 @@ public class MyAccountService {
     public AccountResp.updateDTO 계좌수정(Long userId, AccountReq.updateDTO updateDTO) {
         Optional<MyAccount> myAccountOP = myAccountRepository.findByUserId(userId);
         if (myAccountOP.isEmpty()) {
-            throw new Exception401("존재하지 않는 유저입니다");
+            throw new Exception404("존재하지 않는 유저입니다");
         }
         try {
             MyAccount myAccountPS = myAccountOP.get();
@@ -82,7 +83,7 @@ public class MyAccountService {
             resp.setAccountNumber(myAccountPS.getAccountNumber());
             return resp;
         } catch (Exception e) {
-            throw new Exception500("계좌수정 실패 : " + e.getMessage());
+            throw new Exception500("계좌 수정 실패 : " + e.getMessage());
         }
     }
 
@@ -90,7 +91,7 @@ public class MyAccountService {
     public AccountResp.selectDTO 계좌조회(Long userId) {
         Optional<MyAccount> myAccountOP = myAccountRepository.findByUserId(userId);
         if (myAccountOP.isEmpty()) {
-            throw new Exception401("존재하지 않는 유저입니다");
+            throw new Exception404("존재하지 않는 유저입니다");
         }
         try {
             MyAccount myAccountPS = myAccountOP.get();
@@ -101,7 +102,7 @@ public class MyAccountService {
             resp.setAccountNumber(myAccountPS.getAccountNumber());
             return resp;
         } catch (Exception e) {
-            throw new Exception500("계좌조회 실패 : " + e.getMessage());
+            throw new Exception500("계좌 조회 실패 : " + e.getMessage());
         }
     }
 }

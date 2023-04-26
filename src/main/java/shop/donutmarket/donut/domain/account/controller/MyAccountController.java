@@ -17,29 +17,30 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/accounts")
 public class MyAccountController {
 
     private final MyAccountService myAccountService;
 
-    @PostMapping("/accounts")
+    @PostMapping
     public ResponseEntity<?> insert(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid AccountReq.insertDTO insertDTO) {
         AccountResp.insertDTO resp = myAccountService.계좌등록(myUserDetails.getUser().getId(), insertDTO);
         return ResponseEntity.ok(resp);
     }
 
-    @DeleteMapping("/accounts")
+    @DeleteMapping
     public ResponseEntity<?> delete(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         myAccountService.계좌삭제(myUserDetails.getUser().getId());
         return ResponseEntity.ok("계좌 삭제 성공");
     }
 
-    @PutMapping("/accounts")
+    @PutMapping
     public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody AccountReq.updateDTO updateDTO) {
         AccountResp.updateDTO resp = myAccountService.계좌수정(myUserDetails.getUser().getId(), updateDTO);
         return ResponseEntity.ok(resp);
     }
 
-    @GetMapping("/accounts")
+    @GetMapping
     public ResponseEntity<?> select(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         AccountResp.selectDTO resp = myAccountService.계좌조회(myUserDetails.getUser().getId());
         return ResponseEntity.ok(resp);
