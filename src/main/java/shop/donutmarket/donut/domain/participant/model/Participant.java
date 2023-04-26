@@ -64,4 +64,9 @@ public class Participant {
         StatusCode canceled = new StatusCode(303, "participant", "참가 취소", LocalDateTime.now());
         this.statusCode = canceled;
     }
+
+    public void droped() {
+        StatusCode droped = new StatusCode(301, "participant", "미채택", LocalDateTime.now());
+        this.statusCode = droped;
+    }
 }

@@ -77,7 +77,7 @@ public class ParticipantResp {
         private Long id;
         private Event event;
         private User user;
-        private StatusCode statusCode;
+        private String statusMsg;
     }
 
 }
