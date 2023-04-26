@@ -21,13 +21,13 @@ public class BlackListController {
     public ResponseEntity<?> insert(@PathVariable Long id,
                                     @AuthenticationPrincipal MyUserDetails myUserDetails) {
         BlacklistResp.select resp = blackListService.블랙리스트추가(myUserDetails.getUser().getId(), id);
-        return ResponseEntity.ok().body(resp);
+        return ResponseEntity.ok(resp);
     }
 
     @DeleteMapping("/blacklists/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id,
                                     @AuthenticationPrincipal MyUserDetails myUserDetails) {
         blackListService.블랙리스트삭제(id, myUserDetails.getUser().getId());
-        return ResponseEntity.ok().body("블랙리스트 삭제 성공");
+        return ResponseEntity.ok("블랙리스트 삭제 성공");
     }
 }
