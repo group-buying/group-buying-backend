@@ -68,26 +68,18 @@ public class BoardService {
     }
 
     public Board 상세보기(Long id) {
-
-        Optional<Board> boardOptional = boardRepository.findById(id);
+        Optional<Board> boardOptional = boardRepository.findByIdWithAll(id);
         Board boardPS = boardOptional.get();
-
-        Event eventPS = boardPS.getEvent();
 
         // if (boardPS.getStatusCode().getId() == 203) {
         //     // 해당 게시글은 삭제되었습니다. 리턴
         // }
-        User userPS = userRepository.findById(boardPS.getOrganizer().getId()).get();
-        Rate rate = Rate.builder().rateName(userPS.getRate().getRateName()).build();
-        User organizer = User.builder().name(userPS.getName()).profile(userPS.getProfile()).rate(rate).build();
-        Event event = Event.builder().latitude(eventPS.getLatitude()).longtitude(eventPS.getLongtitude())
-        .qty(eventPS.getQty()).paymentType(eventPS.getPaymentType()).startAt(eventPS.getStartAt())
-        .endAt(eventPS.getEndAt()).price(eventPS.getPrice()).createdAt(eventPS.getCreatedAt()).build();
 
-        Board board = Board.builder().id(boardPS.getId()).title(boardPS.getTitle()).organizer(organizer)
-        .content(boardPS.getContent()).img(boardPS.getImg()).event(event).state(boardPS.getState())
-        .city(boardPS.getCity()).town(boardPS.getTown()).build();
-
+        User organizer = boardPS.getOrganizer();
+        Event event = boardPS.getEvent();
+        Board board = Board.builder().id(boardPS.getId()).category(boardPS.getCategory()).title(boardPS.getTitle())
+        .organizer(organizer).content(boardPS.getContent()).img(boardPS.getImg()).event(event).statusCode(boardPS.getStatusCode())
+        .state(boardPS.getState()).city(boardPS.getCity()).town(boardPS.getTown()).createdAt(boardPS.getCreatedAt()).build();
         return board;
     }
 
@@ -158,7 +150,12 @@ public class BoardService {
         // 권한 체크
 		if(boardPS.getOrganizer().getId() == userOP.getId()){
 			// 권한 없음 처리
-		}  
+		}
+        
+        if (boardPS.getStatusCode().getId() == 203) {
+            // 해당 게시글은 삭제되었습니다. 리턴
+        }
+
         boardPS.deleteBoard();
     }
 }
