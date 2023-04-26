@@ -27,7 +27,6 @@ public class BoardReq {
         private Category category;
         @NotBlank
         private String title;
-        @NotNull
         private User organizer;
         @NotBlank
         private String content;
@@ -56,8 +55,10 @@ public class BoardReq {
         private List<String> comment;
 
         public Board toBoardEntity(Event event, String Base64img, User organizer){
+            StatusCode code = StatusCode.builder().id(200).type("board").status("진행중").build();
+            
             return Board.builder().category(category).title(title).organizer(organizer).content(content).img(Base64img)
-            .event(event).statusCode(statusCode).views(0).recommend(false).state(state).city(city).town(town).createdAt(LocalDateTime.now()).build();
+            .event(event).statusCode(code).views(0).recommend(false).state(state).city(city).town(town).createdAt(LocalDateTime.now()).build();
         }
 
         public Event toEventEntity(){
