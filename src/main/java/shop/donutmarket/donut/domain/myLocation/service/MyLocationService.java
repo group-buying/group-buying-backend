@@ -48,10 +48,13 @@ public class MyLocationService {
         User user = myUserDetails.getUser();
         Optional<MyLocation> myLocationOP = myLocationRepository.findByUserId(user.getId());
         MyLocation myLocationPS = myLocationOP.get();
+
         myLocationPS.updateMyLocation(myLocationSaveReqDTO.getState(), myLocationSaveReqDTO.getCity(),
         myLocationSaveReqDTO.getTown(), LocalDateTime.now());
+
         MyLocationSaveRespDTO saveRespDTO = new MyLocationSaveRespDTO(myLocationSaveReqDTO.getState(), myLocationSaveReqDTO.getCity(),
         myLocationSaveReqDTO.getTown(), LocalDateTime.now());
+        
         return saveRespDTO;
     }
 }

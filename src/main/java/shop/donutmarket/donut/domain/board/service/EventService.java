@@ -7,7 +7,6 @@ import shop.donutmarket.donut.domain.board.repository.EventRepository;
 
 @Service
 @RequiredArgsConstructor
-public class EventService {
-    
+public class EventService {    
     private final EventRepository eventRepository;
 }
