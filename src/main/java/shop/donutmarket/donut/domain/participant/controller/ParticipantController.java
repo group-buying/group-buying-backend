@@ -35,33 +35,31 @@ public class ParticipantController {
 
     @GetMapping
     public ResponseEntity<?> myParticipants(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-
         List<ParticipantListRespDTO> participantList = participantService.내참가목록(myUserDetails);
-
-        return new ResponseEntity<>(new ResponseDTO<>().data(participantList), HttpStatus.OK);
+        return ResponseEntity.ok(participantList);
     }
+
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid ParticipantSaveReqDTO participantSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantSaveRespDTO saveRespDTO = participantService.참가하기(participantSaveReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(saveRespDTO), HttpStatus.CREATED);
+        return ResponseEntity.ok(saveRespDTO);
     }
 
     @PutMapping("/select")
     public ResponseEntity<?> select(@RequestBody @Valid ParticipantSelectReqDTO participantSelectReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantSelectRespDTO selectRespDTO = participantService.채택하기(participantSelectReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(selectRespDTO), HttpStatus.CREATED);
+        return ResponseEntity.ok(selectRespDTO);
     }
 
     @PutMapping("/cancel")
     public ResponseEntity<?> cancel(@RequestBody ParticipantCancelReqDTO participantCancelReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantCancleRespDTO cancleRespDTO = participantService.취소하기(participantCancelReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(cancleRespDTO), HttpStatus.CREATED);
+        return ResponseEntity.ok(cancleRespDTO);
     }
 
     @PutMapping("/drop")
     public ResponseEntity<?> drop(@RequestBody ParticipantDropReqDTO participantDropReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantDropRespDTO dropRespDTO = participantService.강퇴하기(participantDropReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(dropRespDTO), HttpStatus.CREATED);
+        return ResponseEntity.ok(dropRespDTO);
     }
-
 }
