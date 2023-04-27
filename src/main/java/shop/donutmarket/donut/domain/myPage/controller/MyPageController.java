@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shop.donutmarket.donut.domain.myPage.dto.MyPageResp;
 import shop.donutmarket.donut.domain.myPage.service.MyPageService;
+import shop.donutmarket.donut.domain.review.model.Review;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 
 import java.util.List;
@@ -41,5 +42,11 @@ public class MyPageController {
     public ResponseEntity<?> myReports(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         List<MyPageResp.MyReportDTO> myReportDTOS = myPageService.나의신고내역보기(myUserDetails.getUser().getId());
         return ResponseEntity.ok(myReportDTOS);
+    }
+
+    @GetMapping("/reviews")
+    public ResponseEntity<?> myReviews(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        MyPageResp.MyReviewDTO myReviewDTO = myPageService.나의리뷰목록보기(myUserDetails);
+        return ResponseEntity.ok(myReviewDTO);
     }
 }
