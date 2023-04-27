@@ -1,6 +1,7 @@
 package shop.donutmarket.donut.domain.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,7 @@ public class OauthController {
     private static final String SECRET = System.getenv("HS512_SECRET");
 
     @PostMapping("/oauth/naver")
-    public String jwtCreate(@RequestBody Map<String, Object> data) {
+    public ResponseEntity<?> jwtCreate(@RequestBody Map<String, Object> data) {
 
         NaverUserInfo naverUser =
                 new NaverUserInfo((Map<String, Object>) data.get("response"));
@@ -42,7 +43,7 @@ public class OauthController {
             User userEntity = userRepository.save(user);
             String jwt = MyJwtProvider.create(userEntity);
 
-            return  jwt;
+            return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("네이버 로그인 완료");
 
         } else {
             User userPS = userOP.get();
@@ -51,7 +52,7 @@ public class OauthController {
             userRepository.save(userPS);
             String jwt = MyJwtProvider.create(userPS);
 
-            return jwt;
+            return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("네이버 로그인 완료");
         }
     }
 }

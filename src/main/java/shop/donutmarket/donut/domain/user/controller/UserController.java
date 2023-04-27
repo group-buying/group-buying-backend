@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.user.dto.UserReq;
+import shop.donutmarket.donut.domain.user.dto.UserResp;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.domain.user.service.UserService;
@@ -41,8 +42,7 @@ public class UserController {
 
     @PutMapping("/users")
     public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid UserReq.UpdateDTO updateDTO) {
-        Optional<User> user = userService.회원수정(myUserDetails, updateDTO);
-        return ResponseEntity.ok().header(MyJwtProvider.HEADER).body(user);
+        UserResp.UpdateDTO resp = userService.회원수정(myUserDetails, updateDTO);
+        return ResponseEntity.ok(resp);
     }
-
 }
