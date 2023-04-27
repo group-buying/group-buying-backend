@@ -22,7 +22,7 @@ public class PaymentInfoController {
     public ResponseEntity<?> insert(@PathVariable Long id,
                                     @AuthenticationPrincipal MyUserDetails myUserDetails,
                                     @RequestBody PaymentInfoReq.insertDTO insertDTO) {
-        paymentInfoService.결제데이터저장(id, myUserDetails.getUser().getId(), insertDTO);
-        return ResponseEntity.ok().body("결제 데이터 저장 성공");
+        paymentInfoService.부트페이데이터저장(id, myUserDetails.getUser().getId(), insertDTO);
+        return ResponseEntity.ok("부트페이 결제 데이터 저장 성공");
     }
 }
