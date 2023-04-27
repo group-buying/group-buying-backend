@@ -27,8 +27,6 @@ public class ReviewController {
     
     private final ReviewService reviewService;
 
-
-
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid ReviewSaveReqDTO reviewSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ReviewSaveRespDTO saveRespDTO = reviewService.리뷰작성(reviewSaveReqDTO, myUserDetails);
