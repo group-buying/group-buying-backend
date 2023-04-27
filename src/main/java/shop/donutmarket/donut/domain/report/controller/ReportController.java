@@ -23,7 +23,7 @@ public class ReportController {
     public ResponseEntity<?> insert(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                     @PathVariable Long id,
                                     @RequestBody ReportReq.insertDTO insertDTO) {
-        ReportResp.InsertRespDTO respDTO = reportService.신고하기(myUserDetails.getUser().getId(), id, insertDTO);
-        return ResponseEntity.ok().body(respDTO);
+        ReportResp.InsertRespDTO respDTO = reportService.신고하기(myUserDetails, id, insertDTO);
+        return ResponseEntity.ok(respDTO);
     }
 }
