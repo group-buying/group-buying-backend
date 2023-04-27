@@ -21,7 +21,7 @@ import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/myLocation")
+@RequestMapping("/myLocations")
 public class MyLocationController {
     
     private final MyLocationService myLocationService;

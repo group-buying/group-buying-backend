@@ -18,7 +18,7 @@ import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/myCategory")
+@RequestMapping("/myCategories")
 public class MyCategoryController {
     
     private final MyCategoryService myCategoryService;
