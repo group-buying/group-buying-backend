@@ -14,6 +14,7 @@ import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
+import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantCancelReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantDropReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSaveReqDTO;
@@ -27,6 +28,7 @@ import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.participant.repository.ParticipantRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.exception.Exception400;
 import shop.donutmarket.donut.global.exception.Exception403;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
@@ -63,7 +65,11 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantSaveRespDTO 참가하기(ParticipantSaveReqDTO participantSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Optional<Participant> participantOP = participantRepository.findByUserIdAndEvendId(myUserDetails.getUser().getId(), participantSaveReqDTO.getEvent().getId());
 
+        if (participantOP.isPresent()) {
+            throw new Exception400("이미 참가한 이벤트입니다");
+        }
 
         try {
         Participant participant = participantSaveReqDTO.toEntity(myUserDetails.getUser());
@@ -79,8 +85,6 @@ public class ParticipantService {
         } catch (Exception e) {
             throw new Exception500("이벤트 참가하기 실패 : " + e.getMessage());
         }
-        // 이미 참가한 내용 재참가 막는 예외 처리 필요
-
     }
 
     @Transactional

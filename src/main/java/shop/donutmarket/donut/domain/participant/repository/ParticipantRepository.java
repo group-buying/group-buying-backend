@@ -20,4 +20,6 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long>{
     @Query("select p from Participant p join fetch p.event join fetch p.user u join fetch u.rate join fetch p.statusCode where p.id = :participantId")
     Optional<Participant> findByIdwithEvent(@Param("participantId") Long participantId);
 
+    @Query("select p from Participant p where p.user.id = :userId and p.event.id = :eventId")
+    Optional<Participant> findByUserIdAndEvendId(@Param("userId") Long userId, @Param("eventId") Long eventId);
 }
