@@ -27,15 +27,11 @@ public class ReviewController {
     
     private final ReviewService reviewService;
 
-    @GetMapping
-    public ResponseEntity<?> myReviews(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        List<Review> reviewList = reviewService.내리뷰목록(myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(reviewList), HttpStatus.OK);
-    }
+
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid ReviewSaveReqDTO reviewSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ReviewSaveRespDTO saveRespDTO = reviewService.리뷰작성(reviewSaveReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>().data(saveRespDTO), HttpStatus.CREATED);
+        return ResponseEntity.ok(saveRespDTO);
     }
 }

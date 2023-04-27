@@ -6,6 +6,9 @@ import shop.donutmarket.donut.domain.blacklist.model.Blacklist;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.payment.model.Payment;
 import shop.donutmarket.donut.domain.report.model.Report;
+import shop.donutmarket.donut.domain.review.model.Review;
+
+import java.util.List;
 
 public class MyPageResp {
 
@@ -32,4 +35,14 @@ public class MyPageResp {
     public static class MyReportDTO {
         private Report report;
     }
+    @Getter
+    @Setter
+    public static class MyReviewDTO {
+        private List<Review> review;
+
+        public MyReviewDTO(List<Review> review) {
+            this.review = review;
+        }
+    }
+
 }
