@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.payment.dto.PaymentInfoReq;
 import shop.donutmarket.donut.domain.payment.dto.PaymentReq;
+import shop.donutmarket.donut.domain.payment.dto.PaymentResp;
 import shop.donutmarket.donut.domain.payment.service.PaymentService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 
@@ -20,7 +21,7 @@ public class PaymentController {
     public ResponseEntity<?> insert(@PathVariable Long id,
                                     @AuthenticationPrincipal MyUserDetails myUserDetails,
                                     @RequestBody PaymentReq.insertDTO insertDTO) {
-        paymentService.결제성공(id, myUserDetails.getUser().getId(), insertDTO);
-        return ResponseEntity.ok().body("결제 성공");
+        PaymentResp.insertDTO resp = paymentService.결제데이터저장(id, myUserDetails.getUser().getId(), insertDTO);
+        return ResponseEntity.ok(resp);
     }
 }
