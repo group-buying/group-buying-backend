@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import shop.donutmarket.donut.domain.admin.dto.CategoryReq.CategoryDeleteReqDTO;
 import shop.donutmarket.donut.domain.admin.dto.CategoryReq.CategorySaveReqDTO;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
@@ -24,5 +25,10 @@ public class CategoryService {
         Category category = categorySaveReqDTO.toEntity();
         categoryRepository.save(category);
         return category;
+    }
+
+    public void 카테고리제거(CategoryDeleteReqDTO CategoryDeleteReqDTO) {
+        // 삭제된 해당 카테고리를 가지고 있는 내카테고리들을 업데이트 해줘야 함.
+        categoryRepository.deleteById(CategoryDeleteReqDTO.getId());
     }
 }

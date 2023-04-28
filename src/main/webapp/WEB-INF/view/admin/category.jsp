@@ -60,6 +60,22 @@ function add() {
     });
 }
 
+function delete(id) {
+  $.ajax({
+    url: "/admin/category",
+    type: "DELETE",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify({
+      id: id
+    }),
+    dataType: "json"
+    }).done((res) => {
+        alert("카테고리를 삭제했습니다.");
+        location.reload();
+    }).fail((err) => {
+        alert(err.responseJSON.message);
+    });
+}
 </script>
 
  <%@ include file="../layout/footer.jsp" %>
