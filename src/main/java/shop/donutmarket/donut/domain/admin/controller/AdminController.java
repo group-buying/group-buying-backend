@@ -21,6 +21,8 @@ import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.service.CategoryService;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.AdminSearchBoardDTO;
 import shop.donutmarket.donut.domain.board.service.BoardService;
+import shop.donutmarket.donut.domain.payment.dto.PaymentReq.AdminSearchPaymentDTO;
+import shop.donutmarket.donut.domain.payment.service.PaymentService;
 import shop.donutmarket.donut.domain.user.dto.UserResp.AdminSearchUserDTO;
 import shop.donutmarket.donut.domain.user.service.UserService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
@@ -36,6 +38,7 @@ public class AdminController {
     private final CategoryService categoryService;
     private final UserService userService;
     private final BoardService boardService;
+    private final PaymentService paymentService;
 
     @GetMapping("/category")
     public String category(@AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -68,6 +71,13 @@ public class AdminController {
         List<AdminSearchBoardDTO> boardList = boardService.공고조회();
         session.setAttribute("boardList", boardList);
         return "admin/board";
+    }
+
+    @GetMapping("/payment")
+    public String payment(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        List<AdminSearchPaymentDTO> paymentList = paymentService.결제조회();
+        session.setAttribute("paymentList", paymentList);
+        return "admin/payment";
     }
     
 }

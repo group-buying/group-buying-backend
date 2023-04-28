@@ -12,6 +12,7 @@ import shop.donutmarket.donut.domain.payment.dto.PaymentInfoReq;
 import shop.donutmarket.donut.domain.payment.dto.PaymentReq;
 import shop.donutmarket.donut.domain.payment.dto.PaymentResp;
 import shop.donutmarket.donut.domain.payment.model.Payment;
+import shop.donutmarket.donut.domain.payment.dto.PaymentReq.AdminSearchPaymentDTO;
 import shop.donutmarket.donut.domain.payment.repository.PaymentInfoRepository;
 import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -19,6 +20,7 @@ import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +49,12 @@ public class PaymentService {
         } catch (Exception e) {
             throw new Exception500("결제 데이터 저장 실패 : " + e.getMessage());
         }
+    }
+
+    public List<AdminSearchPaymentDTO> 결제조회() {
+
+        // 임시 작성
+    
+        return null;
     }
 }
