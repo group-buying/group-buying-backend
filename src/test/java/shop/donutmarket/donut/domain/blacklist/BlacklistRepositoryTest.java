@@ -104,6 +104,6 @@ public class BlacklistRepositoryTest {
     }
 
     private void autoincrementReset() {
-        em.createNativeQuery("ALTER TABLE blackList ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE blacklist ALTER COLUMN id RESTART WITH 1").executeUpdate();
     }
 }
