@@ -56,5 +56,16 @@ public class BoardResp {
             this.comment = comment;
        }
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class AdminSearchBoardDTO {
+        private Long id;
+        private String title;
+        private String organizer;
+        private String location;
+        private LocalDateTime createdAt;
+    }
 }
 

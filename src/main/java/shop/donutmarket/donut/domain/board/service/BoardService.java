@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardResp.AdminSearchBoardDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardUpdateRespDTO;
 import shop.donutmarket.donut.domain.board.model.Board;
@@ -161,5 +162,17 @@ public class BoardService {
         } catch (Exception e) {
             throw new Exception500("게시글 삭제하기 실패 : " + e.getMessage());
         }
+    }
+
+    public List<AdminSearchBoardDTO> 공고조회() {
+        List<Board> boardlist = boardRepository.findAllBoardWithAllArg();
+        List<AdminSearchBoardDTO> listDTO = new ArrayList<>();
+        for (Board board : boardlist) {
+            AdminSearchBoardDTO boardDTO = new AdminSearchBoardDTO(
+                board.getId(), board.getTitle(), board.getOrganizer().getName(),
+                board.getState()+" "+board.getCity()+" "+board.getTown(), board.getCreatedAt());
+            listDTO.add(boardDTO); 
+        }
+        return listDTO;
     }
 }

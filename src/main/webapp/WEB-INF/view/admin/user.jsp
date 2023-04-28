@@ -4,7 +4,7 @@
 <div class="container py-3 bg-white">
     <div class="p-3">
         <hr>
-            <h2 style="text-align: center;">카테고리 목록</h2>
+            <h2 style="text-align: center;">유저 목록</h2>
         <hr>
     </div>
     <div class="container m-3">
@@ -24,8 +24,8 @@
                     <tr onclick="location.href='admin/user/${user.id}'">
                         <td class="text-center">${user.id}</td>
                         <td class="text-center">${user.name}</td>
-                        <td class="text-center">${user.rate.name}</td>
-                        <td class="text-center">${user.statusCode.status}</td>
+                        <td class="text-center">${user.ratename}</td>
+                        <td class="text-center">${user.status}</td>
                         <td class="text-center">${user.createdAt}</td>
                     </tr>
                 </c:forEach>

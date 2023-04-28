@@ -31,7 +31,8 @@
                 <!-- 반복문종료 -->
                     <tr>
                         <td></td>
-                        <td><input id="categoryname" type="text" placeholder="이름"/></td>
+                        <td class="text-center"><input id="categoryname" type="text" placeholder="이름"/></td>
+                        <td></td>
                         <td><button type="button" id="add" class="badge bg-success my-border-color-default"
                                 onclick="add()">추가</span></td>
                     </tr>

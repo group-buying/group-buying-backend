@@ -19,6 +19,8 @@ import shop.donutmarket.donut.domain.admin.dto.CategoryReq.CategoryDeleteReqDTO;
 import shop.donutmarket.donut.domain.admin.dto.CategoryReq.CategorySaveReqDTO;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.service.CategoryService;
+import shop.donutmarket.donut.domain.board.dto.BoardResp.AdminSearchBoardDTO;
+import shop.donutmarket.donut.domain.board.service.BoardService;
 import shop.donutmarket.donut.domain.user.dto.UserResp.AdminSearchUserDTO;
 import shop.donutmarket.donut.domain.user.service.UserService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
@@ -33,6 +35,7 @@ public class AdminController {
     
     private final CategoryService categoryService;
     private final UserService userService;
+    private final BoardService boardService;
 
     @GetMapping("/category")
     public String category(@AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -56,8 +59,15 @@ public class AdminController {
     @GetMapping("/user")
     public String user(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         List<AdminSearchUserDTO> userList = userService.유저조회();
-        session.setAttribute("categoryList", userList);
+        session.setAttribute("userList", userList);
         return "admin/user";
+    }
+
+    @GetMapping("/board")
+    public String board(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        List<AdminSearchBoardDTO> boardList = boardService.공고조회();
+        session.setAttribute("boardList", boardList);
+        return "admin/board";
     }
     
 }
