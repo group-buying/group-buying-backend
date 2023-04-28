@@ -72,9 +72,8 @@ public class PaymentRepositoryTest {
     @DisplayName("Payment 생성 테스트")
     void save_Test() {
         // given
-        Participant participant = Participant.builder().build();
         StatusCode statusCode = StatusCode.builder().build();
-        Payment payment = Payment.builder().participant(participant).paymentType("직거래").statusCode(statusCode).confirmed(true).createdAt(LocalDateTime.now()).build();
+        Payment payment = Payment.builder().paymentType("직거래").statusCode(statusCode).confirmed(true).createdAt(LocalDateTime.now()).build();
 
         // when
         paymentRepository.save(payment);
@@ -101,30 +100,9 @@ public class PaymentRepositoryTest {
         assertNull(tem.find(Payment.class, id));
     }
 
-    @Test
-    @DisplayName("Payment 수정 테스트")
-    void updateById_Test() {
-        // given
-        Long id = 1L;
-        Payment payment = tem.find(Payment.class, id);
-        Participant participant = Participant.builder().build();
-        StatusCode statusCode = StatusCode.builder().build();
-        LocalDateTime time = LocalDateTime.now();
-        tem.persist(participant);
-        tem.persist(statusCode);
-
-        // when
-        payment.updatePayment(participant, "직거래", statusCode, false, time);
-        tem.persistAndFlush(payment);
-
-        // then
-        assertEquals(payment.getPaymentType(), "직거래");
-    }
-
     private void dataSetting() {
-        Participant participant = Participant.builder().build();
         StatusCode statusCode = StatusCode.builder().build();
-        Payment payment = Payment.builder().id(1L).participant(participant).paymentType("직거래").statusCode(statusCode).confirmed(true).createdAt(LocalDateTime.now()).build();
+        Payment payment = Payment.builder().id(1L).paymentType("직거래").statusCode(statusCode).confirmed(true).createdAt(LocalDateTime.now()).build();
         paymentRepository.save(payment);
     }
 

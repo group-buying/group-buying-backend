@@ -70,7 +70,7 @@ public class AccountRepositoryTest {
     @DisplayName("Account 생성 테스트")
     void save_Test(){
         // given
-        User user = User.builder().build();
+        User user = User.builder().id(2L).build();
         MyAccount myAccount = MyAccount.builder().user(user).brand("농협").accountNumber("1-2312-3-123456").build();
         
         // when
@@ -116,7 +116,7 @@ public class AccountRepositoryTest {
     }
 
     private void dataSetting() {
-        User user = User.builder().build();
+        User user = User.builder().id(1L).build();
         MyAccount myAccount = MyAccount.builder().user(user).brand("신한").accountNumber("123-123-123456").build();
         myAccountRepository.save(myAccount);
     }
