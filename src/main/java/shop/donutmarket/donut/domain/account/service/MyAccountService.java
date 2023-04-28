@@ -36,8 +36,7 @@ public class MyAccountService {
         }
         try {
             User userPS = userOP.get();
-            insertDTO.setUser(userPS);
-            myAccountRepository.save(insertDTO.toEntity());
+            myAccountRepository.save(insertDTO.toEntity(userPS));
 
             // 영속성 컨텍스트에 존재
             Optional<MyAccount> myAccountOP = myAccountRepository.findByUserId(userId);

@@ -14,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import shop.donutmarket.donut.core.MyRestDocs;
 import shop.donutmarket.donut.domain.account.dto.AccountReq;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
@@ -50,17 +51,15 @@ public class AccountControllerTest extends MyRestDocs {
     public void insert_test() throws Exception {
         // given
         AccountReq.insertDTO insertDTO = new AccountReq.insertDTO();
-        insertDTO.
-        AccountReq.JoinInDTO joinInDTO = new UserRequest.JoinInDTO();
-        joinInDTO.setUsername("love");
-        joinInDTO.setPassword("1234");
-        joinInDTO.setEmail("love@nate.com");
-        joinInDTO.setFullName("러브");
-        String requestBody = om.writeValueAsString(joinInDTO);
+        insertDTO.setUserId(1L);
+        insertDTO.setBrand("신한");
+        insertDTO.setAccountNumber("1112223333");
+        String requestBody = om.writeValueAsString(insertDTO);
 
         // when
         ResultActions resultActions = mvc
                 .perform(post("/join").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
