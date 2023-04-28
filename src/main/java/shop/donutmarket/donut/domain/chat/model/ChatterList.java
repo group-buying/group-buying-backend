@@ -55,7 +55,7 @@ public class ChatterList {
         this.statusCode = kickedCode;
     }
     
-    public void partici(){
+    public void participate(){
         StatusCode particiCode = StatusCode.builder().id(700).type("chatter").status("참가").build();
         this.statusCode = particiCode;
     }
