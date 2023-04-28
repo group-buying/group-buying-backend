@@ -25,7 +25,7 @@
                         <td class="text-center">${category.name}</td>
                         <td class="text-center"></td>
                         <td><button type="button" id="delete-${category.id}" class="badge bg-danger my-border-color-default"
-                                onclick="delete(${category.id})">삭제</span></td>
+                                onclick="deleteCategory(${category.id})">삭제</span></td>
                     </tr>
                 </c:forEach>
                 <!-- 반복문종료 -->
@@ -34,7 +34,7 @@
                         <td class="text-center"><input id="categoryname" type="text" placeholder="이름"/></td>
                         <td></td>
                         <td><button type="button" id="add" class="badge bg-success my-border-color-default"
-                                onclick="add()">추가</span></td>
+                                onclick="addCategory()">추가</span></td>
                     </tr>
             </tbody>
         </table>
@@ -43,7 +43,7 @@
 
 <script>
 
-function add() {
+function addCategory() {
     var categoryName = $('#categoryname').val();
   $.ajax({
     url: "/admin/category",
@@ -61,7 +61,7 @@ function add() {
     });
 }
 
-function delete(id) {
+function deleteCategory(id) {
   $.ajax({
     url: "/admin/category",
     type: "DELETE",

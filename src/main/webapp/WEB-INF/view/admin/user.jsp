@@ -27,6 +27,8 @@
                         <td class="text-center">${user.ratename}</td>
                         <td class="text-center">${user.status}</td>
                         <td class="text-center">${user.createdAt}</td>
+                        <td><button type="button" id="block-${user.id}" class="badge bg-danger my-border-color-default"
+                            onclick="blockUser(${user.id})">차단</span></td>
                     </tr>
                 </c:forEach>
                 <!-- 반복문종료 -->

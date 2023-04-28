@@ -27,6 +27,8 @@
                         <td class="text-center">${board.organizer}</td>
                         <td class="text-center">${board.location}</td>
                         <td class="text-center">${board.createdAt}</td>
+                        <td><button type="button" id="block-${board.id}" class="badge bg-danger my-border-color-default"
+                            onclick="blockBoard(${board.id})">비활성화</span></td>
                     </tr>
                 </c:forEach>
                 <!-- 반복문종료 -->
