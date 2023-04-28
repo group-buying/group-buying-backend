@@ -60,6 +60,11 @@ public class ChatterListService {
     }
 
     @Transactional
+    public void 채팅방(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        User user = myUserDetails.getUser();
+    }
+
+    @Transactional
     public void 초대하기(ChatInviteReqDTO chatInviteReqDTO) {
         Optional<Participant> participantOP = participantRepository.findById(chatInviteReqDTO.getParticipantId());
         if (participantOP.isEmpty()) {
