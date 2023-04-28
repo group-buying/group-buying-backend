@@ -35,7 +35,7 @@ public class UserService {
         try {
             userRepository.save(joinDTO.toEntity());
         } catch (Exception e) {
-            throw new Exception500("회원가입 실패");
+            throw new Exception500("회원가입 실패 : " + e.getMessage());
         }
 
         // JWT 인증 로직
@@ -66,7 +66,7 @@ public class UserService {
             }
             throw new RuntimeException("패스워드 유효성 실패");
         } catch (Exception e) {
-            throw new Exception500("로그인 실패");
+            throw new Exception500("로그인 실패 : " + e.getMessage());
         }
     }
 
@@ -85,7 +85,7 @@ public class UserService {
             userPS.updateUser(updateDTO.getPassword(), updateDTO.getName(), updateDTO.getProfile(), localDateTime);
 
         } catch (Exception e) {
-            throw new Exception500("회원수정 실패");
+            throw new Exception500("회원수정 실패 : " + e.getMessage());
         }
 
         // 다시 db에서 조회
@@ -95,8 +95,12 @@ public class UserService {
             throw new Exception404("존재하지 않는 회원입니다");
         }
 
-        User user = data.get();
-        UserResp.UpdateDTO resp = new UserResp.UpdateDTO(user.getUsername(), user.getEmail(), user.getName(), user.getProfile(), user.getRole());
-        return resp;
+        try {
+            User user = data.get();
+            UserResp.UpdateDTO resp = new UserResp.UpdateDTO(user.getUsername(), user.getEmail(), user.getName(), user.getProfile(), user.getRole());
+            return resp;
+        } catch (Exception e) {
+            throw new Exception500("회원수정 데이터 반환 실패 : " + e.getMessage());
+        }
     }
 }
