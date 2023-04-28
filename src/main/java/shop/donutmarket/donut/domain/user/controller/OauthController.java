@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
+import shop.donutmarket.donut.global.exception.Exception500;
 import shop.donutmarket.donut.global.jwt.MyJwtProvider;
 import shop.donutmarket.donut.global.oauth.NaverUserInfo;
 
@@ -40,19 +41,27 @@ public class OauthController {
                     .role("ROLE_USER")
                     .build();
 
-            User userEntity = userRepository.save(user);
-            String jwt = MyJwtProvider.create(userEntity);
+            try {
+                User userEntity = userRepository.save(user);
+                String jwt = MyJwtProvider.create(userEntity);
 
-            return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("네이버 로그인 완료");
+                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("네이버 로그인 완료");
+            } catch (Exception e) {
+                throw new Exception500("네이버 로그인 실패 : " + e.getMessage());
+            }
 
         } else {
-            User userPS = userOP.get();
-            // user가 존재하면 update 해주기
-            userPS.updateEmail(naverUser.getEmail());
-            userRepository.save(userPS);
-            String jwt = MyJwtProvider.create(userPS);
+            try {
+                User userPS = userOP.get();
+                // user가 존재하면 update 해주기
+                userPS.updateEmail(naverUser.getEmail());
+                userRepository.save(userPS);
+                String jwt = MyJwtProvider.create(userPS);
 
-            return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("네이버 로그인 완료");
+                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("네이버 로그인 완료");
+            } catch (Exception e) {
+                throw new Exception500("네이버 로그인 실패 : " + e.getMessage());
+            }
         }
     }
 }

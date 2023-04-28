@@ -5,15 +5,18 @@ import kr.co.bootpay.model.request.Cancel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import shop.donutmarket.donut.global.exception.Exception500;
 
 import java.util.HashMap;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/bootpay")
 public class BootpayController {
-    static Bootpay bootpay = new Bootpay(
-            "6441fb21755e27001be57d92",
-            "4am5qAtenMx0arruzbExuuVi0vaxz84P1IgiVx/J9Vc=");
+
+    private static final String restApiKey = System.getenv("REST_API_KEY");
+    private static final String privateKey = System.getenv("PRIVATE_KEY");
+
+    static Bootpay bootpay = new Bootpay(restApiKey, privateKey);
 
     // 결제 취소 기능
     @PostMapping("/receiptCancel/{id}")
@@ -31,8 +34,7 @@ public class BootpayController {
                 return ResponseEntity.internalServerError().body(res+"결제 취소 실패");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception500("결제 취소하기 실패 : " + e.getMessage());
         }
-        return ResponseEntity.badRequest().body("결제 취소 실패");
     }
 }

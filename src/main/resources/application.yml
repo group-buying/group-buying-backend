@@ -50,3 +50,10 @@ sentry:
   traces-sample-rate: 1.0
   logging:
     minimum-event-level: info
+
+boot-pay:
+  rest-api-key: ${REST_API_KEY}
+  private-key: ${PRIVATE_KEY}
+
+
+
