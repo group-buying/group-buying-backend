@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -19,9 +20,10 @@ public class PaymentInfo {
     private Long eventId;
     private Long userId;
     private String event;
+    // 매번 new하게 해주어야 한다
     @Embedded
-    private PaymentData data;
-    @CreationTimestamp
+    private PaymentData data = new PaymentData();
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder
