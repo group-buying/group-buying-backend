@@ -13,24 +13,15 @@ public class AccountReq {
     @Getter
     @Setter
     public static class insertDTO {
-        private User user;
+        private Long userId;
         @NotBlank
         private String brand;
         @NotBlank
         private String accountNumber;
 
-        public MyAccount toEntity() {
+        public MyAccount toEntity(User user) {
             return MyAccount.builder().user(user).brand(brand).accountNumber(accountNumber).build();
         }
-    }
-
-    @Getter
-    @Setter
-    public static class selectDTO {
-        private Long id;
-        private User user;
-        private String brand;
-        private String accountNumber;
     }
 
     @Getter
