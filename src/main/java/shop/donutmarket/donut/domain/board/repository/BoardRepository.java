@@ -25,6 +25,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
     @Query("select b from Board b join fetch b.category c join fetch b.event e join fetch b.organizer o join fetch o.rate join fetch o.statusCode join fetch b.statusCode where b.id = :boardId")
     Optional<Board> findByIdWithAll(@Param("boardId") Long boardId);
 
-    @Query("select b from Board b join fetch b.statusCode")
+    @Query("select b from Board b join fetch b.statusCode where b.statusCode.id in(200, 201, 202)")
     List<Board> findBoardAndStatusCode();
 }
