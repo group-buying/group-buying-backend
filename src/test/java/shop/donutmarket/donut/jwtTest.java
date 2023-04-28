@@ -9,6 +9,4 @@ public class jwtTest {
         String secret = System.getenv("HS512_SECRET");
         System.out.println("테스트: "+secret);
     }
-
-
 }

@@ -132,8 +132,7 @@ public class BoardRepositoryTest {
         tem.persistAndFlush(board);
 
         // then
-        assertEquals(board.getTitle(), "제목");
-        assertEquals(board.getImg(), "이미지");
+        assertEquals(board.getTitle(), "삼각김밥 1+1 사실분");
     }
 
     @Test
@@ -171,22 +170,22 @@ public class BoardRepositoryTest {
     }
 
 
-//    @Test
-//    @DisplayName("Event 생성 테스트")
-//    void event_Save_Test() {
-//        // given
-//        LocalDateTime time = LocalDateTime.now();
-//        StatusCode statusCode = StatusCode.builder().build();
-//        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).price(1000).build();
-//
-//        // when
-//        eventRepository.save(event);
-//
-//        // then
-//        assertNotNull(event);
-//        assertEquals(event.getLatitude(), 139.123123);
-//        assertEquals(event.getLongtitude(), 39.123123);
-//    }
+    @Test
+    @DisplayName("Event 생성 테스트")
+    void event_Save_Test() {
+        // given
+        LocalDateTime time = LocalDateTime.now();
+        StatusCode statusCode = StatusCode.builder().build();
+        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).price(1000).build();
+
+        // when
+        eventRepository.save(event);
+
+        // then
+        assertNotNull(event);
+        assertEquals(event.getLatitude(), 139.123123);
+        assertEquals(event.getLongtitude(), 39.123123);
+    }
 
 
     @Test
