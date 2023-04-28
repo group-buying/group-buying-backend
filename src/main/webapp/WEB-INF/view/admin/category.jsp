@@ -40,4 +40,26 @@
     </div>
 </div>
 
+<script>
+
+function add() {
+    var categoryName = $('#categoryname').val();
+  $.ajax({
+    url: "/admin/category",
+    type: "PUT",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify({
+      name: categoryName
+    }),
+    dataType: "json"
+    }).done((res) => {
+        alert("카테고리를 추가했습니다.");
+        location.reload();
+    }).fail((err) => {
+        alert(err.responseJSON.message);
+    });
+}
+
+</script>
+
  <%@ include file="../layout/footer.jsp" %>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import shop.donutmarket.donut.domain.admin.dto.CategoryReq.CategorySaveReqDTO;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
 
@@ -18,5 +19,10 @@ public class CategoryService {
         List<Category> list = categoryRepository.findAll();
         return list;
     }
-
+    
+    public Category 카테고리추가(CategorySaveReqDTO categorySaveReqDTO) {
+        Category category = categorySaveReqDTO.toEntity();
+        categoryRepository.save(category);
+        return category;
+    }
 }
