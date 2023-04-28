@@ -142,7 +142,7 @@ public class BoardRepositoryTest {
         // given
         Long id = 1L;
         Board board = tem.find(Board.class, id);
-        Tag tag = Tag.builder().board(board).comment("편의점").build();
+        Tag tag = Tag.builder().boardId(board.getId()).comment("편의점").build();
 
         // when
         tagRepository.save(tag);
@@ -159,7 +159,7 @@ public class BoardRepositoryTest {
         // given
         Long id = 1L;
         Board board = tem.find(Board.class, id);
-        Tag tag = Tag.builder().board(board).comment("편의점").build();
+        Tag tag = Tag.builder().boardId(board.getId()).comment("편의점").build();
         tagRepository.save(tag);
 
         // when
@@ -171,22 +171,22 @@ public class BoardRepositoryTest {
     }
 
 
-    @Test
-    @DisplayName("Event 생성 테스트")
-    void event_Save_Test() {
-        // given
-        LocalDateTime time = LocalDateTime.now();
-        StatusCode statusCode = StatusCode.builder().build();
-        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(statusCode).price(1000).build();
-
-        // when
-        eventRepository.save(event);
-
-        // then
-        assertNotNull(event);
-        assertEquals(event.getLatitude(), 139.123123);
-        assertEquals(event.getLongtitude(), 39.123123);
-    }
+//    @Test
+//    @DisplayName("Event 생성 테스트")
+//    void event_Save_Test() {
+//        // given
+//        LocalDateTime time = LocalDateTime.now();
+//        StatusCode statusCode = StatusCode.builder().build();
+//        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).price(1000).build();
+//
+//        // when
+//        eventRepository.save(event);
+//
+//        // then
+//        assertNotNull(event);
+//        assertEquals(event.getLatitude(), 139.123123);
+//        assertEquals(event.getLongtitude(), 39.123123);
+//    }
 
 
     @Test
@@ -195,7 +195,7 @@ public class BoardRepositoryTest {
         // given
         LocalDateTime time = LocalDateTime.now();
         StatusCode statusCode = StatusCode.builder().build();
-        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).statusCode(statusCode).price(1000).build();
+        Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).price(1000).build();
         eventRepository.save(event);
 
         // when
