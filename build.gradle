@@ -19,6 +19,11 @@ repositories {
 }
 
 dependencies {
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+    implementation 'javax.servlet:jstl:1.2'
+    implementation 'org.apache.tomcat:tomcat-jsp-api:9.0.70'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation 'io.sentry:sentry-spring-boot-starter-jakarta:6.17.0'
     implementation 'io.sentry:sentry-logback:6.17.0'
     implementation 'com.google.firebase:firebase-admin:9.1.1'
