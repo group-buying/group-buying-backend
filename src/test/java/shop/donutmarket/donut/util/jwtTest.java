@@ -1,4 +1,4 @@
-package shop.donutmarket.donut;
+package shop.donutmarket.donut.util;
 
 import org.junit.jupiter.api.Test;
 

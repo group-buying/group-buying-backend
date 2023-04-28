@@ -1,4 +1,4 @@
-package shop.donutmarket.donut.domain.board;
+package shop.donutmarket.donut.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
