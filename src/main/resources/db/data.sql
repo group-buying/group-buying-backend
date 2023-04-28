@@ -1,6 +1,6 @@
-insert into user_tb(username, password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('ssar@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'ssar@naver.com', 'ssar', null, 1, true, 'ROLE_USER', '', '', 100, now());
-insert into user_tb(username, password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('cos@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'zzxc@naver.com', 'zzxc', null, 2, true, 'ROLE_USER', '', '', 100, now());
-insert into user_tb(username, password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('admin@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'admin@naver.com', '관리자', null, 2, true, 'ROLE_ADMIN', '', '', 100, now());
+insert into user_tb(username, password, email, name, profile, rate_id, role, provider, provider_id, status_code, created_at) values('ssar@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'ssar@naver.com', 'ssar', null, 1,  'ROLE_USER', '', '', 100, now());
+insert into user_tb(username, password, email, name, profile, rate_id, role, provider, provider_id, status_code, created_at) values('naver_1', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'zzxc@naver.com', 'zzxc', null, 2, 'ROLE_USER', 'naver', '1', 100, now());
+insert into user_tb(username, password, email, name, profile, rate_id, role, provider, provider_id, status_code, created_at) values('admin@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'admin@naver.com', '관리자', null, 2, 'ROLE_ADMIN', '', '', 100, now());
 
 insert into rate(user_id, rate_name, rate_point, created_at) values(1, '글레이즈드', 30, now());
 insert into rate(user_id, rate_name, rate_point, created_at) values(2, '딸기도넛', 70, now());
@@ -68,17 +68,16 @@ insert into status_code(id, type, status, created_at) values(300, 'participant',
 insert into status_code(id, type, status, created_at) values(301, 'participant', '미채택', now());
 insert into status_code(id, type, status, created_at) values(302, 'participant', '채택', now());
 insert into status_code(id, type, status, created_at) values(303, 'participant', '참가 취소', now());
-insert into status_code(id, type, status, created_at) values(400, 'payment', '결제전', now());
-insert into status_code(id, type, status, created_at) values(401, 'payment', '결제완료', now());
-insert into status_code(id, type, status, created_at) values(402, 'payment', '구매확정', now());
+insert into status_code(id, type, status, created_at) values(400, 'payment', '결제완료', now());
+insert into status_code(id, type, status, created_at) values(401, 'payment', '구매확정', now());
 insert into status_code(id, type, status, created_at) values(500, 'chatroom', '활성화', now());
 insert into status_code(id, type, status, created_at) values(501, 'chatroom', '비활성화', now());
 insert into status_code(id, type, status, created_at) values(502, 'chatroom', '삭제', now());
 insert into status_code(id, type, status, created_at) values(600, 'report', '대기', now());
 insert into status_code(id, type, status, created_at) values(601, 'report', '처리중', now());
 insert into status_code(id, type, status, created_at) values(602, 'report', '처리완료', now());
-insert into status_code(id, type, status, created_at) values(700, 'chatter', '참가', now());
-insert into status_code(id, type, status, created_at) values(701, 'chatter', '나감', now());
-insert into status_code(id, type, status, created_at) values(702, 'chatter', '강퇴당함', now());
+insert into status_code(id, type, status, created_at) values(700, 'chatter_list', '참가', now());
+insert into status_code(id, type, status, created_at) values(701, 'chatter_list', '나감', now());
+insert into status_code(id, type, status, created_at) values(702, 'chatter_list', '강퇴당함', now());
 
 commit;

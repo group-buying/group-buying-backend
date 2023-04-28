@@ -2,16 +2,39 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.5'
     id 'io.spring.dependency-management' version '1.1.0'
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
 group = 'shop.donutmarket'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    asciidoctorExt
 }
 
 repositories {
@@ -19,6 +42,8 @@ repositories {
 }
 
 dependencies {
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor:{project-version}'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc:{project-version}'
     implementation 'io.sentry:sentry-spring-boot-starter-jakarta:6.17.0'
     implementation 'io.sentry:sentry-logback:6.17.0'
     implementation 'com.google.firebase:firebase-admin:9.1.1'
