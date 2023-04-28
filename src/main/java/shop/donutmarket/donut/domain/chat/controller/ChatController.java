@@ -61,18 +61,18 @@ public class ChatController {
     @PostMapping("/invite")
     public ResponseEntity<?> invite(@RequestBody @Valid ChatInviteReqDTO chatInviteReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         chatterListService.초대하기(chatInviteReqDTO);
-        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
+        return ResponseEntity.ok("초대하기 성공");
     }
 
     @PutMapping("/exit/{id}")
     public ResponseEntity<?> exit(@PathVariable Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         chatterListService.나가기(id, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
+        return ResponseEntity.ok("나가기 성공");
     }
 
     @PutMapping("/kick")
     public ResponseEntity<?> kick(@RequestBody @Valid ChatKickReqDTO chatKickReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         chatterListService.강퇴하기(chatKickReqDTO, myUserDetails);
-        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
+        return ResponseEntity.ok("강퇴하기 성공");
     }
 }
