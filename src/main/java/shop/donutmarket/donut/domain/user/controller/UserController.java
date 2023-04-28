@@ -40,7 +40,7 @@ public class UserController {
         return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("로그인 완료");
     }
 
-    @PutMapping("/users")
+    @PutMapping("/users/update")
     public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid UserReq.UpdateDTO updateDTO) {
         UserResp.UpdateDTO resp = userService.회원수정(myUserDetails, updateDTO);
         return ResponseEntity.ok(resp);
