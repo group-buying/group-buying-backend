@@ -19,6 +19,8 @@ import shop.donutmarket.donut.domain.admin.dto.CategoryReq.CategoryDeleteReqDTO;
 import shop.donutmarket.donut.domain.admin.dto.CategoryReq.CategorySaveReqDTO;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.service.CategoryService;
+import shop.donutmarket.donut.domain.user.dto.UserResp.AdminSearchUserDTO;
+import shop.donutmarket.donut.domain.user.service.UserService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.dto.ResponseDTO;
 
@@ -30,6 +32,7 @@ public class AdminController {
     private final HttpSession session;
     
     private final CategoryService categoryService;
+    private final UserService userService;
 
     @GetMapping("/category")
     public String category(@AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -37,7 +40,7 @@ public class AdminController {
         session.setAttribute("categoryList", categoryList);
         return "admin/category";
     }
-
+    
     @PostMapping("/category")
     public ResponseEntity<?> addCategory(@RequestBody @Valid CategorySaveReqDTO categorySaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         Category addCategory = categoryService.카테고리추가(categorySaveReqDTO);
@@ -49,4 +52,12 @@ public class AdminController {
         categoryService.카테고리제거(categoryDeleteReqDTO);
         return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
     }
+
+    @GetMapping("/user")
+    public String user(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        List<AdminSearchUserDTO> userList = userService.유저조회();
+        session.setAttribute("categoryList", userList);
+        return "admin/user";
+    }
+    
 }

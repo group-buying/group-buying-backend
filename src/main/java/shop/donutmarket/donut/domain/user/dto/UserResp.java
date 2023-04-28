@@ -1,9 +1,10 @@
 package shop.donutmarket.donut.domain.user.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import shop.donutmarket.donut.domain.user.model.User;
 
 public class UserResp {
     @Getter
@@ -22,5 +23,16 @@ public class UserResp {
             this.profile = profile;
             this.role = role;
         }
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class AdminSearchUserDTO {
+        private Long id;
+        private String name;
+        private String ratename;
+        private String status;
+        private LocalDateTime createdAt;
     }
 }

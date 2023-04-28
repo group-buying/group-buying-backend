@@ -1,22 +1,25 @@
 package shop.donutmarket.donut.domain.user.service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import shop.donutmarket.donut.domain.user.dto.UserReq;
 import shop.donutmarket.donut.domain.user.dto.UserResp;
+import shop.donutmarket.donut.domain.user.dto.UserResp.AdminSearchUserDTO;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
 import shop.donutmarket.donut.global.jwt.MyJwtProvider;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -102,5 +105,17 @@ public class UserService {
         } catch (Exception e) {
             throw new Exception500("회원수정 데이터 반환 실패 : " + e.getMessage());
         }
+    }
+
+    public List<AdminSearchUserDTO> 관리자유저조회() {
+        List<User> userlist = userRepository.findAllWithAllArg();
+        List<AdminSearchUserDTO> listDTO = new ArrayList<>();
+        for (User user : userlist) {
+            AdminSearchUserDTO userDTO = new AdminSearchUserDTO(
+                user.getId(), user.getName(), user.getRate().getRateName(),
+                user.getStatusCode().getStatus(), user.getCreatedAt());
+            listDTO.add(userDTO); 
+        }
+        return listDTO;
     }
 }
