@@ -88,8 +88,8 @@ public class SecurityConfig {
         });
 
         // 11. 인증, 권한 필터 설정
-        http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/users/**").authenticated()
-                .requestMatchers("/admin/**").hasRole("ADMIN").anyRequest().permitAll());
+        http.authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers("/admin/**", "/firebase", "/bootpay").hasRole("ROLE_ADMIN").anyRequest().permitAll());
 
         return http.build();
     }

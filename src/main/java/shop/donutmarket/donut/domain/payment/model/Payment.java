@@ -21,6 +21,7 @@ public class Payment {
     private Long id;
     private Long userId;
     private Long eventId;
+    private Long paymentInfoId;
     @Column(name = "payment_type")
     private String paymentType;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,10 +33,11 @@ public class Payment {
     private LocalDateTime createdAt;
 
     @Builder
-    public Payment(Long id, Long userId, Long eventId, String paymentType, StatusCode statusCode, boolean confirmed, LocalDateTime createdAt) {
+    public Payment(Long id, Long userId, Long eventId, Long paymentInfoId, String paymentType, StatusCode statusCode, boolean confirmed, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.eventId = eventId;
+        this.paymentInfoId = paymentInfoId;
         this.paymentType = paymentType;
         this.statusCode = statusCode;
         this.confirmed = confirmed;

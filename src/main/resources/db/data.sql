@@ -1,5 +1,6 @@
 insert into user_tb(username, password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('ssar@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'ssar@naver.com', 'ssar', null, 1, true, 'ROLE_USER', '', '', 100, now());
 insert into user_tb(username, password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('cos@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'zzxc@naver.com', 'zzxc', null, 2, true, 'ROLE_USER', '', '', 100, now());
+insert into user_tb(username, password, email, name, profile, rate_id, type, role, provider, provider_id, status_code, created_at) values('admin@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'admin@naver.com', '관리자', null, 2, true, 'ROLE_ADMIN', '', '', 100, now());
 
 insert into rate(user_id, rate_name, rate_point, created_at) values(1, '글레이즈드', 30, now());
 insert into rate(user_id, rate_name, rate_point, created_at) values(2, '딸기도넛', 70, now());
@@ -20,7 +21,7 @@ insert into tag(board_id, comment, created_at) values(1, '1+1', now());
 insert into participant(event_id, user_id, qty, created_at, status_code) values(1, 2, 1, now(), 300);
 insert into participant(event_id, user_id, qty, created_at, status_code) values(1, 3, 1, now(), 300);
 
-insert into payment(event_id, user_id, payment_type, status_code, confirmed, created_at) values(1, 1, '직거래', 401, 0, now());
+insert into payment(event_id, user_id, payment_info_id, payment_type, status_code, confirmed, created_at) values(1, 1, 1, '직거래', 401, 0, now());
 
 insert into wishlist(user_id, board_id, created_at) values(1, 1, now());
 
