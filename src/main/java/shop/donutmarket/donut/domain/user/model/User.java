@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.review.model.Rate;
 
@@ -40,8 +41,7 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_code")
     private StatusCode statusCode;
-    @CreationTimestamp
-    @Column(name = "created_at")
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder

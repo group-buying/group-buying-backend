@@ -7,6 +7,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -26,13 +28,12 @@ public class Participant {
     @JoinColumn(name = "user_id")
     private User user;
     private int qty;
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-    @Column(name = "limit_time")
     private LocalDateTime limitTime;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_code")
     private StatusCode statusCode;
+    @CreatedDate
+    private LocalDateTime createdAt;
 
     @Builder
     public Participant(Long id, Event event, User user, int qty, LocalDateTime createdAt, LocalDateTime limitTime, StatusCode statusCode) {

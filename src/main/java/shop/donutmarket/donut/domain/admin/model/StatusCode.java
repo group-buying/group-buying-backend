@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +19,7 @@ public class StatusCode {
     private int id;
     private String type;
     private String status;
-    @Column(name = "created_at")
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder

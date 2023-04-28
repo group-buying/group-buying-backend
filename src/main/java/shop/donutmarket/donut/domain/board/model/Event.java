@@ -11,6 +11,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,14 +25,11 @@ public class Event {
     private double latitude;
     private double longtitude;
     private int qty;
-    @Column(name = "payment_type")
     private String paymentType;
-    @Column(name = "start_at")
     private LocalDateTime startAt;
-    @Column(name = "end_at")
     private LocalDateTime endAt;
     private int price;
-    @Column(name = "created_at")
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder

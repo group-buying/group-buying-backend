@@ -11,6 +11,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 @Getter
 @Entity
@@ -20,13 +22,11 @@ public class Rate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "user_id") // User쪽에서의 단방향 매핑만 허용 
+    // User쪽에서의 단방향 매핑만 허용
     private Long userId;
-    @Column(name = "rate_name")
     private String rateName;
-    @Column(name = "rate_point")
     private int ratePoint;
-    @Column(name = "created_at")
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder

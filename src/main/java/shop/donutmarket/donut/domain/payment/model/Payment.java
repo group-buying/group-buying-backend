@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 
@@ -29,7 +30,7 @@ public class Payment {
     private StatusCode statusCode;
     private boolean confirmed;
     @Column(name = "created_at")
-    @CreationTimestamp
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder

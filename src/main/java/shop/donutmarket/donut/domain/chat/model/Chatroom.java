@@ -13,6 +13,8 @@ import jakarta.persistence.OneToOne;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Event;
 
@@ -30,6 +32,7 @@ public class Chatroom {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_code")
     private StatusCode statusCode;
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder
