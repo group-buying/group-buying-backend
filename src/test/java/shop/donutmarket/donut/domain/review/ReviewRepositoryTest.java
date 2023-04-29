@@ -131,6 +131,6 @@ public class ReviewRepositoryTest {
     }
 
     private void autoincrementReset() {
-        em.createNativeQuery("ALTER TABLE review ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE review ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
     }
 }

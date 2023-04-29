@@ -217,7 +217,7 @@ public class BoardRepositoryTest {
     }
 
     private void autoincrementReset() {
-        em.createNativeQuery("ALTER TABLE board ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE board ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
     }
 
 }

@@ -127,6 +127,6 @@ public class MyLocationRepositoryTest {
     }
 
     private void autoincrementReset() {
-        em.createNativeQuery("ALTER TABLE my_location ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE my_location ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
     }
 }
