@@ -26,7 +26,7 @@ public class Wishlist {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

@@ -27,7 +27,7 @@ public class MyAccount {
     private String brand;
     private String accountNumber;
     @LastModifiedDate
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

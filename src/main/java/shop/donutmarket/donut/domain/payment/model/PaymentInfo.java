@@ -23,7 +23,7 @@ public class PaymentInfo {
     // 매번 new하게 해주어야 한다
     @Embedded
     private PaymentData data = new PaymentData();
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

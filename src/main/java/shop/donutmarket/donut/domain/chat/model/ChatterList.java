@@ -35,7 +35,7 @@ public class ChatterList {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_code")
     private StatusCode statusCode;
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

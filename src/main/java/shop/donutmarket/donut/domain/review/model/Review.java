@@ -27,7 +27,7 @@ public class Review {
     private User reviewed;
     private int score;
     private String comment;
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

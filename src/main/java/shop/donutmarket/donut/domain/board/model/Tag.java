@@ -19,7 +19,7 @@ public class Tag {
     private Long id;
     private Long boardId;
     private String comment;
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

@@ -30,7 +30,7 @@ public class Payment {
     private StatusCode statusCode;
     private boolean confirmed;
     @Column(name = "created_at")
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder
