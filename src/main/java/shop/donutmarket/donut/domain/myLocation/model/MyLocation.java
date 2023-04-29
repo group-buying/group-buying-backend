@@ -26,7 +26,7 @@ public class MyLocation {
     private String state;
     private String city;
     private String town;
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

@@ -26,7 +26,7 @@ public class Rate {
     private Long userId;
     private String rateName;
     private int ratePoint;
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

@@ -25,7 +25,7 @@ public class Blacklist {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "blocked_user_id")
     private User blockedUser;
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

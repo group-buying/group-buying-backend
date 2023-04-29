@@ -29,7 +29,7 @@ public class Event {
     private LocalDateTime startAt;
     private LocalDateTime endAt;
     private int price;
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder
