@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryReq.MyCategoryUpdateReqDTO;
+import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryResp;
 import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryResp.MyCategoryUpdateRespDTO;
-import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryResp.defaultMyCategoryRespDTO;
 import shop.donutmarket.donut.domain.myCategory.service.MyCategoryService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.dto.ResponseDTO;
@@ -25,7 +25,7 @@ public class MyCategoryController {
 
     @PostMapping("/default")
     public ResponseEntity<?> defaultCategory(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        defaultMyCategoryRespDTO defaultDTO = myCategoryService.디폴트카테고리(myUserDetails);
+        MyCategoryResp.DefaultMyCategoryRespDTO defaultDTO = myCategoryService.디폴트카테고리(myUserDetails);
         return ResponseEntity.ok(defaultDTO);
     }
 

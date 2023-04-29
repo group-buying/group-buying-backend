@@ -11,7 +11,6 @@ public class MyCategoryReq {
 
     @Getter
     @Setter
-    @AllArgsConstructor
     public static class MyCategoryUpdateReqDTO {
         List<Long> categoryId;
     }

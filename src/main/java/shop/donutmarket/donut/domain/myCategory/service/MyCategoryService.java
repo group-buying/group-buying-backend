@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
 import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryReq.MyCategoryUpdateReqDTO;
+import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryResp;
 import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryResp.MyCategoryUpdateRespDTO;
-import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryResp.defaultMyCategoryRespDTO;
 import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
 import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -29,7 +29,7 @@ public class MyCategoryService {
     private final CategoryRepository categoryRepository;
 
     @Transactional
-    public defaultMyCategoryRespDTO 디폴트카테고리(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public MyCategoryResp.DefaultMyCategoryRespDTO 디폴트카테고리(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         try {
             User user = myUserDetails.getUser();
             List<Long> defaulList = MyCategory.defaultList();
@@ -43,7 +43,7 @@ public class MyCategoryService {
                 myCategoryRepository.save(myCategory);
                 myCategoryList.add(categoryPS);
             }
-            defaultMyCategoryRespDTO defaultDTO = new defaultMyCategoryRespDTO(myCategoryList);
+            MyCategoryResp.DefaultMyCategoryRespDTO defaultDTO = new MyCategoryResp.DefaultMyCategoryRespDTO(myCategoryList);
             return defaultDTO;
         } catch (Exception e) {
             throw new Exception500("디폴트카테고리 불러오기 실패 : " + e.getMessage());

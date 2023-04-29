@@ -12,7 +12,7 @@ public class MyCategoryResp {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class defaultMyCategoryRespDTO {
+    public static class DefaultMyCategoryRespDTO {
         List<Category> list;
     }
 
