@@ -129,6 +129,6 @@ public class MyCategoryRepositoryTest {
     }
 
     private void autoincrementReset() {
-        em.createNativeQuery("ALTER TABLE my_category ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE my_category ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
     }
 }

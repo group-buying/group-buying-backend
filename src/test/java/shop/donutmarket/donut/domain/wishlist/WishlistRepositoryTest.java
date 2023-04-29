@@ -127,6 +127,6 @@ public class WishlistRepositoryTest {
     }
 
     private void autoincrementReset() {
-        em.createNativeQuery("ALTER TABLE wishlist ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE wishlist ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
     }
 }

@@ -137,6 +137,6 @@ public class ParticipantRepositoryTest {
     }
 
     private void autoincrementReset() {
-        em.createNativeQuery("ALTER TABLE participant ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE participant ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
     }
 }

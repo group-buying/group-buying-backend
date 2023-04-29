@@ -109,6 +109,6 @@ public class PaymentRepositoryTest {
     }
 
     private void autoincrementReset() {
-        em.createNativeQuery("ALTER TABLE payment ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE payment ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
     }
 }

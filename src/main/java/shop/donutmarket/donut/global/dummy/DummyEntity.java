@@ -12,9 +12,9 @@ public class DummyEntity {
                 .username(username)
                 .password(passwordEncoder.encode("1234"))
                 .name(name)
-                .email(username+"@nate.com")
+                .email(username)
                 .role("ROLE_USER")
-                .profile("그림")
+                .profile("사진")
                 .createdAt(LocalDateTime.now())
                 .build();
     }
@@ -26,7 +26,7 @@ public class DummyEntity {
                 .username(username)
                 .password(passwordEncoder.encode("1234"))
                 .name(name)
-                .email(username+"@nate.com")
+                .email(username)
                 .role("ROLE_ADMIN")
                 .createdAt(LocalDateTime.now())
                 .build();
