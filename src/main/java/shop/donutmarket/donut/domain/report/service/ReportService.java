@@ -74,8 +74,21 @@ public class ReportService {
         }
         return null;
     }
-
+    
     public AdminSearchReportDetailDTO 관리자신고상세조회() {
         return null;
+    }
+    
+    public void 관리자신고처리(Long id) {
+        Optional<Report> reportOP = reportRepository.findById(id);
+        if (reportOP.isPresent()) {
+            throw new Exception500("존재하지 않는 신고입니다.");
+        }
+        Report reportPS = reportOP.get();
+        try {
+            reportPS.processed();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -117,5 +117,11 @@ public class AdminController {
         session.setAttribute("report", detailDTO);
         return "admin/reportDetail";
     }
+
+    @PutMapping("/report")
+    public ResponseEntity<?> processed(@RequestBody Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        reportService.관리자신고처리(id);
+        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
+    }
     
 }

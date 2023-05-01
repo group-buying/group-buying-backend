@@ -65,7 +65,7 @@
                     <hr class="bg-primary">
                     <h5>
                         <c:choose>
-                            <c:when test="${report.reported == null}">
+                            <c:when test="${report.boardId == null}">
                                 게시글의 신고가 아닙니다.
                             </c:when>
                             <c:otherwise>
@@ -87,15 +87,15 @@
                    <c:choose>
                         <c:when test="${report.boardId == null}">
                             <div class="btn-group col-sm-12">
-                                <button type="button" class="btn btn-outline-success m-3 p-3">처리완료</button>
-                                <button type="button" class="btn btn-outline-danger m-3 p-3">피신고 유저 블록</button>
+                                <button type="button" class="btn btn-outline-success m-3 p-3" onclick="processed(${report.id})">처리완료</button>
+                                <button type="button" class="btn btn-outline-danger m-3 p-3" onclick="blockUser(${report.reportedId})">피신고 유저 블록</button>
                             </div>
                         </c:when>
                         <c:otherwise>
                             <div class="btn-group col-sm-12">
-                                <button type="button" class="btn btn-outline-success m-3 p-3">처리하기</button>
-                                <button type="button" class="btn btn-outline-danger m-3 p-3">피신고 유저 블록</button>
-                                <button type="button" class="btn btn-outline-danger m-3 p-3">게시글 블록</button>
+                                <button type="button" class="btn btn-outline-success m-3 p-3" onclick="processed(${report.id})">처리완료</button>
+                                <button type="button" class="btn btn-outline-danger m-3 p-3" onclick="blockUser(${report.reportedId})">피신고 유저 블록</button>
+                                <button type="button" class="btn btn-outline-danger m-3 p-3" onclick="blockBoard(${report.boardId})">게시글 블록</button>
                             </div>
                         </c:otherwise>
                     </c:choose>
@@ -103,5 +103,58 @@
         </div>
     </div>
 </div>
+
+<script>
+function processed(id) {
+  $.ajax({
+    url: "/admin/report",
+    type: "put",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify({
+      id: id
+    }),
+    dataType: "json"
+    }).done((res) => {
+        alert("해당 신고를 처리마감했습니다.");
+        location.reload();
+    }).fail((err) => {
+        alert(err.responseJSON.message);
+    });
+}
+
+function blockUser(id) {
+  $.ajax({
+    url: "/admin/user",
+    type: "put",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify({
+      id: id
+    }),
+    dataType: "json"
+    }).done((res) => {
+        alert("해당 유저를 차단했습니다.");
+        location.reload();
+    }).fail((err) => {
+        alert(err.responseJSON.message);
+    });
+}
+
+function blockBoard(id) {
+  $.ajax({
+    url: "/admin/board",
+    type: "put",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify({
+      id: id
+    }),
+    dataType: "json"
+    }).done((res) => {
+        alert("해당 게시글을 차단했습니다.");
+        location.reload();
+    }).fail((err) => {
+        alert(err.responseJSON.message);
+    });
+}
+</script>
 
     <%@ include file="../layout/footer.jsp" %>

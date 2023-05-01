@@ -37,11 +37,13 @@ public class ReportResp {
     public static class AdminSearchReportDetailDTO {
         private Long id;
         private String reporter;
+        private Long reportedId;
         private String reported;
         private String reportType;
         private String reportTitle;
         private String reportContent;
         private LocalDateTime reportCreatedAt;
+        private Long boardId;
         private String boardTitle;
         private String boardContent;
         private String boardImg;
@@ -49,7 +51,7 @@ public class ReportResp {
 
         @Builder
         public AdminSearchReportDetailDTO(Long id, String reporter, String reported, String reportType,
-                String reportTitle, String reportContent, LocalDateTime reportCreatedAt, String boardTitle,
+                String reportTitle, String reportContent, LocalDateTime reportCreatedAt, Long boardId, String boardTitle,
                 String boardContent, String boardImg, LocalDateTime boardCreatedAt) {
             this.id = id;
             this.reporter = reporter;
@@ -58,6 +60,7 @@ public class ReportResp {
             this.reportTitle = reportTitle;
             this.reportContent = reportContent;
             this.reportCreatedAt = reportCreatedAt;
+            this.boardId = boardId;
             this.boardTitle = boardTitle;
             this.boardContent = boardContent;
             this.boardImg = boardImg;

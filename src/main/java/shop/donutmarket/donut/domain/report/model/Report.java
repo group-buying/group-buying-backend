@@ -61,4 +61,9 @@ public class Report {
         this.statusCode = statusCode;
         this.createdAt = createdAt;
     }
+    
+    public void processed() {
+        StatusCode processedCode = StatusCode.builder().id(601).type("report").status("처리완료").createdAt(LocalDateTime.now()).build();
+        this.statusCode = processedCode;
+    }
 }
