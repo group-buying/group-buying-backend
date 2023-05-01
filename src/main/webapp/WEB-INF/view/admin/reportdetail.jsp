@@ -85,6 +85,11 @@
                     </p>
                 </div>
                    <c:choose>
+                        <c:when test="${report.statusCode == 601}">
+                            <div class="btn-group col-sm-12">
+                                <button type="button" class="btn btn-outline-success m-3 p-3">해당 신고는 처리 완료되었습니다.</button>
+                            </div>
+                        </c:when>
                         <c:when test="${report.boardId == null}">
                             <div class="btn-group col-sm-12">
                                 <button type="button" class="btn btn-outline-success m-3 p-3" onclick="processed(${report.id})">처리완료</button>

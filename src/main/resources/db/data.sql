@@ -31,6 +31,7 @@ insert into my_category(user_id, category_id, created_at) values(1, 3, now());
 insert into my_category(user_id, category_id, created_at) values(1, 4, now());
 
 insert into report(reporter_id, reported_id, board_id, title, content, report_type, status_code, created_at) values(2, 1, 1, '노쇼했어요', '삼각김밥 1+1 하자는데 어디에있는지 연락도 안되고 노쇼 했어요', '뇨쇼', 600, now());
+insert into report(reporter_id, reported_id, board_id, title, content, report_type, status_code, created_at) values(2, 1, 2, '노쇼했어요', '음료수 2+1 하자는데 어디에있는지 연락도 안되고 노쇼 했어요', '뇨쇼', 601, now());
 
 insert into blacklist(user_id, blocked_user_id, created_at) values(1, 2, now());
 

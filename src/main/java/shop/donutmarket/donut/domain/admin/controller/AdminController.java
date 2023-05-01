@@ -113,7 +113,7 @@ public class AdminController {
 
     @GetMapping("/report/{id}")
     public String report(@PathVariable Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        AdminSearchReportDetailDTO detailDTO = reportService.관리자신고상세조회();
+        AdminSearchReportDetailDTO detailDTO = reportService.관리자신고상세조회(id);
         session.setAttribute("report", detailDTO);
         return "admin/reportDetail";
     }

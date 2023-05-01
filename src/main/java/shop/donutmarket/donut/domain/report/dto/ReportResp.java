@@ -47,14 +47,16 @@ public class ReportResp {
         private String boardTitle;
         private String boardContent;
         private String boardImg;
+        private Integer statusCode;
         private LocalDateTime boardCreatedAt;
 
         @Builder
-        public AdminSearchReportDetailDTO(Long id, String reporter, String reported, String reportType,
+        public AdminSearchReportDetailDTO(Long id, String reporter, Long reportedId, String reported, String reportType,
                 String reportTitle, String reportContent, LocalDateTime reportCreatedAt, Long boardId, String boardTitle,
-                String boardContent, String boardImg, LocalDateTime boardCreatedAt) {
+                String boardContent, String boardImg, Integer statusCode, LocalDateTime boardCreatedAt) {
             this.id = id;
             this.reporter = reporter;
+            this.reportedId = reportedId;
             this.reported = reported;
             this.reportType = reportType;
             this.reportTitle = reportTitle;
@@ -64,6 +66,7 @@ public class ReportResp {
             this.boardTitle = boardTitle;
             this.boardContent = boardContent;
             this.boardImg = boardImg;
+            this.statusCode = statusCode;
             this.boardCreatedAt = boardCreatedAt;
         }
     }

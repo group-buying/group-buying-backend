@@ -75,7 +75,31 @@ public class ReportService {
         return null;
     }
     
-    public AdminSearchReportDetailDTO 관리자신고상세조회() {
+    public AdminSearchReportDetailDTO 관리자신고상세조회(Long id) {
+        Optional<Report> reportOP = reportRepository.findByIdWithAllArg(id);
+        if (!(reportOP.isPresent())) {
+            throw new Exception500("존재하지 않는 신고입니다.");
+        }
+        Report reportPS = reportOP.get();
+        try {
+            if (reportPS.getBoard().getId() == null) {
+                AdminSearchReportDetailDTO detailDTO = AdminSearchReportDetailDTO.builder().id(id)
+                .reporter(reportPS.getReporter().getName()).reported(reportPS.getReported().getName()).reportedId(reportPS.getReported().getId())
+                .reportType(reportPS.getReportType()).reportTitle(reportPS.getTitle()).reportContent(reportPS.getContent())
+                .reportCreatedAt(reportPS.getCreatedAt()).statusCode(reportPS.getStatusCode().getId()).build();
+                return detailDTO;
+            }
+            
+            AdminSearchReportDetailDTO detailDTO = AdminSearchReportDetailDTO.builder().id(id)
+            .reporter(reportPS.getReporter().getName()).reported(reportPS.getReported().getName()).reportedId(reportPS.getReported().getId())
+            .reportType(reportPS.getReportType()).reportTitle(reportPS.getTitle()).reportContent(reportPS.getContent())
+            .reportCreatedAt(reportPS.getCreatedAt()).boardId(reportPS.getBoard().getId()).boardTitle(reportPS.getBoard().getTitle())
+            .boardContent(reportPS.getBoard().getContent()).boardImg(reportPS.getBoard().getImg())
+            .boardCreatedAt(reportPS.getBoard().getCreatedAt()).statusCode(reportPS.getStatusCode().getId()).build();
+            return detailDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
     

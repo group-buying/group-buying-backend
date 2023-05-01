@@ -1,6 +1,7 @@
 package shop.donutmarket.donut.domain.report.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +17,8 @@ public interface ReportRepository extends JpaRepository<Report, Long>{
     
     @Query("select p from Report p join fetch p.reporter join fetch p.reported")
     List<Report> findAllWithArg();
+
+    @Query("select p from Report p join fetch p.reporter join fetch p.reported join fetch p.board join fetch p.statusCode where p.id = :reportId")
+    Optional<Report> findByIdWithAllArg(@Param("reportId") Long reportId);
     
 }
