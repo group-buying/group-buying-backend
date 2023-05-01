@@ -166,18 +166,25 @@ public class BoardService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<AdminSearchBoardDTO> 관리자게시글조회() {
         List<Board> boardlist = boardRepository.findAllBoardWithAllArg();
         List<AdminSearchBoardDTO> listDTO = new ArrayList<>();
-        for (Board board : boardlist) {
-            AdminSearchBoardDTO boardDTO = new AdminSearchBoardDTO(
-                board.getId(), board.getTitle(), board.getOrganizer().getName(),
-                board.getState()+" "+board.getCity()+" "+board.getTown(), board.getCreatedAt());
-            listDTO.add(boardDTO); 
+
+        try {
+            for (Board board : boardlist) {
+                AdminSearchBoardDTO boardDTO = new AdminSearchBoardDTO(
+                    board.getId(), board.getTitle(), board.getOrganizer().getName(),
+                    board.getState()+" "+board.getCity()+" "+board.getTown(), board.getCreatedAt());
+                listDTO.add(boardDTO); 
+            }
+            return listDTO;
+        } catch (Exception e) {
+            throw new Exception500("조회에 실패하였습니다.");
         }
-        return listDTO;
     }
 
+    @Transactional
     public void 관리자게시글차단(Long id) {
         Optional<Board> boardOP = boardRepository.findById(id);
         if (boardOP.isPresent()) {
@@ -187,7 +194,7 @@ public class BoardService {
             Board boardPS = boardOP.get();
             boardPS.deleteBoard();
         } catch (Exception e) {
-            throw new Exception500("차단 실패.");
+            throw new Exception500("차단에 실패하였습니다.");
         }
     }
 }

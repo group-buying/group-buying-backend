@@ -40,17 +40,17 @@
                        </c:when>
                        <c:otherwise>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#">카테고리 관리</a></li>
+                            href="/admin/category">카테고리 관리</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#">유저 관리</a></li>
+                            href="/admin/user">유저 관리</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#">공고 관리</a></li>
+                            href="/admin/board">게시글 관리</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#">결제 취소</a></li>
+                            href="/admin/payment">결제 취소</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#">신고 관리</a></li>
+                            href="/admin/report">신고 관리</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#">채팅내역</a></li>
+                            href="/admin/chat">채팅내역</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="/logout">로그아웃</a></li>
                         </li>

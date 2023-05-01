@@ -107,18 +107,24 @@ public class UserService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<AdminSearchUserDTO> 관리자유저조회() {
         List<User> userlist = userRepository.findAllWithAllArg();
         List<AdminSearchUserDTO> listDTO = new ArrayList<>();
-        for (User user : userlist) {
-            AdminSearchUserDTO userDTO = new AdminSearchUserDTO(
-                user.getId(), user.getName(), user.getRate().getRateName(),
-                user.getStatusCode().getStatus(), user.getCreatedAt());
-            listDTO.add(userDTO); 
+        try {
+            for (User user : userlist) {
+                AdminSearchUserDTO userDTO = new AdminSearchUserDTO(
+                    user.getId(), user.getName(), user.getRate().getRateName(),
+                    user.getStatusCode().getStatus(), user.getCreatedAt());
+                listDTO.add(userDTO); 
+            }
+            return listDTO;
+        } catch (Exception e) {
+            throw new Exception500("조회에 실패하였습니다.");
         }
-        return listDTO;
     }
 
+    @Transactional
     public void 관리자유저차단(Long id) {
         Optional<User> userOP = userRepository.findById(id);
         if (userOP.isPresent()) {
@@ -128,7 +134,7 @@ public class UserService {
             User userPS = userOP.get();
             userPS.blockUser();
         } catch (Exception e) {
-            throw new Exception500("차단 실패.");
+            throw new Exception500("차단에 실패하였습니다.");
         }
     }
     

@@ -58,6 +58,7 @@ public class ReportService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<AdminSearchReportDTO> 관리자신고조회() {
         try {
             List<Report> list = reportRepository.findAllWithArg();
@@ -70,11 +71,11 @@ public class ReportService {
             }
             return dtolist;
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception500("조회에 실패하였습니다.");
         }
-        return null;
     }
     
+    @Transactional(readOnly = true)
     public AdminSearchReportDetailDTO 관리자신고상세조회(Long id) {
         Optional<Report> reportOP = reportRepository.findByIdWithAllArg(id);
         if (!(reportOP.isPresent())) {
@@ -98,11 +99,11 @@ public class ReportService {
             .boardCreatedAt(reportPS.getBoard().getCreatedAt()).statusCode(reportPS.getStatusCode().getId()).build();
             return detailDTO;
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception500("상세조회에 실패하였습니다.");
         }
-        return null;
     }
     
+    @Transactional
     public void 관리자신고처리(Long id) {
         Optional<Report> reportOP = reportRepository.findById(id);
         if (reportOP.isPresent()) {
@@ -112,7 +113,7 @@ public class ReportService {
         try {
             reportPS.processed();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception500("신고처리에 실패하였습니다.");
         }
     }
 }
