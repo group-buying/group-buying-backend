@@ -2,8 +2,6 @@ package shop.donutmarket.donut.integration.myPage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jdk.jshell.Snippet;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,30 +16,22 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import shop.donutmarket.donut.core.MyRestDocs;
 import shop.donutmarket.donut.domain.admin.model.Category;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
-import shop.donutmarket.donut.domain.admin.repository.StatusCodeRepository;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.board.repository.EventRepository;
-import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
-import shop.donutmarket.donut.domain.myLocation.model.MyLocation;
-import shop.donutmarket.donut.domain.myLocation.repository.MyLocationRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.dummy.DummyEntity;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DisplayName("마이 페이지 API")
 @AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
@@ -62,8 +52,6 @@ public class MyPageControllerTest extends MyRestDocs {
     private CategoryRepository categoryRepository;
     @Autowired
     private EventRepository eventRepository;
-    @Autowired
-    private StatusCodeRepository statusCodeRepository;
     @Autowired
     private BoardRepository boardRepository;
     @Autowired
@@ -88,13 +76,8 @@ public class MyPageControllerTest extends MyRestDocs {
                 .price(1000).createdAt(LocalDateTime.now()).build();
         eventRepository.save(event);
 
-        // Status Code 객체
-        StatusCode statusCode = StatusCode.builder().type("board").status("진행중")
-                .createdAt(LocalDateTime.now()).build();
-        statusCodeRepository.save(statusCode);
-
         Board board = Board.builder().category(category).event(event)
-                .organizer(user).title("제목1").content("내용1").img("사진").statusCode(statusCode)
+                .organizer(user).title("제목1").content("내용1").img("사진").statusCode(200)
                 .views(100).recommend(false).state("부산광역시").city("부산진구").town("부전동").build();
 
         boardRepository.save(board);

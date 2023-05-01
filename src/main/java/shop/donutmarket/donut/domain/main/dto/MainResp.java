@@ -1,11 +1,7 @@
 package shop.donutmarket.donut.domain.main.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
-import shop.donutmarket.donut.domain.admin.model.Category;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
 import shop.donutmarket.donut.domain.myLocation.model.MyLocation;
@@ -47,7 +43,6 @@ public class MainResp {
     @Setter
     public static class BoardDTO {
         private String title;
-        private StatusCode statusCode;
         private String state;
         private String city;
         private String town;
@@ -59,7 +54,6 @@ public class MainResp {
 
         public BoardDTO(Board board) {
             this.title = board.getTitle();
-            this.statusCode = board.getStatusCode();
             this.state = board.getState();
             this.city = board.getCity();
             this.town = board.getTown();

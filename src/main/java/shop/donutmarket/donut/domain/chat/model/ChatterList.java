@@ -2,7 +2,6 @@ package shop.donutmarket.donut.domain.chat.model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,8 +13,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.user.model.User;
 
 @Getter
@@ -32,33 +29,16 @@ public class ChatterList {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User userId;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_code")
-    private StatusCode statusCode;
+    private Integer statusCode;
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder
-    public ChatterList(Long id, Chatroom chatroomId, User userId, StatusCode statusCode, LocalDateTime createdAt) {
+    public ChatterList(Long id, Chatroom chatroomId, User userId, Integer statusCode, LocalDateTime createdAt) {
         this.id = id;
         this.chatroomId = chatroomId;
         this.userId = userId;
         this.statusCode = statusCode;
         this.createdAt = createdAt;
-    }
-
-    public void exit(){
-        StatusCode exitedCode = StatusCode.builder().id(701L).type("chatter").status("나감").build();
-        this.statusCode = exitedCode;
-    }
-
-    public void kick(){
-        StatusCode kickedCode = StatusCode.builder().id(702L).type("chatter").status("강퇴당함").build();
-        this.statusCode = kickedCode;
-    }
-    
-    public void participate(){
-        StatusCode particiCode = StatusCode.builder().id(700L).type("chatter").status("참가").build();
-        this.statusCode = particiCode;
     }
 }

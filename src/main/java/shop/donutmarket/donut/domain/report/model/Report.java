@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.user.model.User;
 
@@ -34,14 +32,12 @@ public class Report {
     private String content;
     @Column(name = "report_type")
     private String reportType;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_code")
-    private StatusCode statusCode;
+    private Integer statusCode;
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder
-    public Report(Long id, User reporter, User reported, Board board, String title, String content, String reportType, StatusCode statusCode, LocalDateTime createdAt) {
+    public Report(Long id, User reporter, User reported, Board board, String title, String content, String reportType, Integer statusCode, LocalDateTime createdAt) {
         this.id = id;
         this.reporter = reporter;
         this.reported = reported;
@@ -53,7 +49,7 @@ public class Report {
         this.createdAt = createdAt;
     }
 
-    public void updateReport(User reporter, User reported, Board board, String title, String content, String reportType, StatusCode statusCode, LocalDateTime createdAt) {
+    public void updateReport(User reporter, User reported, Board board, String title, String content, String reportType, Integer statusCode, LocalDateTime createdAt) {
         this.reporter = reporter;
         this.reported = reported;
         this.board = board;

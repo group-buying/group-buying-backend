@@ -10,8 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.review.model.Rate;
 
 @Getter
@@ -38,14 +36,12 @@ public class User {
     // OAuth를 위해 필요한 필드
     private String provider;
     private String providerId;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_code")
-    private StatusCode statusCode;
+    private Integer statusCode;
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder
-    public User(Long id, String username, String password, String email, String name, String profile, Rate rate, String role, String provider, String providerId, StatusCode statusCode, LocalDateTime createdAt) {
+    public User(Long id, String username, String password, String email, String name, String profile, Rate rate, String role, String provider, String providerId, Integer statusCode, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;

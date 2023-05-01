@@ -73,7 +73,7 @@ public class BoardService {
 
         Board boardPS = boardOp.get();
 
-        if (boardPS.getStatusCode().getId() == 203) {
+        if (boardPS.getStatusCode() == 203) {
             throw new Exception400("이미 삭제된 게시글입니다");
         }
 
@@ -98,7 +98,7 @@ public class BoardService {
         }
         Board boardPS = boardOP.get();
 
-        if (boardPS.getStatusCode().getId() == 203) {
+        if (boardPS.getStatusCode() == 203) {
             throw new Exception400("이미 삭제된 게시글입니다");
         }
 
@@ -152,12 +152,12 @@ public class BoardService {
             throw new Exception403("게시글을 삭제할 권한이 없습니다");
         }
 
-        if (boardPS.getStatusCode().getId() == 203) {
+        if (boardPS.getStatusCode() == 203) {
             throw new Exception400("이미 삭제된 게시글입니다");
         }
 
         try {
-            boardPS.deleteBoard();
+            //상태코드 삭제로
         } catch (Exception e) {
             throw new Exception500("게시글 삭제하기 실패 : " + e.getMessage());
         }

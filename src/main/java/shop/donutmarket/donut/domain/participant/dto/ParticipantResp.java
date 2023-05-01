@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -22,17 +21,15 @@ public class ParticipantResp {
         private User user;
         private int qty;
         private LocalDateTime limitTime;
-        private StatusCode statusCode;
         private LocalDateTime createdAt;
 
         @Builder
-        public ParticipantListRespDTO(Event event, User user, int qty, LocalDateTime limitTime, StatusCode statusCode,
+        public ParticipantListRespDTO(Event event, User user, int qty, LocalDateTime limitTime,
                 LocalDateTime createdAt) {
             this.event = event;
             this.user = user;
             this.qty = qty;
             this.limitTime = limitTime;
-            this.statusCode = statusCode;
             this.createdAt = createdAt;
         }
     }

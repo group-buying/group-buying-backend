@@ -43,7 +43,6 @@ public class ReportService {
                     .title(insertDTO.getTitle())
                     .content(insertDTO.getContent())
                     .reportType(insertDTO.getReportType())
-                    .statusCode(insertDTO.getStatusCode())
                     .build();
 
             Report reportPS = reportRepository.save(report);
