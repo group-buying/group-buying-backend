@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.donutmarket.donut.domain.blacklist.repository.BlackListRepository;
+import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.myPage.dto.MyPageResp;
 import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
@@ -33,9 +34,10 @@ public class MyPageService {
     private final ReviewRepository reviewRepository;
 
     @Transactional(readOnly = true)
-    public List<MyPageResp.MyBoardDTO> 나의게시글보기(Long id) {
+    public MyPageResp.MyBoardDTO 나의게시글보기(Long id) {
         try {
-            List<MyPageResp.MyBoardDTO> myBoardDTOS = boardRepository.findByOrganizerId(id);
+            List<Board> boards = boardRepository.findByOrganizerId(id);
+            MyPageResp.MyBoardDTO myBoardDTOS = new MyPageResp.MyBoardDTO(boards);
             return myBoardDTOS;
         } catch (Exception e) {
             throw new Exception500("나의 게시글 보기 실패 : " + e.getMessage());

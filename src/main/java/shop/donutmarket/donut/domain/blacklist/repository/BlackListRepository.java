@@ -12,8 +12,8 @@ import java.util.Optional;
 
 public interface BlackListRepository extends JpaRepository<Blacklist, Long>{
 
-    @Query("select b from Blacklist b where b.id = :id and b.user.id = :userId")
-    Optional<Blacklist> findByIdWithUserId(@Param("id") Long id, @Param("userId") Long userId);
+    @Query("select b from Blacklist b where b.blockedUser.id = :blockedUserId and b.user.id = :userId")
+    Optional<Blacklist> findByBlockedUserIdWithUserId(@Param("blockedUserId") Long blockedUserId, @Param("userId") Long userId);
 
     @Query("select b from Blacklist b where b.user.id = :userId")
     List<MyPageResp.MyBlacklistDTO> findByUserId(@Param("userId") Long userId);

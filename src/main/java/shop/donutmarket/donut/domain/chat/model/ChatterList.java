@@ -48,17 +48,17 @@ public class ChatterList {
     }
 
     public void exit(){
-        StatusCode exitedCode = StatusCode.builder().id(701).type("chatter").status("나감").build();
+        StatusCode exitedCode = StatusCode.builder().id(701L).type("chatter").status("나감").build();
         this.statusCode = exitedCode;
     }
 
     public void kick(){
-        StatusCode kickedCode = StatusCode.builder().id(702).type("chatter").status("강퇴당함").build();
+        StatusCode kickedCode = StatusCode.builder().id(702L).type("chatter").status("강퇴당함").build();
         this.statusCode = kickedCode;
     }
     
     public void participate(){
-        StatusCode particiCode = StatusCode.builder().id(700).type("chatter").status("참가").build();
+        StatusCode particiCode = StatusCode.builder().id(700L).type("chatter").status("참가").build();
         this.statusCode = particiCode;
     }
 }

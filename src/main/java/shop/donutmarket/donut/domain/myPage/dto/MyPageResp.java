@@ -15,7 +15,11 @@ public class MyPageResp {
     @Getter
     @Setter
     public static class MyBoardDTO {
-        private Board board;
+        private List<Board> board;
+
+        public MyBoardDTO(List<Board> board) {
+            this.board = board;
+        }
     }
 
     @Getter

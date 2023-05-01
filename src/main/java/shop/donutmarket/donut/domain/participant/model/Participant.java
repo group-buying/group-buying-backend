@@ -56,18 +56,18 @@ public class Participant {
     }
 
     public void selected() {
-        StatusCode seletedCode = StatusCode.builder().id(302).type("participant")
+        StatusCode seletedCode = StatusCode.builder().id(302L).type("participant")
         .status("채택").createdAt(LocalDateTime.now()).build();
         this.statusCode = seletedCode;
     }
 
     public void canceled() {
-        StatusCode canceled = new StatusCode(303, "participant", "참가 취소", LocalDateTime.now());
+        StatusCode canceled = new StatusCode(303L, 303L, "participant", "참가 취소", LocalDateTime.now());
         this.statusCode = canceled;
     }
 
     public void droped() {
-        StatusCode droped = new StatusCode(301, "participant", "미채택", LocalDateTime.now());
+        StatusCode droped = new StatusCode(301L, 301L,"participant", "미채택", LocalDateTime.now());
         this.statusCode = droped;
     }
 }
