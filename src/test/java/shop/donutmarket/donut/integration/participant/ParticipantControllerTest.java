@@ -2,7 +2,6 @@ package shop.donutmarket.donut.integration.participant;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
-import jakarta.validation.constraints.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,19 +19,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import shop.donutmarket.donut.core.MyRestDocs;
-import shop.donutmarket.donut.domain.account.dto.AccountReq;
-import shop.donutmarket.donut.domain.account.repository.MyAccountRepository;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
-import shop.donutmarket.donut.domain.admin.repository.StatusCodeRepository;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq;
-import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.dummy.DummyEntity;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -57,8 +50,6 @@ public class ParticipantControllerTest extends MyRestDocs {
     @Autowired
     private EventRepository eventRepository;
     @Autowired
-    private StatusCodeRepository statusCodeRepository;
-    @Autowired
     private EntityManager em;
 
     @BeforeEach
@@ -75,11 +66,6 @@ public class ParticipantControllerTest extends MyRestDocs {
                 .price(1000).createdAt(LocalDateTime.now()).build();
         eventRepository.save(event);
 
-        // Status Code 객체
-        StatusCode statusCode = StatusCode.builder().statusNumber(300L).type("participant").status("참가")
-                .createdAt(LocalDateTime.now()).build();
-        statusCodeRepository.save(statusCode);
-
         em.clear();
     }
 
@@ -91,6 +77,39 @@ public class ParticipantControllerTest extends MyRestDocs {
     @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     public void save_test() throws Exception {
+        // given
+        Long eventId = 1L;
+        Long userId = 1L;
+        Long statusCodeId = 300L;
+
+        ParticipantReq.ParticipantSaveReqDTO participantSaveReqDTO =
+                new ParticipantReq.ParticipantSaveReqDTO();
+        participantSaveReqDTO.setEventId(eventId);
+        participantSaveReqDTO.setUserId(userId);
+        participantSaveReqDTO.setStatusCodeId(statusCodeId);
+        participantSaveReqDTO.setQty(10);
+        participantSaveReqDTO.setLimitTime(LocalDateTime.of(2023, 5, 1, 13, 30));
+
+        String requestBody = om.writeValueAsString(participantSaveReqDTO);
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(post("/participants").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+        resultActions.andExpect(jsonPath("$.participant.event.paymentType").value("직거래"));
+        resultActions.andExpect(jsonPath("$.participant.user.username").value("ssar@naver.com"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("채택하기")
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void select_test() throws Exception {
         // given
         Long eventId = 1L;
         Long userId = 1L;

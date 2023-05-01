@@ -16,15 +16,15 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
     @Query("select b from Board b where b.event.id = :eventId")
     Optional<Board> findByEventId(@Param("eventId") Long eventId);
 
-    @Query("select b from Board b join fetch b.category c join fetch b.event e join fetch b.organizer o join fetch o.rate join fetch o.statusCode join fetch b.statusCode where b.organizer.id =:organizerId")
+    @Query("select b from Board b join fetch b.category c join fetch b.event e join fetch b.organizer o join fetch o.rate where b.organizer.id =:organizerId")
     List<Board> findByOrganizerId(@Param("organizerId") Long organizerId);
 
     @Query("select b from Board b join fetch b.event where b.id = :boardId")
     Optional<Board> findByIdWithEvent(@Param("boardId") Long boardId);
 
-    @Query("select b from Board b join fetch b.category c join fetch b.event e join fetch b.organizer o join fetch o.rate join fetch o.statusCode join fetch b.statusCode where b.id = :boardId")
+    @Query("select b from Board b join fetch b.category c join fetch b.event e join fetch b.organizer o join fetch o.rate join fetch b.statusCode where b.id = :boardId")
     Optional<Board> findByIdWithAll(@Param("boardId") Long boardId);
 
-    @Query("select b from Board b join fetch b.statusCode where b.statusCode.id in(200, 201, 202)")
+    @Query("select b from Board b where b.statusCode in(200, 201, 202)")
     List<Board> findBoardAndStatusCode();
 }

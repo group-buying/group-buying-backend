@@ -13,9 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.test.context.ActiveProfiles;
-import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.admin.model.Category;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.model.Tag;
@@ -126,8 +124,6 @@ public class BoardRepositoryTest {
         tem.persist(category);
         Event event = Event.builder().build();
         tem.persist(event);
-        StatusCode statusCode = StatusCode.builder().build();
-        tem.persist(statusCode);
         LocalDateTime time = LocalDateTime.now();
 
         // when
@@ -177,7 +173,6 @@ public class BoardRepositoryTest {
     void event_Save_Test() {
         // given
         LocalDateTime time = LocalDateTime.now();
-        StatusCode statusCode = StatusCode.builder().build();
         Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).price(1000).build();
 
         // when
@@ -195,7 +190,6 @@ public class BoardRepositoryTest {
     void event_Delete_Test() {
         // given
         LocalDateTime time = LocalDateTime.now();
-        StatusCode statusCode = StatusCode.builder().build();
         Event event = Event.builder().latitude(139.123123).longtitude(39.123123).qty(2).paymentType("직거래").startAt(time).endAt(time).price(1000).build();
         eventRepository.save(event);
 

@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import shop.donutmarket.donut.domain.admin.model.Category;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -31,7 +30,6 @@ public class BoardReq {
         @NotBlank
         private String content;
         private String img;
-        private StatusCode statusCode;
         @NotBlank
         private String state;
         @NotBlank
@@ -55,10 +53,8 @@ public class BoardReq {
         private List<String> comment;
 
         public Board toBoardEntity(Event event, String Base64img, User organizer){
-            StatusCode code = StatusCode.builder().id(200L).type("board").status("진행중").build();
-            
             return Board.builder().category(category).title(title).organizer(organizer).content(content).img(Base64img)
-            .event(event).statusCode(code).views(0).recommend(false).state(state).city(city).town(town).createdAt(LocalDateTime.now()).build();
+            .event(event).views(0).recommend(false).state(state).city(city).town(town).createdAt(LocalDateTime.now()).build();
         }
 
         public Event toEventEntity(){

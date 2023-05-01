@@ -176,15 +176,6 @@ CREATE TABLE my_account
     created_at     timestamp    NOT NULL
 );
 
-CREATE TABLE status_code
-(
-    id            Bigint PRIMARY KEY AUTO_INCREMENT,
-    status_number BIGINT       not null,
-    type          varchar(255) NOT NULL,
-    status        varchar(255) NOT NULL,
-    created_at    timestamp    NOT NULL
-);
-
 CREATE TABLE payment_info
 (
     id                   BIGINT AUTO_INCREMENT,

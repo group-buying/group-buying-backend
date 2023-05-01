@@ -14,8 +14,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Event;
 
 @Getter
@@ -29,22 +27,15 @@ public class Chatroom {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
     private Event event;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_code")
-    private StatusCode statusCode;
+    private Integer statusCode;
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder
-    public Chatroom(Long id, Event event, StatusCode statusCode, LocalDateTime createdAt) {
+    public Chatroom(Long id, Event event, Integer statusCode, LocalDateTime createdAt) {
         this.id = id;
         this.event = event;
         this.statusCode = statusCode;
         this.createdAt = createdAt;
-    }
-
-    public void active(){
-        StatusCode activeCode = StatusCode.builder().id(500L).type("chatroom").status("활성화").build();
-        this.statusCode = activeCode;
     }
 }

@@ -13,8 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import org.springframework.test.context.ActiveProfiles;
-import shop.donutmarket.donut.domain.account.model.MyAccount;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.report.model.Report;
 import shop.donutmarket.donut.domain.report.repository.ReportRepository;
@@ -76,8 +74,7 @@ public class ReportRepositoryTest {
         // given
         User user1 = User.builder().build();
         User user2 = User.builder().build();
-        StatusCode statusCode = StatusCode.builder().build();
-        Report report = Report.builder().reporter(user1).reported(user2).title("신고").content("신고내용").reportType("일반").statusCode(statusCode).createdAt(LocalDateTime.now()).build();
+        Report report = Report.builder().reporter(user1).reported(user2).title("신고").content("신고내용").reportType("일반").createdAt(LocalDateTime.now()).build();
 
         // when
         reportRepository.save(report);
@@ -111,16 +108,14 @@ public class ReportRepositoryTest {
         Report report = tem.find(Report.class, id);
         User user1 = User.builder().build();
         User user2 = User.builder().build();
-        StatusCode statusCode = StatusCode.builder().build();
         Board board = Board.builder().build();
         LocalDateTime time = LocalDateTime.now();
         tem.persist(user1);
         tem.persist(user2);
         tem.persist(board);
-        tem.persist(statusCode);
 
         // when
-        report.updateReport(user1, user2, board, "제목", "내용", "사기", statusCode, time);
+        report.updateReport(user1, user2, board, "제목", "내용", "사기", 600, time);
         tem.persistAndFlush(report);
 
         // then
@@ -130,8 +125,7 @@ public class ReportRepositoryTest {
     private void dataSetting() {
         User user1 = User.builder().build();
         User user2 = User.builder().build();
-        StatusCode statusCode = StatusCode.builder().build();
-        Report report = Report.builder().reporter(user1).reported(user2).title("신고").content("신고내용").reportType("일반").statusCode(statusCode).createdAt(LocalDateTime.now()).build();
+        Report report = Report.builder().reporter(user1).reported(user2).title("신고").content("신고내용").reportType("일반").createdAt(LocalDateTime.now()).build();
         reportRepository.save(report);
     }
 

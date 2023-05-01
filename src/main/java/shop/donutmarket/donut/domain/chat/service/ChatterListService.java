@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.chat.dto.ChatReq.ChatInviteReqDTO;
@@ -86,11 +85,9 @@ public class ChatterListService {
             Participant participantPS = participantOP.get();
 
             // 참가자 채택됨 변환
-            participantPS.selected();
 
             // 채팅 참가 목록 생성
             ChatterList newchatter = ChatterList.builder().userId(userPS).chatroomId(chatroomPS).createdAt(LocalDateTime.now()).build();
-            newchatter.participate();
             chatterListRepository.save(newchatter);
         } catch (Exception e) {
             throw new Exception500("채팅 초대하기 실패 : " + e.getMessage());
@@ -109,7 +106,6 @@ public class ChatterListService {
         }
 
         try {
-            chatterPS.exit();
         } catch (Exception e) {
             throw new Exception500("채팅방 나가기 실패 : " + e.getMessage());
         }
@@ -134,7 +130,6 @@ public class ChatterListService {
 
         try {
             ChatterList chatterPS = chatterOP.get();
-            chatterPS.kick();
         } catch (Exception e) {
             throw new Exception500("채팅방 강퇴하기 실패 : " + e.getMessage());
         }

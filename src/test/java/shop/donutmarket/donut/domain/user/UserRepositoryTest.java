@@ -13,9 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import org.springframework.test.context.ActiveProfiles;
-import shop.donutmarket.donut.domain.account.model.MyAccount;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
-import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
@@ -75,8 +72,7 @@ public class UserRepositoryTest {
     void save_Test() {
         // given
         Rate rate = Rate.builder().build();
-        StatusCode statusCode = StatusCode.builder().build();
-        User user = User.builder().password("1234").email("cos@cos").name("cos").rate(rate).role("user").statusCode(statusCode).createdAt(LocalDateTime.now()).build();
+        User user = User.builder().password("1234").email("cos@cos").name("cos").rate(rate).role("user").createdAt(LocalDateTime.now()).build();
 
         // when
         userRepository.save(user);
@@ -122,8 +118,7 @@ public class UserRepositoryTest {
 
     private void dataSetting() {
         Rate rate = Rate.builder().build();
-        StatusCode statusCode = StatusCode.builder().build();
-        User user = User.builder().password("1234").email("ssar@ssar").name("ssar").rate(rate).role("user").statusCode(statusCode).createdAt(LocalDateTime.now()).build();
+        User user = User.builder().password("1234").email("ssar@ssar").name("ssar").rate(rate).role("user").createdAt(LocalDateTime.now()).build();
         userRepository.save(user);
     }
 

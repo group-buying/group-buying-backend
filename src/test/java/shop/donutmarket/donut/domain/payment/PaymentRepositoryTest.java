@@ -13,10 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import org.springframework.test.context.ActiveProfiles;
-import shop.donutmarket.donut.domain.account.model.MyAccount;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
-import shop.donutmarket.donut.domain.board.model.Board;
-import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.payment.model.Payment;
 import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
 
@@ -74,8 +70,7 @@ public class PaymentRepositoryTest {
     @DisplayName("Payment 생성 테스트")
     void save_Test() {
         // given
-        StatusCode statusCode = StatusCode.builder().build();
-        Payment payment = Payment.builder().paymentType("직거래").statusCode(statusCode).confirmed(true).createdAt(LocalDateTime.now()).build();
+        Payment payment = Payment.builder().paymentType("직거래").confirmed(true).createdAt(LocalDateTime.now()).build();
 
         // when
         paymentRepository.save(payment);
@@ -103,8 +98,7 @@ public class PaymentRepositoryTest {
     }
 
     private void dataSetting() {
-        StatusCode statusCode = StatusCode.builder().build();
-        Payment payment = Payment.builder().id(1L).paymentType("직거래").statusCode(statusCode).confirmed(true).createdAt(LocalDateTime.now()).build();
+        Payment payment = Payment.builder().id(1L).paymentType("직거래").confirmed(true).createdAt(LocalDateTime.now()).build();
         paymentRepository.save(payment);
     }
 

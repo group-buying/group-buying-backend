@@ -8,9 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
-import shop.donutmarket.donut.domain.participant.model.Participant;
 
 @Getter
 @Entity
@@ -25,16 +22,14 @@ public class Payment {
     private Long paymentInfoId;
     @Column(name = "payment_type")
     private String paymentType;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_code")
-    private StatusCode statusCode;
+    private Integer statusCode;
     private boolean confirmed;
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder
-    public Payment(Long id, Long userId, Long eventId, Long paymentInfoId, String paymentType, StatusCode statusCode, boolean confirmed, LocalDateTime createdAt) {
+    public Payment(Long id, Long userId, Long eventId, Long paymentInfoId, String paymentType, Integer statusCode, boolean confirmed, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.eventId = eventId;

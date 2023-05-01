@@ -13,9 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import org.springframework.test.context.ActiveProfiles;
-import shop.donutmarket.donut.domain.account.model.MyAccount;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
-import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.participant.repository.ParticipantRepository;
@@ -77,8 +74,7 @@ public class ParticipantRepositoryTest {
         // given
         Event event = Event.builder().build();
         User user = User.builder().build();
-        StatusCode statusCode = StatusCode.builder().build();
-        Participant participant = Participant.builder().event(event).user(user).qty(5).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).statusCode(statusCode).build();
+        Participant participant = Participant.builder().event(event).user(user).qty(5).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).build();
 
         // when
         participantRepository.save(participant);
@@ -113,15 +109,13 @@ public class ParticipantRepositoryTest {
         Participant participant = tem.find(Participant.class, id);
         Event event = Event.builder().build();
         User user = User.builder().build();
-        StatusCode statusCode = StatusCode.builder().build();
         LocalDateTime time1 = LocalDateTime.now();
         LocalDateTime time2 = LocalDateTime.now();
         tem.persist(event);
         tem.persist(user);
-        tem.persist(statusCode);
 
         // when
-        participant.updateParticipant(event, user, 10, time1, time2, statusCode);
+        participant.updateParticipant(event, user, 10, time1, time2, 300);
         tem.persistAndFlush(participant);
 
         // then
@@ -131,8 +125,7 @@ public class ParticipantRepositoryTest {
     private void dataSetting() {
         Event event = Event.builder().build();
         User user = User.builder().build();
-        StatusCode statusCode = StatusCode.builder().build();
-        Participant participant = Participant.builder().event(event).user(user).qty(2).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).statusCode(statusCode).build();
+        Participant participant = Participant.builder().event(event).user(user).qty(2).createdAt(LocalDateTime.now()).limitTime(LocalDateTime.now()).build();
         participantRepository.save(participant);
     }
 

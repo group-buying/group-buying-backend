@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
-import shop.donutmarket.donut.domain.admin.repository.StatusCodeRepository;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
@@ -41,7 +39,6 @@ public class ParticipantService {
     private final ParticipantRepository participantRepository;
     private final BoardRepository boardRepository;
     private final EventRepository eventRepository;
-    private final StatusCodeRepository statusCodeRepository;
 
     @Transactional(readOnly = true)
     public List<ParticipantListRespDTO> 내참가목록(@AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -52,10 +49,9 @@ public class ParticipantService {
 
             for (Participant participant : myParticipantsPS) {
                 Event eventPS = participant.getEvent();
-                StatusCode statusCodePS = participant.getStatusCode();
 
                 ParticipantListRespDTO participantDTO = ParticipantListRespDTO.builder().event(eventPS).user(user)
-                        .qty(participant.getQty()).limitTime(participant.getLimitTime()).statusCode(statusCodePS)
+                        .qty(participant.getQty()).limitTime(participant.getLimitTime())
                         .createdAt(participant.getCreatedAt()).build();
 
                 participantList.add(participantDTO);
@@ -80,16 +76,9 @@ public class ParticipantService {
             throw new Exception404("존재하지 않는 이벤트입니다");
         }
 
-        Optional<StatusCode> statusCodeOP = statusCodeRepository.findByStatusNumber(participantSaveReqDTO.getStatusCodeId());
-
-        if (statusCodeOP.isEmpty()) {
-            throw new Exception404("존재하지 않는 상태코드입니다");
-        }
-
         try {
             Event eventPS = eventOP.get();
-            StatusCode statusCodePS = statusCodeOP.get();
-            Participant participant = participantSaveReqDTO.toEntity(myUserDetails.getUser(), eventPS, statusCodePS);
+            Participant participant = participantSaveReqDTO.toEntity(myUserDetails.getUser(), eventPS);
             participantRepository.save(participant);
 
             ParticipantSaveRespDTO saveRespDTO = new ParticipantSaveRespDTO(participant);
@@ -118,7 +107,6 @@ public class ParticipantService {
         }
 
         try {
-            participantPS.selected();
             Event eventPS = participantPS.getEvent();
             User userPS = participantPS.getUser();
 
@@ -147,7 +135,6 @@ public class ParticipantService {
         }
 
         try {
-            participantPS.canceled();
             Event eventPS = participantPS.getEvent();
 
             ParticipantCancleRespDTO cancleRespDTO = new ParticipantCancleRespDTO(
@@ -175,7 +162,6 @@ public class ParticipantService {
             throw new Exception403("참가자를 강퇴할 권한이 없습니다");
         }
         try {
-            participantPS.droped();
             Event eventPS = participantPS.getEvent();
             User userPS = participantPS.getUser();
 
