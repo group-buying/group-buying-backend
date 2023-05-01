@@ -1,14 +1,12 @@
 package shop.donutmarket.donut.domain.report.dto;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
-import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.report.model.Report;
-import shop.donutmarket.donut.domain.user.model.User;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,6 +19,55 @@ public class ReportResp {
 
         public InsertRespDTO(Report report) {
             this.report = report;
+        }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class AdminSearchReportDTO{
+        private Long id;
+        private String type;
+        private String title;
+        private String reporter;
+        private String reported;
+        private LocalDateTime createdAt;
+    }
+
+    @Getter
+    public static class AdminSearchReportDetailDTO {
+        private Long id;
+        private String reporter;
+        private Long reportedId;
+        private String reported;
+        private String reportType;
+        private String reportTitle;
+        private String reportContent;
+        private LocalDateTime reportCreatedAt;
+        private Long boardId;
+        private String boardTitle;
+        private String boardContent;
+        private String boardImg;
+        private Integer statusCode;
+        private LocalDateTime boardCreatedAt;
+
+        @Builder
+        public AdminSearchReportDetailDTO(Long id, String reporter, Long reportedId, String reported, String reportType,
+                String reportTitle, String reportContent, LocalDateTime reportCreatedAt, Long boardId, String boardTitle,
+                String boardContent, String boardImg, Integer statusCode, LocalDateTime boardCreatedAt) {
+            this.id = id;
+            this.reporter = reporter;
+            this.reportedId = reportedId;
+            this.reported = reported;
+            this.reportType = reportType;
+            this.reportTitle = reportTitle;
+            this.reportContent = reportContent;
+            this.reportCreatedAt = reportCreatedAt;
+            this.boardId = boardId;
+            this.boardTitle = boardTitle;
+            this.boardContent = boardContent;
+            this.boardImg = boardImg;
+            this.statusCode = statusCode;
+            this.boardCreatedAt = boardCreatedAt;
         }
     }
 }

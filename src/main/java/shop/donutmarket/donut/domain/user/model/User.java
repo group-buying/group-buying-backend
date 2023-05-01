@@ -72,4 +72,9 @@ public class User {
     public void updateEmail(String email) {
         this.email = email;
     }
+
+    public void blockUser() {
+        StatusCode blockCode = StatusCode.builder().id(103).type("user").status("차단").createdAt(LocalDateTime.now()).build();
+        this.statusCode = blockCode;
+    }
 }

@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardResp.AdminSearchBoardDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardUpdateRespDTO;
 import shop.donutmarket.donut.domain.board.model.Board;
@@ -27,6 +28,8 @@ import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.exception.*;
 import shop.donutmarket.donut.global.util.MyBase64Decoder;
+import shop.donutmarket.donut.global.exception.Exception404;
+import shop.donutmarket.donut.global.exception.Exception500;
 
 @Service
 @RequiredArgsConstructor
@@ -160,6 +163,38 @@ public class BoardService {
             boardPS.deleteBoard();
         } catch (Exception e) {
             throw new Exception500("게시글 삭제하기 실패 : " + e.getMessage());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<AdminSearchBoardDTO> 관리자게시글조회() {
+        List<Board> boardlist = boardRepository.findAllBoardWithAllArg();
+        List<AdminSearchBoardDTO> listDTO = new ArrayList<>();
+
+        try {
+            for (Board board : boardlist) {
+                AdminSearchBoardDTO boardDTO = new AdminSearchBoardDTO(
+                    board.getId(), board.getTitle(), board.getOrganizer().getName(),
+                    board.getState()+" "+board.getCity()+" "+board.getTown(), board.getCreatedAt());
+                listDTO.add(boardDTO); 
+            }
+            return listDTO;
+        } catch (Exception e) {
+            throw new Exception500("조회에 실패하였습니다.");
+        }
+    }
+
+    @Transactional
+    public void 관리자게시글차단(Long id) {
+        Optional<Board> boardOP = boardRepository.findById(id);
+        if (boardOP.isPresent()) {
+            throw new Exception404("존재하지 않는 게시글입니다.");
+        }
+        try {
+            Board boardPS = boardOP.get();
+            boardPS.deleteBoard();
+        } catch (Exception e) {
+            throw new Exception500("차단에 실패하였습니다.");
         }
     }
 }

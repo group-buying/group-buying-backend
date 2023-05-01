@@ -31,6 +31,7 @@ insert into my_category(user_id, category_id, created_at) values(1, 3, now());
 insert into my_category(user_id, category_id, created_at) values(1, 4, now());
 
 insert into report(reporter_id, reported_id, board_id, title, content, report_type, status_code, created_at) values(2, 1, 1, '노쇼했어요', '삼각김밥 1+1 하자는데 어디에있는지 연락도 안되고 노쇼 했어요', '뇨쇼', 600, now());
+insert into report(reporter_id, reported_id, board_id, title, content, report_type, status_code, created_at) values(2, 1, 2, '노쇼했어요', '음료수 2+1 하자는데 어디에있는지 연락도 안되고 노쇼 했어요', '뇨쇼', 601, now());
 
 insert into blacklist(user_id, blocked_user_id, created_at) values(1, 2, now());
 
@@ -60,8 +61,9 @@ insert into category(name, created_at) values('도매상', now());
 insert into status_code(id, type, status, created_at) values(100, 'user', '활성화', now());
 insert into status_code(id, type, status, created_at) values(101, 'user', '휴면', now());
 insert into status_code(id, type, status, created_at) values(102, 'user', '탈퇴', now());
-insert into status_code(id, type, status, created_at) values(200, 'board', '진행중', now());
-insert into status_code(id, type, status, created_at) values(201, 'board', '거래완료', now());
+insert into status_code(id, type, status, created_at) values(103, 'user', '차단', now());
+insert into status_code(id, type, status, created_at) values(200, 'board', '모집중', now());
+insert into status_code(id, type, status, created_at) values(201, 'board', '거래중', now());
 insert into status_code(id, type, status, created_at) values(202, 'board', '마감', now());
 insert into status_code(id, type, status, created_at) values(203, 'board', '삭제', now());
 insert into status_code(id, type, status, created_at) values(300, 'participant', '참가', now());
@@ -74,9 +76,8 @@ insert into status_code(id, type, status, created_at) values(402, 'payment', '�
 insert into status_code(id, type, status, created_at) values(500, 'chatroom', '활성화', now());
 insert into status_code(id, type, status, created_at) values(501, 'chatroom', '비활성화', now());
 insert into status_code(id, type, status, created_at) values(502, 'chatroom', '삭제', now());
-insert into status_code(id, type, status, created_at) values(600, 'report', '대기', now());
-insert into status_code(id, type, status, created_at) values(601, 'report', '처리중', now());
-insert into status_code(id, type, status, created_at) values(602, 'report', '처리완료', now());
+insert into status_code(id, type, status, created_at) values(600, 'report', '접수완료', now());
+insert into status_code(id, type, status, created_at) values(601, 'report', '처리완료', now());
 insert into status_code(id, type, status, created_at) values(700, 'chatter', '참가', now());
 insert into status_code(id, type, status, created_at) values(701, 'chatter', '나감', now());
 insert into status_code(id, type, status, created_at) values(702, 'chatter', '강퇴당함', now());
