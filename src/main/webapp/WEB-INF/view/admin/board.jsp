@@ -37,4 +37,23 @@
     </div>
 </div>
 
+<script>
+function blockBoard(id) {
+  $.ajax({
+    url: "/admin/boards",
+    type: "put",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify({
+      id: id
+    }),
+    dataType: "json"
+    }).done((res) => {
+        alert("해당 게시글을 차단했습니다.");
+        location.reload();
+    }).fail((err) => {
+        alert(err.responseJSON.message);
+    });
+}
+</script>
+
     <%@ include file="../layout/footer.jsp" %>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -74,6 +75,12 @@ public class AdminController {
         List<AdminSearchBoardDTO> boardList = boardService.관리자게시글조회();
         session.setAttribute("boardList", boardList);
         return "admin/board";
+    }
+
+    @PutMapping("/board")
+    public ResponseEntity<?> boardBlock(@RequestBody Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        boardService.관리자게시글차단(id);
+        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
     }
 
     @GetMapping("/payment")

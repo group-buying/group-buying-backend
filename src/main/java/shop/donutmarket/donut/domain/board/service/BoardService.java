@@ -28,6 +28,8 @@ import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.exception.*;
 import shop.donutmarket.donut.global.util.MyBase64Decoder;
+import shop.donutmarket.donut.global.exception.Exception404;
+import shop.donutmarket.donut.global.exception.Exception500;
 
 @Service
 @RequiredArgsConstructor
@@ -174,5 +176,18 @@ public class BoardService {
             listDTO.add(boardDTO); 
         }
         return listDTO;
+    }
+
+    public void 관리자게시글차단(Long id) {
+        Optional<Board> boardOP = boardRepository.findById(id);
+        if (boardOP.isPresent()) {
+            throw new Exception404("존재하지 않는 게시글입니다.");
+        }
+        try {
+            Board boardPS = boardOP.get();
+            boardPS.deleteBoard();
+        } catch (Exception e) {
+            throw new Exception500("차단 실패.");
+        }
     }
 }
