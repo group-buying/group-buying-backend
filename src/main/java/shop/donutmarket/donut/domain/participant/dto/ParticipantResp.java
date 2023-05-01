@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
 import shop.donutmarket.donut.domain.board.model.Event;
+import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.user.model.User;
 
 public class ParticipantResp {
@@ -38,15 +39,12 @@ public class ParticipantResp {
 
     @Getter
     @Setter
-    @AllArgsConstructor
     public static class ParticipantSaveRespDTO {
-        private Event event;
-        private User user;
-        private int qty;
-        private LocalDateTime limitTime;
-        private StatusCode statusCode;
-        private LocalDateTime createdAt;
+        private Participant participant;
 
+        public ParticipantSaveRespDTO(Participant participant) {
+            this.participant = participant;
+        }
     }
 
     

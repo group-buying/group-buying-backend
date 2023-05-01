@@ -47,7 +47,7 @@ public class BlackListService {
     @Transactional
     public void 블랙리스트삭제(Long blacklistId, Long userId) {
         Optional<User> userOP = userRepository.findById(userId);
-        Optional<Blacklist> blacklistOP = blackListRepository.findByIdWithUserId(blacklistId, userId);
+        Optional<Blacklist> blacklistOP = blackListRepository.findByBlockedUserIdWithUserId(blacklistId, userId);
 
         if (userOP.isEmpty() || blacklistOP.isEmpty()) {
             throw new Exception404("존재하지 않는 유저입니다");

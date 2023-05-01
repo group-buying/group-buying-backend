@@ -22,7 +22,7 @@ import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ActiveProfiles("test")
+@ActiveProfiles("domain-test")
 @DataJpaTest
 public class PaymentRepositoryTest {
     

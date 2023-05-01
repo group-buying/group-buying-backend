@@ -63,7 +63,7 @@ public class Board {
     }
 
     public void deleteBoard() {
-        StatusCode deletedCode = StatusCode.builder().id(203).type("board")
+        StatusCode deletedCode = StatusCode.builder().id(203L).type("board")
         .status("삭제").createdAt(LocalDateTime.now()).build();
         this.statusCode = deletedCode;
     }

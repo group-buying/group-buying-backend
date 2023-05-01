@@ -44,7 +44,7 @@ public class Chatroom {
     }
 
     public void active(){
-        StatusCode activeCode = StatusCode.builder().id(500).type("chatroom").status("활성화").build();
+        StatusCode activeCode = StatusCode.builder().id(500L).type("chatroom").status("활성화").build();
         this.statusCode = activeCode;
     }
 }

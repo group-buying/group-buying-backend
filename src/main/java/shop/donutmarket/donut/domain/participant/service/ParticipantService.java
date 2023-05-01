@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.admin.model.StatusCode;
+import shop.donutmarket.donut.domain.admin.repository.StatusCodeRepository;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
@@ -39,6 +40,8 @@ public class ParticipantService {
 
     private final ParticipantRepository participantRepository;
     private final BoardRepository boardRepository;
+    private final EventRepository eventRepository;
+    private final StatusCodeRepository statusCodeRepository;
 
     @Transactional(readOnly = true)
     public List<ParticipantListRespDTO> 내참가목록(@AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -65,23 +68,33 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantSaveRespDTO 참가하기(ParticipantSaveReqDTO participantSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        Optional<Participant> participantOP = participantRepository.findByUserIdAndEvendId(myUserDetails.getUser().getId(), participantSaveReqDTO.getEvent().getId());
+        Optional<Participant> participantOP = participantRepository.findByUserIdAndEvendId(myUserDetails.getUser().getId(), participantSaveReqDTO.getEventId());
 
         if (participantOP.isPresent()) {
             throw new Exception400("이미 참가한 이벤트입니다");
         }
 
+        Optional<Event> eventOP = eventRepository.findById(participantSaveReqDTO.getEventId());
+
+        if (eventOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 이벤트입니다");
+        }
+
+        Optional<StatusCode> statusCodeOP = statusCodeRepository.findByStatusNumber(participantSaveReqDTO.getStatusCodeId());
+
+        if (statusCodeOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 상태코드입니다");
+        }
+
         try {
-        Participant participant = participantSaveReqDTO.toEntity(myUserDetails.getUser());
-        participantRepository.save(participant);
+            Event eventPS = eventOP.get();
+            StatusCode statusCodePS = statusCodeOP.get();
+            Participant participant = participantSaveReqDTO.toEntity(myUserDetails.getUser(), eventPS, statusCodePS);
+            participantRepository.save(participant);
 
-        Event eventPS = participantSaveReqDTO.getEvent();
+            ParticipantSaveRespDTO saveRespDTO = new ParticipantSaveRespDTO(participant);
 
-        ParticipantSaveRespDTO saveRespDTO = new ParticipantSaveRespDTO(
-                eventPS, myUserDetails.getUser(), participant.getQty(),
-                participant.getLimitTime(), participant.getStatusCode(), participant.getCreatedAt());
-
-        return saveRespDTO;
+            return saveRespDTO;
         } catch (Exception e) {
             throw new Exception500("이벤트 참가하기 실패 : " + e.getMessage());
         }

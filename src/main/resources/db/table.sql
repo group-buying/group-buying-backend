@@ -40,7 +40,7 @@ CREATE TABLE board
     content      text,
     img          text,
     event_id     Bigint       NOT NULL,
-    status_code  int          DEFAULT '200',
+    status_code  int DEFAULT '200',
     views        int          NOT NULL,
     recommend    boolean,
     state        varchar(255) NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE participant
     user_id     Bigint    NOT NULL,
     qty         int       NOT NULL,
     limit_time  timestamp,
-    status_code int       DEFAULT '300',
+    status_code int DEFAULT '300',
     created_at  timestamp NOT NULL
 );
 
@@ -88,7 +88,7 @@ CREATE TABLE payment
     user_id         Bigint       NOT NULL,
     payment_info_id Bigint       NOT NULL,
     payment_type    varchar(255) NOT NULL,
-    status_code     int          DEFAULT '400',
+    status_code     int DEFAULT '400',
     confirmed       boolean      NOT NULL,
     created_at      timestamp    NOT NULL
 );
@@ -113,7 +113,7 @@ CREATE TABLE chatroom
 (
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
     event_id    Bigint    NOT NULL,
-    status_code int       DEFAULT '500',
+    status_code int DEFAULT '500',
     created_at  timestamp NOT NULL
 );
 
@@ -122,7 +122,7 @@ CREATE TABLE chatter_list
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
     chatroom_id Bigint    NOT NULL,
     user_id     Bigint    NOT NULL,
-    status_code int       DEFAULT '700',
+    status_code int DEFAULT '700',
     created_at  timestamp NOT NULL
 );
 
@@ -153,7 +153,7 @@ CREATE TABLE report
     title       varchar(255) NOT NULL,
     content     text         NOT NULL,
     report_type varchar(255) NOT NULL,
-    status_code int          DEFAULT '600',
+    status_code int DEFAULT '600',
     created_at  timestamp    NOT NULL
 );
 
@@ -178,10 +178,11 @@ CREATE TABLE my_account
 
 CREATE TABLE status_code
 (
-    id         int PRIMARY KEY,
-    type       varchar(255) NOT NULL,
-    status     varchar(255) NOT NULL,
-    created_at timestamp    NOT NULL
+    id            Bigint PRIMARY KEY AUTO_INCREMENT,
+    status_number BIGINT       not null,
+    type          varchar(255) NOT NULL,
+    status        varchar(255) NOT NULL,
+    created_at    timestamp    NOT NULL
 );
 
 CREATE TABLE payment_info

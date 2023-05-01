@@ -22,7 +22,7 @@ public class MyPageController {
 
     @GetMapping("/boards")
     public ResponseEntity<?> myBoards(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        List<MyPageResp.MyBoardDTO> myBoardDTOS = myPageService.나의게시글보기(myUserDetails.getUser().getId());
+        MyPageResp.MyBoardDTO myBoardDTOS = myPageService.나의게시글보기(myUserDetails.getUser().getId());
         return ResponseEntity.ok(myBoardDTOS);
     }
 

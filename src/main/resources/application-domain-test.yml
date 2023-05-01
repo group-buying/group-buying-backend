@@ -13,15 +13,14 @@ spring:
     password:
 
   jpa:
-    open-in-view: false # db session controller까지 가져오기
+    open-in-view: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: create # repository 테스트는 create
     show-sql: true
     properties:
       hibernate:
         format_sql: true
       default_batch_fetch_size: 100 # in query 자동 작성
-    database-platform: org.hibernate.dialect.MySQL5Dialect
   output:
     ansi:
       enabled: always

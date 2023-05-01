@@ -16,18 +16,15 @@ public class ParticipantReq {
     public static class ParticipantSaveReqDTO {
 
         @NotNull
-        private Event event;
-        private User user;
+        private Long eventId;
+        private Long userId;
         @NotNull
         private int qty;
         @NotNull
         private LocalDateTime limitTime;
-        private StatusCode statusCode;
+        private Long statusCodeId;
 
-        public Participant toEntity(User user){
-            StatusCode statusCode = StatusCode.builder().id(300).type("participant")
-            .status("참가").createdAt(LocalDateTime.now()).build();
-
+        public Participant toEntity(User user, Event event, StatusCode statusCode){
             return Participant.builder().event(event).user(user).qty(qty).limitTime(limitTime)
             .statusCode(statusCode).createdAt(LocalDateTime.now()).build();
         }
