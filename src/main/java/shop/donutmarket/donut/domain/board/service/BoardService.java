@@ -164,7 +164,7 @@ public class BoardService {
         }
     }
 
-    public List<AdminSearchBoardDTO> 공고조회() {
+    public List<AdminSearchBoardDTO> 관리자게시글조회() {
         List<Board> boardlist = boardRepository.findAllBoardWithAllArg();
         List<AdminSearchBoardDTO> listDTO = new ArrayList<>();
         for (Board board : boardlist) {

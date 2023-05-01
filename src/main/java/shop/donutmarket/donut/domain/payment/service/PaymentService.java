@@ -1,6 +1,9 @@
 package shop.donutmarket.donut.domain.payment.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +15,6 @@ import shop.donutmarket.donut.domain.payment.dto.PaymentInfoReq;
 import shop.donutmarket.donut.domain.payment.dto.PaymentReq;
 import shop.donutmarket.donut.domain.payment.dto.PaymentResp;
 import shop.donutmarket.donut.domain.payment.model.Payment;
-import shop.donutmarket.donut.domain.payment.dto.PaymentReq.AdminSearchPaymentDTO;
 import shop.donutmarket.donut.domain.payment.repository.PaymentInfoRepository;
 import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -22,6 +24,9 @@ import shop.donutmarket.donut.global.exception.Exception500;
 
 import java.util.List;
 import java.util.Optional;
+import shop.donutmarket.donut.domain.payment.dto.PaymentReq;
+import shop.donutmarket.donut.domain.payment.dto.PaymentResp.AdminSearchPaymentDTO;
+import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -51,7 +56,7 @@ public class PaymentService {
         }
     }
 
-    public List<AdminSearchPaymentDTO> 결제조회() {
+    public List<AdminSearchPaymentDTO> 관리자결제조회() {
 
         // 임시 작성
     

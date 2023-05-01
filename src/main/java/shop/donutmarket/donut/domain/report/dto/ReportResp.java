@@ -1,14 +1,11 @@
 package shop.donutmarket.donut.domain.report.dto;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import shop.donutmarket.donut.domain.admin.model.StatusCode;
-import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.report.model.Report;
-import shop.donutmarket.donut.domain.user.model.User;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -22,5 +19,16 @@ public class ReportResp {
         public InsertRespDTO(Report report) {
             this.report = report;
         }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class AdminSearchReportDTO{
+        private Long id;
+        private String type;
+        private String title;
+        private String reporter;
+        private String reported;
+        private LocalDateTime createdAt;
     }
 }

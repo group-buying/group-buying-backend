@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import shop.donutmarket.donut.domain.report.dto.ReportReq;
 import shop.donutmarket.donut.domain.report.dto.ReportResp;
+import shop.donutmarket.donut.domain.report.dto.ReportResp.AdminSearchReportDTO;
 import shop.donutmarket.donut.domain.report.model.Report;
 import shop.donutmarket.donut.domain.report.repository.ReportRepository;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -15,6 +16,8 @@ import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,5 +55,22 @@ public class ReportService {
         } catch (Exception e) {
             throw new Exception500("신고하기 실패 : " + e.getMessage());
         }
+    }
+
+    public List<AdminSearchReportDTO> 관리자신고조회() {
+        try {
+            List<Report> list = reportRepository.findAllWithArg();
+            List<AdminSearchReportDTO> dtolist = new ArrayList<>();
+            for (Report report : list) {
+                AdminSearchReportDTO reportDTO = new AdminSearchReportDTO(
+                    report.getId(), report.getReportType(), report.getTitle(),
+                    report.getReporter().getName(), report.getReported().getName(), report.getCreatedAt());
+                    dtolist.add(reportDTO);
+            }
+            return dtolist;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

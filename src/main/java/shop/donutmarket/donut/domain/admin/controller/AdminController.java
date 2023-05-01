@@ -21,8 +21,10 @@ import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.service.CategoryService;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.AdminSearchBoardDTO;
 import shop.donutmarket.donut.domain.board.service.BoardService;
-import shop.donutmarket.donut.domain.payment.dto.PaymentReq.AdminSearchPaymentDTO;
+import shop.donutmarket.donut.domain.payment.dto.PaymentResp.AdminSearchPaymentDTO;
 import shop.donutmarket.donut.domain.payment.service.PaymentService;
+import shop.donutmarket.donut.domain.report.dto.ReportResp.AdminSearchReportDTO;
+import shop.donutmarket.donut.domain.report.service.ReportService;
 import shop.donutmarket.donut.domain.user.dto.UserResp.AdminSearchUserDTO;
 import shop.donutmarket.donut.domain.user.service.UserService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
@@ -39,6 +41,7 @@ public class AdminController {
     private final UserService userService;
     private final BoardService boardService;
     private final PaymentService paymentService;
+    private final ReportService reportService;
 
     @GetMapping("/category")
     public String category(@AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -61,23 +64,30 @@ public class AdminController {
 
     @GetMapping("/user")
     public String user(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        List<AdminSearchUserDTO> userList = userService.유저조회();
+        List<AdminSearchUserDTO> userList = userService.관리자유저조회();
         session.setAttribute("userList", userList);
         return "admin/user";
     }
 
     @GetMapping("/board")
     public String board(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        List<AdminSearchBoardDTO> boardList = boardService.공고조회();
+        List<AdminSearchBoardDTO> boardList = boardService.관리자게시글조회();
         session.setAttribute("boardList", boardList);
         return "admin/board";
     }
 
     @GetMapping("/payment")
     public String payment(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        List<AdminSearchPaymentDTO> paymentList = paymentService.결제조회();
+        List<AdminSearchPaymentDTO> paymentList = paymentService.관리자결제조회();
         session.setAttribute("paymentList", paymentList);
         return "admin/payment";
+    }
+
+    @GetMapping("/report")
+    public String report(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        List<AdminSearchReportDTO> reportList = reportService.관리자신고조회();
+        session.setAttribute("reportList", reportList);
+        return "admin/report";
     }
     
 }
