@@ -39,4 +39,23 @@
     </div>
 </div>
 
+<script>
+function cancelPayment(id) {
+  $.ajax({
+    url: "/admin/payment",
+    type: "put",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify({
+      id: id
+    }),
+    dataType: "json"
+    }).done((res) => {
+        alert("해당 결제를 취소했습니다.");
+        location.reload();
+    }).fail((err) => {
+        alert(err.responseJSON.message);
+    });
+}
+</script>
+
     <%@ include file="../layout/footer.jsp" %>

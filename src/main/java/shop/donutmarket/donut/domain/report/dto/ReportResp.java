@@ -3,6 +3,7 @@ package shop.donutmarket.donut.domain.report.dto;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import shop.donutmarket.donut.domain.report.model.Report;
@@ -30,5 +31,37 @@ public class ReportResp {
         private String reporter;
         private String reported;
         private LocalDateTime createdAt;
+    }
+
+    @Getter
+    public static class AdminSearchReportDetailDTO {
+        private Long id;
+        private String reporter;
+        private String reported;
+        private String reportType;
+        private String reportTitle;
+        private String reportContent;
+        private LocalDateTime reportCreatedAt;
+        private String boardTitle;
+        private String boardContent;
+        private String boardImg;
+        private LocalDateTime boardCreatedAt;
+
+        @Builder
+        public AdminSearchReportDetailDTO(Long id, String reporter, String reported, String reportType,
+                String reportTitle, String reportContent, LocalDateTime reportCreatedAt, String boardTitle,
+                String boardContent, String boardImg, LocalDateTime boardCreatedAt) {
+            this.id = id;
+            this.reporter = reporter;
+            this.reported = reported;
+            this.reportType = reportType;
+            this.reportTitle = reportTitle;
+            this.reportContent = reportContent;
+            this.reportCreatedAt = reportCreatedAt;
+            this.boardTitle = boardTitle;
+            this.boardContent = boardContent;
+            this.boardImg = boardImg;
+            this.boardCreatedAt = boardCreatedAt;
+        }
     }
 }

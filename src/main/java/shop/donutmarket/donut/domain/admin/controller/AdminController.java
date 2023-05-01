@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,7 @@ import shop.donutmarket.donut.domain.board.service.BoardService;
 import shop.donutmarket.donut.domain.payment.dto.PaymentResp.AdminSearchPaymentDTO;
 import shop.donutmarket.donut.domain.payment.service.PaymentService;
 import shop.donutmarket.donut.domain.report.dto.ReportResp.AdminSearchReportDTO;
+import shop.donutmarket.donut.domain.report.dto.ReportResp.AdminSearchReportDetailDTO;
 import shop.donutmarket.donut.domain.report.service.ReportService;
 import shop.donutmarket.donut.domain.user.dto.UserResp.AdminSearchUserDTO;
 import shop.donutmarket.donut.domain.user.service.UserService;
@@ -88,7 +90,7 @@ public class AdminController {
         boardService.관리자게시글차단(id);
         return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
     }
-
+    
     @GetMapping("/payment")
     public String payment(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         List<AdminSearchPaymentDTO> paymentList = paymentService.관리자결제조회();
@@ -96,11 +98,24 @@ public class AdminController {
         return "admin/payment";
     }
 
+    @PutMapping("/payment")
+    public ResponseEntity<?> cancelPayment(@RequestBody Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        paymentService.관리자결제취소(id);
+        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
+    }
+    
     @GetMapping("/report")
     public String report(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         List<AdminSearchReportDTO> reportList = reportService.관리자신고조회();
         session.setAttribute("reportList", reportList);
         return "admin/report";
+    }
+
+    @GetMapping("/report/{id}")
+    public String report(@PathVariable Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        AdminSearchReportDetailDTO detailDTO = reportService.관리자신고상세조회();
+        session.setAttribute("report", detailDTO);
+        return "admin/reportDetail";
     }
     
 }

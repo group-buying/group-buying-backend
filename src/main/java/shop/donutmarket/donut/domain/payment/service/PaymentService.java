@@ -62,4 +62,10 @@ public class PaymentService {
     
         return null;
     }
+
+    public void 관리자결제취소(Long id) {
+
+        // 임시 작성
+        
+    }
 }

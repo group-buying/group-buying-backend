@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.donutmarket.donut.domain.report.dto.ReportReq;
 import shop.donutmarket.donut.domain.report.dto.ReportResp;
 import shop.donutmarket.donut.domain.report.dto.ReportResp.AdminSearchReportDTO;
+import shop.donutmarket.donut.domain.report.dto.ReportResp.AdminSearchReportDetailDTO;
 import shop.donutmarket.donut.domain.report.model.Report;
 import shop.donutmarket.donut.domain.report.repository.ReportRepository;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -71,6 +72,10 @@ public class ReportService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public AdminSearchReportDetailDTO 관리자신고상세조회() {
         return null;
     }
 }
