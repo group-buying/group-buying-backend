@@ -40,7 +40,7 @@
 <script>
 function blockBoard(id) {
   $.ajax({
-    url: "/admin/boards",
+    url: "/admin/board",
     type: "put",
     contentType: "application/json; charset=utf-8",
     data: JSON.stringify({

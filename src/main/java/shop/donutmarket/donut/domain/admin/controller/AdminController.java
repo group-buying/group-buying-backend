@@ -70,6 +70,12 @@ public class AdminController {
         return "admin/user";
     }
 
+    @PutMapping("/user")
+    public ResponseEntity<?> blockUser(@RequestBody Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        userService.관리자유저차단(id);
+        return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
+    }
+
     @GetMapping("/board")
     public String board(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         List<AdminSearchBoardDTO> boardList = boardService.관리자게시글조회();
@@ -78,7 +84,7 @@ public class AdminController {
     }
 
     @PutMapping("/board")
-    public ResponseEntity<?> boardBlock(@RequestBody Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> blockBoard(@RequestBody Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         boardService.관리자게시글차단(id);
         return new ResponseEntity<>(new ResponseDTO<>(), HttpStatus.OK);
     }

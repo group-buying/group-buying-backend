@@ -118,4 +118,18 @@ public class UserService {
         }
         return listDTO;
     }
+
+    public void 관리자유저차단(Long id) {
+        Optional<User> userOP = userRepository.findById(id);
+        if (userOP.isPresent()) {
+            throw new Exception404("존재하지 않는 유저입니다.");
+        }
+        try {
+            User userPS = userOP.get();
+            userPS.blockUser();
+        } catch (Exception e) {
+            throw new Exception500("차단 실패.");
+        }
+    }
+    
 }
