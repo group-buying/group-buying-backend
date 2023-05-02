@@ -18,7 +18,7 @@ import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantC
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantDropReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSaveReqDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq.ParticipantSelectReqDTO;
-import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantCancleRespDTO;
+import shop.donutmarket.donut.domain.participant.dto.ParticipantResp;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantDropRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantListRespDTO;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSaveRespDTO;
@@ -41,21 +41,11 @@ public class ParticipantService {
     private final EventRepository eventRepository;
 
     @Transactional(readOnly = true)
-    public List<ParticipantListRespDTO> 내참가목록(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ParticipantListRespDTO 내참가목록(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         try {
             User user = myUserDetails.getUser();
             List<Participant> myParticipantsPS = participantRepository.findAllByUserIdwithEvent(user.getId());
-            List<ParticipantListRespDTO> participantList = new ArrayList<>();
-
-            for (Participant participant : myParticipantsPS) {
-                Event eventPS = participant.getEvent();
-
-                ParticipantListRespDTO participantDTO = ParticipantListRespDTO.builder().event(eventPS).user(user)
-                        .qty(participant.getQty()).limitTime(participant.getLimitTime())
-                        .createdAt(participant.getCreatedAt()).build();
-
-                participantList.add(participantDTO);
-            }
+            ParticipantResp.ParticipantListRespDTO participantList = new ParticipantListRespDTO(myParticipantsPS);
             return participantList;
         } catch (Exception e) {
             throw new Exception500("내 참가목록 보기 실패 : " + e.getMessage());
@@ -91,14 +81,14 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantSelectRespDTO 채택하기(ParticipantSelectReqDTO participantSelectReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        Optional<Participant> participantOP = participantRepository.findByIdwithEvent(participantSelectReqDTO.getId());
+        Optional<Participant> participantOP = participantRepository.findByIdJoinFetch(participantSelectReqDTO.getParticipantId());
         if (participantOP.isEmpty()) {
             throw new Exception404("존재하지 않는 참가자입니다");
         }
 
         Participant participantPS = participantOP.get();
 
-        Optional<Board> boardOP = boardRepository.findByEventId(participantPS.getEvent().getId());
+        Optional<Board> boardOP = boardRepository.findByEventId(participantSelectReqDTO.getEventId());
         Board boardPS = boardOP.get();
         Long organizerId = boardPS.getOrganizer().getId();
 
@@ -107,14 +97,13 @@ public class ParticipantService {
         }
 
         try {
-            Event eventPS = participantPS.getEvent();
-            User userPS = participantPS.getUser();
+            participantPS.updateStatusCode(301); // 채택 시
 
-            User user = User.builder().id(userPS.getId()).name(userPS.getName())
-                    .profile(userPS.getProfile()).rate(userPS.getRate()).build();
-
+            // 프록시 객체를 초기화하기 위해 한 번 더 조회
+            Optional<Participant> participantOP2 = participantRepository.findByIdJoinFetch(participantSelectReqDTO.getParticipantId());
+            Participant participantPS2 = participantOP2.get();
             ParticipantSelectRespDTO selectRespDTO = new ParticipantSelectRespDTO(
-                    participantPS.getId(), eventPS, user, "채택함");
+                    participantPS2);
 
             return selectRespDTO;
         } catch (Exception e) {
@@ -123,22 +112,29 @@ public class ParticipantService {
     }
 
     @Transactional
-    public ParticipantCancleRespDTO 취소하기(ParticipantCancelReqDTO participantCancelReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        Optional<Participant> participantOP = participantRepository.findByIdwithEvent(participantCancelReqDTO.getId());
+    public ParticipantResp.ParticipantCancelRespDTO 취소하기(ParticipantCancelReqDTO participantCancelReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Optional<Participant> participantOP = participantRepository.findByIdJoinFetch(participantCancelReqDTO.getParticipantId());
         if (participantOP.isEmpty()) {
             throw new Exception404("존재하지 않는 참가자입니다");
         }
         Participant participantPS = participantOP.get();
 
-        if (!(Objects.equals(participantPS.getUser().getId(), myUserDetails.getUser().getId()))) {
+        Optional<Board> boardOP = boardRepository.findByEventId(participantCancelReqDTO.getEventId());
+        Board boardPS = boardOP.get();
+        Long organizerId = boardPS.getOrganizer().getId();
+
+        if (!(Objects.equals(organizerId, myUserDetails.getUser().getId()))) {
             throw new Exception403("참가자를 취소할 권한이 없습니다");
         }
 
         try {
-            Event eventPS = participantPS.getEvent();
+            participantPS.updateStatusCode(302); // 채택 안됐을 시
 
-            ParticipantCancleRespDTO cancleRespDTO = new ParticipantCancleRespDTO(
-                    participantPS.getId(), eventPS, myUserDetails.getUser(), "취소함");
+            // 프록시 객체를 초기화하기 위해 한 번 더 조회
+            Optional<Participant> participantOP2 = participantRepository.findByIdJoinFetch(participantCancelReqDTO.getParticipantId());
+            Participant participantPS2 = participantOP2.get();
+            ParticipantResp.ParticipantCancelRespDTO cancleRespDTO = new ParticipantResp.ParticipantCancelRespDTO(
+                    participantPS2);
 
             return cancleRespDTO;
         } catch (Exception e) {
@@ -148,7 +144,7 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantDropRespDTO 강퇴하기(ParticipantDropReqDTO participantDropReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        Optional<Participant> participantOP = participantRepository.findByIdwithEvent(participantDropReqDTO.getId());
+        Optional<Participant> participantOP = participantRepository.findByIdJoinFetch(participantDropReqDTO.getParticipantId());
         if (participantOP.isEmpty()) {
             throw new Exception404("존재하지 않는 참가자입니다");
         }
@@ -162,14 +158,14 @@ public class ParticipantService {
             throw new Exception403("참가자를 강퇴할 권한이 없습니다");
         }
         try {
-            Event eventPS = participantPS.getEvent();
-            User userPS = participantPS.getUser();
+            participantPS.updateStatusCode(303); // 강퇴당한 회원일 시
 
-            User user = User.builder().id(userPS.getId()).name(userPS.getName())
-                    .profile(userPS.getProfile()).rate(userPS.getRate()).build();
+            // 프록시 객체를 초기화하기 위해 한 번 더 조회
+            Optional<Participant> participantOP2 = participantRepository.findByIdJoinFetch(participantDropReqDTO.getParticipantId());
+            Participant participantPS2 = participantOP2.get();
 
             ParticipantDropRespDTO dropRespDTO = new ParticipantDropRespDTO(
-                    participantPS.getId(), eventPS, user, "강퇴함");
+                    participantPS2);
 
             return dropRespDTO;
         } catch (Exception e) {

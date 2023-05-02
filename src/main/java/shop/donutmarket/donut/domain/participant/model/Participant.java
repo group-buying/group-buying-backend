@@ -50,4 +50,8 @@ public class Participant {
         this.limitTime = limitTime;
         this.statusCode = statusCode;
     }
+
+    public void updateStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
+    }
 }

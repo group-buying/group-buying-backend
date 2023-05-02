@@ -1,6 +1,7 @@
 package shop.donutmarket.donut.domain.participant.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,22 +16,11 @@ public class ParticipantResp {
     
     @Getter
     @Setter
-    @NoArgsConstructor
     public static class ParticipantListRespDTO {
-        private Event event;
-        private User user;
-        private int qty;
-        private LocalDateTime limitTime;
-        private LocalDateTime createdAt;
+        private List<Participant> participant;
 
-        @Builder
-        public ParticipantListRespDTO(Event event, User user, int qty, LocalDateTime limitTime,
-                LocalDateTime createdAt) {
-            this.event = event;
-            this.user = user;
-            this.qty = qty;
-            this.limitTime = limitTime;
-            this.createdAt = createdAt;
+        public ParticipantListRespDTO(List<Participant> participant) {
+            this.participant = participant;
         }
     }
 
@@ -47,32 +37,32 @@ public class ParticipantResp {
     
     @Getter
     @Setter
-    @AllArgsConstructor
     public static class ParticipantSelectRespDTO {
-        private Long id;
-        private Event event;
-        private User user;
-        private String statusMsg;
+        private Participant participant;
+
+        public ParticipantSelectRespDTO(Participant participant) {
+            this.participant = participant;
+        }
     }
 
     @Getter
     @Setter
-    @AllArgsConstructor
-    public static class ParticipantCancleRespDTO {
-        private Long id;
-        private Event event;
-        private User user;
-        private String statusMsg;
+    public static class ParticipantCancelRespDTO {
+        private Participant participant;
+
+        public ParticipantCancelRespDTO(Participant participant) {
+            this.participant = participant;
+        }
     }
 
     @Getter
     @Setter
-    @AllArgsConstructor
     public static class ParticipantDropRespDTO {
-        private Long id;
-        private Event event;
-        private User user;
-        private String statusMsg;
+        private Participant participant;
+
+        public ParticipantDropRespDTO(Participant participant) {
+            this.participant = participant;
+        }
     }
 
 }

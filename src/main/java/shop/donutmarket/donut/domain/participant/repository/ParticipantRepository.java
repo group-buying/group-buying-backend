@@ -14,11 +14,11 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long>{
     @Query("select p from Participant p where p.user.id = :userId")
     List<Participant> findAllByUserId(@Param("userId") Long userId);
     
-    @Query("select p from Participant p join fetch p.event join fetch p.statusCode where p.user.id = :userId")
+    @Query("select p from Participant p left join fetch p.user u left join fetch p.event left join fetch u.rate where p.user.id = :userId")
     List<Participant> findAllByUserIdwithEvent(@Param("userId") Long userId);
 
-    @Query("select p from Participant p join fetch p.event join fetch p.user u join fetch u.rate join fetch p.statusCode where p.id = :participantId")
-    Optional<Participant> findByIdwithEvent(@Param("participantId") Long participantId);
+    @Query("select p from Participant p left join fetch p.user u left join fetch p.event left join fetch u.rate where p.id = :id")
+    Optional<Participant> findByIdJoinFetch(@Param("id") Long id);
 
     @Query("select p from Participant p where p.user.id = :userId and p.event.id = :eventId")
     Optional<Participant> findByUserIdAndEvendId(@Param("userId") Long userId, @Param("eventId") Long eventId);
