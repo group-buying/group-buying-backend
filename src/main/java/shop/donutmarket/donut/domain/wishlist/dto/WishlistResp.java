@@ -1,32 +1,33 @@
 package shop.donutmarket.donut.domain.wishlist.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import shop.donutmarket.donut.domain.wishlist.model.Wishlist;
 
 public class WishlistResp {
     
     @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
+    @Setter
     public static class WishListSaveRespDTO {
-        private String title;
-        private String state;
-        private String city;
-        private LocalDateTime createdAt;
+        private Wishlist wishlist;
+
+        public WishListSaveRespDTO(Wishlist wishlist) {
+            this.wishlist = wishlist;
+        }
     }
     
     @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
+    @Setter
     public static class MyWishListRespDTO {
-        private Long id;
-        private String title;
-        private String organizer;
-        private String state;
-        private String city;
-        private LocalDateTime createdAt;
+        private List<Wishlist> wishlistList;
+
+        public MyWishListRespDTO(List<Wishlist> wishlistList) {
+            this.wishlistList = wishlistList;
+        }
     }
 }
