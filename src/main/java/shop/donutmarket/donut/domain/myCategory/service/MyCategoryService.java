@@ -18,7 +18,9 @@ import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryResp.MyCategoryUpd
 import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
 import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
 import shop.donutmarket.donut.domain.user.model.User;
+import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
 
 @Service
@@ -27,19 +29,25 @@ public class MyCategoryService {
 
     private final MyCategoryRepository myCategoryRepository;
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public MyCategoryResp.DefaultMyCategoryRespDTO 디폴트카테고리(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
+        if (userOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 유저입니다");
+        }
+
         try {
-            User user = myUserDetails.getUser();
+            User userPS = userOP.get();
             List<Long> defaulList = MyCategory.defaultList();
             List<Category> myCategoryList = new ArrayList<>();
-            myCategoryRepository.deleteAllByUserId(user.getId());
+            myCategoryRepository.deleteAllByUserId(userPS.getId());
             for (Long id : defaulList) {
                 Optional<Category> categoryOP = categoryRepository.findById(id);
                 Category categoryPS = categoryOP.get();
 
-                MyCategory myCategory = MyCategory.builder().user(user).category(categoryPS).createdAt(LocalDateTime.now()).build();
+                MyCategory myCategory = MyCategory.builder().user(userPS).category(categoryPS).createdAt(LocalDateTime.now()).build();
                 myCategoryRepository.save(myCategory);
                 myCategoryList.add(categoryPS);
             }
@@ -52,8 +60,13 @@ public class MyCategoryService {
 
     @Transactional
     public MyCategoryUpdateRespDTO 카테고리업데이트(MyCategoryUpdateReqDTO myCategoryUpdateReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
+        if (userOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 유저입니다");
+        }
+
         try {
-            User user = myUserDetails.getUser();
+            User userPS = userOP.get();
             List<Long> categoryList;
 
             // 비어있을경우 디폴트
@@ -65,12 +78,12 @@ public class MyCategoryService {
 
             List<Category> myCategoryList = new ArrayList<>();
 
-            myCategoryRepository.deleteAllByUserId(user.getId());
+            myCategoryRepository.deleteAllByUserId(userPS.getId());
             for (Long id : categoryList) {
                 Optional<Category> categoryOP = categoryRepository.findById(id);
                 Category categoryPS = categoryOP.get();
 
-                MyCategory myCategory = MyCategory.builder().user(user).category(categoryPS).createdAt(LocalDateTime.now()).build();
+                MyCategory myCategory = MyCategory.builder().user(userPS).category(categoryPS).createdAt(LocalDateTime.now()).build();
                 myCategoryRepository.save(myCategory);
                 myCategoryList.add(categoryPS);
             }

@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.user.model.User;
 
 public class UserReq {
@@ -15,9 +16,11 @@ public class UserReq {
         private String email;
         @NotBlank(message = "비밀번호를 적어주세요")
         private String password;
+        private String nickname;
 
-        public User toEntity() {
-            return User.builder().username(email).email(email).password(password).build();
+        public User toEntity(Rate rate) {
+            return User.builder().username(email).email(email).password(password)
+                    .nickname(nickname).rate(rate).build();
         }
     }
 

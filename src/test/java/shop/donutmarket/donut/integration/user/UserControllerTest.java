@@ -2,6 +2,7 @@ package shop.donutmarket.donut.integration.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,11 +23,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import shop.donutmarket.donut.core.MyRestDocs;
 import shop.donutmarket.donut.domain.account.dto.AccountReq;
 import shop.donutmarket.donut.domain.account.repository.MyAccountRepository;
+import shop.donutmarket.donut.domain.review.model.Rate;
+import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.user.dto.UserReq;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.dummy.DummyEntity;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -49,17 +53,24 @@ public class UserControllerTest extends MyRestDocs {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private RateRepository rateRepository;
+    @Autowired
     private EntityManager em;
 
     @BeforeEach
     public void setUp() {
-        userRepository.save(dummy.newUser("ssar@naver.com", "쌀"));
+        Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
+        rateRepository.save(rate);
+        userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
 
         em.clear();
     }
 
     @AfterEach
-    void clean() {}
+    void clean() {
+//        userRepository.deleteAll();
+//        rateRepository.deleteAll();
+    }
 
     @DisplayName("회원가입")
     @Test
@@ -68,6 +79,7 @@ public class UserControllerTest extends MyRestDocs {
         UserReq.JoinDTO joinDTO = new UserReq.JoinDTO();
         joinDTO.setEmail("cos@naver.com");
         joinDTO.setPassword("1234");
+        joinDTO.setNickname("코스");
         String requestBody = om.writeValueAsString(joinDTO);
 
         // when

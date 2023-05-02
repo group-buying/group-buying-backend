@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import shop.donutmarket.donut.domain.review.model.Rate;
+import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.user.dto.UserReq;
 import shop.donutmarket.donut.domain.user.dto.UserResp;
 import shop.donutmarket.donut.domain.user.model.User;
@@ -24,6 +26,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final RateRepository rateRepository;
 
     @Transactional
     public String 회원가입(UserReq.JoinDTO joinDTO) {
@@ -32,8 +35,14 @@ public class UserService {
         String encPassword = passwordEncoder.encode(rawPassword); // 60Byte
         joinDTO.setPassword(encPassword);
 
+        Optional<Rate> rateOP = rateRepository.findById(1L);
+        if (rateOP.isEmpty()) {
+            throw new Exception404("등급이 존재하지 않습니다");
+        }
+
         try {
-            userRepository.save(joinDTO.toEntity());
+            Rate ratePS = rateOP.get();
+            userRepository.save(joinDTO.toEntity(ratePS));
         } catch (Exception e) {
             throw new Exception500("회원가입 실패 : " + e.getMessage());
         }
@@ -72,7 +81,7 @@ public class UserService {
 
     @Transactional
     public UserResp.UpdateDTO 회원수정(@AuthenticationPrincipal MyUserDetails myUserDetails, UserReq.UpdateDTO updateDTO) {
-        Optional<User> userOP = userRepository.findById(myUserDetails.getUser().getId());
+        Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
 
         if (userOP.isEmpty()) {
             throw new Exception404("존재하지 않는 회원입니다");
@@ -89,7 +98,7 @@ public class UserService {
         }
 
         // 다시 db에서 조회
-        Optional<User> data = userRepository.findById(myUserDetails.getUser().getId());
+        Optional<User> data = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
 
         if (data.isEmpty()) {
             throw new Exception404("존재하지 않는 회원입니다");

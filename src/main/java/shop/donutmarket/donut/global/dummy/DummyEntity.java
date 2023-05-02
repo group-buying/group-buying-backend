@@ -1,12 +1,13 @@
 package shop.donutmarket.donut.global.dummy;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.user.model.User;
 
 import java.time.LocalDateTime;
 
 public class DummyEntity {
-    public User newUser(String username, String name){
+    public User newUser(String username, String name, Rate rate){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return User.builder()
                 .username(username)
@@ -14,6 +15,8 @@ public class DummyEntity {
                 .name(name)
                 .email(username)
                 .role("ROLE_USER")
+                .rate(rate)
+                .ratePoint(20)
                 .profile("사진")
                 .createdAt(LocalDateTime.now())
                 .build();

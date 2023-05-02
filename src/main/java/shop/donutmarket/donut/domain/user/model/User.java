@@ -24,6 +24,7 @@ public class User {
     // 일반 유저는 username에 email 사용, oauth 유저는 oauth 아이디
     @Column(unique = true)
     private String username;
+    private String nickname;
     @JsonIgnore
     private String password;
     private String email;
@@ -42,9 +43,10 @@ public class User {
     private LocalDateTime createdAt;
 
     @Builder
-    public User(Long id, String username, String password, String email, String name, String profile, Rate rate, Integer ratePoint, String role, String provider, String providerId, Integer statusCode, LocalDateTime createdAt) {
+    public User(Long id, String username, String nickname, String password, String email, String name, String profile, Rate rate, Integer ratePoint, String role, String provider, String providerId, Integer statusCode, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
+        this.nickname = nickname;
         this.password = password;
         this.email = email;
         this.name = name;

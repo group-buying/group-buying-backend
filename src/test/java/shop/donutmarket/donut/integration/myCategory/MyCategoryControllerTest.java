@@ -25,6 +25,8 @@ import shop.donutmarket.donut.domain.blacklist.repository.BlackListRepository;
 import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryReq;
 import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
 import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
+import shop.donutmarket.donut.domain.review.model.Rate;
+import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.dummy.DummyEntity;
 
@@ -57,12 +59,16 @@ public class MyCategoryControllerTest extends MyRestDocs {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
+    private RateRepository rateRepository;
+    @Autowired
     private EntityManager em;
 
     @BeforeEach
     public void setUp() {
-        userRepository.save(dummy.newUser("ssar@naver.com", "쌀"));
-        userRepository.save(dummy.newUser("cos@naver.com", "쌀"));
+        Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
+        rateRepository.save(rate);
+        userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
+        userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
 
         // 디폴트 카테고리 dummy 생성
         Category category1 = Category.builder().name("생활가전").createdAt(LocalDateTime.now()).build();
@@ -100,7 +106,10 @@ public class MyCategoryControllerTest extends MyRestDocs {
 
     @AfterEach
     void clean() {
-        myCategoryRepository.deleteAll();
+//        myCategoryRepository.deleteAll();
+//        userRepository.deleteAll();
+//        categoryRepository.deleteAll();
+//        rateRepository.deleteAll();
     }
 
 

@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.user.model.User;
+import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.domain.wishlist.dto.WishlistReq.WishListDeleteReqDTO;
 import shop.donutmarket.donut.domain.wishlist.dto.WishlistReq.WishListSaveReqDTO;
 import shop.donutmarket.donut.domain.wishlist.dto.WishlistResp.MyWishListRespDTO;
@@ -31,12 +32,18 @@ public class WishlistService {
 
     private final WishlistRepository wishlistRepository;
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public MyWishListRespDTO 내관심목록(MyUserDetails myUserDetails) {
+        Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
+        if (userOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 유저입니다");
+        }
+
         try {
-            User user = myUserDetails.getUser();
-            List<Wishlist> list = wishlistRepository.findAllByUserId(user.getId());
+            User userPS = userOP.get();
+            List<Wishlist> list = wishlistRepository.findAllByUserId(userPS.getId());
             MyWishListRespDTO wishListRespDTO = new MyWishListRespDTO(list);
 
             return wishListRespDTO;
@@ -47,7 +54,12 @@ public class WishlistService {
 
     @Transactional
     public WishListSaveRespDTO 관심등록(WishListSaveReqDTO wishListSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        User user = myUserDetails.getUser();
+//        User user = myUserDetails.getUser();
+        Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
+        if (userOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 유저입니다");
+        }
+
         Optional<Board> boardOP = boardRepository.findByIdWithAll(wishListSaveReqDTO.getBoardId());
 
         if (boardOP.isEmpty()) {
@@ -55,9 +67,11 @@ public class WishlistService {
         }
 
         try {
+            User userPS = userOP.get();
+
             Board boardPS = boardOP.get();
 
-            Wishlist wishlist = Wishlist.builder().board(boardPS).user(user).createdAt(LocalDateTime.now()).build();
+            Wishlist wishlist = Wishlist.builder().board(boardPS).user(userPS).createdAt(LocalDateTime.now()).build();
             wishlistRepository.save(wishlist);
 
             WishListSaveRespDTO saveRespDTO = new WishListSaveRespDTO(wishlist);
@@ -69,13 +83,18 @@ public class WishlistService {
 
     @Transactional
     public void 관심등록제거(WishListDeleteReqDTO wishListDeleteReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        User user = myUserDetails.getUser();
+        Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
+        if (userOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 유저입니다");
+        }
+
         Optional<Wishlist> wishlistOP = wishlistRepository.findById(wishListDeleteReqDTO.getWishlistId());
         if (wishlistOP.isEmpty()) {
             throw new Exception404("위시리스트에 존재하지 않습니다");
         }
         Wishlist wishlistPS = wishlistOP.get();
-        if (!(Objects.equals(wishlistPS.getUser().getId(), user.getId()))) {
+        User userPS = userOP.get();
+        if (!(Objects.equals(wishlistPS.getUser().getId(), userPS.getId()))) {
             throw new Exception403("위시리스트에서 삭제할 권한이 없습니다");
         }
         try {

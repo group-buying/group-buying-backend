@@ -33,6 +33,7 @@ import shop.donutmarket.donut.domain.participant.repository.ParticipantRepositor
 import shop.donutmarket.donut.domain.review.dto.ReviewReq;
 import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.review.repository.RateRepository;
+import shop.donutmarket.donut.domain.review.repository.ReviewRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.dummy.DummyEntity;
@@ -70,6 +71,8 @@ public class ReviewControllerTest extends MyRestDocs {
     @Autowired
     private RateRepository rateRepository;
     @Autowired
+    private ReviewRepository reviewRepository;
+    @Autowired
     private EntityManager em;
 
     @BeforeEach
@@ -78,24 +81,8 @@ public class ReviewControllerTest extends MyRestDocs {
         Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
         rateRepository.save(rate);
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        // rate 객체 넣기 위함
-        User user1 = User.builder()
-                .username("ssar@naver.com")
-                .password(passwordEncoder.encode("1234"))
-                .name("쌀")
-                .email("ssar@naver.com")
-                .role("ROLE_USER")
-                .profile("사진")
-                .rate(rate)
-                .ratePoint(20)
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        userRepository.save(user1);
-
-        User user2 = userRepository.save(dummy.newUser("cos@naver.com", "쌀"));
+        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
+        User user2 = userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
 
         // 리뷰를 위한 dummy 생성
 
@@ -127,7 +114,15 @@ public class ReviewControllerTest extends MyRestDocs {
     }
 
     @AfterEach
-    void clean() {}
+    void clean() {
+//        userRepository.deleteAll();
+//        eventRepository.deleteAll();
+//        participantRepository.deleteAll();
+//        categoryRepository.deleteAll();
+//        boardRepository.deleteAll();
+//        rateRepository.deleteAll();
+//        reviewRepository.deleteAll();
+    }
 
     @DisplayName("리뷰 작성")
     @WithUserDetails(value = "cos@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)

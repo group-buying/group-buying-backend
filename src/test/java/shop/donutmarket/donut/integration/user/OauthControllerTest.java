@@ -72,7 +72,9 @@ public class OauthControllerTest extends MyRestDocs {
     }
 
     @AfterEach
-    void clean() {}
+    void clean() {
+//        userRepository.deleteAll();
+    }
 
     @DisplayName("회원가입 안 되어있을 경우")
     @Test

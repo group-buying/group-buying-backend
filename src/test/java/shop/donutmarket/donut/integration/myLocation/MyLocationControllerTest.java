@@ -24,10 +24,13 @@ import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
 import shop.donutmarket.donut.domain.myLocation.dto.MyLocationReq;
 import shop.donutmarket.donut.domain.myLocation.model.MyLocation;
 import shop.donutmarket.donut.domain.myLocation.repository.MyLocationRepository;
+import shop.donutmarket.donut.domain.review.model.Rate;
+import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.dummy.DummyEntity;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -53,12 +56,16 @@ public class MyLocationControllerTest extends MyRestDocs {
     @Autowired
     private MyLocationRepository myLocationRepository;
     @Autowired
+    private RateRepository rateRepository;
+    @Autowired
     private EntityManager em;
 
     @BeforeEach
     public void setUp() {
-        userRepository.save(dummy.newUser("ssar@naver.com", "쌀"));
-        userRepository.save(dummy.newUser("cos@naver.com", "쌀"));
+        Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
+        rateRepository.save(rate);
+        userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
+        userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
 
         // 내 지역 dummy 생성
         Optional<User> userOP = userRepository.findById(1L);
@@ -72,6 +79,8 @@ public class MyLocationControllerTest extends MyRestDocs {
     @AfterEach
     void clean() {
         myLocationRepository.deleteAll();
+//        userRepository.deleteAll();
+//        rateRepository.deleteAll();
     }
 
 

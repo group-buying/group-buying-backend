@@ -11,6 +11,6 @@ import shop.donutmarket.donut.domain.user.model.User;
 import java.util.Optional;
 
 public interface MyAccountRepository extends JpaRepository<MyAccount, Long>{
-    @Query("select m from MyAccount m where m.user.id = :userId")
+    @Query("select m from MyAccount m left join fetch m.user where m.user.id = :userId")
     Optional<MyAccount> findByUserId(@Param("userId") Long userId);
 }

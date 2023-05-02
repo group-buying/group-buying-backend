@@ -86,25 +86,8 @@ public class MyPageControllerTest extends MyRestDocs {
         // 등급 객체
         Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
         rateRepository.save(rate);
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        // rate 객체 넣기 위함
-        User user1 = User.builder()
-                .username("ssar@naver.com")
-                .password(passwordEncoder.encode("1234"))
-                .name("쌀")
-                .email("ssar@naver.com")
-                .role("ROLE_USER")
-                .profile("사진")
-                .rate(rate)
-                .ratePoint(20)
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        userRepository.save(user1);
-
-        User user2 = userRepository.save(dummy.newUser("cos@naver.com", "쌀"));
+        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
+        User user2 = userRepository.save(dummy.newUser("cos@naver.com", "코스", rate));
 
         // 카테고리 객체
         Category category = Category.builder().name("생활가전").createdAt(LocalDateTime.now()).build();
@@ -145,7 +128,17 @@ public class MyPageControllerTest extends MyRestDocs {
     }
 
     @AfterEach
-    void clean() {}
+    void clean() {
+//        userRepository.deleteAll();
+//        categoryRepository.deleteAll();
+//        eventRepository.deleteAll();
+//        boardRepository.deleteAll();
+//        blackListRepository.deleteAll();
+//        reviewRepository.deleteAll();
+//        reportRepository.deleteAll();
+//        paymentRepository.deleteAll();
+//        rateRepository.deleteAll();
+    }
 
     @DisplayName("나의 게시글 보기")
     @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
