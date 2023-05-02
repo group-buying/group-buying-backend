@@ -30,7 +30,7 @@ public class ReportService {
     @Transactional
     public ReportResp.InsertRespDTO 신고하기(MyUserDetails myUserDetails, Long reportedId, ReportReq.insertDTO insertDTO) {
 
-        Optional<User> reportedOP = userRepository.findById(reportedId);
+        Optional<User> reportedOP = userRepository.findByIdJoinFetch(reportedId);
 
         if (reportedOP.isEmpty()) {
             throw new Exception404("존재하지 않는 사용자입니다");

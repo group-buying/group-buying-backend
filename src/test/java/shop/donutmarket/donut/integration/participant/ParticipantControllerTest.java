@@ -18,6 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.transaction.annotation.Transactional;
 import shop.donutmarket.donut.core.MyRestDocs;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
@@ -28,6 +29,8 @@ import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.participant.dto.ParticipantReq;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.participant.repository.ParticipantRepository;
+import shop.donutmarket.donut.domain.review.model.Rate;
+import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.dummy.DummyEntity;
@@ -63,12 +66,16 @@ public class ParticipantControllerTest extends MyRestDocs {
     @Autowired
     private BoardRepository boardRepository;
     @Autowired
+    private RateRepository rateRepository;
+    @Autowired
     private EntityManager em;
 
     @BeforeEach
     public void setUp() {
-        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", "쌀"));
-        User user2 = userRepository.save(dummy.newUser("cos@naver.com", "쌀"));
+        Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
+        rateRepository.save(rate);
+        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
+        User user2 = userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
 
         // 참가자 dummy 생성
 
@@ -100,7 +107,14 @@ public class ParticipantControllerTest extends MyRestDocs {
     }
 
     @AfterEach
-    void clean() {}
+    void clean() {
+//        userRepository.deleteAll();
+//        eventRepository.deleteAll();
+//        participantRepository.deleteAll();
+//        categoryRepository.deleteAll();
+//        boardRepository.deleteAll();
+//        rateRepository.deleteAll();
+    }
 
     @DisplayName("나의 참가 목록")
     @WithUserDetails(value = "cos@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)

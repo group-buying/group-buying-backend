@@ -28,6 +28,8 @@ import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.participant.repository.ParticipantRepository;
 import shop.donutmarket.donut.domain.report.dto.ReportReq;
+import shop.donutmarket.donut.domain.review.model.Rate;
+import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.domain.wishlist.dto.WishlistReq;
@@ -65,12 +67,17 @@ public class WishlistControllerTest extends MyRestDocs {
     @Autowired
     private WishlistRepository wishlistRepository;
     @Autowired
+    private RateRepository rateRepository;
+    @Autowired
     private EntityManager em;
 
     @BeforeEach
     public void setUp() {
-        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", "쌀"));
-        User user2 = userRepository.save(dummy.newUser("cos@naver.com", "쌀"));
+        Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
+        rateRepository.save(rate);
+
+        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
+        User user2 = userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
 
         // 관심목록을 위한 dummy 생성
 
@@ -108,7 +115,14 @@ public class WishlistControllerTest extends MyRestDocs {
     }
 
     @AfterEach
-    void clean() {}
+    void clean() {
+//        userRepository.deleteAll();
+//        eventRepository.deleteAll();
+//        categoryRepository.deleteAll();
+//        boardRepository.deleteAll();
+//        wishlistRepository.deleteAll();
+//        rateRepository.deleteAll();
+    }
 
     @DisplayName("관심등록하기")
     @WithUserDetails(value = "cos@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)

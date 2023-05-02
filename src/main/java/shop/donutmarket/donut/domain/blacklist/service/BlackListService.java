@@ -27,8 +27,8 @@ public class BlackListService {
 
     @Transactional
     public BlacklistResp.select 블랙리스트추가(Long userId, Long blockedUserId) {
-        Optional<User> userOP = userRepository.findById(userId);
-        Optional<User> blockedUserOP = userRepository.findById(blockedUserId);
+        Optional<User> userOP = userRepository.findByIdJoinFetch(userId);
+        Optional<User> blockedUserOP = userRepository.findByIdJoinFetch(blockedUserId);
         if (userOP.isEmpty() || blockedUserOP.isEmpty()) {
             throw new Exception404("존재하지 않는 유저입니다");
         }

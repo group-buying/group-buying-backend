@@ -2,6 +2,7 @@ CREATE TABLE user_tb
 (
     id          Bigint AUTO_INCREMENT PRIMARY KEY,
     username    varchar(255) NOT NULL UNIQUE,
+    nickname    varchar(255),
     email       varchar(255) NOT NULL,
     password    text         NOT NULL,
     name        varchar(255),

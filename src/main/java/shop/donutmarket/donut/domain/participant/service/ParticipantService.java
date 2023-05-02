@@ -26,6 +26,7 @@ import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.Participant
 import shop.donutmarket.donut.domain.participant.model.Participant;
 import shop.donutmarket.donut.domain.participant.repository.ParticipantRepository;
 import shop.donutmarket.donut.domain.user.model.User;
+import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.exception.Exception400;
 import shop.donutmarket.donut.global.exception.Exception403;
@@ -39,12 +40,18 @@ public class ParticipantService {
     private final ParticipantRepository participantRepository;
     private final BoardRepository boardRepository;
     private final EventRepository eventRepository;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public ParticipantListRespDTO 내참가목록(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
+        if (userOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 유저입니다");
+        }
+
         try {
-            User user = myUserDetails.getUser();
-            List<Participant> myParticipantsPS = participantRepository.findAllByUserIdwithEvent(user.getId());
+            User userPS = userOP.get();
+            List<Participant> myParticipantsPS = participantRepository.findAllByUserIdwithEvent(userPS.getId());
             ParticipantResp.ParticipantListRespDTO participantList = new ParticipantListRespDTO(myParticipantsPS);
             return participantList;
         } catch (Exception e) {

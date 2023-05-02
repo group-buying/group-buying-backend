@@ -27,10 +27,13 @@ import shop.donutmarket.donut.core.MyRestDocs;
 import shop.donutmarket.donut.domain.account.dto.AccountReq;
 import shop.donutmarket.donut.domain.account.dto.AccountResp;
 import shop.donutmarket.donut.domain.account.repository.MyAccountRepository;
+import shop.donutmarket.donut.domain.review.model.Rate;
+import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.dummy.DummyEntity;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -56,12 +59,16 @@ public class AccountControllerTest extends MyRestDocs {
     @Autowired
     private MyAccountRepository myAccountRepository;
     @Autowired
+    private RateRepository rateRepository;
+    @Autowired
     private EntityManager em;
 
     @BeforeEach
     public void setUp() {
-        userRepository.save(dummy.newUser("ssar@naver.com", "쌀"));
-        userRepository.save(dummy.newUser("cos@naver.com", "쌀"));
+        Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
+        rateRepository.save(rate);
+        userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
+        userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
 
         // 계좌 dummy 생성
         AccountReq.insertDTO insertDTO = new AccountReq.insertDTO();
@@ -78,6 +85,8 @@ public class AccountControllerTest extends MyRestDocs {
     @AfterEach
     void clean() {
         myAccountRepository.deleteAll();
+//        userRepository.deleteAll();
+//        rateRepository.deleteAll();
     }
 
 

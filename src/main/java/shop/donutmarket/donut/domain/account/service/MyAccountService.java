@@ -30,7 +30,7 @@ public class MyAccountService {
 
     @Transactional
     public AccountResp.insertDTO 계좌등록(Long userId, AccountReq.insertDTO insertDTO) {
-        Optional<User> userOP = userRepository.findById(userId);
+        Optional<User> userOP = userRepository.findByIdJoinFetch(userId);
         if (userOP.isEmpty()) {
             throw new Exception404("존재하지 않는 유저입니다");
         }

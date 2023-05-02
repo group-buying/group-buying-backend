@@ -10,7 +10,7 @@ import java.util.Optional;
 
 
 public interface UserRepository extends JpaRepository<User, Long>{
-    @Query("select u from User u where u.username = :username")
+    @Query("select u from User u join fetch u.rate where u.username = :username")
     Optional<User> findByUsername(@Param("username") String username);
 
     @Query("select u from User u join fetch u.rate where u.id = :id")

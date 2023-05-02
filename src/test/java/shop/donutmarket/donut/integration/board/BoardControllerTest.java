@@ -19,8 +19,12 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import shop.donutmarket.donut.core.MyRestDocs;
 import shop.donutmarket.donut.domain.blacklist.repository.BlackListRepository;
+import shop.donutmarket.donut.domain.review.model.Rate;
+import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.dummy.DummyEntity;
+
+import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -42,12 +46,16 @@ public class BoardControllerTest extends MyRestDocs {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private RateRepository rateRepository;
+    @Autowired
     private EntityManager em;
 
     @BeforeEach
     public void setUp() {
-        userRepository.save(dummy.newUser("ssar@naver.com", "쌀"));
-        userRepository.save(dummy.newUser("cos@naver.com", "쌀"));
+        Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
+        rateRepository.save(rate);
+        userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
+        userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
 
         em.clear();
     }

@@ -23,4 +23,24 @@ public class UserResp {
             this.role = role;
         }
     }
+
+    @Getter
+    @Setter
+    public static class JoinDTO {
+        private User user;
+
+        public JoinDTO(User user) {
+            this.user = user;
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class LoginDTO {
+        private User user;
+
+        public LoginDTO(User user) {
+            this.user = user;
+        }
+    }
 }
