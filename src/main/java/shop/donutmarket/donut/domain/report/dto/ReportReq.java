@@ -12,12 +12,12 @@ public class ReportReq {
     @Getter
     @Setter
     public static class insertDTO {
-        private Board board;
+        private Long boardId;
         private String title;
         private String content;
         private String reportType;
 
-        public Report toEntity() {
+        public Report toEntity(Board board) {
             return Report.builder()
                     .board(board)
                     .title(title)

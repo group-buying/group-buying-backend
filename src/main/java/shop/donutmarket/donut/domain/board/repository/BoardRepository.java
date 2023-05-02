@@ -22,7 +22,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
     @Query("select b from Board b join fetch b.event where b.id = :boardId")
     Optional<Board> findByIdWithEvent(@Param("boardId") Long boardId);
 
-    @Query("select b from Board b join fetch b.category c join fetch b.event e join fetch b.organizer o join fetch o.rate where b.id = :boardId")
+    @Query("select b from Board b left join fetch b.category c left join fetch b.event e left join fetch b.organizer o left join fetch o.rate where b.id = :boardId")
     Optional<Board> findByIdWithAll(@Param("boardId") Long boardId);
 
     @Query("select b from Board b where b.statusCode in(200, 201, 202)")
