@@ -9,9 +9,11 @@ public class ReviewResp {
     
     @Getter
     @Setter
-    @AllArgsConstructor
     public static class ReviewSaveRespDTO {
-        private int score;
-        private String comment;
+        private Review review;
+
+        public ReviewSaveRespDTO(Review review) {
+            this.review = review;
+        }
     }
 }

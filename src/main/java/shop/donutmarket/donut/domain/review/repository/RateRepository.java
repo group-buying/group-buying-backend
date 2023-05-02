@@ -11,7 +11,4 @@ import shop.donutmarket.donut.domain.review.model.Rate;
 
 public interface RateRepository extends JpaRepository<Rate, Long>{
 
-    @Query("select r from Rate r where r.userId = :userId")
-    Optional<Rate> findByUserId(@Param("userId") Long userId);
-    
 }
