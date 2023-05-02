@@ -13,7 +13,6 @@ public class ParticipantReq {
     @Getter
     @Setter
     public static class ParticipantSaveReqDTO {
-
         @NotNull
         private Long eventId;
         private Long userId;
@@ -21,7 +20,6 @@ public class ParticipantReq {
         private int qty;
         @NotNull
         private LocalDateTime limitTime;
-        private Long statusCodeId;
 
         public Participant toEntity(User user, Event event){
             return Participant.builder().event(event).user(user).qty(qty).limitTime(limitTime)
@@ -33,30 +31,26 @@ public class ParticipantReq {
     @Setter
     public static class ParticipantSelectReqDTO {
         @NotNull
-        private Long id;
+        private Long participantId;
         @NotNull
-        private Event event;
-        @NotNull 
-        private User user;
+        private Long eventId;
     }
     
     @Getter
     @Setter
     public static class ParticipantCancelReqDTO {
         @NotNull
-        private Long id;
+        private Long participantId;
         @NotNull
-        private User user;
+        private Long eventId;
     }
 
     @Getter
     @Setter
     public static class ParticipantDropReqDTO {
         @NotNull
-        private Long id;
+        private Long participantId;
         @NotNull
-        private Event event;
-        @NotNull 
-        private User user;
+        private Long eventId;
     }
 }

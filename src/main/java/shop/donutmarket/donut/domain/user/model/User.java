@@ -56,7 +56,8 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public void updateUser(String password, String name, String profile, LocalDateTime createdAt) {
+    public void updateUser(String password, String name, String profile,
+                           LocalDateTime createdAt) {
         this.password = password;
         this.name = name;
         this.profile = profile;
@@ -65,5 +66,9 @@ public class User {
 
     public void updateEmail(String email) {
         this.email = email;
+    }
+
+    public void updateStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 }

@@ -39,4 +39,8 @@ public class Payment {
         this.confirmed = confirmed;
         this.createdAt = createdAt;
     }
+
+    public void updateStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
+    }
 }

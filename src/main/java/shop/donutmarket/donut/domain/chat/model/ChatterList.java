@@ -41,4 +41,8 @@ public class ChatterList {
         this.statusCode = statusCode;
         this.createdAt = createdAt;
     }
+
+    public void updateStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
+    }
 }

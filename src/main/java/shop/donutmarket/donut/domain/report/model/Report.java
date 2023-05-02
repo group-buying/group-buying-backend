@@ -15,7 +15,7 @@ import shop.donutmarket.donut.domain.user.model.User;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Report {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -49,7 +49,9 @@ public class Report {
         this.createdAt = createdAt;
     }
 
-    public void updateReport(User reporter, User reported, Board board, String title, String content, String reportType, Integer statusCode, LocalDateTime createdAt) {
+    public void updateReport(User reporter, User reported, Board board, String title,
+                             String content, String reportType,
+                             Integer statusCode, LocalDateTime createdAt) {
         this.reporter = reporter;
         this.reported = reported;
         this.board = board;
@@ -58,5 +60,9 @@ public class Report {
         this.reportType = reportType;
         this.statusCode = statusCode;
         this.createdAt = createdAt;
+    }
+
+    public void updateStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 }

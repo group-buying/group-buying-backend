@@ -57,4 +57,8 @@ public class Board {
         this.town = town;
         this.createdAt = createdAt;
     }
+
+    public void updateStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
+    }
 }
