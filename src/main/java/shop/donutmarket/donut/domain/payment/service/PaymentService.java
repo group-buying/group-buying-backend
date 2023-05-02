@@ -16,6 +16,7 @@ import shop.donutmarket.donut.domain.payment.repository.PaymentInfoRepository;
 import shop.donutmarket.donut.domain.payment.repository.PaymentRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
+import shop.donutmarket.donut.global.exception.Exception400;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
 
@@ -29,18 +30,26 @@ public class PaymentService {
 
     private final EventRepository eventRepository;
 
+    private final UserRepository userRepository;
+
     @Transactional
-    public PaymentResp.insertDTO 결제데이터저장(Long eventId, Long userId, PaymentReq.insertDTO insertDTO) {
-        Optional<Event> eventOP = eventRepository.findById(eventId);
+    public PaymentResp.insertDTO 결제데이터저장(Long userId, PaymentReq.insertDTO insertDTO) {
+        Optional<User> userOP = userRepository.findByIdJoinFetch(userId);
+        if (userOP.isEmpty()) {
+            throw new Exception400("로그인을 해주세요");
+        }
+
+        Optional<Event> eventOP = eventRepository.findById(insertDTO.getEventId());
         if (eventOP.isEmpty()) {
             throw new Exception404("존재하지 않는 이벤트입니다");
         }
+
         try {
-            insertDTO.setEventId(eventId);
-            insertDTO.setUserId(userId);
+            User userPS = userOP.get();
+            Event eventPS = eventOP.get();
 
             // 결제 정보 insert
-            Payment payment = paymentRepository.save(insertDTO.toEntity());
+            Payment payment = paymentRepository.save(insertDTO.toEntity(eventPS, userPS));
 
             PaymentResp.insertDTO resp = new PaymentResp.insertDTO(payment);
             return resp;
