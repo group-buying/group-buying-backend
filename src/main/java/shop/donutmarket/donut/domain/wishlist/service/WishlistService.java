@@ -33,23 +33,13 @@ public class WishlistService {
     private final BoardRepository boardRepository;
 
     @Transactional(readOnly = true)
-    public List<MyWishListRespDTO> 내관심목록(MyUserDetails myUserDetails) {
+    public MyWishListRespDTO 내관심목록(MyUserDetails myUserDetails) {
         try {
             User user = myUserDetails.getUser();
             List<Wishlist> list = wishlistRepository.findAllByUserId(user.getId());
-            List<MyWishListRespDTO> listDTO = new ArrayList<>();
-            for (Wishlist wishlist : list) {
-                Long id = wishlist.getId();
-                String title = wishlist.getBoard().getTitle();
-                String organizer = wishlist.getBoard().getOrganizer().getName();
-                String state = wishlist.getBoard().getState();
-                String city = wishlist.getBoard().getCity();
-                LocalDateTime createdAt = wishlist.getCreatedAt();
-                MyWishListRespDTO wishListRespDTO = new MyWishListRespDTO(id, title, organizer, state, city, createdAt);
-                listDTO.add(wishListRespDTO);
-            }
+            MyWishListRespDTO wishListRespDTO = new MyWishListRespDTO(list);
 
-            return listDTO;
+            return wishListRespDTO;
         } catch (Exception e) {
             throw new Exception500("내 관심목록 보기 실패 : " + e.getMessage());
         }
@@ -70,7 +60,7 @@ public class WishlistService {
             Wishlist wishlist = Wishlist.builder().board(boardPS).user(user).createdAt(LocalDateTime.now()).build();
             wishlistRepository.save(wishlist);
 
-            WishListSaveRespDTO saveRespDTO = new WishListSaveRespDTO(boardPS.getTitle(), boardPS.getState(), boardPS.getCity(), LocalDateTime.now());
+            WishListSaveRespDTO saveRespDTO = new WishListSaveRespDTO(wishlist);
             return saveRespDTO;
         } catch (Exception e) {
             throw new Exception500("내 관심 등록하기 실패 : " + e.getMessage());

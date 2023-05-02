@@ -32,7 +32,7 @@ public class WishlistController {
 
     @GetMapping
     public ResponseEntity<?> wishlist(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        List<MyWishListRespDTO> myRespDTO =  wishlistService.내관심목록(myUserDetails);
+        MyWishListRespDTO myRespDTO =  wishlistService.내관심목록(myUserDetails);
         return ResponseEntity.ok(myRespDTO);
     }
 
