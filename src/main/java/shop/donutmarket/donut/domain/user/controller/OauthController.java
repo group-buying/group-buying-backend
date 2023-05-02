@@ -70,7 +70,8 @@ public class OauthController {
                 throw new Exception500("네이버 로그인 실패 : " + e.getMessage());
             }
 
-        } 
+        }
+
         // 회원가입 되있을 시
         else {
             try {
