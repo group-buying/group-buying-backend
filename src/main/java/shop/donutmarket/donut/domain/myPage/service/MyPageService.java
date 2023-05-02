@@ -1,9 +1,13 @@
 package shop.donutmarket.donut.domain.myPage.service;
 
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.blacklist.model.Blacklist;
 import shop.donutmarket.donut.domain.blacklist.repository.BlackListRepository;
 import shop.donutmarket.donut.domain.board.model.Board;
@@ -16,11 +20,11 @@ import shop.donutmarket.donut.domain.report.repository.ReportRepository;
 import shop.donutmarket.donut.domain.review.model.Review;
 import shop.donutmarket.donut.domain.review.repository.ReviewRepository;
 import shop.donutmarket.donut.domain.user.model.User;
+import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.aws.FileLoad;
+import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +39,10 @@ public class MyPageService {
     private final ReportRepository reportRepository;
 
     private final ReviewRepository reviewRepository;
+
+    private final UserRepository userRepository;
+
+    private final FileLoad fileLoad;
 
     @Transactional(readOnly = true)
     public MyPageResp.MyBoardDTO 나의게시글보기(Long id) {
@@ -88,6 +96,25 @@ public class MyPageService {
             return resp;
         } catch (Exception e) {
             throw new Exception500("나의 리뷰목록 보기 실패 : " + e.getMessage());
+        }
+    }
+
+    @Transactional
+    public void 프로필변경(String imgPath, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        try {
+            Long userId = myUserDetails.getUser().getId();
+            Optional<User> userOP = userRepository.findById(userId);
+            if (!(userOP.isPresent())) {
+                throw new Exception404("존재하지 않는 유저입니다.");
+            }
+            User userPS = userOP.get();
+            String imgName = "User"+ Long.toString(userId) + "profile";
+            
+            userPS.updateProfile(imgName);
+
+            fileLoad.uploadFile(imgName, imgPath);
+        } catch (Exception e) {
+            throw new Exception500("프로필 수정에 실패했습니다");
         }
     }
 }

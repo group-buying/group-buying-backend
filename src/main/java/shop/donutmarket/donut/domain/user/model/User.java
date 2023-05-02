@@ -79,4 +79,8 @@ public class User {
     public void rateUp(){
         this.ratePoint++;
     }
+
+    public void updateProfile(String profile) {
+        this.profile = profile;
+    }
 }

@@ -1,17 +1,19 @@
 package shop.donutmarket.donut.domain.myPage.controller;
 
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.myPage.dto.MyPageResp;
 import shop.donutmarket.donut.domain.myPage.service.MyPageService;
-import shop.donutmarket.donut.domain.review.model.Review;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -48,5 +50,11 @@ public class MyPageController {
     public ResponseEntity<?> myReviews(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         MyPageResp.MyReviewDTO myReviewDTO = myPageService.나의리뷰목록보기(myUserDetails);
         return ResponseEntity.ok(myReviewDTO);
+    }
+
+    @PutMapping("/profile")
+    public ResponseEntity<?> myProfile(@RequestBody String imgPath, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        myPageService.프로필변경(imgPath, myUserDetails);
+        return ResponseEntity.ok().body("프로필 변경에 성공했습니다.");
     }
 }
