@@ -32,6 +32,7 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rate_id")
     private Rate rate;
+    private Integer ratePoint;
     private String role;
     // OAuth를 위해 필요한 필드
     private String provider;
@@ -41,7 +42,7 @@ public class User {
     private LocalDateTime createdAt;
 
     @Builder
-    public User(Long id, String username, String password, String email, String name, String profile, Rate rate, String role, String provider, String providerId, Integer statusCode, LocalDateTime createdAt) {
+    public User(Long id, String username, String password, String email, String name, String profile, Rate rate, Integer ratePoint, String role, String provider, String providerId, Integer statusCode, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -49,6 +50,7 @@ public class User {
         this.name = name;
         this.profile = profile;
         this.rate = rate;
+        this.ratePoint = ratePoint;
         this.role = role;
         this.provider = provider;
         this.providerId = providerId;
@@ -70,5 +72,9 @@ public class User {
 
     public void updateStatusCode(Integer statusCode) {
         this.statusCode = statusCode;
+    }
+
+    public void rateUp(){
+        this.ratePoint++;
     }
 }

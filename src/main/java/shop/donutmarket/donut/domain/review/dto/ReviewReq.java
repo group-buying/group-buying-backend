@@ -12,7 +12,7 @@ public class ReviewReq {
     @Setter
     public static class ReviewSaveReqDTO {
         @NotNull
-        private User reviewedUser;
+        private Long reviewedUserId;
         @NotNull
         private Long boardId;
         @NotNull

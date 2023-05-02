@@ -6,7 +6,8 @@ CREATE TABLE user_tb
     password    text         NOT NULL,
     name        varchar(255),
     profile     text,
-    rate_id     Bigint,
+    rate_id     Bigint       DEFAULT '1',
+    rate_point  int          DEFAULT '20',
     role        varchar(255) DEFAULT 'ROLE_USER',
     provider    varchar(255),
     provider_id varchar(255),
@@ -17,9 +18,7 @@ CREATE TABLE user_tb
 CREATE TABLE rate
 (
     id         Bigint AUTO_INCREMENT PRIMARY KEY,
-    user_id    Bigint UNIQUE,
     rate_name  varchar(255) NOT NULL,
-    rate_point int          NOT NULL,
     created_at timestamp    NOT NULL
 );
 

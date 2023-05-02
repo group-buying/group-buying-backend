@@ -17,6 +17,7 @@ import shop.donutmarket.donut.domain.review.model.Review;
 import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.review.repository.ReviewRepository;
 import shop.donutmarket.donut.domain.user.model.User;
+import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
@@ -26,28 +27,28 @@ import shop.donutmarket.donut.global.exception.Exception500;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final RateRepository rateRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public ReviewSaveRespDTO 리뷰작성(ReviewSaveReqDTO reviewSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        Optional<Rate> reviewedUserRateOP = rateRepository.findByUserId(reviewSaveReqDTO.getReviewedUser().getId());
+        Optional<User> reviewedUserOP = userRepository.findByIdJoinFetch(reviewSaveReqDTO.getReviewedUserId());
 
-        if (reviewedUserRateOP.isEmpty()) {
-            throw new Exception404("유저 등급을 찾을 수 없습니다");
+        if (reviewedUserOP.isEmpty()) {
+            throw new Exception404("리뷰할 유저를 찾을 수 없습니다");
         }
 
         try {
             // 평점 변경 1점 추가
-            Rate rate = reviewedUserRateOP.get();
-            rate.rateUp();
+            User reviewedUserPS = reviewedUserOP.get();
+            reviewedUserPS.rateUp();
 
             // 리뷰 생성
-            Review review = Review.builder().reviewer(myUserDetails.getUser()).reviewed(reviewSaveReqDTO.getReviewedUser())
+            Review review = Review.builder().reviewer(myUserDetails.getUser()).reviewed(reviewedUserPS)
                     .score(reviewSaveReqDTO.getScore()).comment(reviewSaveReqDTO.getComment()).createdAt(LocalDateTime.now()).build();
 
             Review reviewPS = reviewRepository.save(review);
 
-            ReviewSaveRespDTO saveRespDTO = new ReviewSaveRespDTO(reviewPS.getScore(), reviewPS.getComment());
+            ReviewSaveRespDTO saveRespDTO = new ReviewSaveRespDTO(reviewPS);
             return saveRespDTO;
         } catch (Exception e) {
             throw new Exception500("리뷰 작성 실패 : " + e.getMessage());
