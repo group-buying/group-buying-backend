@@ -36,6 +36,17 @@ spring:
     user:
       name: ssar
       password: 1234
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      s3:
+        bucket: groupbuying
+      region:
+        static: ap-northeast-2
+      stack:
+        auto: false
 
 logging:
   level:
@@ -54,6 +65,7 @@ sentry:
 boot-pay:
   rest-api-key: ${REST_API_KEY}
   private-key: ${PRIVATE_KEY}
+
 
 
 
