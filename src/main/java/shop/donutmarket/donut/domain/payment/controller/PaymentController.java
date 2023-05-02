@@ -17,11 +17,10 @@ public class PaymentController {
     
     private final PaymentService paymentService;
 
-    @PostMapping("/payments/{id}")
-    public ResponseEntity<?> insert(@PathVariable Long id,
-                                    @AuthenticationPrincipal MyUserDetails myUserDetails,
+    @PostMapping("/payments")
+    public ResponseEntity<?> insert(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                     @RequestBody PaymentReq.insertDTO insertDTO) {
-        PaymentResp.insertDTO resp = paymentService.결제데이터저장(id, myUserDetails.getUser().getId(), insertDTO);
+        PaymentResp.insertDTO resp = paymentService.결제데이터저장(myUserDetails.getUser().getId(), insertDTO);
         return ResponseEntity.ok(resp);
     }
 }

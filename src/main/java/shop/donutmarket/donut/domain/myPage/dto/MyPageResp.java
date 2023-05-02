@@ -25,19 +25,31 @@ public class MyPageResp {
     @Getter
     @Setter
     public static class MyPaymentDTO {
-        private Payment payment;
+        private List<Payment> payment;
+
+        public MyPaymentDTO(List<Payment> payment) {
+            this.payment = payment;
+        }
     }
 
     @Getter
     @Setter
     public static class MyBlacklistDTO {
-        private Blacklist blacklist;
+        private List<Blacklist> blacklist;
+
+        public MyBlacklistDTO(List<Blacklist> blacklist) {
+            this.blacklist = blacklist;
+        }
     }
 
     @Getter
     @Setter
     public static class MyReportDTO {
-        private Report report;
+        private List<Report> report;
+
+        public MyReportDTO(List<Report> report) {
+            this.report = report;
+        }
     }
     @Getter
     @Setter
