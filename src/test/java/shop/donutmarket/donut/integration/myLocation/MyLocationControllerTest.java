@@ -70,6 +70,7 @@ public class MyLocationControllerTest extends MyRestDocs {
         // 내 지역 dummy 생성
         Optional<User> userOP = userRepository.findById(1L);
         User userPS = userOP.get();
+
         MyLocation myLocation = MyLocation.builder().user(userPS).state("창원시").city("성산구").town("남양동").build();
         myLocationRepository.save(myLocation);
 
