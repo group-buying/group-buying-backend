@@ -13,12 +13,13 @@ public class ParticipantReq {
     @Getter
     @Setter
     public static class ParticipantSaveReqDTO {
-        @NotNull
+        @NotNull(message = "이벤트ID를 입력해주세요.")
         private Long eventId;
+        @NotNull(message = "참가유저ID를 입력해주세요.")
         private Long userId;
-        @NotNull
+        @NotNull(message = "수량을 입력해주세요.")
         private int qty;
-        @NotNull
+        @NotNull(message = "제한 시간을 입력해주세요.")
         private LocalDateTime limitTime;
 
         public Participant toEntity(User user, Event event){
@@ -30,27 +31,27 @@ public class ParticipantReq {
     @Getter
     @Setter
     public static class ParticipantSelectReqDTO {
-        @NotNull
+        @NotNull(message = "참가ID를 입력해주세요.")
         private Long participantId;
-        @NotNull
+        @NotNull(message = "이벤트ID를 입력해주세요.")
         private Long eventId;
     }
     
     @Getter
     @Setter
     public static class ParticipantCancelReqDTO {
-        @NotNull
+        @NotNull(message = "참가ID를 입력해주세요.")
         private Long participantId;
-        @NotNull
+        @NotNull(message = "이벤트ID를 입력해주세요.")
         private Long eventId;
     }
 
     @Getter
     @Setter
     public static class ParticipantDropReqDTO {
-        @NotNull
+        @NotNull(message = "참가ID를 입력해주세요.")
         private Long participantId;
-        @NotNull
+        @NotNull(message = "이벤트ID를 입력해주세요.")
         private Long eventId;
     }
 }
