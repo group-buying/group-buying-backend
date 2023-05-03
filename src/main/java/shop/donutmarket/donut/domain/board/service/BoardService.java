@@ -1,7 +1,6 @@
 package shop.donutmarket.donut.domain.board.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,10 @@ import shop.donutmarket.donut.domain.board.repository.TagRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.aws.FileLoad;
-import shop.donutmarket.donut.global.exception.*;
+import shop.donutmarket.donut.global.exception.Exception400;
+import shop.donutmarket.donut.global.exception.Exception403;
+import shop.donutmarket.donut.global.exception.Exception404;
+import shop.donutmarket.donut.global.exception.Exception500;
 import shop.donutmarket.donut.global.util.MyBase64Decoder;
 
 @Service
@@ -134,7 +136,7 @@ public class BoardService {
         try {
             boardPS.getEvent().updateEvent(
                     boardUpdateReqDTO.getQty(), boardUpdateReqDTO.getPaymentType(),
-                    boardUpdateReqDTO.getStartAt(), boardUpdateReqDTO.getEndAt()
+                    boardUpdateReqDTO.getEndAt()
             );
 
             List<String> tagList = new ArrayList<>();
@@ -152,7 +154,7 @@ public class BoardService {
 
             BoardUpdateRespDTO boardUpdateRespDTO = new BoardUpdateRespDTO();
             boardUpdateRespDTO.updateRespDTO(boardUpdateReqDTO.getQty(), boardUpdateReqDTO.getPaymentType(),
-                    boardUpdateReqDTO.getStartAt(), boardUpdateReqDTO.getEndAt(), boardUpdateReqDTO.getPrice(), tagList);
+                    boardUpdateReqDTO.getEndAt(), boardUpdateReqDTO.getPrice(), tagList);
 
             return boardUpdateRespDTO;
         } catch (Exception e) {
