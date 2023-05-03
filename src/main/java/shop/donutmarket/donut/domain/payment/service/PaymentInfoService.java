@@ -1,17 +1,17 @@
 package shop.donutmarket.donut.domain.payment.service;
 
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.payment.dto.PaymentInfoReq;
-import shop.donutmarket.donut.domain.payment.dto.PaymentReq;
 import shop.donutmarket.donut.domain.payment.repository.PaymentInfoRepository;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
