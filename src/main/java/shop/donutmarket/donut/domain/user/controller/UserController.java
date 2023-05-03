@@ -17,12 +17,9 @@ import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.domain.user.service.UserService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
-<<<<<<< HEAD
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
-=======
 import shop.donutmarket.donut.global.dto.ResponseDTO;
->>>>>>> 6eb8bbd (Feat: 리턴 데이터 ResponseDTO 형식으로 수정)
 import shop.donutmarket.donut.global.jwt.MyJwtProvider;
 
 @Slf4j
@@ -63,9 +60,10 @@ public class UserController {
         }
         System.out.println("토큰이 헤더에 있습니다");
         jwtToken = jwtToken.replace(MyJwtProvider.TOKEN_PREFIX, "");
-        DecodedJWT decodedJWT = MyJwtProvider.verify(jwtToken);
-        Long userId = decodedJWT.getClaim("id").asLong();
+        DecodedJWT decodeJwt = MyJwtProvider.verify(jwtToken);
+        Long userId = decodeJwt.getClaim("id").asLong();
         User userEntity = userRepository.findByIdJoinFetch(userId).orElseThrow(() -> new Exception500("토큰 검증 실패"));
-        return ResponseEntity.ok(userEntity);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(userEntity);
+        return ResponseEntity.ok(responseDTO);
     }
 }
