@@ -1,16 +1,15 @@
 package shop.donutmarket.donut.domain.payment.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.payment.dto.PaymentInfoReq;
-import shop.donutmarket.donut.domain.payment.dto.PaymentReq;
 import shop.donutmarket.donut.domain.payment.service.PaymentInfoService;
-import shop.donutmarket.donut.domain.payment.service.PaymentService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 
 @RestController

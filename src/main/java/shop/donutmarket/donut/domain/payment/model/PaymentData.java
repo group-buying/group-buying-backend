@@ -1,16 +1,12 @@
 package shop.donutmarket.donut.domain.payment.model;
 
-import jakarta.persistence.Column;
+import java.sql.Timestamp;
+
 import jakarta.persistence.Convert;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.validation.ObjectError;
 import shop.donutmarket.donut.global.util.JpaConverterJson;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Embeddable
 @Getter
