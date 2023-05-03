@@ -16,6 +16,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.transaction.annotation.Transactional;
 import shop.donutmarket.donut.core.MyRestDocs;
 import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;

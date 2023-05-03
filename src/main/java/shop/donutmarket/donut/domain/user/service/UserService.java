@@ -1,5 +1,8 @@
 package shop.donutmarket.donut.domain.user.service;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,7 @@ import shop.donutmarket.donut.domain.user.dto.UserResp;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
 import shop.donutmarket.donut.global.jwt.MyJwtProvider;
@@ -29,7 +33,7 @@ public class UserService {
     private final RateRepository rateRepository;
 
     @Transactional
-    public String 회원가입(UserReq.JoinDTO joinDTO) {
+    public ResponseEntity<?> 회원가입(UserReq.JoinDTO joinDTO) {
         // 회원가입 로직
         String rawPassword = joinDTO.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword); // 60Byte
@@ -53,7 +57,12 @@ public class UserService {
             User userPS = userOP.get(); // 조회하는 객체는 PS
             if (passwordEncoder.matches(rawPassword, userPS.getPassword())) {
                 String jwt = MyJwtProvider.create(userPS);
-                return jwt;
+                
+                // Body 만들기
+                UserResp.JoinDTO body = new UserResp.JoinDTO(userPS);
+                
+                // ResponseEntity 생성
+                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(body);
             }
             throw new RuntimeException("패스워드 유효성 실패");
         } else {
@@ -62,7 +71,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public String 로그인(UserReq.LoginDTO loginDTO) {
+    public ResponseEntity<?> 로그인(UserReq.LoginDTO loginDTO) {
         Optional<User> userOP = userRepository.findByUsername(loginDTO.getUsername());
         if (userOP.isEmpty()) {
             throw new Exception404("존재하지 않는 회원입니다");
@@ -71,7 +80,12 @@ public class UserService {
             User userPS = userOP.get();
             if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {
                 String jwt = MyJwtProvider.create(userPS);
-                return jwt;
+
+                // Body 만들기
+                UserResp.LoginDTO body = new UserResp.LoginDTO(userPS);
+
+                // ResponseEntity 생성
+                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(body);
             }
             throw new RuntimeException("패스워드 유효성 실패");
         } catch (Exception e) {
