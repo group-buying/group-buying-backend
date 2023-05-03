@@ -22,32 +22,32 @@ public class BoardReq {
     @AllArgsConstructor
     public static class BoardSaveReqDTO {
         // board
-        @NotNull
+        @NotNull(message = "카테고리를 선택해주세요.")
         private Category category;
-        @NotBlank
+        @NotBlank(message = "제목을 입력해주세요.")
         private String title;
         private User organizer;
-        @NotBlank
+        @NotBlank(message = "내용을 입력해주세요.")
         private String content;
         private String img;
-        @NotBlank
+        @NotBlank(message = "위치를 입력해주세요.")
         private String state;
-        @NotBlank
+        @NotBlank(message = "위치를 입력해주세요.")
         private String city;
-        @NotBlank
+        @NotBlank(message = "위치를 입력해주세요.")
         private String town;
         //event
-        @NotNull
+        @NotNull(message = "위치를 입력해주세요.")
         private double latitude;
-        @NotNull
+        @NotNull(message = "위치를 입력해주세요.")
         private double longtitude;
-        @NotNull
+        @NotNull(message = "수량을 입력해주세요.")
         private int qty;
-        @NotBlank
+        @NotBlank(message = "결제 방식을 선택해주세요.")
         private String paymentType;
-        @NotNull
+        @NotNull(message = "종료일을 선택해주세요.")
         private LocalDateTime endAt;
-        @NotNull
+        @NotNull(message = "가격을 입력해주세요.")
         private int price;
         // tag
         private List<String> comment;
@@ -72,14 +72,12 @@ public class BoardReq {
         @NotNull
         private Long id;
         //event
-        @NotNull
+        @NotNull(message = "수량을 입력해주세요.")
         private int qty;
-        @NotBlank
+        @NotBlank(message = "결제 방식을 선택해주세요.")
         private String paymentType;
-        @NotNull
-        private LocalDateTime startAt;
-        @NotNull
         private LocalDateTime endAt;
+        @NotNull(message = "가격을 입력해주세요.")
         private int price;
         // tag
         private List<String> comment;

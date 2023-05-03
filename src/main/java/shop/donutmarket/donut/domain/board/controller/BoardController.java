@@ -2,7 +2,6 @@ package shop.donutmarket.donut.domain.board.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -26,7 +25,6 @@ import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.service.BoardService;
 import shop.donutmarket.donut.domain.board.service.TagService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
-import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 
 
@@ -39,7 +37,7 @@ public class BoardController {
     private final TagService tagService;
 
     @PostMapping
-    public ResponseEntity<?> save(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardSaveReqDTO boardSaveReqDTO) {
+    public ResponseEntity<?> save(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardSaveReqDTO boardSaveReqDTO, BindingResult bindingResult) {
         BoardSaveRespDTO saveRespDTO = boardService.게시글작성(boardSaveReqDTO, myUserDetails);
         return ResponseEntity.ok(saveRespDTO);
     }
@@ -55,13 +53,13 @@ public class BoardController {
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardUpdateReqDTO boardUpdateReqDTO) {
+    public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardUpdateReqDTO boardUpdateReqDTO, BindingResult bindingResult) {
         BoardUpdateRespDTO updateRespDTO = boardService.게시글수정(boardUpdateReqDTO, myUserDetails);
         return ResponseEntity.ok(updateRespDTO);
     }
 
     @PutMapping("/delete")
-    public ResponseEntity<?> delete(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardDeleteReqDTO boardDeleteReqDTO){
+    public ResponseEntity<?> delete(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardDeleteReqDTO boardDeleteReqDTO, BindingResult bindingResult){
         boardService.게시글삭제(boardDeleteReqDTO, myUserDetails);
         return ResponseEntity.ok("게시글 삭제 성공");
     }
