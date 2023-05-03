@@ -5,6 +5,7 @@ import kr.co.bootpay.model.request.Cancel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 import shop.donutmarket.donut.global.exception.Exception500;
 
 import java.util.HashMap;
@@ -29,9 +30,11 @@ public class BootpayController {
         try {
             HashMap<String, Object> res = bootpay.receiptCancel(cancel);
             if(res.get("error_code") == null) { //success
-                return ResponseEntity.ok().body(res+"결제 취소 성공");
+                ResponseDTO<?> responseDTO = new ResponseDTO<>(res+"결제 취소 성공");
+                return ResponseEntity.ok(responseDTO);
             } else { // fail
-                return ResponseEntity.internalServerError().body(res+"결제 취소 실패");
+                ResponseDTO<?> responseDTO = new ResponseDTO<>(res+"결제 취소 성공");
+                return ResponseEntity.internalServerError().body(responseDTO);
             }
         } catch (Exception e) {
             throw new Exception500("결제 취소하기 실패 : " + e.getMessage());

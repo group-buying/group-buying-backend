@@ -38,7 +38,8 @@ public class ChatController {
     @GetMapping
     public ResponseEntity<?> roomList(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         MyChatListRespDTO chatList = chatterListService.채팅목록(myUserDetails);
-        return ResponseEntity.ok(chatList);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(chatList);
+        return ResponseEntity.ok(responseDTO);
     }
     
     @GetMapping("/{id}")
@@ -50,30 +51,35 @@ public class ChatController {
     @GetMapping("/firebase/chatter")
     public ResponseEntity<?> chatterList() throws Exception {
         List<ChatterListFirebaseRespDTO> list = chatterListFirebaseService.getChatterList();
-        return ResponseEntity.ok(list);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(list);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping("/firebase/chatroom")
     public ResponseEntity<?> chatroomList() throws Exception {
         List<ChatroomListFirebaseRespDTO> list = chatterListFirebaseService.getChatroomList();
-        return ResponseEntity.ok(list);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(list);
+        return ResponseEntity.ok(responseDTO);
     }
     
     @PostMapping("/invite")
     public ResponseEntity<?> invite(@RequestBody @Valid ChatInviteReqDTO chatInviteReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         chatterListService.초대하기(chatInviteReqDTO);
-        return ResponseEntity.ok("초대하기 성공");
+        ResponseDTO<?> responseDTO = new ResponseDTO<>("초대하기 성공");
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PutMapping("/exit/{id}")
     public ResponseEntity<?> exit(@PathVariable Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         chatterListService.나가기(id, myUserDetails);
-        return ResponseEntity.ok("나가기 성공");
+        ResponseDTO<?> responseDTO = new ResponseDTO<>("나가기 성공");
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PutMapping("/kick")
     public ResponseEntity<?> kick(@RequestBody @Valid ChatKickReqDTO chatKickReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         chatterListService.강퇴하기(chatKickReqDTO, myUserDetails);
-        return ResponseEntity.ok("강퇴하기 성공");
+        ResponseDTO<?> responseDTO = new ResponseDTO<>("강퇴하기 성공");
+        return ResponseEntity.ok(responseDTO);
     }
 }

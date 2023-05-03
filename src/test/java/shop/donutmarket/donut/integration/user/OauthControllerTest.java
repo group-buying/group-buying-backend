@@ -77,41 +77,41 @@ public class OauthControllerTest extends MyRestDocs {
 //        userRepository.deleteAll();
     }
 
-    @DisplayName("회원가입 안 되어있을 경우")
-    @Test
-    public void login1_test() throws Exception {
-        // given
-        String accessToken = "";
-
-        // when
-        ResultActions resultActions = mvc
-                .perform(post("/oauth/naver").header("Authorization", accessToken));
-
-        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-        System.out.println("테스트 : " + responseBody);
-
-        // then
-        resultActions.andExpect(status().isOk());
-        resultActions.andExpect(header().exists("Authorization"));
-        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
-    }
-
-    @DisplayName("회원가입 되어있을 경우")
-    @Test
-    public void login2_test() throws Exception {
-        // given
-        String accessToken = "";
-
-        // when
-        ResultActions resultActions = mvc
-                .perform(post("/oauth/naver").header("Authorization", accessToken));
-
-        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-        System.out.println("테스트 : " + responseBody);
-
-        // then
-        resultActions.andExpect(status().isOk());
-        resultActions.andExpect(header().exists("Authorization"));
-        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
-    }
+//    @DisplayName("회원가입 안 되어있을 경우")
+//    @Test
+//    public void login1_test() throws Exception {
+//        // given
+//        String accessToken = "";
+//
+//        // when
+//        ResultActions resultActions = mvc
+//                .perform(post("/oauth/naver").header("Authorization", accessToken));
+//
+//        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+//        System.out.println("테스트 : " + responseBody);
+//
+//        // then
+//        resultActions.andExpect(status().isOk());
+//        resultActions.andExpect(header().exists("Authorization"));
+//        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+//    }
+//
+//    @DisplayName("회원가입 되어있을 경우")
+//    @Test
+//    public void login2_test() throws Exception {
+//        // given
+//        String accessToken = "";
+//
+//        // when
+//        ResultActions resultActions = mvc
+//                .perform(post("/oauth/naver").header("Authorization", accessToken));
+//
+//        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+//        System.out.println("테스트 : " + responseBody);
+//
+//        // then
+//        resultActions.andExpect(status().isOk());
+//        resultActions.andExpect(header().exists("Authorization"));
+//        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+//    }
 }

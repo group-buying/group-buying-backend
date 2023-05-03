@@ -14,6 +14,7 @@ import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.user.dto.UserResp;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
 import shop.donutmarket.donut.global.jwt.MyJwtProvider;
@@ -81,9 +82,10 @@ public class OauthController {
 
                 // Body 만들기
                 UserResp.JoinDTO body = new UserResp.JoinDTO(userEntity);
+                ResponseDTO<?> responseDTO = new ResponseDTO<>(body);
 
                 // ResponseEntity 생성
-                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(body);
+                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(responseDTO);
 
             } catch (Exception e) {
                 throw new Exception500("네이버 로그인 실패 : " + e.getMessage());
@@ -103,9 +105,10 @@ public class OauthController {
 
                 // Body 만들기
                 UserResp.LoginDTO body = new UserResp.LoginDTO(userEntity);
+                ResponseDTO<?> responseDTO = new ResponseDTO<>(body);
 
                 // ResponseEntity 생성
-                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(body);
+                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(responseDTO);
             } catch (Exception e) {
                 throw new Exception500("네이버 로그인 실패 : " + e.getMessage());
             }

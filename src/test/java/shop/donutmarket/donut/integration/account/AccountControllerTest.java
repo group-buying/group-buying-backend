@@ -72,7 +72,6 @@ public class AccountControllerTest extends MyRestDocs {
 
         // 계좌 dummy 생성
         AccountReq.insertDTO insertDTO = new AccountReq.insertDTO();
-        insertDTO.setUserId(1L);
         insertDTO.setBrand("하나");
         insertDTO.setAccountNumber("2223334444");
         Optional<User> userOP = userRepository.findById(1L);
@@ -96,7 +95,6 @@ public class AccountControllerTest extends MyRestDocs {
     public void insert_test() throws Exception {
         // given
         AccountReq.insertDTO insertDTO = new AccountReq.insertDTO();
-        insertDTO.setUserId(2L);
         insertDTO.setBrand("신한");
         insertDTO.setAccountNumber("1112223333");
         String requestBody = om.writeValueAsString(insertDTO);

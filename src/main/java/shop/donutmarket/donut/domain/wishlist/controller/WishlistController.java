@@ -30,19 +30,22 @@ public class WishlistController {
     @GetMapping
     public ResponseEntity<?> wishlist(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         MyWishListRespDTO myRespDTO =  wishlistService.내관심목록(myUserDetails);
-        return ResponseEntity.ok(myRespDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(myRespDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid WishListSaveReqDTO wishListSaveReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         WishListSaveRespDTO saveRespDTO =  wishlistService.관심등록(wishListSaveReqDTO, myUserDetails);
-        return ResponseEntity.ok(saveRespDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(saveRespDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @DeleteMapping
     public ResponseEntity<?> delete(@RequestBody @Valid WishListDeleteReqDTO wishListDeleteReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         wishlistService.관심등록제거(wishListDeleteReqDTO, myUserDetails);
-        return ResponseEntity.ok("위시리스트 삭제 성공");
+        ResponseDTO<?> responseDTO = new ResponseDTO<>("위시리스트 삭제 성공");
+        return ResponseEntity.ok(responseDTO);
     }
     
 }

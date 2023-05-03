@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.payment.dto.PaymentInfoReq;
 import shop.donutmarket.donut.domain.payment.service.PaymentInfoService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public class PaymentInfoController {
                                     @AuthenticationPrincipal MyUserDetails myUserDetails,
                                     @RequestBody PaymentInfoReq.insertDTO insertDTO) {
         paymentInfoService.부트페이데이터저장(id, myUserDetails.getUser().getId(), insertDTO);
-        return ResponseEntity.ok("부트페이 결제 데이터 저장 성공");
+        ResponseDTO<?> responseDTO = new ResponseDTO<>("부트페이 결제 데이터 저장 성공");
+        return ResponseEntity.ok(responseDTO);
     }
 }

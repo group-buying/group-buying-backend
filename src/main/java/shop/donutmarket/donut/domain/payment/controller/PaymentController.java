@@ -13,6 +13,7 @@ import shop.donutmarket.donut.domain.payment.dto.PaymentReq;
 import shop.donutmarket.donut.domain.payment.dto.PaymentResp;
 import shop.donutmarket.donut.domain.payment.service.PaymentService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class PaymentController {
     public ResponseEntity<?> insert(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                     @RequestBody @Valid PaymentReq.insertDTO insertDTO, BindingResult bindingResult) {
         PaymentResp.insertDTO resp = paymentService.결제데이터저장(myUserDetails.getUser().getId(), insertDTO);
-        return ResponseEntity.ok(resp);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(resp);
+        return ResponseEntity.ok(responseDTO);
     }
 }

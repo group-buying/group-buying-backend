@@ -14,6 +14,7 @@ import shop.donutmarket.donut.domain.report.dto.ReportReq;
 import shop.donutmarket.donut.domain.report.dto.ReportResp;
 import shop.donutmarket.donut.domain.report.service.ReportService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class ReportController {
                                     @RequestBody @Valid ReportReq.insertDTO insertDTO,
                                     BindingResult bindingResult) {
         ReportResp.InsertRespDTO respDTO = reportService.신고하기(myUserDetails, id, insertDTO);
-        return ResponseEntity.ok(respDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(respDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 }
