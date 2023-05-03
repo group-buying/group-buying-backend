@@ -70,6 +70,13 @@ public class MyExceptionAdvice {
         return new ResponseEntity<>(responseDto, HttpStatus.FORBIDDEN);
     }
 
+    // 유효성 에러
+    @ExceptionHandler(MyValidException.class)
+    public ResponseEntity<?> validationApiException(MyValidException e) {
+
+        return new ResponseEntity<>(new ResponseDTO<>().fail(HttpStatus.BAD_REQUEST, e.getMessage(), e.getErrorMap()), HttpStatus.BAD_REQUEST);
+    }
+
     // 나머지 모든 예외
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> serverError(Exception e){
