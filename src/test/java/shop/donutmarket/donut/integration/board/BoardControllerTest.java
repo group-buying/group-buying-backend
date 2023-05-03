@@ -64,25 +64,24 @@ public class BoardControllerTest extends MyRestDocs {
     void clean() {
     }
 
+    @DisplayName("게시글 작성하기")
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void save_test() throws Exception {
+        // given
+        Long id = 2L;
 
-//    @DisplayName("게시글 작성하기")
-//    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
-//    @Test
-//    public void save_test() throws Exception {
-//        // given
-//        Long id = 2L;
-//
-//        // when
-//        ResultActions resultActions = mvc
-//                .perform(post("/blacklists/"+id));
-//
-//        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-//        System.out.println("테스트 : " + responseBody);
-//
-//        // then
-//        resultActions.andExpect(jsonPath("$.blacklist.user.username").value("ssar@naver.com"));
-//        resultActions.andExpect(jsonPath("$.blacklist.blockedUser.username").value("cos@naver.com"));
-//        resultActions.andExpect(status().isOk());
-//        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
-//    }
+        // when
+        ResultActions resultActions = mvc
+                .perform(post("/blacklists/"+id));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+        resultActions.andExpect(jsonPath("$.blacklist.user.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.blacklist.blockedUser.username").value("cos@naver.com"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
 }
