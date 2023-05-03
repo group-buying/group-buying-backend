@@ -1,8 +1,8 @@
 package shop.donutmarket.donut.domain.myLocation.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +16,6 @@ import shop.donutmarket.donut.domain.myLocation.dto.MyLocationResp.DefaultMyLoca
 import shop.donutmarket.donut.domain.myLocation.dto.MyLocationResp.MyLocationSaveRespDTO;
 import shop.donutmarket.donut.domain.myLocation.service.MyLocationService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
-import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 
 @RestController
@@ -33,7 +32,7 @@ public class MyLocationController {
     }
 
     @PutMapping
-    public ResponseEntity<?> save(@RequestBody @Valid MyLocationSaveReqDTO myLocationSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> save(@RequestBody @Valid MyLocationSaveReqDTO myLocationSaveReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         MyLocationSaveRespDTO saveRespDTO = myLocationService.내지역변경(myLocationSaveReqDTO, myUserDetails);
         return ResponseEntity.ok(saveRespDTO);
     }
