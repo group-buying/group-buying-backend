@@ -1,5 +1,6 @@
 package shop.donutmarket.donut.domain.board.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.board.repository.TagRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.aws.FileLoad;
 import shop.donutmarket.donut.global.exception.*;
 import shop.donutmarket.donut.global.util.MyBase64Decoder;
 
@@ -35,6 +37,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final EventRepository eventRepository;
     private final TagRepository tagRepository;
+    private final FileLoad fileLoad;
 
     @Transactional
     public BoardSaveRespDTO 게시글작성(BoardSaveReqDTO boardSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -45,8 +48,28 @@ public class BoardService {
             User user = myUserDetails.getUser();
 
             // image base64화
-            String image = MyBase64Decoder.saveImage(boardSaveReqDTO.getImg());
-            Board board = boardRepository.save(boardSaveReqDTO.toBoardEntity(event, image, user));
+            String image;
+            String imageName;
+            if (boardSaveReqDTO.getImg().isEmpty()) {
+                // 존재하지 않을 경우 s3에 저장된 (카테고리이름) + 디폴트.jpg 사진을 가져옴
+                imageName = boardSaveReqDTO.getCategory().getName()+"디폴트.jpg";
+                // 단 티켓/교환권은 "/" 때문에 미적용(s3에는 "티켓교환권디폴트" 라고 되어있음) 수정필요
+            } else {
+                // 존재하면 사진 첨가 + s3에 저장
+
+                // 로컬에 저장해 경로 생성 및 고유화
+                image = MyBase64Decoder.saveImage(boardSaveReqDTO.getImg());
+                // 사진 이름
+                imageName = image.split("/")[1];
+                fileLoad.uploadFile(imageName, image);
+
+                // 로컬에 남기에 삭제
+                File img = new File(image);
+                if(!(img.delete())){
+                    throw new Exception500("사진을 처리하는데 실패했습니다.");
+                }
+            }
+            Board board = boardRepository.save(boardSaveReqDTO.toBoardEntity(event, imageName, user));
 
             // tag save
             List<Tag> tagList = new ArrayList<>();
