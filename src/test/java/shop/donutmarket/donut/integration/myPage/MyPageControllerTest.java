@@ -155,8 +155,8 @@ public class MyPageControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.board[0].category.name").value("생활가전"));
-        resultActions.andExpect(jsonPath("$.board[0].organizer.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.board[0].category.name").value("생활가전"));
+        resultActions.andExpect(jsonPath("$.data.board[0].organizer.username").value("ssar@naver.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -175,9 +175,9 @@ public class MyPageControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.payment[0].user.username").value("cos@naver.com"));
-        resultActions.andExpect(jsonPath("$.payment[0].event.paymentType").value("직거래"));
-        resultActions.andExpect(jsonPath("$.payment[0].confirmed").value(false));
+        resultActions.andExpect(jsonPath("$.data.payment[0].user.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.payment[0].event.paymentType").value("직거래"));
+        resultActions.andExpect(jsonPath("$.data.payment[0].confirmed").value(false));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -196,8 +196,8 @@ public class MyPageControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.blacklist[0].user.username").value("ssar@naver.com"));
-        resultActions.andExpect(jsonPath("$.blacklist[0].blockedUser.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.blacklist[0].user.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.blacklist[0].blockedUser.username").value("cos@naver.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -216,11 +216,11 @@ public class MyPageControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.report[0].reporter.username").value("cos@naver.com"));
-        resultActions.andExpect(jsonPath("$.report[0].reported.username").value("ssar@naver.com"));
-        resultActions.andExpect(jsonPath("$.report[0].title").value("제목"));
-        resultActions.andExpect(jsonPath("$.report[0].content").value("내용"));
-        resultActions.andExpect(jsonPath("$.report[0].reportType").value("욕설"));
+        resultActions.andExpect(jsonPath("$.data.report[0].reporter.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.report[0].reported.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.report[0].title").value("제목"));
+        resultActions.andExpect(jsonPath("$.data.report[0].content").value("내용"));
+        resultActions.andExpect(jsonPath("$.data.report[0].reportType").value("욕설"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -239,10 +239,10 @@ public class MyPageControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.review[0].reviewer.username").value("cos@naver.com"));
-        resultActions.andExpect(jsonPath("$.review[0].reviewed.username").value("ssar@naver.com"));
-        resultActions.andExpect(jsonPath("$.review[0].score").value(5));
-        resultActions.andExpect(jsonPath("$.review[0].comment").value("굿"));
+        resultActions.andExpect(jsonPath("$.data.review[0].reviewer.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.review[0].reviewed.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.review[0].score").value(5));
+        resultActions.andExpect(jsonPath("$.data.review[0].comment").value("굿"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

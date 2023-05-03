@@ -142,8 +142,8 @@ public class WishlistControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.wishlist.user.username").value("cos@naver.com"));
-        resultActions.andExpect(jsonPath("$.wishlist.board.organizer.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.wishlist.user.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.wishlist.board.organizer.username").value("ssar@naver.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -183,8 +183,8 @@ public class WishlistControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.wishlistList[0].user.username").value("cos@naver.com"));
-        resultActions.andExpect(jsonPath("$.wishlistList[0].board.organizer.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.wishlistList[0].user.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.wishlistList[0].board.organizer.username").value("ssar@naver.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

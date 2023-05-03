@@ -80,8 +80,8 @@ public class BoardControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.blacklist.user.username").value("ssar@naver.com"));
-        resultActions.andExpect(jsonPath("$.blacklist.blockedUser.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.blacklist.user.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.blacklist.blockedUser.username").value("cos@naver.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

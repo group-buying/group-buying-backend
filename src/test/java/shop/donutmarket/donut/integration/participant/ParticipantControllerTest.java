@@ -130,8 +130,8 @@ public class ParticipantControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.participant[0].event.paymentType").value("직거래"));
-        resultActions.andExpect(jsonPath("$.participant[0].user.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.participant[0].event.paymentType").value("직거래"));
+        resultActions.andExpect(jsonPath("$.data.participant[0].user.username").value("cos@naver.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -162,8 +162,8 @@ public class ParticipantControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.participant.event.paymentType").value("직거래"));
-        resultActions.andExpect(jsonPath("$.participant.user.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.participant.event.paymentType").value("직거래"));
+        resultActions.andExpect(jsonPath("$.data.participant.user.username").value("ssar@naver.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -189,8 +189,8 @@ public class ParticipantControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.participant.event.paymentType").value("직거래"));
-        resultActions.andExpect(jsonPath("$.participant.statusCode").value(301));
+        resultActions.andExpect(jsonPath("$.data.participant.event.paymentType").value("직거래"));
+        resultActions.andExpect(jsonPath("$.data.participant.statusCode").value(301));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -216,8 +216,8 @@ public class ParticipantControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.participant.event.paymentType").value("직거래"));
-        resultActions.andExpect(jsonPath("$.participant.statusCode").value(302));
+        resultActions.andExpect(jsonPath("$.data.participant.event.paymentType").value("직거래"));
+        resultActions.andExpect(jsonPath("$.data.participant.statusCode").value(302));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -243,8 +243,8 @@ public class ParticipantControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.participant.event.paymentType").value("직거래"));
-        resultActions.andExpect(jsonPath("$.participant.statusCode").value(303));
+        resultActions.andExpect(jsonPath("$.data.participant.event.paymentType").value("직거래"));
+        resultActions.andExpect(jsonPath("$.data.participant.statusCode").value(303));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

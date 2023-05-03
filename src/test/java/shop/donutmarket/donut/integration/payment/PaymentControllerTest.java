@@ -133,9 +133,9 @@ public class PaymentControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.payment.user.username").value("cos@naver.com"));
-        resultActions.andExpect(jsonPath("$.payment.event.paymentType").value("직거래"));
-        resultActions.andExpect(jsonPath("$.payment.confirmed").value(false));
+        resultActions.andExpect(jsonPath("$.data.payment.user.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.payment.event.paymentType").value("직거래"));
+        resultActions.andExpect(jsonPath("$.data.payment.confirmed").value(false));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

@@ -128,8 +128,8 @@ public class MyCategoryControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.list").isArray());
-        resultActions.andExpect(jsonPath("$.list[0].name").value("생활가전"));
+        resultActions.andExpect(jsonPath("$.data.list").isArray());
+        resultActions.andExpect(jsonPath("$.data.list[0].name").value("생활가전"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -154,8 +154,8 @@ public class MyCategoryControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.list").isArray());
-        resultActions.andExpect(jsonPath("$.list[0].name").value("생활가전"));
+        resultActions.andExpect(jsonPath("$.data.list").isArray());
+        resultActions.andExpect(jsonPath("$.data.list[0].name").value("생활가전"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
