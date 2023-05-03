@@ -47,10 +47,9 @@ public class BoardResp {
        // tag
        private List<String> comment;
         
-       public void updateRespDTO (int qty, String paymentType, LocalDateTime startAt, LocalDateTime endAt, int price, List<String> comment){
+       public void updateRespDTO (int qty, String paymentType, LocalDateTime endAt, int price, List<String> comment){
             this.qty = qty;
             this.paymentType = paymentType;
-            this.startAt = startAt;
             this.endAt = endAt;
             this.price = price;
             this.comment = comment;
