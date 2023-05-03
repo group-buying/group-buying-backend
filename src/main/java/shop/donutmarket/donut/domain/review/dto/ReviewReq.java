@@ -1,23 +1,25 @@
 package shop.donutmarket.donut.domain.review.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import shop.donutmarket.donut.domain.user.model.User;
 
 public class ReviewReq {
     
     @Getter
     @Setter
     public static class ReviewSaveReqDTO {
-        @NotNull
+        @NotNull(message = "리뷰대상자의 ID를 입력해주세요.")
         private Long reviewedUserId;
-        @NotNull
+        @NotNull(message = "리뷰대상 게시글 ID를 입력해주세요.")
         private Long boardId;
-        @NotNull
+        @NotNull(message = "점수를 입력해주세요. (1~5)")
+        @Min(1) @Max(5)
         private int score;
-        @NotBlank
+        @NotBlank(message = "내용을 입력해주세요.")
         private String comment;
     }
 }

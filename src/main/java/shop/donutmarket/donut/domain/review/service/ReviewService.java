@@ -1,8 +1,6 @@
 package shop.donutmarket.donut.domain.review.service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.review.dto.ReviewReq.ReviewSaveReqDTO;
 import shop.donutmarket.donut.domain.review.dto.ReviewResp.ReviewSaveRespDTO;
-import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.review.model.Review;
-import shop.donutmarket.donut.domain.review.repository.RateRepository;
 import shop.donutmarket.donut.domain.review.repository.ReviewRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;

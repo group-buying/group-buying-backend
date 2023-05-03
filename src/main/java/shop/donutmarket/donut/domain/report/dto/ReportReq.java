@@ -1,7 +1,6 @@
 package shop.donutmarket.donut.domain.report.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import shop.donutmarket.donut.domain.board.model.Board;

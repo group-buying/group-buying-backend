@@ -1,10 +1,11 @@
 package shop.donutmarket.donut.domain.report.service;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.report.dto.ReportReq;
@@ -16,8 +17,6 @@ import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
