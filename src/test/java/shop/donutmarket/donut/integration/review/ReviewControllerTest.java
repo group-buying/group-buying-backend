@@ -145,10 +145,10 @@ public class ReviewControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.review.reviewer.username").value("cos@naver.com"));
-        resultActions.andExpect(jsonPath("$.review.reviewed.username").value("ssar@naver.com"));
-        resultActions.andExpect(jsonPath("$.review.reviewed.ratePoint").value(21));
-        resultActions.andExpect(jsonPath("$.review.score").value(5));
+        resultActions.andExpect(jsonPath("$.data.review.reviewer.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.review.reviewed.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.review.reviewed.ratePoint").value(21));
+        resultActions.andExpect(jsonPath("$.data.review.score").value(5));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

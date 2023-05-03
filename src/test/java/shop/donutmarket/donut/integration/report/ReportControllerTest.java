@@ -119,7 +119,7 @@ public class ReportControllerTest extends MyRestDocs {
     @DisplayName("신고하기")
     @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
-    public void myParticipants_test() throws Exception {
+    public void report_test() throws Exception {
         // given
         Long id = 2L;
         ReportReq.insertDTO insertDTO = new ReportReq.insertDTO();
@@ -137,8 +137,8 @@ public class ReportControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.report.reporter.username").value("ssar@naver.com"));
-        resultActions.andExpect(jsonPath("$.report.reported.username").value("cos@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.report.reporter.username").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.report.reported.username").value("cos@naver.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

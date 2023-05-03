@@ -60,7 +60,7 @@ sentry:
   dsn: ${SENTRY}
   traces-sample-rate: 1.0
   logging:
-    minimum-event-level: info
+    minimum-event-level: warn
 
 boot-pay:
   rest-api-key: ${REST_API_KEY}

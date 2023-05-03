@@ -121,8 +121,8 @@ public class MainControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.myLocation.town").value("남양동"));
-        resultActions.andExpect(jsonPath("$.boards[0].title").value("제목1"));
+        resultActions.andExpect(jsonPath("$.data.myLocation.town").value("남양동"));
+        resultActions.andExpect(jsonPath("$.data.boards[0].title").value("제목1"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

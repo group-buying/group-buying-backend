@@ -107,9 +107,9 @@ public class AccountControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.userId").value(2L));
-        resultActions.andExpect(jsonPath("$.brand").value("신한"));
-        resultActions.andExpect(jsonPath("$.accountNumber").value("1112223333"));
+        resultActions.andExpect(jsonPath("$.data.userId").value(2L));
+        resultActions.andExpect(jsonPath("$.data.brand").value("신한"));
+        resultActions.andExpect(jsonPath("$.data.accountNumber").value("1112223333"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -150,9 +150,9 @@ public class AccountControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.userId").value(1L));
-        resultActions.andExpect(jsonPath("$.brand").value("농협"));
-        resultActions.andExpect(jsonPath("$.accountNumber").value("1112223333"));
+        resultActions.andExpect(jsonPath("$.data.userId").value(1L));
+        resultActions.andExpect(jsonPath("$.data.brand").value("농협"));
+        resultActions.andExpect(jsonPath("$.data.accountNumber").value("1112223333"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -171,9 +171,9 @@ public class AccountControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.userId").value(1L));
-        resultActions.andExpect(jsonPath("$.brand").value("하나"));
-        resultActions.andExpect(jsonPath("$.accountNumber").value("2223334444"));
+        resultActions.andExpect(jsonPath("$.data.userId").value(1L));
+        resultActions.andExpect(jsonPath("$.data.brand").value("하나"));
+        resultActions.andExpect(jsonPath("$.data.accountNumber").value("2223334444"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

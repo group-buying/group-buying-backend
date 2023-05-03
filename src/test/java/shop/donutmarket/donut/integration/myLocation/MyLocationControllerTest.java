@@ -104,9 +104,9 @@ public class MyLocationControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.state").value("부산광역시"));
-        resultActions.andExpect(jsonPath("$.city").value("부산진구"));
-        resultActions.andExpect(jsonPath("$.town").value("부전동"));
+        resultActions.andExpect(jsonPath("$.data.state").value("부산광역시"));
+        resultActions.andExpect(jsonPath("$.data.city").value("부산진구"));
+        resultActions.andExpect(jsonPath("$.data.town").value("부전동"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -130,9 +130,9 @@ public class MyLocationControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.state").value("부산광역시"));
-        resultActions.andExpect(jsonPath("$.city").value("해운대구"));
-        resultActions.andExpect(jsonPath("$.town").value("반송1동"));
+        resultActions.andExpect(jsonPath("$.data.state").value("부산광역시"));
+        resultActions.andExpect(jsonPath("$.data.city").value("해운대구"));
+        resultActions.andExpect(jsonPath("$.data.town").value("반송1동"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
