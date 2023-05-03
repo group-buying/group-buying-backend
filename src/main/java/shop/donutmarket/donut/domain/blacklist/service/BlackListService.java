@@ -1,20 +1,18 @@
 package shop.donutmarket.donut.domain.blacklist.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
-import shop.donutmarket.donut.domain.blacklist.dto.BlacklistReq;
 import shop.donutmarket.donut.domain.blacklist.dto.BlacklistResp;
 import shop.donutmarket.donut.domain.blacklist.model.Blacklist;
 import shop.donutmarket.donut.domain.blacklist.repository.BlackListRepository;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
-import shop.donutmarket.donut.global.exception.Exception401;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
-
-import java.util.Optional;
 
 
 @Service

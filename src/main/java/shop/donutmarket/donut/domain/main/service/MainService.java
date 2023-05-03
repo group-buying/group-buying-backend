@@ -1,21 +1,19 @@
 package shop.donutmarket.donut.domain.main.service;
 
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.repository.BoardRepository;
-import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.main.dto.MainResp;
 import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
 import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
 import shop.donutmarket.donut.domain.myLocation.model.MyLocation;
 import shop.donutmarket.donut.domain.myLocation.repository.MyLocationRepository;
-import shop.donutmarket.donut.global.dto.ResponseDTO;
 import shop.donutmarket.donut.global.exception.Exception500;
-
-import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
