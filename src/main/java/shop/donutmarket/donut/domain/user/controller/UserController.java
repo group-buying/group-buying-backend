@@ -17,8 +17,12 @@ import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.domain.user.service.UserService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+<<<<<<< HEAD
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
+=======
+import shop.donutmarket.donut.global.dto.ResponseDTO;
+>>>>>>> 6eb8bbd (Feat: 리턴 데이터 ResponseDTO 형식으로 수정)
 import shop.donutmarket.donut.global.jwt.MyJwtProvider;
 
 @Slf4j
@@ -47,7 +51,8 @@ public class UserController {
     @PutMapping("/users/update")
     public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, BindingResult bindingResult, @RequestBody @Valid UserReq.UpdateDTO updateDTO) {
         UserResp.UpdateDTO resp = userService.회원수정(myUserDetails, updateDTO);
-        return ResponseEntity.ok(resp);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(resp);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping("/jwtToken")

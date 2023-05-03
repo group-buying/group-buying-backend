@@ -15,9 +15,10 @@ public class ResponseDTO<T> {
         this.msg = "성공";
     }
 
-    public ResponseDTO<?> data(T data) {
-        this.data = data;
-        return this;
+    public ResponseDTO(T data){
+        this.status = HttpStatus.OK.value();
+        this.msg = "성공";
+        this.data = data; // 응답할 데이터 바디
     }
 
     public ResponseDTO<?> fail(HttpStatus status, String msg, T data) {

@@ -60,9 +60,10 @@ public class UserService {
                 
                 // Body 만들기
                 UserResp.JoinDTO body = new UserResp.JoinDTO(userPS);
+                ResponseDTO<?> responseDTO = new ResponseDTO<>(body);
                 
                 // ResponseEntity 생성
-                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(body);
+                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(responseDTO);
             }
             throw new RuntimeException("패스워드 유효성 실패");
         } else {
@@ -83,9 +84,10 @@ public class UserService {
 
                 // Body 만들기
                 UserResp.LoginDTO body = new UserResp.LoginDTO(userPS);
+                ResponseDTO<?> responseDTO = new ResponseDTO<>(body);
 
                 // ResponseEntity 생성
-                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(body);
+                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(responseDTO);
             }
             throw new RuntimeException("패스워드 유효성 실패");
         } catch (Exception e) {

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.blacklist.dto.BlacklistResp;
 import shop.donutmarket.donut.domain.blacklist.service.BlackListService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 
 @RestController
@@ -25,13 +26,16 @@ public class BlackListController {
     public ResponseEntity<?> insert(@PathVariable Long id,
                                     @AuthenticationPrincipal MyUserDetails myUserDetails) {
         BlacklistResp.select resp = blackListService.블랙리스트추가(myUserDetails.getUser().getId(), id);
-        return ResponseEntity.ok(resp);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(resp);
+        return ResponseEntity.ok(responseDTO);
+
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id,
                                     @AuthenticationPrincipal MyUserDetails myUserDetails) {
         blackListService.블랙리스트삭제(id, myUserDetails.getUser().getId());
-        return ResponseEntity.ok("블랙리스트 삭제 성공");
+        ResponseDTO<?> responseDTO = new ResponseDTO<>("블랙리스트 삭제 성공");
+        return ResponseEntity.ok(responseDTO);
     }
 }

@@ -34,30 +34,35 @@ public class ParticipantController {
     @GetMapping
     public ResponseEntity<?> myParticipants(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantListRespDTO participantList = participantService.내참가목록(myUserDetails);
-        return ResponseEntity.ok(participantList);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(participantList);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid ParticipantSaveReqDTO participantSaveReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantSaveRespDTO saveRespDTO = participantService.참가하기(participantSaveReqDTO, myUserDetails);
-        return ResponseEntity.ok(saveRespDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(saveRespDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PutMapping("/select")
     public ResponseEntity<?> select(@RequestBody @Valid ParticipantSelectReqDTO participantSelectReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantSelectRespDTO selectRespDTO = participantService.채택하기(participantSelectReqDTO, myUserDetails);
-        return ResponseEntity.ok(selectRespDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(selectRespDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PutMapping("/cancel")
     public ResponseEntity<?> cancel(@RequestBody ParticipantCancelReqDTO participantCancelReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantResp.ParticipantCancelRespDTO cancelRespDTO = participantService.취소하기(participantCancelReqDTO, myUserDetails);
-        return ResponseEntity.ok(cancelRespDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(cancelRespDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PutMapping("/drop")
     public ResponseEntity<?> drop(@RequestBody ParticipantDropReqDTO participantDropReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ParticipantDropRespDTO dropRespDTO = participantService.강퇴하기(participantDropReqDTO, myUserDetails);
-        return ResponseEntity.ok(dropRespDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(dropRespDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 }

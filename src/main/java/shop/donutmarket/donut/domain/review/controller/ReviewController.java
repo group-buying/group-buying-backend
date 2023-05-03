@@ -25,6 +25,7 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid ReviewSaveReqDTO reviewSaveReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ReviewSaveRespDTO saveRespDTO = reviewService.리뷰작성(reviewSaveReqDTO, myUserDetails);
-        return ResponseEntity.ok(saveRespDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(saveRespDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 }

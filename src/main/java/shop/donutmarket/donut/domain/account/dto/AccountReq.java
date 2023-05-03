@@ -11,7 +11,6 @@ public class AccountReq {
     @Getter
     @Setter
     public static class insertDTO {
-        private Long userId;
         @NotBlank(message = "은행사를 입력해주세요")
         private String brand;
         @NotBlank(message = "계좌번호를 입력해주세요")

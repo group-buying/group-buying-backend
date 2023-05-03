@@ -39,7 +39,8 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<?> save(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardSaveReqDTO boardSaveReqDTO, BindingResult bindingResult) {
         BoardSaveRespDTO saveRespDTO = boardService.게시글작성(boardSaveReqDTO, myUserDetails);
-        return ResponseEntity.ok(saveRespDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(saveRespDTO);
+        return ResponseEntity.ok(responseDTO);
     }
     
     @GetMapping("/{id}")
@@ -49,18 +50,21 @@ public class BoardController {
         List<String> tags = tagService.상세보기(id);
 
         BoardDetailRespDTO detailRespDTO = new BoardDetailRespDTO(board, tags);
-        return ResponseEntity.ok(detailRespDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(detailRespDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PutMapping
     public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardUpdateReqDTO boardUpdateReqDTO, BindingResult bindingResult) {
         BoardUpdateRespDTO updateRespDTO = boardService.게시글수정(boardUpdateReqDTO, myUserDetails);
-        return ResponseEntity.ok(updateRespDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(updateRespDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PutMapping("/delete")
     public ResponseEntity<?> delete(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestBody @Valid BoardDeleteReqDTO boardDeleteReqDTO, BindingResult bindingResult){
         boardService.게시글삭제(boardDeleteReqDTO, myUserDetails);
-        return ResponseEntity.ok("게시글 삭제 성공");
+        ResponseDTO<?> responseDTO = new ResponseDTO<>("게시글 삭제 성공");
+        return ResponseEntity.ok(responseDTO);
     }
 }
