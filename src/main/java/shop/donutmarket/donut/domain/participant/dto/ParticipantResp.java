@@ -1,16 +1,10 @@
 package shop.donutmarket.donut.domain.participant.dto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import shop.donutmarket.donut.domain.board.model.Event;
 import shop.donutmarket.donut.domain.participant.model.Participant;
-import shop.donutmarket.donut.domain.user.model.User;
 
 public class ParticipantResp {
     
