@@ -13,11 +13,11 @@ public class ChatReq {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ChatInviteReqDTO {
-        @NotNull
+        @NotNull(message = "초대하려는 유저 ID를 입력해주세요.")
         private Long invitedUserId;
-        @NotNull
+        @NotNull(message = "참가ID를 입력해주세요.")
         private Long participantId;
-        @NotNull
+        @NotNull(message = "참가하려는 채팅방 ID를 입력해주세요.")
         private Long chatroomId;
     }
 
@@ -26,9 +26,9 @@ public class ChatReq {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ChatKickReqDTO {
-        @NotNull
+        @NotNull(message = "강퇴하려는 참여자ID를 입력해주세요.")
         private Long chatterListId;
-        @NotNull
+        @NotNull(message = "해당 이벤트ID를 입력해주세요.")
         private Long eventId;
     }
 }

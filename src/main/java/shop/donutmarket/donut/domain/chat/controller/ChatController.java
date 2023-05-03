@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,7 +60,7 @@ public class ChatController {
     }
     
     @PostMapping("/invite")
-    public ResponseEntity<?> invite(@RequestBody @Valid ChatInviteReqDTO chatInviteReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> invite(@RequestBody @Valid ChatInviteReqDTO chatInviteReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         chatterListService.초대하기(chatInviteReqDTO);
         return ResponseEntity.ok("초대하기 성공");
     }
@@ -71,7 +72,7 @@ public class ChatController {
     }
 
     @PutMapping("/kick")
-    public ResponseEntity<?> kick(@RequestBody @Valid ChatKickReqDTO chatKickReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> kick(@RequestBody @Valid ChatKickReqDTO chatKickReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         chatterListService.강퇴하기(chatKickReqDTO, myUserDetails);
         return ResponseEntity.ok("강퇴하기 성공");
     }
