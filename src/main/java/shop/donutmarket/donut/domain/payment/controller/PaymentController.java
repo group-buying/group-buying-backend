@@ -2,10 +2,13 @@ package shop.donutmarket.donut.domain.payment.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import shop.donutmarket.donut.domain.payment.dto.PaymentInfoReq;
 import shop.donutmarket.donut.domain.payment.dto.PaymentReq;
 import shop.donutmarket.donut.domain.payment.dto.PaymentResp;
 import shop.donutmarket.donut.domain.payment.service.PaymentService;
@@ -19,7 +22,7 @@ public class PaymentController {
 
     @PostMapping("/payments")
     public ResponseEntity<?> insert(@AuthenticationPrincipal MyUserDetails myUserDetails,
-                                    @RequestBody PaymentReq.insertDTO insertDTO) {
+                                    @RequestBody @Valid PaymentReq.insertDTO insertDTO, BindingResult bindingResult) {
         PaymentResp.insertDTO resp = paymentService.결제데이터저장(myUserDetails.getUser().getId(), insertDTO);
         return ResponseEntity.ok(resp);
     }
