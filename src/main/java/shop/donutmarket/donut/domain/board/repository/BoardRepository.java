@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import shop.donutmarket.donut.domain.board.model.Board;
-import shop.donutmarket.donut.domain.main.dto.MainResp;
-import shop.donutmarket.donut.domain.myPage.dto.MyPageResp;
 
 public interface BoardRepository extends JpaRepository<Board, Long>{
 
