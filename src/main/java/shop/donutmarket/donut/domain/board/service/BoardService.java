@@ -103,8 +103,10 @@ public class BoardService {
         try {
             User organizer = boardPS.getOrganizer();
             Event event = boardPS.getEvent();
+            // s3에 저장된 링크를 가져옴
+            String imglink = fileLoad.downloadObject(boardPS.getImg());
             Board board = Board.builder().id(boardPS.getId()).category(boardPS.getCategory()).title(boardPS.getTitle())
-                    .organizer(organizer).content(boardPS.getContent()).img(boardPS.getImg()).event(event).statusCode(boardPS.getStatusCode())
+                    .organizer(organizer).content(boardPS.getContent()).img(imglink).event(event).statusCode(boardPS.getStatusCode())
                     .state(boardPS.getState()).city(boardPS.getCity()).town(boardPS.getTown()).createdAt(boardPS.getCreatedAt()).build();
             return board;
         } catch (Exception e) {
