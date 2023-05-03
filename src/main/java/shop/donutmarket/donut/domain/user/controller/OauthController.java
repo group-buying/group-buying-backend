@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.review.repository.RateRepository;
+import shop.donutmarket.donut.domain.user.dto.UserResp;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.exception.Exception404;
@@ -78,7 +79,12 @@ public class OauthController {
                 User userEntity = userRepository.save(user);
                 String jwt = MyJwtProvider.create(userEntity);
 
-                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("네이버 로그인 완료");
+                // Body 만들기
+                UserResp.JoinDTO body = new UserResp.JoinDTO(userEntity);
+
+                // ResponseEntity 생성
+                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(body);
+
             } catch (Exception e) {
                 throw new Exception500("네이버 로그인 실패 : " + e.getMessage());
             }
@@ -89,12 +95,17 @@ public class OauthController {
         else {
             try {
                 User userPS = userOP.get();
+
                 // user가 존재하면 update 해주기
                 userPS.updateEmail(naverUser.getEmail());
-                userRepository.save(userPS);
+                User userEntity = userRepository.save(userPS);
                 String jwt = MyJwtProvider.create(userPS);
 
-                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("네이버 로그인 완료");
+                // Body 만들기
+                UserResp.LoginDTO body = new UserResp.LoginDTO(userEntity);
+
+                // ResponseEntity 생성
+                return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(body);
             } catch (Exception e) {
                 throw new Exception500("네이버 로그인 실패 : " + e.getMessage());
             }

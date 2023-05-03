@@ -18,6 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.transaction.annotation.Transactional;
 import shop.donutmarket.donut.core.MyRestDocs;
 import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
 import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
@@ -62,6 +63,10 @@ public class MyLocationControllerTest extends MyRestDocs {
 
     @BeforeEach
     public void setUp() {
+        // Unique보장하기 위함
+        myLocationRepository.deleteAll();
+        em.clear();
+
         Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
         rateRepository.save(rate);
         userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
