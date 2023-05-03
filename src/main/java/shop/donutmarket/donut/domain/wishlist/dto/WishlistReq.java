@@ -1,9 +1,7 @@
 package shop.donutmarket.donut.domain.wishlist.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class WishlistReq {
@@ -11,14 +9,14 @@ public class WishlistReq {
     @Getter
     @Setter
     public static class WishListSaveReqDTO {
-        @NotNull
+        @NotNull(message = "등록하려는 게시글ID를 입력해주세요.")
         private Long boardId;
     }
 
     @Getter
     @Setter
     public static class WishListDeleteReqDTO {
-        @NotNull
+        @NotNull(message = "제거하려는 위시리스트ID를 입력해주세요.")
         private Long wishlistId;
     }
 }

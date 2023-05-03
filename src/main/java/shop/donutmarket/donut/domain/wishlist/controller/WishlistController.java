@@ -1,10 +1,8 @@
 package shop.donutmarket.donut.domain.wishlist.controller;
 
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +18,6 @@ import shop.donutmarket.donut.domain.wishlist.dto.WishlistResp.MyWishListRespDTO
 import shop.donutmarket.donut.domain.wishlist.dto.WishlistResp.WishListSaveRespDTO;
 import shop.donutmarket.donut.domain.wishlist.service.WishlistService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
-import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 
 @RestController
@@ -37,13 +34,13 @@ public class WishlistController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody @Valid WishListSaveReqDTO wishListSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> save(@RequestBody @Valid WishListSaveReqDTO wishListSaveReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         WishListSaveRespDTO saveRespDTO =  wishlistService.관심등록(wishListSaveReqDTO, myUserDetails);
         return ResponseEntity.ok(saveRespDTO);
     }
 
     @DeleteMapping
-    public ResponseEntity<?> delete(@RequestBody @Valid WishListDeleteReqDTO wishListDeleteReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> delete(@RequestBody @Valid WishListDeleteReqDTO wishListDeleteReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         wishlistService.관심등록제거(wishListDeleteReqDTO, myUserDetails);
         return ResponseEntity.ok("위시리스트 삭제 성공");
     }
