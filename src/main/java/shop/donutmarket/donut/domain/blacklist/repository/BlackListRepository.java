@@ -1,14 +1,13 @@
 package shop.donutmarket.donut.domain.blacklist.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import shop.donutmarket.donut.domain.blacklist.model.Blacklist;
-import shop.donutmarket.donut.domain.myPage.dto.MyPageResp;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import shop.donutmarket.donut.domain.blacklist.model.Blacklist;
 
 public interface BlackListRepository extends JpaRepository<Blacklist, Long>{
 

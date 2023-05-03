@@ -1,14 +1,12 @@
 package shop.donutmarket.donut.domain.account.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import shop.donutmarket.donut.domain.account.model.MyAccount;
-import shop.donutmarket.donut.domain.user.model.User;
-
-import java.util.Optional;
 
 public interface MyAccountRepository extends JpaRepository<MyAccount, Long>{
     @Query("select m from MyAccount m left join fetch m.user where m.user.id = :userId")
