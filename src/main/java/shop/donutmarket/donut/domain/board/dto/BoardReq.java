@@ -69,7 +69,7 @@ public class BoardReq {
     @NoArgsConstructor
     public static class BoardUpdateReqDTO {
         // board
-        @NotNull
+        @NotNull(message = "게시글ID를 입력해주세요.")
         private Long id;
         //event
         @NotNull(message = "수량을 입력해주세요.")
@@ -90,7 +90,7 @@ public class BoardReq {
     @NoArgsConstructor
     public static class BoardDeleteReqDTO {
         // board
-        @NotNull
+        @NotNull(message = "게시글ID를 입력해주세요.")
         private Long boardId;
     }
 }
