@@ -1,14 +1,13 @@
 package shop.donutmarket.donut.domain.myCategory.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface MyCategoryRepository extends JpaRepository<MyCategory, Long>{
     
