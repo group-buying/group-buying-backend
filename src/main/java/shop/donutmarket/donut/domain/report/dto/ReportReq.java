@@ -1,5 +1,7 @@
 package shop.donutmarket.donut.domain.report.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import shop.donutmarket.donut.domain.board.model.Board;
@@ -13,8 +15,11 @@ public class ReportReq {
     @Setter
     public static class insertDTO {
         private Long boardId;
+        @NotBlank(message = "제목을 입력해주세요.")
         private String title;
+        @NotBlank(message = "내용을 입력해주세요.")
         private String content;
+        @NotBlank(message = "신고타입을 입력해주세요.")
         private String reportType;
 
         public Report toEntity(Board board) {
