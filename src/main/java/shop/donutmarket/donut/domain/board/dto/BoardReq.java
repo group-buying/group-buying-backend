@@ -30,16 +30,16 @@ public class BoardReq {
         @NotBlank(message = "내용을 입력해주세요.")
         private String content;
         private String img;
-        @NotBlank(message = "위치를 입력해주세요.")
+        @NotBlank(message = "광역시 또는 도를 입력해주세요.")
         private String state;
-        @NotBlank(message = "위치를 입력해주세요.")
+        @NotBlank(message = "시 또는 군 또는 자치구를 입력해주세요.")
         private String city;
-        @NotBlank(message = "위치를 입력해주세요.")
+        @NotBlank(message = "행정시,구 또는 읍,면,동을 입력해주세요.")
         private String town;
         //event
-        @NotNull(message = "위치를 입력해주세요.")
+        @NotNull(message = "위도를 입력해주세요.")
         private double latitude;
-        @NotNull(message = "위치를 입력해주세요.")
+        @NotNull(message = "경도를 입력해주세요.")
         private double longtitude;
         @NotNull(message = "수량을 입력해주세요.")
         private int qty;
