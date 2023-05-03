@@ -6,28 +6,28 @@ import lombok.Setter;
 import shop.donutmarket.donut.domain.account.model.MyAccount;
 import shop.donutmarket.donut.domain.user.model.User;
 
-import java.util.Optional;
-
 public class AccountReq {
 
     @Getter
     @Setter
     public static class insertDTO {
         private Long userId;
-        @NotBlank
+        @NotBlank(message = "은행사를 입력해주세요")
         private String brand;
-        @NotBlank
+        @NotBlank(message = "계좌번호를 입력해주세요")
         private String accountNumber;
-
+        
         public MyAccount toEntity(User user) {
             return MyAccount.builder().user(user).brand(brand).accountNumber(accountNumber).build();
         }
     }
-
+    
     @Getter
     @Setter
     public static class updateDTO {
+        @NotBlank(message = "은행사를 입력해주세요")
         private String brand;
+        @NotBlank(message = "계좌번호를 입력해주세요")
         private String accountNumber;
     }
 }
