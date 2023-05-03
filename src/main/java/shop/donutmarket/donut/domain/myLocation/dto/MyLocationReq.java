@@ -1,20 +1,18 @@
 package shop.donutmarket.donut.domain.myLocation.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class MyLocationReq {
     @Getter
     @Setter
     public static class MyLocationSaveReqDTO {
-        @NotBlank
+        @NotBlank(message = "광역시 또는 도를 입력해주세요.")
         private String state;
-        @NotBlank
+        @NotBlank(message = "시 또는 군 또는 자치구를 입력해주세요.")
         private String city;
-        @NotBlank
+        @NotBlank(message = "행정시,구 또는 읍,면,동을 입력해주세요.")
         private String town;
     }
 }
