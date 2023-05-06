@@ -62,7 +62,7 @@ public class UserControllerTest extends MyRestDocs {
     public void setUp() {
         Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
         rateRepository.save(rate);
-        userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
+        userRepository.save(dummy.newUser("ssar@naver.com", rate));
 
         em.clear();
     }
@@ -126,7 +126,6 @@ public class UserControllerTest extends MyRestDocs {
         UserReq.UpdateDTO updateDTO = new UserReq.UpdateDTO();
         updateDTO.setPassword("4321");
         updateDTO.setProfile("사진입니다");
-        updateDTO.setName("보리");
         String requestBody = om.writeValueAsString(updateDTO);
 
         // when
@@ -137,7 +136,6 @@ public class UserControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.data.name").value("보리"));
         resultActions.andExpect(jsonPath("$.data.profile").value("사진입니다"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);

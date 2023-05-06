@@ -24,6 +24,9 @@ import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
 import shop.donutmarket.donut.domain.blacklist.repository.BlackListRepository;
 import shop.donutmarket.donut.domain.board.dto.BoardReq;
+import shop.donutmarket.donut.domain.board.model.Board;
+import shop.donutmarket.donut.domain.board.model.Event;
+import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.review.repository.RateRepository;
@@ -35,7 +38,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -61,21 +64,35 @@ public class BoardControllerTest extends MyRestDocs {
     @Autowired
     private EventRepository eventRepository;
     @Autowired
+    private BoardRepository boardRepository;
+    @Autowired
     private EntityManager em;
 
     @BeforeEach
     public void setUp() {
-        categoryRepository.deleteAll();
-        eventRepository.deleteAll();
 
         Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
         rateRepository.save(rate);
-        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
-        userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
+        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", rate));
+        userRepository.save(dummy.newUser("cos@naver.com", rate));
 
         // 카테고리 객체
         Category category = Category.builder().name("편의점").createdAt(LocalDateTime.now()).build();
         categoryRepository.save(category);
+
+        // 이벤트 객체
+        Event event = Event.builder().latitude(111.111).longtitude(222.222).qty(1).paymentType("직거래")
+                .startAt(LocalDateTime.of(2023, 5, 1, 13, 30))
+                .endAt(LocalDateTime.of(2023, 5, 2, 13, 30))
+                .price(1000).createdAt(LocalDateTime.now()).build();
+        eventRepository.save(event);
+
+        // 게시글 객체
+        Board board = Board.builder().category(category).event(event)
+                .organizer(user1).title("제목1").content("내용1").statusCode(200)
+                .views(100).recommend(false).state("부산광역시").city("부산진구").town("부전동").build();
+
+        boardRepository.save(board);
 
         em.clear();
     }
@@ -121,6 +138,79 @@ public class BoardControllerTest extends MyRestDocs {
         resultActions.andExpect(jsonPath("$.data.board.title").value("제목"));
         resultActions.andExpect(jsonPath("$.data.board.organizer.name").value("쌀"));
         resultActions.andExpect(jsonPath("$.data.board.event.paymentType").value("직거래"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("게시글 상세보기")
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void detail_test() throws Exception {
+        // given
+        Long id = 1L;
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(get("/boards/"+id));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+        resultActions.andExpect(jsonPath("$.data.board.category.name").value("편의점"));
+        resultActions.andExpect(jsonPath("$.data.board.title").value("제목1"));
+        resultActions.andExpect(jsonPath("$.data.board.organizer.name").value("쌀"));
+        resultActions.andExpect(jsonPath("$.data.board.event.paymentType").value("직거래"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("게시글 수정하기")
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void update_test() throws Exception {
+        // given
+        BoardReq.BoardUpdateReqDTO boardUpdateReqDTO = new BoardReq.BoardUpdateReqDTO();
+        boardUpdateReqDTO.setId(1L);
+        boardUpdateReqDTO.setQty(10);
+        boardUpdateReqDTO.setPrice(10000);
+
+        String requestBody = om.writeValueAsString(boardUpdateReqDTO);
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(put("/boards").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+//        resultActions.andExpect(jsonPath("$.data.board.category.name").value("편의점"));
+//        resultActions.andExpect(jsonPath("$.data.board.title").value("제목"));
+//        resultActions.andExpect(jsonPath("$.data.board.organizer.name").value("쌀"));
+//        resultActions.andExpect(jsonPath("$.data.board.event.paymentType").value("직거래"));
+//        resultActions.andExpect(status().isOk());
+//        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("게시글 삭제하기")
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void delete_test() throws Exception {
+        // given
+        BoardReq.BoardDeleteReqDTO boardDeleteReqDTO = new BoardReq.BoardDeleteReqDTO();
+        boardDeleteReqDTO.setBoardId(1L);
+
+        String requestBody = om.writeValueAsString(boardDeleteReqDTO);
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(put("/boards/delete").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

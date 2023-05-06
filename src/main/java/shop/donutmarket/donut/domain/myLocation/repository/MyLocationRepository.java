@@ -10,7 +10,7 @@ import shop.donutmarket.donut.domain.myLocation.model.MyLocation;
 
 public interface MyLocationRepository extends JpaRepository<MyLocation, Long>{
     
-    @Query("select m from MyLocation m where m.user.id = :userId")
+    @Query("select m from MyLocation m left join fetch m.user u left join fetch u.rate where m.user.id = :userId")
     Optional<MyLocation> findByUserId(@Param("userId") Long userId);
 
     @Query("select m from MyLocation m where m.user.id = :userId")

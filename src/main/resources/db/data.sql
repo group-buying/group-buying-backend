@@ -1,6 +1,6 @@
-insert into user_tb(username, password, email, name, profile, rate_id, role, provider, provider_id, status_code, created_at) values('ssar@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'ssar@naver.com', 'ssar', null, 1,  'ROLE_USER', '', '', 100, now());
-insert into user_tb(username, password, email, name, profile, rate_id, role, provider, provider_id, status_code, created_at) values('naver_1', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'zzxc@naver.com', 'zzxc', null, 2, 'ROLE_USER', 'naver', '1', 100, now());
-insert into user_tb(username, password, email, name, profile, rate_id, role, provider, provider_id, status_code, created_at) values('admin@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'admin@naver.com', '관리자', null, 2, 'ROLE_ADMIN', '', '', 100, now());
+insert into user_tb(username, password, email, profile, rate_id, role, provider, provider_id, status_code, created_at) values('ssar@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'ssar@naver.com', null, 1,  'ROLE_USER', '', '', 100, now());
+insert into user_tb(username, password, email, profile, rate_id, role, provider, provider_id, status_code, created_at) values('naver_1', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'zzxc@naver.com', null, 2, 'ROLE_USER', 'naver', '1', 100, now());
+insert into user_tb(username, password, email, profile, rate_id, role, provider, provider_id, status_code, created_at) values('admin@naver.com', '$2a$10$.qQ7kvdAo1qtk75HkCUG4O/5SKE0Y6Acf9.ZaXvTCxMZipSEC9lTW', 'admin@naver.com', null, 2, 'ROLE_ADMIN', '', '', 100, now());
 
 insert into rate(rate_name, created_at) values('글레이즈드', now());
 insert into rate(rate_name, created_at) values('딸기도넛', now());

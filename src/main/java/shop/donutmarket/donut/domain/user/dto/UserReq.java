@@ -39,9 +39,8 @@ public class UserReq {
     public static class UpdateDTO {
         @NotBlank(message = "비밀번호를 적어주세요")
         private String password;
-        private String name;
         private String profile;
 
-        public User toEntity() {return User.builder().password(password).name(name).profile(profile).build();}
+        public User toEntity() {return User.builder().password(password).profile(profile).build();}
     }
 }

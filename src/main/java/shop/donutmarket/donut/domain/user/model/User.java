@@ -28,7 +28,6 @@ public class User {
     @JsonIgnore
     private String password;
     private String email;
-    private String name;
     private String profile;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rate_id")
@@ -43,13 +42,12 @@ public class User {
     private LocalDateTime createdAt;
 
     @Builder
-    public User(Long id, String username, String nickname, String password, String email, String name, String profile, Rate rate, Integer ratePoint, String role, String provider, String providerId, Integer statusCode, LocalDateTime createdAt) {
+    public User(Long id, String username, String nickname, String password, String email, String profile, Rate rate, Integer ratePoint, String role, String provider, String providerId, Integer statusCode, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
         this.nickname = nickname;
         this.password = password;
         this.email = email;
-        this.name = name;
         this.profile = profile;
         this.rate = rate;
         this.ratePoint = ratePoint;
@@ -60,10 +58,9 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public void updateUser(String password, String name, String profile,
+    public void updateUser(String password, String profile,
                            LocalDateTime createdAt) {
         this.password = password;
-        this.name = name;
         this.profile = profile;
         this.createdAt = createdAt;
     }
