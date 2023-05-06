@@ -35,7 +35,7 @@ public class MyCategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<?> myCategory(@AuthenticationPrincipal MyUserDetails myUserDetails, BindingResult bindingResult) {
+    public ResponseEntity<?> myCategory(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         MyCategoryResp.MyCategorySelectRespDTO myCategorySelectRespDTO  = myCategoryService.나의카테고리보기(myUserDetails);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(myCategorySelectRespDTO);
         return ResponseEntity.ok(responseDTO);
