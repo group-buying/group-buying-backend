@@ -35,7 +35,7 @@ public class MyCategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<?> updateCategory(@RequestBody MyCategoryUpdateReqDTO myCategoryUpdateReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> myCategory(@RequestBody MyCategoryUpdateReqDTO myCategoryUpdateReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         MyCategoryUpdateRespDTO updateRespDTO = myCategoryService.카테고리업데이트(myCategoryUpdateReqDTO, myUserDetails);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(updateRespDTO);
         return ResponseEntity.ok(responseDTO);
