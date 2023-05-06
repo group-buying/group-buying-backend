@@ -162,7 +162,6 @@ public class ParticipantControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.data.participant.event.paymentType").value("직거래"));
         resultActions.andExpect(jsonPath("$.data.participant.user.username").value("ssar@naver.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);

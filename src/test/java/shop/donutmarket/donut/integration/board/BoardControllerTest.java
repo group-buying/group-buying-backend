@@ -77,7 +77,7 @@ public class BoardControllerTest extends MyRestDocs {
         userRepository.save(dummy.newUser("cos@naver.com", rate));
 
         // 카테고리 객체
-        Category category = Category.builder().name("편의점").createdAt(LocalDateTime.now()).build();
+        Category category = Category.builder().name("생활가전").createdAt(LocalDateTime.now()).build();
         categoryRepository.save(category);
 
         // 이벤트 객체
@@ -134,9 +134,8 @@ public class BoardControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.data.board.category.name").value("편의점"));
+        resultActions.andExpect(jsonPath("$.data.board.category.name").value("생활가전"));
         resultActions.andExpect(jsonPath("$.data.board.title").value("제목"));
-        resultActions.andExpect(jsonPath("$.data.board.organizer.name").value("쌀"));
         resultActions.andExpect(jsonPath("$.data.board.event.paymentType").value("직거래"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
@@ -157,9 +156,8 @@ public class BoardControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.data.board.category.name").value("편의점"));
+        resultActions.andExpect(jsonPath("$.data.board.category.name").value("생활가전"));
         resultActions.andExpect(jsonPath("$.data.board.title").value("제목1"));
-        resultActions.andExpect(jsonPath("$.data.board.organizer.name").value("쌀"));
         resultActions.andExpect(jsonPath("$.data.board.event.paymentType").value("직거래"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);

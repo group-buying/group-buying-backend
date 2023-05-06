@@ -1,0 +1,266 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+:user: user-controller-test
+:main: main-controller-test
+:board: board-controller-test
+:participant: participant-controller-test
+:account: account-controller-test
+:payment: payment-controller-test
+:review: review-controller-test
+:report: report-controller-test
+:my-category: my-category-controller-test
+:my-location: my-location-controller-test
+:my-page: my-page-controller-test
+:black-list: black-list-controller-test
+:wishlist: wishlist-controller-test
+
+= REST API
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== 회원 API
+=== 1. 회원가입
+===== Request Example
+include::{snippets}/{user}/join_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/join_test/http-response.adoc[]
+
+=== 2. 로그인
+===== Request Example
+include::{snippets}/{user}/login_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/login_test/http-response.adoc[]
+
+=== 3. 업데이트
+===== Request Example
+include::{snippets}/{user}/update_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/update_test/http-response.adoc[]
+
+== 메인 API
+=== 1. 메인페이지
+===== Request Example
+include::{snippets}/{main}/select_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{main}/select_test/http-response.adoc[]
+
+== 게시글 API
+=== 1. 게시글 등록하기
+===== Request Example
+include::{snippets}/{board}/save_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{board}/save_test/http-response.adoc[]
+
+=== 2. 게시글 상세보기
+===== Request Example
+include::{snippets}/{board}/detail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{board}/detail_test/http-response.adoc[]
+
+=== 3. 게시글 삭제하기
+===== Request Example
+include::{snippets}/{board}/delete_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{board}/delete_test/http-response.adoc[]
+
+== 참가 API
+=== 1. 참가하기
+===== Request Example
+include::{snippets}/{participant}/save_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{participant}/save_test/http-response.adoc[]
+
+=== 2. 채택하기
+===== Request Example
+include::{snippets}/{participant}/select_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{participant}/select_test/http-response.adoc[]
+
+=== 3. 취소하기
+===== Request Example
+include::{snippets}/{participant}/cancel_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{participant}/cancel_test/http-response.adoc[]
+
+=== 4. 강퇴하기
+===== Request Example
+include::{snippets}/{participant}/drop_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{participant}/drop_test/http-response.adoc[]
+
+=== 5. 나의 참가 목록
+===== Request Example
+include::{snippets}/{participant}/my-participants_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{participant}/my-participants_test/http-response.adoc[]
+
+== 계좌 API
+=== 1. 계좌 등록
+===== Request Example
+include::{snippets}/{account}/insert_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{account}/insert_test/http-response.adoc[]
+
+=== 2. 계좌 삭제
+===== Request Example
+include::{snippets}/{account}/delete_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{account}/delete_test/http-response.adoc[]
+
+=== 3. 계좌 수정
+===== Request Example
+include::{snippets}/{account}/update_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{account}/update_test/http-response.adoc[]
+
+=== 4. 계좌 조회
+===== Request Example
+include::{snippets}/{account}/select_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{account}/select_test/http-response.adoc[]
+
+== 결제 API
+=== 1. 결제 데이터 저장
+===== Request Example
+include::{snippets}/{payment}/insert_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{payment}/insert_test/http-response.adoc[]
+
+== 리뷰 API
+=== 1. 리뷰 등록
+===== Request Example
+include::{snippets}/{review}/insert_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/insert_test/http-response.adoc[]
+
+== 신고 API
+=== 1. 신고하기
+===== Request Example
+include::{snippets}/{report}/report_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{report}/report_test/http-response.adoc[]
+
+== 나의 카테고리 API
+=== 1. 디폴트 카테고리
+===== Request Example
+include::{snippets}/{my-category}/default_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-category}/default_test/http-response.adoc[]
+
+=== 2. 카테고리 업데이트
+===== Request Example
+include::{snippets}/{my-category}/update_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-category}/update_test/http-response.adoc[]
+
+== 나의 지역 API
+=== 1. 디폴트 지역
+===== Request Example
+include::{snippets}/{my-location}/default_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-location}/default_test/http-response.adoc[]
+
+=== 2. 지역 업데이트
+===== Request Example
+include::{snippets}/{my-location}/update_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-location}/update_test/http-response.adoc[]
+
+== 마이페이지 API
+=== 1. 나의 게시글
+===== Request Example
+include::{snippets}/{my-page}/board_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-page}/board_test/http-response.adoc[]
+
+=== 2. 나의 결제내역
+===== Request Example
+include::{snippets}/{my-page}/payment_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-page}/payment_test/http-response.adoc[]
+
+=== 3. 나의 리뷰
+===== Request Example
+include::{snippets}/{my-page}/review_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-page}/review_test/http-response.adoc[]
+
+=== 4. 나의 신고
+===== Request Example
+include::{snippets}/{my-page}/report_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-page}/report_test/http-response.adoc[]
+
+=== 5. 나의 블랙리스트
+===== Request Example
+include::{snippets}/{my-page}/blacklist_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-page}/blacklist_test/http-response.adoc[]
+
+== 블랙리스트 API
+=== 1. 블랙리스트 추가
+===== Request Example
+include::{snippets}/{black-list}/insert_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{black-list}/insert_test/http-response.adoc[]
+
+=== 2. 블랙리스트 삭제
+===== Request Example
+include::{snippets}/{black-list}/delete_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{black-list}/delete_test/http-response.adoc[]
+
+== 위시리스트 API
+=== 1. 위시리스트 추가
+===== Request Example
+include::{snippets}/{wishlist}/save_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{wishlist}/save_test/http-response.adoc[]
+
+=== 2. 위시리스트 취소
+===== Request Example
+include::{snippets}/{wishlist}/delete_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{wishlist}/delete_test/http-response.adoc[]
+
+=== 3. 나의 위시리스트
+===== Request Example
+include::{snippets}/{wishlist}/wishlist_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{wishlist}/wishlist_test/http-response.adoc[]

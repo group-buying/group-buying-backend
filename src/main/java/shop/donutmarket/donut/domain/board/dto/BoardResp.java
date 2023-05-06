@@ -33,27 +33,14 @@ public class BoardResp {
 
     @Getter
     @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class BoardUpdateRespDTO {
-       // board
-       private Long id;
-       //event
-       private int qty;
-       private String paymentType;
-       private LocalDateTime startAt;
-       private LocalDateTime endAt;
-       private int price;
-       // tag
-       private List<String> comment;
-        
-       public void updateRespDTO (int qty, String paymentType, LocalDateTime endAt, int price, List<String> comment){
-            this.qty = qty;
-            this.paymentType = paymentType;
-            this.endAt = endAt;
-            this.price = price;
-            this.comment = comment;
-       }
+        private Board board;
+        private List<Tag> tagList;
+
+        public BoardUpdateRespDTO(Board board, List<Tag> tagList) {
+            this.board = board;
+            this.tagList = tagList;
+        }
     }
 }
 

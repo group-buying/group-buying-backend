@@ -39,6 +39,8 @@ public class MainResp {
         private String town;
         private int price;
         private int qty;
+        private double latitude;
+        private double longtitude;
         private String paymentType;
         private boolean recommend;
         private LocalDateTime endAt;
@@ -51,6 +53,8 @@ public class MainResp {
             this.town = board.getTown();
             this.price = board.getEvent().getPrice();
             this.qty = board.getEvent().getQty();
+            this.latitude = board.getEvent().getLatitude();
+            this.longtitude = board.getEvent().getLongtitude();
             this.paymentType = board.getEvent().getPaymentType();
             this.recommend = board.isRecommend();
             this.endAt = board.getEvent().getEndAt();

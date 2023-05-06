@@ -159,19 +159,27 @@ public class BoardService {
             List<String> tagList = new ArrayList<>();
 
             tagRepository.deleteAllByBoardId(boardUpdateReqDTO.getId());
-            for (String comment : boardUpdateReqDTO.getComment()) {
-                if (comment == null) {
-                    break;
+            List<String> commentList = boardUpdateReqDTO.getComment();
+            if (commentList != null) { // null 체크
+                for (String comment : commentList) {
+                    if (comment == null || comment.trim().isEmpty()) { // null 값 또는 빈 문자열인 경우 스킵
+                        continue;
+                    }
+                    Tag tag = Tag.builder()
+                            .boardId(boardPS.getId())
+                            .comment(comment)
+                            .createdAt(LocalDateTime.now())
+                            .build();
+                    tagRepository.save(tag);
+                    tagList.add(comment);
                 }
-                Tag tag = Tag.builder().boardId(boardPS.getId()).comment(comment)
-                        .createdAt(LocalDateTime.now()).build();
-                tagRepository.save(tag);
-                tagList.add(comment);
             }
+            List<Tag> tag = tagRepository.findAllByBoardId(boardUpdateReqDTO.getId());
 
-            BoardUpdateRespDTO boardUpdateRespDTO = new BoardUpdateRespDTO();
-            boardUpdateRespDTO.updateRespDTO(boardUpdateReqDTO.getQty(), boardUpdateReqDTO.getPaymentType(),
-                    boardUpdateReqDTO.getEndAt(), boardUpdateReqDTO.getPrice(), tagList);
+            Optional<Board> boardOP2 = boardRepository.findByIdWithAll(boardUpdateReqDTO.getId());
+            Board board = boardOP2.get();
+
+            BoardUpdateRespDTO boardUpdateRespDTO = new BoardUpdateRespDTO(board, tag);
 
             return boardUpdateRespDTO;
         } catch (Exception e) {
