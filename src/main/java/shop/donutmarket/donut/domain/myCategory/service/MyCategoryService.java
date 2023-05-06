@@ -93,4 +93,20 @@ public class MyCategoryService {
             throw new Exception500("카테고리 업데이트 실패 : " + e.getMessage());
         }
     }
+
+    @Transactional
+    public MyCategoryResp.MyCategorySelectRespDTO 나의카테고리보기(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
+        if (userOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 유저입니다");
+        }
+        try {
+            User userPS = userOP.get();
+            List<MyCategory> myCategory = myCategoryRepository.findByUserId(userPS.getId());
+            MyCategoryResp.MyCategorySelectRespDTO myCategorySelectRespDTO = new MyCategoryResp.MyCategorySelectRespDTO(myCategory);
+            return myCategorySelectRespDTO;
+        } catch (Exception e) {
+            throw new Exception500("나의 카테고리 보기 실패 : " + e.getMessage());
+        }
+    }
 }

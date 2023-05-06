@@ -28,16 +28,16 @@ public class MyCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<?> updateCategory(@RequestBody MyCategoryUpdateReqDTO myCategoryUpdateReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> updateCategory(@RequestBody MyCategoryUpdateReqDTO myCategoryUpdateReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails, BindingResult bindingResult) {
         MyCategoryUpdateRespDTO updateRespDTO = myCategoryService.카테고리업데이트(myCategoryUpdateReqDTO, myUserDetails);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(updateRespDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping
-    public ResponseEntity<?> myCategory(@RequestBody MyCategoryUpdateReqDTO myCategoryUpdateReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        MyCategoryUpdateRespDTO updateRespDTO = myCategoryService.카테고리업데이트(myCategoryUpdateReqDTO, myUserDetails);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(updateRespDTO);
+    public ResponseEntity<?> myCategory(@AuthenticationPrincipal MyUserDetails myUserDetails, BindingResult bindingResult) {
+        MyCategoryResp.MyCategorySelectRespDTO myCategorySelectRespDTO  = myCategoryService.나의카테고리보기(myUserDetails);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(myCategorySelectRespDTO);
         return ResponseEntity.ok(responseDTO);
     }
 }
