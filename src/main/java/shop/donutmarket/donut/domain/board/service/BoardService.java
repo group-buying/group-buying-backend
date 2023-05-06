@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import shop.donutmarket.donut.domain.admin.model.Category;
+import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
@@ -24,6 +26,7 @@ import shop.donutmarket.donut.domain.board.repository.BoardRepository;
 import shop.donutmarket.donut.domain.board.repository.EventRepository;
 import shop.donutmarket.donut.domain.board.repository.TagRepository;
 import shop.donutmarket.donut.domain.user.model.User;
+import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
 import shop.donutmarket.donut.global.aws.FileLoad;
 import shop.donutmarket.donut.global.exception.Exception400;
@@ -39,22 +42,36 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final EventRepository eventRepository;
     private final TagRepository tagRepository;
+    private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
     private final FileLoad fileLoad;
 
     @Transactional
     public BoardSaveRespDTO 게시글작성(BoardSaveReqDTO boardSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
+
+        if (userOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 유저입니다");
+        }
+
+        Optional<Category> categoryOP = categoryRepository.findById(boardSaveReqDTO.getCategoryId());
+        if (categoryOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 카테고리입니다");
+        }
+
         try {
             // event 먼저 save
             Event event = boardSaveReqDTO.toEventEntity();
             event = eventRepository.save(event);
-            User user = myUserDetails.getUser();
+            User user = userOP.get();
+            Category category = categoryOP.get();
 
             // image base64화
             String image;
             String imageName;
-            if (boardSaveReqDTO.getImg().isEmpty()) {
+            if (boardSaveReqDTO.getImg() == null) {
                 // 존재하지 않을 경우 s3에 저장된 (카테고리이름) + 디폴트.jpg 사진을 가져옴
-                imageName = boardSaveReqDTO.getCategory().getName()+"디폴트.jpg";
+                imageName = category.getName()+"디폴트.jpg";
                 // 단 티켓/교환권은 "/" 때문에 미적용(s3에는 "티켓교환권디폴트" 라고 되어있음) 수정필요
             } else {
                 // 존재하면 사진 첨가 + s3에 저장
@@ -71,7 +88,7 @@ public class BoardService {
                     throw new Exception500("사진을 처리하는데 실패했습니다.");
                 }
             }
-            Board board = boardRepository.save(boardSaveReqDTO.toBoardEntity(event, imageName, user));
+            Board board = boardRepository.save(boardSaveReqDTO.toBoardEntity(event, category, imageName, user));
 
             // tag save
             List<Tag> tagList = new ArrayList<>();

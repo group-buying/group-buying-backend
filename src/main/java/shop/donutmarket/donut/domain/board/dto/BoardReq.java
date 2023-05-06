@@ -23,10 +23,9 @@ public class BoardReq {
     public static class BoardSaveReqDTO {
         // board
         @NotNull(message = "카테고리를 선택해주세요.")
-        private Category category;
+        private Long categoryId;
         @NotBlank(message = "제목을 입력해주세요.")
         private String title;
-        private User organizer;
         @NotBlank(message = "내용을 입력해주세요.")
         private String content;
         private String img;
@@ -52,7 +51,7 @@ public class BoardReq {
         // tag
         private List<String> comment;
 
-        public Board toBoardEntity(Event event, String Base64img, User organizer){
+        public Board toBoardEntity(Event event, Category category, String Base64img, User organizer){
             return Board.builder().category(category).title(title).organizer(organizer).content(content).img(Base64img)
             .event(event).views(0).recommend(false).state(state).city(city).town(town).createdAt(LocalDateTime.now()).build();
         }
