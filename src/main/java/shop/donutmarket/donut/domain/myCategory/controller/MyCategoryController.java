@@ -3,10 +3,7 @@ package shop.donutmarket.donut.domain.myCategory.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryReq.MyCategoryUpdateReqDTO;
@@ -36,5 +33,11 @@ public class MyCategoryController {
         ResponseDTO<?> responseDTO = new ResponseDTO<>(updateRespDTO);
         return ResponseEntity.ok(responseDTO);
     }
-    
+
+    @GetMapping
+    public ResponseEntity<?> updateCategory(@RequestBody MyCategoryUpdateReqDTO myCategoryUpdateReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        MyCategoryUpdateRespDTO updateRespDTO = myCategoryService.카테고리업데이트(myCategoryUpdateReqDTO, myUserDetails);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(updateRespDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
 }
