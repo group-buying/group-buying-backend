@@ -71,7 +71,7 @@ public class BoardService {
             String imageName;
             if (boardSaveReqDTO.getImg() == null) {
                 // 존재하지 않을 경우 s3에 저장된 (카테고리이름) + 디폴트.jpg 사진을 가져옴
-                imageName = category.getName()+"디폴트.jpg";
+                imageName = category.getName() + "디폴트.jpg";
                 // 단 티켓/교환권은 "/" 때문에 미적용(s3에는 "티켓교환권디폴트" 라고 되어있음) 수정필요
             } else {
                 // 존재하면 사진 첨가 + s3에 저장
@@ -84,7 +84,7 @@ public class BoardService {
 
                 // 로컬에 남기에 삭제
                 File img = new File(image);
-                if(!(img.delete())){
+                if (!(img.delete())) {
                     throw new Exception500("사진을 처리하는데 실패했습니다.");
                 }
             }
@@ -153,7 +153,7 @@ public class BoardService {
         try {
             boardPS.getEvent().updateEvent(
                     boardUpdateReqDTO.getQty(), boardUpdateReqDTO.getPaymentType(),
-                    boardUpdateReqDTO.getEndAt()
+                    boardUpdateReqDTO.getEndAt(), boardUpdateReqDTO.getPrice()
             );
 
             List<String> tagList = new ArrayList<>();

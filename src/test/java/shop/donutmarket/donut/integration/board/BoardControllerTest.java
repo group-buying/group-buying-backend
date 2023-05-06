@@ -70,6 +70,7 @@ public class BoardControllerTest extends MyRestDocs {
 
     @BeforeEach
     public void setUp() {
+        boardRepository.deleteAll();
 
         Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
         rateRepository.save(rate);
@@ -183,12 +184,10 @@ public class BoardControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-//        resultActions.andExpect(jsonPath("$.data.board.category.name").value("편의점"));
-//        resultActions.andExpect(jsonPath("$.data.board.title").value("제목"));
-//        resultActions.andExpect(jsonPath("$.data.board.organizer.name").value("쌀"));
-//        resultActions.andExpect(jsonPath("$.data.board.event.paymentType").value("직거래"));
-//        resultActions.andExpect(status().isOk());
-//        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andExpect(jsonPath("$.data.board.event.qty").value(10));
+        resultActions.andExpect(jsonPath("$.data.board.event.price").value(10000));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("게시글 삭제하기")
