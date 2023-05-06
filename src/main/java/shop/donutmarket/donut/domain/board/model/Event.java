@@ -44,9 +44,10 @@ public class Event {
         this.createdAt = createdAt;
     }
 
-    public void updateEvent(int qty, String paymentType, LocalDateTime endAt) {
+    public void updateEvent(int qty, String paymentType, LocalDateTime endAt, int price) {
         this.qty = qty;
         this.paymentType = paymentType;
         this.endAt = endAt;
+        this.price = price;
     }
 }
