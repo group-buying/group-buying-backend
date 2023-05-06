@@ -73,6 +73,13 @@ include::{snippets}/{board}/delete_test/http-request.adoc[]
 ===== Response Example
 include::{snippets}/{board}/delete_test/http-response.adoc[]
 
+=== 4. 게시글 수정하기
+===== Request Example
+include::{snippets}/{board}/update_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{board}/update_test/http-response.adoc[]
+
 == 참가 API
 === 1. 참가하기
 ===== Request Example
@@ -191,6 +198,13 @@ include::{snippets}/{my-location}/update_test/http-request.adoc[]
 
 ===== Response Example
 include::{snippets}/{my-location}/update_test/http-response.adoc[]
+
+=== 3. 나의 지역 보기
+===== Request Example
+include::{snippets}/{my-location}/select_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-location}/select_test/http-response.adoc[]
 
 == 마이페이지 API
 === 1. 나의 게시글

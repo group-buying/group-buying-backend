@@ -34,8 +34,7 @@ import shop.donutmarket.donut.global.dummy.DummyEntity;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -133,6 +132,27 @@ public class MyLocationControllerTest extends MyRestDocs {
         resultActions.andExpect(jsonPath("$.data.state").value("부산광역시"));
         resultActions.andExpect(jsonPath("$.data.city").value("해운대구"));
         resultActions.andExpect(jsonPath("$.data.town").value("반송1동"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("나의 지역 보기")
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void select_test() throws Exception {
+        // given
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(get("/myLocations"));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+        resultActions.andExpect(jsonPath("$.data.myLocation.state").value("창원시"));
+        resultActions.andExpect(jsonPath("$.data.myLocation.city").value("성산구"));
+        resultActions.andExpect(jsonPath("$.data.myLocation.town").value("남양동"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
