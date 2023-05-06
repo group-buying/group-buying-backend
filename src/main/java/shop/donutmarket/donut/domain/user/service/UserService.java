@@ -1,5 +1,7 @@
 package shop.donutmarket.donut.domain.user.service;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -127,5 +129,24 @@ public class UserService {
         } catch (Exception e) {
             throw new Exception500("회원수정 데이터 반환 실패 : " + e.getMessage());
         }
+    }
+
+    @Transactional
+    public UserResp.JwtUserDTO JWT확인(HttpServletRequest request) {
+        String jwtToken = request.getHeader("Authorization");
+
+        if (jwtToken == null) {
+            throw new Exception404("토큰이 헤더에 없습니다");
+        }
+
+        System.out.println("토큰이 헤더에 있습니다");
+
+        jwtToken = jwtToken.replace(MyJwtProvider.TOKEN_PREFIX, "");
+        DecodedJWT decodeJwt = MyJwtProvider.verify(jwtToken);
+        Long userId = decodeJwt.getClaim("id").asLong();
+
+        User userEntity = userRepository.findByIdJoinFetch(userId).orElseThrow(() -> new Exception500("토큰 검증 실패"));
+        UserResp.JwtUserDTO jwtUserDTO = new UserResp.JwtUserDTO(userEntity);
+        return jwtUserDTO;
     }
 }

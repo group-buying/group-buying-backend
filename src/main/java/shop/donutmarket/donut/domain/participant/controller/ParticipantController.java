@@ -23,6 +23,7 @@ import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.Participant
 import shop.donutmarket.donut.domain.participant.dto.ParticipantResp.ParticipantSelectRespDTO;
 import shop.donutmarket.donut.domain.participant.service.ParticipantService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 @RestController
 @RequiredArgsConstructor

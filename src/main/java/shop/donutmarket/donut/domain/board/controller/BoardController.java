@@ -25,7 +25,7 @@ import shop.donutmarket.donut.domain.board.model.Board;
 import shop.donutmarket.donut.domain.board.service.BoardService;
 import shop.donutmarket.donut.domain.board.service.TagService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
-
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 
 @RestController

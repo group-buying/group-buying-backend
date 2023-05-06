@@ -14,6 +14,7 @@ import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryResp;
 import shop.donutmarket.donut.domain.myCategory.dto.MyCategoryResp.MyCategoryUpdateRespDTO;
 import shop.donutmarket.donut.domain.myCategory.service.MyCategoryService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 @RestController
 @RequiredArgsConstructor

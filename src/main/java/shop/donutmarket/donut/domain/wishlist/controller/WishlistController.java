@@ -18,6 +18,7 @@ import shop.donutmarket.donut.domain.wishlist.dto.WishlistResp.MyWishListRespDTO
 import shop.donutmarket.donut.domain.wishlist.dto.WishlistResp.WishListSaveRespDTO;
 import shop.donutmarket.donut.domain.wishlist.service.WishlistService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 
 @RestController
