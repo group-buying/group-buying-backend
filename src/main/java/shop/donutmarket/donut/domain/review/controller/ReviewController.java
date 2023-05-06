@@ -14,6 +14,7 @@ import shop.donutmarket.donut.domain.review.dto.ReviewReq.ReviewSaveReqDTO;
 import shop.donutmarket.donut.domain.review.dto.ReviewResp.ReviewSaveRespDTO;
 import shop.donutmarket.donut.domain.review.service.ReviewService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 @RestController
 @RequiredArgsConstructor

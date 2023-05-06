@@ -16,6 +16,7 @@ import shop.donutmarket.donut.domain.myLocation.dto.MyLocationResp.DefaultMyLoca
 import shop.donutmarket.donut.domain.myLocation.dto.MyLocationResp.MyLocationSaveRespDTO;
 import shop.donutmarket.donut.domain.myLocation.service.MyLocationService;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.dto.ResponseDTO;
 
 
 @RestController

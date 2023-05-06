@@ -42,4 +42,14 @@ public class UserResp {
             this.user = user;
         }
     }
+
+    @Getter
+    @Setter
+    public static class JwtUserDTO {
+        private User user;
+
+        public JwtUserDTO(User user) {
+            this.user = user;
+        }
+    }
 }

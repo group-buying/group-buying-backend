@@ -29,19 +29,10 @@ public class MainResp {
                 .collect(Collectors.toList());
     }
 
-    public MainResp(List<MyCategory> myCategories,
-                    List<Board> boards) {
-        this.myCategories = myCategories
-                .stream().map(myCategory -> new MyCategoryDTO(myCategory))
-                .collect(Collectors.toList());
-        this.boards = boards
-                .stream().map((board -> new BoardDTO(board)))
-                .collect(Collectors.toList());
-    }
-
     @Getter
     @Setter
     public static class BoardDTO {
+        private Long id;
         private String title;
         private String state;
         private String city;
@@ -53,6 +44,7 @@ public class MainResp {
         private LocalDateTime endAt;
 
         public BoardDTO(Board board) {
+            this.id = board.getId();
             this.title = board.getTitle();
             this.state = board.getState();
             this.city = board.getCity();

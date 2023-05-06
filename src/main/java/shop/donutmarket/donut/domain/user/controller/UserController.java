@@ -46,7 +46,8 @@ public class UserController {
     }
 
     @PutMapping("/users/update")
-    public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails, BindingResult bindingResult, @RequestBody @Valid UserReq.UpdateDTO updateDTO) {
+    public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails,
+                                    @RequestBody @Valid UserReq.UpdateDTO updateDTO, BindingResult bindingResult) {
         UserResp.UpdateDTO resp = userService.회원수정(myUserDetails, updateDTO);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(resp);
         return ResponseEntity.ok(responseDTO);
@@ -54,16 +55,8 @@ public class UserController {
 
     @GetMapping("/jwtToken")
     public ResponseEntity<?> jwtToken(HttpServletRequest request) {
-        String jwtToken = request.getHeader("Authorization");
-        if (jwtToken == null) {
-            throw new Exception404("토큰이 헤더에 없습니다");
-        }
-        System.out.println("토큰이 헤더에 있습니다");
-        jwtToken = jwtToken.replace(MyJwtProvider.TOKEN_PREFIX, "");
-        DecodedJWT decodeJwt = MyJwtProvider.verify(jwtToken);
-        Long userId = decodeJwt.getClaim("id").asLong();
-        User userEntity = userRepository.findByIdJoinFetch(userId).orElseThrow(() -> new Exception500("토큰 검증 실패"));
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(userEntity);
+        UserResp.JwtUserDTO resp = userService.JWT확인(request);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(resp);
         return ResponseEntity.ok(responseDTO);
     }
 }
