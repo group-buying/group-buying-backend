@@ -69,8 +69,8 @@ public class MyLocationControllerTest extends MyRestDocs {
 
         Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
         rateRepository.save(rate);
-        userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
-        userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
+        userRepository.save(dummy.newUser("ssar@naver.com", rate));
+        userRepository.save(dummy.newUser("cos@naver.com", rate));
 
         // 내 지역 dummy 생성
         Optional<User> userOP = userRepository.findById(1L);

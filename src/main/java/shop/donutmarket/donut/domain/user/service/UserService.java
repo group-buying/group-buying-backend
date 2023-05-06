@@ -109,7 +109,7 @@ public class UserService {
             // 회원 수정
             User userPS = userOP.get();
             LocalDateTime localDateTime = LocalDateTime.now();
-            userPS.updateUser(updateDTO.getPassword(), updateDTO.getName(), updateDTO.getProfile(), localDateTime);
+            userPS.updateUser(updateDTO.getPassword(), updateDTO.getProfile(), localDateTime);
 
         } catch (Exception e) {
             throw new Exception500("회원수정 실패 : " + e.getMessage());
@@ -124,7 +124,7 @@ public class UserService {
 
         try {
             User user = data.get();
-            UserResp.UpdateDTO resp = new UserResp.UpdateDTO(user.getUsername(), user.getEmail(), user.getName(), user.getProfile(), user.getRole());
+            UserResp.UpdateDTO resp = new UserResp.UpdateDTO(user.getUsername(), user.getEmail(), user.getProfile(), user.getRole());
             return resp;
         } catch (Exception e) {
             throw new Exception500("회원수정 데이터 반환 실패 : " + e.getMessage());

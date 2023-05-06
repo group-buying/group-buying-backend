@@ -3,15 +3,12 @@ package shop.donutmarket.donut.domain.myLocation.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.myLocation.dto.MyLocationReq.MyLocationSaveReqDTO;
+import shop.donutmarket.donut.domain.myLocation.dto.MyLocationResp;
 import shop.donutmarket.donut.domain.myLocation.dto.MyLocationResp.DefaultMyLocationRespDTO;
 import shop.donutmarket.donut.domain.myLocation.dto.MyLocationResp.MyLocationSaveRespDTO;
 import shop.donutmarket.donut.domain.myLocation.service.MyLocationService;
@@ -34,10 +31,16 @@ public class MyLocationController {
     }
 
     @PutMapping
-    public ResponseEntity<?> save(@RequestBody @Valid MyLocationSaveReqDTO myLocationSaveReqDTO, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> save(@RequestBody @Valid MyLocationSaveReqDTO myLocationSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails, BindingResult bindingResult) {
         MyLocationSaveRespDTO saveRespDTO = myLocationService.내지역변경(myLocationSaveReqDTO, myUserDetails);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(saveRespDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
+    @GetMapping
+    public ResponseEntity<?> myLocation(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        MyLocationResp.MyLocationSelectRespDTO myLocationSelectRespDTO = myLocationService.내지역보기(myUserDetails);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(myLocationSelectRespDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
 }

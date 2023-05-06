@@ -74,8 +74,8 @@ public class ReportControllerTest extends MyRestDocs {
     public void setUp() {
         Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
         rateRepository.save(rate);
-        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
-        User user2 = userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
+        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", rate));
+        User user2 = userRepository.save(dummy.newUser("cos@naver.com", rate));
 
         // 신고를 위한 dummy 생성
 

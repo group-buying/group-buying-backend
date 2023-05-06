@@ -59,7 +59,6 @@ public class OauthControllerTest extends MyRestDocs {
                 .provider("naver")
                 .providerId("1")
                 .password(passwordEncoder.encode("1234"))
-                .name("쌀")
                 .email("ssar@naver.com")
                 .role("ROLE_USER")
                 .profile("사진")

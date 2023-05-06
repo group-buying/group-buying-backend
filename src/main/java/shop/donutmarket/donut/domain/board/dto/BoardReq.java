@@ -71,12 +71,9 @@ public class BoardReq {
         @NotNull(message = "게시글ID를 입력해주세요.")
         private Long id;
         //event
-        @NotNull(message = "수량을 입력해주세요.")
         private int qty;
-        @NotBlank(message = "결제 방식을 선택해주세요.")
         private String paymentType;
         private LocalDateTime endAt;
-        @NotNull(message = "가격을 입력해주세요.")
         private int price;
         // tag
         private List<String> comment;

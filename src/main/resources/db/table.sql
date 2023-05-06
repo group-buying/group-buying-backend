@@ -5,7 +5,6 @@ CREATE TABLE user_tb
     nickname    varchar(255),
     email       varchar(255) NOT NULL,
     password    text         NOT NULL,
-    name        varchar(255),
     profile     text,
     rate_id     Bigint       DEFAULT '1',
     rate_point  int          DEFAULT '20',

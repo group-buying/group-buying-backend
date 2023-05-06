@@ -80,8 +80,8 @@ public class MainControllerTest extends MyRestDocs {
     public void setUp() {
         Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
         rateRepository.save(rate);
-        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", "쌀", rate));
-        User user2 = userRepository.save(dummy.newUser("cos@naver.com", "쌀", rate));
+        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", rate));
+        User user2 = userRepository.save(dummy.newUser("cos@naver.com", rate));
 
         // 카테고리 객체
         Category category = Category.builder().name("생활가전").createdAt(LocalDateTime.now()).build();

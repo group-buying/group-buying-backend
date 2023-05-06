@@ -72,7 +72,7 @@ public class UserRepositoryTest {
     void save_Test() {
         // given
         Rate rate = Rate.builder().build();
-        User user = User.builder().password("1234").email("cos@cos").name("cos").rate(rate).role("user").createdAt(LocalDateTime.now()).build();
+        User user = User.builder().password("1234").email("cos@cos").rate(rate).role("user").createdAt(LocalDateTime.now()).build();
 
         // when
         userRepository.save(user);
@@ -80,7 +80,6 @@ public class UserRepositoryTest {
         // then
         assertNotNull(user);
         assertEquals(user.getId(), 2L);
-        assertEquals(user.getName(), "cos");
     }
 
     @Test
@@ -109,16 +108,16 @@ public class UserRepositoryTest {
         LocalDateTime time = LocalDateTime.now();
 
         // when
-        user.updateUser("3456", "홍길동", "프로필", time);
+        user.updateUser("3456","프로필", time);
         tem.persistAndFlush(user);
 
         // then
-        assertEquals(user.getName(), "홍길동");
+        assertEquals(user.getProfile(), "프로필");
     }
 
     private void dataSetting() {
         Rate rate = Rate.builder().build();
-        User user = User.builder().password("1234").email("ssar@ssar").name("ssar").rate(rate).role("user").createdAt(LocalDateTime.now()).build();
+        User user = User.builder().password("1234").email("ssar@ssar").rate(rate).role("user").createdAt(LocalDateTime.now()).build();
         userRepository.save(user);
     }
 
