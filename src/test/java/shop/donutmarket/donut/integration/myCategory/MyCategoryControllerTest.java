@@ -28,6 +28,7 @@ import shop.donutmarket.donut.domain.myCategory.model.MyCategory;
 import shop.donutmarket.donut.domain.myCategory.repository.MyCategoryRepository;
 import shop.donutmarket.donut.domain.review.model.Rate;
 import shop.donutmarket.donut.domain.review.repository.RateRepository;
+import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.dummy.DummyEntity;
 
@@ -35,6 +36,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -68,7 +70,7 @@ public class MyCategoryControllerTest extends MyRestDocs {
     public void setUp() {
         Rate rate = Rate.builder().rateName("글레이즈드").createdAt(LocalDateTime.now()).build();
         rateRepository.save(rate);
-        userRepository.save(dummy.newUser("ssar@naver.com", rate));
+        User user1 = userRepository.save(dummy.newUser("ssar@naver.com", rate));
         userRepository.save(dummy.newUser("cos@naver.com", rate));
 
         // 디폴트 카테고리 dummy 생성
@@ -101,6 +103,9 @@ public class MyCategoryControllerTest extends MyRestDocs {
         categoryRepository.save(category12);
         categoryRepository.save(category13);
         categoryRepository.save(category14);
+
+        MyCategory myCategory = MyCategory.builder().user(user1).category(category1).createdAt(LocalDateTime.now()).build();
+        myCategoryRepository.save(myCategory);
 
         em.clear();
     }
@@ -156,6 +161,27 @@ public class MyCategoryControllerTest extends MyRestDocs {
         // then
         resultActions.andExpect(jsonPath("$.data.list").isArray());
         resultActions.andExpect(jsonPath("$.data.list[0].name").value("생활가전"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("나의 카테고리 보기")
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void select_test() throws Exception {
+        // given
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(get("/myCategories"));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+        resultActions.andExpect(jsonPath("$.data.list").isArray());
+        resultActions.andExpect(jsonPath("$.data.list[0].user.email").value("ssar@naver.com"));
+        resultActions.andExpect(jsonPath("$.data.list[0].category.name").value("생활가전"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
