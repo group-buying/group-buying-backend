@@ -15,7 +15,7 @@ public interface MyCategoryRepository extends JpaRepository<MyCategory, Long>{
     @Query("Delete from MyCategory m where m.user.id = :userId")
     void deleteAllByUserId(@Param("userId") Long userId);
 
-    @Query("select m from MyCategory m where m.user.id = :userId")
+    @Query("select m from MyCategory m left join fetch m.user u left join fetch m.category c left join fetch u.rate where m.user.id = :userId")
     List<MyCategory> findByUserId(@Param("userId") Long userId);
 
 }
