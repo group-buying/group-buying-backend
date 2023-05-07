@@ -463,6 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_1_게시글_등록하기">1. 게시글 등록하기</a></li>
 <li><a href="#_2_게시글_상세보기">2. 게시글 상세보기</a></li>
 <li><a href="#_3_게시글_삭제하기">3. 게시글 삭제하기</a></li>
+<li><a href="#_4_게시글_수정하기">4. 게시글 수정하기</a></li>
 </ul>
 </li>
 <li><a href="#_참가_api">참가 API</a>
@@ -501,12 +502,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_1_디폴트_카테고리">1. 디폴트 카테고리</a></li>
 <li><a href="#_2_카테고리_업데이트">2. 카테고리 업데이트</a></li>
+<li><a href="#_3_나의_카테고리_보기">3. 나의 카테고리 보기</a></li>
 </ul>
 </li>
 <li><a href="#_나의_지역_api">나의 지역 API</a>
 <ul class="sectlevel2">
 <li><a href="#_1_디폴트_지역">1. 디폴트 지역</a></li>
 <li><a href="#_2_지역_업데이트">2. 지역 업데이트</a></li>
+<li><a href="#_3_나의_지역_보기">3. 나의 지역 보기</a></li>
 </ul>
 </li>
 <li><a href="#_마이페이지_api">마이페이지 API</a>
@@ -565,7 +568,7 @@ Host: localhost:8080
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJyb2xlIjpudWxsLCJpZCI6MiwiZXhwIjoxNjgzMzU1MzQzfQ._k1TAtD6YdWTLibDg1-zWAI3xhSSC8RESDCnkjguFqXRy9ILsVo-HyMZB8xdfs73j3-_fmUfn7px2G-AFgoCxw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJyb2xlIjpudWxsLCJpZCI6MiwiZXhwIjoxNjgzMzYwMzI2fQ.Y-NTezTxRT7E5xMQBtOQs_trOvmNvrqmpzhjsqpZ8Fp3cDA6Gw_OCFzSST3DveubdolVy5L5RBiwiBJ8Pssu2Q
 Content-Type: application/json;charset=UTF-8
 X-Content-Type-Options: nosniff
 X-XSS-Protection: 0
@@ -587,14 +590,14 @@ Content-Length: 551
       "rate" : {
         "id" : 1,
         "rateName" : "글레이즈드",
-        "createdAt" : "2023-05-06T14:42:16.137693"
+        "createdAt" : "2023-05-06T16:05:26.343089"
       },
       "ratePoint" : null,
       "role" : null,
       "provider" : null,
       "providerId" : null,
       "statusCode" : null,
-      "createdAt" : "2023-05-06T14:42:23.7472553"
+      "createdAt" : "2023-05-06T16:05:26.5063918"
     }
   }
 }</code></pre>
@@ -628,14 +631,14 @@ Host: localhost:8080
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjEsImV4cCI6MTY4MzM1NTM0M30.vqrTiJS1Ydy3sTVgs2vknr9iYDCDm9oDmHnACqG-i7mlmdALK9p9a0ptAZ_l2dF6bZjED3YRFwlPcQPNOckJNA
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjEsImV4cCI6MTY4MzM2MDMyNn0.zdeVtjx6RYkZ9x_12sBfjeTmlSDvQG95FNu-Hsnuz-b5FY2ziBh7vI6sX93AeR_ma2-HqkJK8pASW-gPpDOEVw
 Content-Type: application/json;charset=UTF-8
 X-Content-Type-Options: nosniff
 X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 558
+Content-Length: 557
 
 {
   "status" : 200,
@@ -648,16 +651,16 @@ Content-Length: 558
       "email" : "ssar@naver.com",
       "profile" : "사진",
       "rate" : {
-        "id" : 29,
+        "id" : 1,
         "rateName" : "글레이즈드",
-        "createdAt" : "2023-05-06T14:42:23.217204"
+        "createdAt" : "2023-05-06T16:05:25.992838"
       },
       "ratePoint" : 20,
       "role" : "ROLE_USER",
       "provider" : null,
       "providerId" : null,
       "statusCode" : null,
-      "createdAt" : "2023-05-06T14:42:23.310399"
+      "createdAt" : "2023-05-06T16:05:26.078974"
     }
   }
 }</code></pre>
@@ -743,7 +746,7 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 1924
+Content-Length: 523
 
 {
   "status" : 200,
@@ -755,58 +758,6 @@ Content-Length: 1924
     },
     "boards" : [ {
       "id" : 1,
-      "title" : "제목1",
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "price" : 1000,
-      "qty" : 10,
-      "latitude" : 111.111,
-      "longtitude" : 222.222,
-      "paymentType" : null,
-      "recommend" : false,
-      "endAt" : null
-    }, {
-      "id" : 2,
-      "title" : "제목1",
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "price" : 1000,
-      "qty" : 1,
-      "latitude" : 111.111,
-      "longtitude" : 222.222,
-      "paymentType" : "직거래",
-      "recommend" : false,
-      "endAt" : "2023-05-02T13:30:00"
-    }, {
-      "id" : 3,
-      "title" : "제목1",
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "price" : 1000,
-      "qty" : 1,
-      "latitude" : 111.111,
-      "longtitude" : 222.222,
-      "paymentType" : "직거래",
-      "recommend" : false,
-      "endAt" : "2023-05-02T13:30:00"
-    }, {
-      "id" : 4,
-      "title" : "제목1",
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "price" : 1000,
-      "qty" : 1,
-      "latitude" : 111.111,
-      "longtitude" : 222.222,
-      "paymentType" : "직거래",
-      "recommend" : false,
-      "endAt" : "2023-05-02T13:30:00"
-    }, {
-      "id" : 6,
       "title" : "제목1",
       "state" : "부산광역시",
       "city" : "부산진구",
@@ -874,18 +825,18 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 1725
+Content-Length: 1723
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
     "board" : {
-      "id" : 5,
+      "id" : 2,
       "category" : {
         "id" : 1,
         "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:18.028265"
+        "createdAt" : "2023-05-06T16:05:21.27097"
       },
       "title" : "제목",
       "organizer" : {
@@ -895,29 +846,29 @@ Content-Length: 1725
         "email" : "ssar@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 10,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:18.568835"
+          "createdAt" : "2023-05-06T16:05:21.095409"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:18.647224"
+        "createdAt" : "2023-05-06T16:05:21.199261"
       },
       "content" : "내용",
       "img" : "생활가전디폴트.jpg",
       "event" : {
-        "id" : 5,
+        "id" : 2,
         "latitude" : 111.222,
         "longtitude" : 222.333,
         "qty" : 3,
         "paymentType" : "직거래",
-        "startAt" : "2023-05-06T14:42:18.7588383",
+        "startAt" : "2023-05-06T16:05:21.2944959",
         "endAt" : "2023-05-02T13:30:00",
         "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:18.7598346"
+        "createdAt" : "2023-05-06T16:05:21.2944959"
       },
       "statusCode" : null,
       "views" : 0,
@@ -925,18 +876,18 @@ Content-Length: 1725
       "state" : "부산광역시",
       "city" : "부산진구",
       "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:18.7611921"
+      "createdAt" : "2023-05-06T16:05:21.2962364"
     },
     "tagList" : [ {
       "id" : 1,
-      "boardId" : 5,
+      "boardId" : 2,
       "comment" : "댓글1",
-      "createdAt" : "2023-05-06T14:42:18.7625771"
+      "createdAt" : "2023-05-06T16:05:21.2972429"
     }, {
       "id" : 2,
-      "boardId" : 5,
+      "boardId" : 2,
       "comment" : "댓글2",
-      "createdAt" : "2023-05-06T14:42:18.7635708"
+      "createdAt" : "2023-05-06T16:05:21.2982366"
     } ]
   }
 }</code></pre>
@@ -969,7 +920,7 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 1432
+Content-Length: 1433
 
 {
   "status" : 200,
@@ -980,7 +931,7 @@ Content-Length: 1432
       "category" : {
         "id" : 1,
         "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:18.028265"
+        "createdAt" : "2023-05-06T16:05:20.579116"
       },
       "title" : "제목1",
       "organizer" : {
@@ -990,16 +941,16 @@ Content-Length: 1432
         "email" : "ssar@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 7,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:17.87045"
+          "createdAt" : "2023-05-06T16:05:20.389063"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:17.949273"
+        "createdAt" : "2023-05-06T16:05:20.464897"
       },
       "content" : "내용1",
       "img" : null,
@@ -1012,7 +963,7 @@ Content-Length: 1432
         "startAt" : "2023-05-01T13:30:00",
         "endAt" : "2023-05-02T13:30:00",
         "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:18.030261"
+        "createdAt" : "2023-05-06T16:05:20.583102"
       },
       "statusCode" : 200,
       "views" : 0,
@@ -1020,7 +971,7 @@ Content-Length: 1432
       "state" : "부산광역시",
       "city" : "부산진구",
       "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:18.032254"
+      "createdAt" : "2023-05-06T16:05:20.585095"
     },
     "tagList" : [ ]
   }
@@ -1071,27 +1022,24 @@ Content-Length: 82
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_참가_api">참가 API</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_1_참가하기">1. 참가하기</h3>
+<h3 id="_4_게시글_수정하기">4. 게시글 수정하기</h3>
 <div class="sect4">
 <h5 id="_request_example_8">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /participants HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /boards HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 93
+Content-Length: 116
 Host: localhost:8080
 
 {
-  "eventId" : 1,
-  "userId" : 1,
+  "id" : 1,
   "qty" : 10,
-  "limitTime" : "2023-05-01T13:30:00"
+  "paymentType" : null,
+  "endAt" : null,
+  "price" : 10000,
+  "comment" : null
 }</code></pre>
 </div>
 </div>
@@ -1110,14 +1058,40 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 1094
+Content-Length: 1411
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "participant" : {
-      "id" : 5,
+    "board" : {
+      "id" : 1,
+      "category" : {
+        "id" : 1,
+        "name" : "생활가전",
+        "createdAt" : "2023-05-06T16:05:21.03053"
+      },
+      "title" : "제목1",
+      "organizer" : {
+        "id" : 1,
+        "username" : "ssar@naver.com",
+        "nickname" : null,
+        "email" : "ssar@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:20.87539"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:20.948553"
+      },
+      "content" : "내용1",
+      "img" : null,
       "event" : {
         "id" : 1,
         "latitude" : 111.111,
@@ -1126,52 +1100,45 @@ Content-Length: 1094
         "paymentType" : null,
         "startAt" : "2023-05-01T13:30:00",
         "endAt" : null,
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:18.030261"
+        "price" : 10000,
+        "createdAt" : "2023-05-06T16:05:21.033208"
       },
-      "user" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 24,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.982518"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:22.068739"
-      },
-      "qty" : 10,
-      "limitTime" : "2023-05-01T13:30:00",
-      "statusCode" : null,
-      "createdAt" : "2023-05-06T14:42:22.1802177"
-    }
+      "statusCode" : 200,
+      "views" : 100,
+      "recommend" : false,
+      "state" : "부산광역시",
+      "city" : "부산진구",
+      "town" : "부전동",
+      "createdAt" : "2023-05-06T16:05:21.034655"
+    },
+    "tagList" : [ ]
   }
 }</code></pre>
 </div>
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_참가_api">참가 API</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_2_채택하기">2. 채택하기</h3>
+<h3 id="_1_참가하기">1. 참가하기</h3>
 <div class="sect4">
 <h5 id="_request_example_9">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /participants/select HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /participants HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 45
+Content-Length: 93
 Host: localhost:8080
 
 {
-  "participantId" : 1,
-  "eventId" : 1
+  "eventId" : 1,
+  "userId" : 1,
+  "qty" : 10,
+  "limitTime" : "2023-05-01T13:30:00"
 }</code></pre>
 </div>
 </div>
@@ -1190,16 +1157,16 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 1113
+Content-Length: 1115
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
     "participant" : {
-      "id" : 1,
+      "id" : 2,
       "event" : {
-        "id" : 12,
+        "id" : 1,
         "latitude" : 111.111,
         "longtitude" : 222.222,
         "qty" : 1,
@@ -1207,30 +1174,30 @@ Content-Length: 1113
         "startAt" : "2023-05-01T13:30:00",
         "endAt" : "2023-05-02T13:30:00",
         "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:21.511316"
+        "createdAt" : "2023-05-06T16:05:24.946711"
       },
       "user" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
+        "id" : 1,
+        "username" : "ssar@naver.com",
         "nickname" : null,
-        "email" : "cos@naver.com",
+        "email" : "ssar@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 25,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:22.207302"
+          "createdAt" : "2023-05-06T16:05:24.757083"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:22.380654"
+        "createdAt" : "2023-05-06T16:05:24.84273"
       },
-      "qty" : 1,
+      "qty" : 10,
       "limitTime" : "2023-05-01T13:30:00",
-      "statusCode" : 301,
-      "createdAt" : "2023-05-06T14:42:21.512313"
+      "statusCode" : null,
+      "createdAt" : "2023-05-06T16:05:24.9672571"
     }
   }
 }</code></pre>
@@ -1239,12 +1206,12 @@ Content-Length: 1113
 </div>
 </div>
 <div class="sect2">
-<h3 id="_3_취소하기">3. 취소하기</h3>
+<h3 id="_2_채택하기">2. 채택하기</h3>
 <div class="sect4">
 <h5 id="_request_example_10">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /participants/cancel HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /participants/select HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 45
 Host: localhost:8080
@@ -1270,7 +1237,7 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 1113
+Content-Length: 1110
 
 {
   "status" : 200,
@@ -1279,7 +1246,7 @@ Content-Length: 1113
     "participant" : {
       "id" : 1,
       "event" : {
-        "id" : 12,
+        "id" : 1,
         "latitude" : 111.111,
         "longtitude" : 222.222,
         "qty" : 1,
@@ -1287,7 +1254,7 @@ Content-Length: 1113
         "startAt" : "2023-05-01T13:30:00",
         "endAt" : "2023-05-02T13:30:00",
         "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:21.511316"
+        "createdAt" : "2023-05-06T16:05:25.192657"
       },
       "user" : {
         "id" : 2,
@@ -1296,21 +1263,21 @@ Content-Length: 1113
         "email" : "cos@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 21,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.315137"
+          "createdAt" : "2023-05-06T16:05:24.989968"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.510222"
+        "createdAt" : "2023-05-06T16:05:25.19205"
       },
       "qty" : 1,
       "limitTime" : "2023-05-01T13:30:00",
-      "statusCode" : 302,
-      "createdAt" : "2023-05-06T14:42:21.512313"
+      "statusCode" : 301,
+      "createdAt" : "2023-05-06T16:05:25.194599"
     }
   }
 }</code></pre>
@@ -1319,12 +1286,12 @@ Content-Length: 1113
 </div>
 </div>
 <div class="sect2">
-<h3 id="_4_강퇴하기">4. 강퇴하기</h3>
+<h3 id="_3_취소하기">3. 취소하기</h3>
 <div class="sect4">
 <h5 id="_request_example_11">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /participants/drop HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /participants/cancel HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 45
 Host: localhost:8080
@@ -1350,7 +1317,7 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 1113
+Content-Length: 1111
 
 {
   "status" : 200,
@@ -1359,7 +1326,7 @@ Content-Length: 1113
     "participant" : {
       "id" : 1,
       "event" : {
-        "id" : 12,
+        "id" : 1,
         "latitude" : 111.111,
         "longtitude" : 222.222,
         "qty" : 1,
@@ -1367,7 +1334,7 @@ Content-Length: 1113
         "startAt" : "2023-05-01T13:30:00",
         "endAt" : "2023-05-02T13:30:00",
         "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:21.511316"
+        "createdAt" : "2023-05-06T16:05:24.291457"
       },
       "user" : {
         "id" : 2,
@@ -1376,21 +1343,21 @@ Content-Length: 1113
         "email" : "cos@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 23,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.768895"
+          "createdAt" : "2023-05-06T16:05:24.099862"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.938418"
+        "createdAt" : "2023-05-06T16:05:24.288538"
       },
       "qty" : 1,
       "limitTime" : "2023-05-01T13:30:00",
-      "statusCode" : 303,
-      "createdAt" : "2023-05-06T14:42:21.512313"
+      "statusCode" : 302,
+      "createdAt" : "2023-05-06T16:05:24.292454"
     }
   }
 }</code></pre>
@@ -1399,13 +1366,20 @@ Content-Length: 1113
 </div>
 </div>
 <div class="sect2">
-<h3 id="_5_나의_참가_목록">5. 나의 참가 목록</h3>
+<h3 id="_4_강퇴하기">4. 강퇴하기</h3>
 <div class="sect4">
 <h5 id="_request_example_12">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /participants HTTP/1.1
-Host: localhost:8080</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /participants/drop HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 45
+Host: localhost:8080
+
+{
+  "participantId" : 1,
+  "eventId" : 1
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1423,7 +1397,80 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 2145
+Content-Length: 1111
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "data" : {
+    "participant" : {
+      "id" : 1,
+      "event" : {
+        "id" : 1,
+        "latitude" : 111.111,
+        "longtitude" : 222.222,
+        "qty" : 1,
+        "paymentType" : "직거래",
+        "startAt" : "2023-05-01T13:30:00",
+        "endAt" : "2023-05-02T13:30:00",
+        "price" : 1000,
+        "createdAt" : "2023-05-06T16:05:24.715704"
+      },
+      "user" : {
+        "id" : 2,
+        "username" : "cos@naver.com",
+        "nickname" : null,
+        "email" : "cos@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:24.544734"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:24.714093"
+      },
+      "qty" : 1,
+      "limitTime" : "2023-05-01T13:30:00",
+      "statusCode" : 303,
+      "createdAt" : "2023-05-06T16:05:24.718796"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_나의_참가_목록">5. 나의 참가 목록</h3>
+<div class="sect4">
+<h5 id="_request_example_13">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /participants HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_13">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 1115
 
 {
   "status" : 200,
@@ -1432,7 +1479,7 @@ Content-Length: 2145
     "participant" : [ {
       "id" : 1,
       "event" : {
-        "id" : 12,
+        "id" : 1,
         "latitude" : 111.111,
         "longtitude" : 222.222,
         "qty" : 1,
@@ -1440,7 +1487,7 @@ Content-Length: 2145
         "startAt" : "2023-05-01T13:30:00",
         "endAt" : "2023-05-02T13:30:00",
         "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:21.511316"
+        "createdAt" : "2023-05-06T16:05:24.504159"
       },
       "user" : {
         "id" : 2,
@@ -1449,56 +1496,21 @@ Content-Length: 2145
         "email" : "cos@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 22,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.55658"
+          "createdAt" : "2023-05-06T16:05:24.339232"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.730093"
-      },
-      "qty" : 1,
-      "limitTime" : "2023-05-01T13:30:00",
-      "statusCode" : 302,
-      "createdAt" : "2023-05-06T14:42:21.512313"
-    }, {
-      "id" : 2,
-      "event" : {
-        "id" : 13,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:21.732087"
-      },
-      "user" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 22,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.55658"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.730093"
+        "createdAt" : "2023-05-06T16:05:24.503232"
       },
       "qty" : 1,
       "limitTime" : "2023-05-01T13:30:00",
       "statusCode" : 300,
-      "createdAt" : "2023-05-06T14:42:21.732495"
+      "createdAt" : "2023-05-06T16:05:24.506238"
     } ]
   }
 }</code></pre>
@@ -1514,7 +1526,7 @@ Content-Length: 2145
 <div class="sect2">
 <h3 id="_1_계좌_등록">1. 계좌 등록</h3>
 <div class="sect4">
-<h5 id="_request_example_13">Request Example</h5>
+<h5 id="_request_example_14">Request Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /accounts HTTP/1.1
@@ -1530,7 +1542,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect4">
-<h5 id="_response_example_13">Response Example</h5>
+<h5 id="_response_example_14">Response Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1549,7 +1561,7 @@ Content-Length: 158
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "id" : 4,
+    "id" : 2,
     "userId" : 2,
     "brand" : "신한",
     "accountNumber" : "1112223333"
@@ -1562,7 +1574,7 @@ Content-Length: 158
 <div class="sect2">
 <h3 id="_2_계좌_삭제">2. 계좌 삭제</h3>
 <div class="sect4">
-<h5 id="_request_example_14">Request Example</h5>
+<h5 id="_request_example_15">Request Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /accounts HTTP/1.1
@@ -1571,7 +1583,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_response_example_14">Response Example</h5>
+<h5 id="_response_example_15">Response Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1598,7 +1610,7 @@ Content-Length: 79
 <div class="sect2">
 <h3 id="_3_계좌_수정">3. 계좌 수정</h3>
 <div class="sect4">
-<h5 id="_request_example_15">Request Example</h5>
+<h5 id="_request_example_16">Request Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /accounts HTTP/1.1
@@ -1610,47 +1622,6 @@ Host: localhost:8080
   "brand" : "농협",
   "accountNumber" : "1112223333"
 }</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_response_example_15">Response Example</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Vary: Origin
-Vary: Access-Control-Request-Method
-Vary: Access-Control-Request-Headers
-Content-Type: application/json;charset=UTF-8
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 0
-Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 158
-
-{
-  "status" : 200,
-  "msg" : "성공",
-  "data" : {
-    "id" : 2,
-    "userId" : 1,
-    "brand" : "농협",
-    "accountNumber" : "1112223333"
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_4_계좌_조회">4. 계좌 조회</h3>
-<div class="sect4">
-<h5 id="_request_example_16">Request Example</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /accounts HTTP/1.1
-Host: localhost:8080</code></pre>
 </div>
 </div>
 </div>
@@ -1674,37 +1645,24 @@ Content-Length: 158
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "id" : 5,
+    "id" : 1,
     "userId" : 1,
-    "brand" : "하나",
-    "accountNumber" : "2223334444"
+    "brand" : "농협",
+    "accountNumber" : "1112223333"
   }
 }</code></pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_결제_api">결제 API</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_1_결제_데이터_저장">1. 결제 데이터 저장</h3>
+<h3 id="_4_계좌_조회">4. 계좌 조회</h3>
 <div class="sect4">
 <h5 id="_request_example_17">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /payments HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Content-Length: 77
-Host: localhost:8080
-
-{
-  "eventId" : 1,
-  "paymentType" : "직거래",
-  "confirmed" : false
-}</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /accounts HTTP/1.1
+Host: localhost:8080</code></pre>
 </div>
 </div>
 </div>
@@ -1722,49 +1680,16 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 1120
+Content-Length: 158
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "payment" : {
-      "id" : 6,
-      "user" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 26,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:22.456476"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:22.626046"
-      },
-      "event" : {
-        "id" : 1,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 10,
-        "paymentType" : null,
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : null,
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:18.030261"
-      },
-      "paymentInfoId" : null,
-      "paymentType" : "직거래",
-      "statusCode" : null,
-      "confirmed" : false,
-      "createdAt" : "2023-05-06T14:42:22.6379971"
-    }
+    "id" : 1,
+    "userId" : 1,
+    "brand" : "하나",
+    "accountNumber" : "2223334444"
   }
 }</code></pre>
 </div>
@@ -1774,24 +1699,23 @@ Content-Length: 1120
 </div>
 </div>
 <div class="sect1">
-<h2 id="_리뷰_api">리뷰 API</h2>
+<h2 id="_결제_api">결제 API</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_1_리뷰_등록">1. 리뷰 등록</h3>
+<h3 id="_1_결제_데이터_저장">1. 결제 데이터 저장</h3>
 <div class="sect4">
 <h5 id="_request_example_18">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /reviews HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /payments HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 106
+Content-Length: 77
 Host: localhost:8080
 
 {
-  "reviewedUserId" : 1,
-  "boardId" : 1,
-  "score" : 5,
-  "comment" : "좋은 거래였습니다"
+  "eventId" : 1,
+  "paymentType" : "직거래",
+  "confirmed" : false
 }</code></pre>
 </div>
 </div>
@@ -1810,53 +1734,48 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 1293
+Content-Length: 1141
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "review" : {
-      "id" : 6,
-      "reviewer" : {
+    "payment" : {
+      "id" : 1,
+      "user" : {
         "id" : 2,
         "username" : "cos@naver.com",
         "nickname" : null,
         "email" : "cos@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 28,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:22.950122"
+          "createdAt" : "2023-05-06T16:05:25.27294"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:23.149762"
+        "createdAt" : "2023-05-06T16:05:25.430105"
       },
-      "reviewed" : {
+      "event" : {
         "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 28,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:22.950122"
-        },
-        "ratePoint" : 21,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:23.023186"
+        "latitude" : 111.111,
+        "longtitude" : 222.222,
+        "qty" : 1,
+        "paymentType" : "직거래",
+        "startAt" : "2023-05-01T13:30:00",
+        "endAt" : "2023-05-02T13:30:00",
+        "price" : 1000,
+        "createdAt" : "2023-05-06T16:05:25.431028"
       },
-      "score" : 5,
-      "comment" : "좋은 거래였습니다",
-      "createdAt" : "2023-05-06T14:42:23.167288"
+      "paymentInfoId" : null,
+      "paymentType" : "직거래",
+      "statusCode" : null,
+      "confirmed" : false,
+      "createdAt" : "2023-05-06T16:05:25.4413168"
     }
   }
 }</code></pre>
@@ -1867,24 +1786,24 @@ Content-Length: 1293
 </div>
 </div>
 <div class="sect1">
-<h2 id="_신고_api">신고 API</h2>
+<h2 id="_리뷰_api">리뷰 API</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_1_신고하기">1. 신고하기</h3>
+<h3 id="_1_리뷰_등록">1. 리뷰 등록</h3>
 <div class="sect4">
 <h5 id="_request_example_19">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /reports/2 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /reviews HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 97
+Content-Length: 106
 Host: localhost:8080
 
 {
+  "reviewedUserId" : 1,
   "boardId" : 1,
-  "title" : "제목",
-  "content" : "내용",
-  "reportType" : "욕설"
+  "score" : 5,
+  "comment" : "좋은 거래였습니다"
 }</code></pre>
 </div>
 </div>
@@ -1903,102 +1822,53 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 2764
+Content-Length: 1292
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "report" : {
-      "id" : 6,
-      "reporter" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 27,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:22.689733"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:22.770709"
-      },
-      "reported" : {
+    "review" : {
+      "id" : 1,
+      "reviewer" : {
         "id" : 2,
         "username" : "cos@naver.com",
         "nickname" : null,
         "email" : "cos@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 27,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:22.689733"
+          "createdAt" : "2023-05-06T16:05:25.700828"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:22.864935"
+        "createdAt" : "2023-05-06T16:05:25.918332"
       },
-      "board" : {
+      "reviewed" : {
         "id" : 1,
-        "category" : {
+        "username" : "ssar@naver.com",
+        "nickname" : null,
+        "email" : "ssar@naver.com",
+        "profile" : "사진",
+        "rate" : {
           "id" : 1,
-          "name" : "생활가전",
-          "createdAt" : "2023-05-06T14:42:18.028265"
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:25.700828"
         },
-        "title" : "제목1",
-        "organizer" : {
-          "id" : 1,
-          "username" : "ssar@naver.com",
-          "nickname" : null,
-          "email" : "ssar@naver.com",
-          "profile" : "사진",
-          "rate" : {
-            "id" : 27,
-            "rateName" : "글레이즈드",
-            "createdAt" : "2023-05-06T14:42:22.689733"
-          },
-          "ratePoint" : 20,
-          "role" : "ROLE_USER",
-          "provider" : null,
-          "providerId" : null,
-          "statusCode" : null,
-          "createdAt" : "2023-05-06T14:42:22.770709"
-        },
-        "content" : "내용1",
-        "img" : null,
-        "event" : {
-          "id" : 1,
-          "latitude" : 111.111,
-          "longtitude" : 222.222,
-          "qty" : 10,
-          "paymentType" : null,
-          "startAt" : "2023-05-01T13:30:00",
-          "endAt" : null,
-          "price" : 1000,
-          "createdAt" : "2023-05-06T14:42:18.030261"
-        },
-        "statusCode" : 200,
-        "views" : 100,
-        "recommend" : false,
-        "state" : "부산광역시",
-        "city" : "부산진구",
-        "town" : "부전동",
-        "createdAt" : "2023-05-06T14:42:18.032254"
+        "ratePoint" : 21,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:25.792654"
       },
-      "title" : "제목",
-      "content" : "내용",
-      "reportType" : "욕설",
-      "statusCode" : null,
-      "createdAt" : "2023-05-06T14:42:22.887871"
+      "score" : 5,
+      "comment" : "좋은 거래였습니다",
+      "createdAt" : "2023-05-06T16:05:25.9368282"
     }
   }
 }</code></pre>
@@ -2009,17 +1879,25 @@ Content-Length: 2764
 </div>
 </div>
 <div class="sect1">
-<h2 id="_나의_카테고리_api">나의 카테고리 API</h2>
+<h2 id="_신고_api">신고 API</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_1_디폴트_카테고리">1. 디폴트 카테고리</h3>
+<h3 id="_1_신고하기">1. 신고하기</h3>
 <div class="sect4">
 <h5 id="_request_example_20">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /myCategories/default HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /reports/2 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 97
 Host: localhost:8080
-Content-Type: application/x-www-form-urlencoded</code></pre>
+
+{
+  "boardId" : 1,
+  "title" : "제목",
+  "content" : "내용",
+  "reportType" : "욕설"
+}</code></pre>
 </div>
 </div>
 </div>
@@ -2037,65 +1915,123 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 938
+Content-Length: 2789
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "list" : [ {
+    "report" : {
       "id" : 1,
-      "name" : "생활가전",
-      "createdAt" : "2023-05-06T14:42:18.028265"
-    }, {
-      "id" : 2,
-      "name" : "생활가전",
-      "createdAt" : "2023-05-06T14:42:18.266536"
-    }, {
-      "id" : 3,
-      "name" : "생활가전",
-      "createdAt" : "2023-05-06T14:42:18.52416"
-    }, {
-      "id" : 5,
-      "name" : "생활가전",
-      "createdAt" : "2023-05-06T14:42:19.027711"
-    }, {
-      "id" : 6,
-      "name" : "생활가전",
-      "createdAt" : "2023-05-06T14:42:19.259515"
-    }, {
-      "id" : 7,
-      "name" : "스포츠",
-      "createdAt" : "2023-05-06T14:42:19.259515"
-    }, {
-      "id" : 12,
-      "name" : "미용",
-      "createdAt" : "2023-05-06T14:42:19.259515"
-    }, {
-      "id" : 14,
-      "name" : "식물",
-      "createdAt" : "2023-05-06T14:42:19.259515"
-    } ]
+      "reporter" : {
+        "id" : 1,
+        "username" : "ssar@naver.com",
+        "nickname" : null,
+        "email" : "ssar@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:25.486933"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:25.557359"
+      },
+      "reported" : {
+        "id" : 2,
+        "username" : "cos@naver.com",
+        "nickname" : null,
+        "email" : "cos@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:25.486933"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:25.637472"
+      },
+      "board" : {
+        "id" : 1,
+        "category" : {
+          "id" : 1,
+          "name" : "생활가전",
+          "createdAt" : "2023-05-06T16:05:25.639378"
+        },
+        "title" : "제목1",
+        "organizer" : {
+          "id" : 1,
+          "username" : "ssar@naver.com",
+          "nickname" : null,
+          "email" : "ssar@naver.com",
+          "profile" : "사진",
+          "rate" : {
+            "id" : 1,
+            "rateName" : "글레이즈드",
+            "createdAt" : "2023-05-06T16:05:25.486933"
+          },
+          "ratePoint" : 20,
+          "role" : "ROLE_USER",
+          "provider" : null,
+          "providerId" : null,
+          "statusCode" : null,
+          "createdAt" : "2023-05-06T16:05:25.557359"
+        },
+        "content" : "내용1",
+        "img" : "사진",
+        "event" : {
+          "id" : 1,
+          "latitude" : 111.111,
+          "longtitude" : 222.222,
+          "qty" : 1,
+          "paymentType" : "직거래",
+          "startAt" : "2023-05-01T13:30:00",
+          "endAt" : "2023-05-02T13:30:00",
+          "price" : 1000,
+          "createdAt" : "2023-05-06T16:05:25.638382"
+        },
+        "statusCode" : 200,
+        "views" : 100,
+        "recommend" : false,
+        "state" : "부산광역시",
+        "city" : "부산진구",
+        "town" : "부전동",
+        "createdAt" : "2023-05-06T16:05:25.640373"
+      },
+      "title" : "제목",
+      "content" : "내용",
+      "reportType" : "욕설",
+      "statusCode" : null,
+      "createdAt" : "2023-05-06T16:05:25.6518251"
+    }
   }
 }</code></pre>
 </div>
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_나의_카테고리_api">나의 카테고리 API</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_2_카테고리_업데이트">2. 카테고리 업데이트</h3>
+<h3 id="_1_디폴트_카테고리">1. 디폴트 카테고리</h3>
 <div class="sect4">
 <h5 id="_request_example_21">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /myCategories HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Content-Length: 31
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /myCategories/default HTTP/1.1
 Host: localhost:8080
-
-{
-  "categoryId" : [ 1, 2 ]
-}</code></pre>
+Content-Type: application/x-www-form-urlencoded</code></pre>
 </div>
 </div>
 </div>
@@ -2113,7 +2049,7 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 298
+Content-Length: 921
 
 {
   "status" : 200,
@@ -2122,11 +2058,35 @@ Content-Length: 298
     "list" : [ {
       "id" : 1,
       "name" : "생활가전",
-      "createdAt" : "2023-05-06T14:42:18.028265"
+      "createdAt" : "2023-05-06T16:05:21.810159"
     }, {
       "id" : 2,
-      "name" : "생활가전",
-      "createdAt" : "2023-05-06T14:42:18.266536"
+      "name" : "스포츠",
+      "createdAt" : "2023-05-06T16:05:21.810159"
+    }, {
+      "id" : 3,
+      "name" : "잡화",
+      "createdAt" : "2023-05-06T16:05:21.810159"
+    }, {
+      "id" : 5,
+      "name" : "의류",
+      "createdAt" : "2023-05-06T16:05:21.810159"
+    }, {
+      "id" : 6,
+      "name" : "식품",
+      "createdAt" : "2023-05-06T16:05:21.810159"
+    }, {
+      "id" : 7,
+      "name" : "미용",
+      "createdAt" : "2023-05-06T16:05:21.810159"
+    }, {
+      "id" : 12,
+      "name" : "편의점",
+      "createdAt" : "2023-05-06T16:05:21.810159"
+    }, {
+      "id" : 14,
+      "name" : "도매상",
+      "createdAt" : "2023-05-06T16:05:21.810159"
     } ]
   }
 }</code></pre>
@@ -2134,20 +2094,20 @@ Content-Length: 298
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_나의_지역_api">나의 지역 API</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_1_디폴트_지역">1. 디폴트 지역</h3>
+<h3 id="_2_카테고리_업데이트">2. 카테고리 업데이트</h3>
 <div class="sect4">
 <h5 id="_request_example_22">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /myLocations/default HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /myCategories HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 31
 Host: localhost:8080
-Content-Type: application/x-www-form-urlencoded</code></pre>
+
+{
+  "categoryId" : [ 1, 2 ]
+}</code></pre>
 </div>
 </div>
 </div>
@@ -2165,7 +2125,123 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 699
+Content-Length: 295
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "data" : {
+    "list" : [ {
+      "id" : 1,
+      "name" : "생활가전",
+      "createdAt" : "2023-05-06T16:05:22.059745"
+    }, {
+      "id" : 2,
+      "name" : "스포츠",
+      "createdAt" : "2023-05-06T16:05:22.059745"
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_나의_카테고리_보기">3. 나의 카테고리 보기</h3>
+<div class="sect4">
+<h5 id="_request_example_23">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myCategories HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_23">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 824
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "data" : {
+    "list" : [ {
+      "id" : 1,
+      "user" : {
+        "id" : 1,
+        "username" : "ssar@naver.com",
+        "nickname" : null,
+        "email" : "ssar@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:22.109129"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:22.18738"
+      },
+      "category" : {
+        "id" : 1,
+        "name" : "생활가전",
+        "createdAt" : "2023-05-06T16:05:22.263391"
+      },
+      "createdAt" : "2023-05-06T16:05:22.280946"
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_나의_지역_api">나의 지역 API</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_디폴트_지역">1. 디폴트 지역</h3>
+<div class="sect4">
+<h5 id="_request_example_24">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /myLocations/default HTTP/1.1
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_24">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 697
 
 {
   "status" : 200,
@@ -2181,18 +2257,18 @@ Content-Length: 699
       "email" : "ssar@naver.com",
       "profile" : "사진",
       "rate" : {
-        "id" : 14,
+        "id" : 1,
         "rateName" : "글레이즈드",
-        "createdAt" : "2023-05-06T14:42:19.588459"
+        "createdAt" : "2023-05-06T16:05:22.333045"
       },
       "ratePoint" : 20,
       "role" : "ROLE_USER",
       "provider" : null,
       "providerId" : null,
       "statusCode" : null,
-      "createdAt" : "2023-05-06T14:42:19.659773"
+      "createdAt" : "2023-05-06T16:05:22.40495"
     },
-    "createdAt" : "2023-05-06T14:42:19.7848295"
+    "createdAt" : "2023-05-06T16:05:22.4949038"
   }
 }</code></pre>
 </div>
@@ -2202,7 +2278,7 @@ Content-Length: 699
 <div class="sect2">
 <h3 id="_2_지역_업데이트">2. 지역 업데이트</h3>
 <div class="sect4">
-<h5 id="_request_example_23">Request Example</h5>
+<h5 id="_request_example_25">Request Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /myLocations HTTP/1.1
@@ -2219,7 +2295,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect4">
-<h5 id="_response_example_23">Response Example</h5>
+<h5 id="_response_example_25">Response Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -2248,567 +2324,18 @@ Content-Length: 699
       "email" : "ssar@naver.com",
       "profile" : "사진",
       "rate" : {
-        "id" : 15,
+        "id" : 1,
         "rateName" : "글레이즈드",
-        "createdAt" : "2023-05-06T14:42:19.817625"
+        "createdAt" : "2023-05-06T16:05:22.525361"
       },
       "ratePoint" : 20,
       "role" : "ROLE_USER",
       "provider" : null,
       "providerId" : null,
       "statusCode" : null,
-      "createdAt" : "2023-05-06T14:42:19.889746"
+      "createdAt" : "2023-05-06T16:05:22.601797"
     },
-    "createdAt" : "2023-05-06T14:42:20.016904"
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_마이페이지_api">마이페이지 API</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_1_나의_게시글">1. 나의 게시글</h3>
-<div class="sect4">
-<h5 id="_request_example_24">Request Example</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myPages/boards HTTP/1.1
-Host: localhost:8080</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_response_example_24">Response Example</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Vary: Origin
-Vary: Access-Control-Request-Method
-Vary: Access-Control-Request-Headers
-Content-Type: application/json;charset=UTF-8
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 0
-Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 14821
-
-{
-  "status" : 200,
-  "msg" : "성공",
-  "data" : {
-    "board" : [ {
-      "id" : 1,
-      "category" : {
-        "id" : 1,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:18.028265"
-      },
-      "title" : "제목1",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용1",
-      "img" : null,
-      "event" : {
-        "id" : 1,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 10,
-        "paymentType" : null,
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : null,
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:18.030261"
-      },
-      "statusCode" : 200,
-      "views" : 100,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:18.032254"
-    }, {
-      "id" : 2,
-      "category" : {
-        "id" : 2,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:18.266536"
-      },
-      "title" : "제목1",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용1",
-      "img" : null,
-      "event" : {
-        "id" : 2,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:18.268598"
-      },
-      "statusCode" : 200,
-      "views" : 100,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:18.269603"
-    }, {
-      "id" : 3,
-      "category" : {
-        "id" : 3,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:18.52416"
-      },
-      "title" : "제목1",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용1",
-      "img" : null,
-      "event" : {
-        "id" : 3,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:18.525105"
-      },
-      "statusCode" : 200,
-      "views" : 100,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:18.526099"
-    }, {
-      "id" : 4,
-      "category" : {
-        "id" : 4,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:18.729695"
-      },
-      "title" : "제목1",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용1",
-      "img" : null,
-      "event" : {
-        "id" : 4,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:18.731322"
-      },
-      "statusCode" : 200,
-      "views" : 100,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:18.734358"
-    }, {
-      "id" : 5,
-      "category" : {
-        "id" : 1,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:18.028265"
-      },
-      "title" : "제목",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용",
-      "img" : "생활가전디폴트.jpg",
-      "event" : {
-        "id" : 5,
-        "latitude" : 111.222,
-        "longtitude" : 222.333,
-        "qty" : 3,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-06T14:42:18.758838",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:18.759835"
-      },
-      "statusCode" : null,
-      "views" : 0,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:18.761192"
-    }, {
-      "id" : 6,
-      "category" : {
-        "id" : 5,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:19.027711"
-      },
-      "title" : "제목1",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용1",
-      "img" : "사진",
-      "event" : {
-        "id" : 6,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:19.03266"
-      },
-      "statusCode" : 200,
-      "views" : 100,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:19.03472"
-    }, {
-      "id" : 7,
-      "category" : {
-        "id" : 34,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:20.266822"
-      },
-      "title" : "제목1",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용1",
-      "img" : "사진",
-      "event" : {
-        "id" : 7,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:20.26883"
-      },
-      "statusCode" : 200,
-      "views" : 100,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:20.270821"
-    }, {
-      "id" : 8,
-      "category" : {
-        "id" : 35,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:20.557606"
-      },
-      "title" : "제목1",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용1",
-      "img" : "사진",
-      "event" : {
-        "id" : 8,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:20.560743"
-      },
-      "statusCode" : 200,
-      "views" : 100,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:20.561451"
-    }, {
-      "id" : 9,
-      "category" : {
-        "id" : 36,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:20.789008"
-      },
-      "title" : "제목1",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용1",
-      "img" : "사진",
-      "event" : {
-        "id" : 9,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:20.790005"
-      },
-      "statusCode" : 200,
-      "views" : 100,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:20.791999"
-    }, {
-      "id" : 10,
-      "category" : {
-        "id" : 37,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:21.032705"
-      },
-      "title" : "제목1",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용1",
-      "img" : "사진",
-      "event" : {
-        "id" : 10,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:21.033699"
-      },
-      "statusCode" : 200,
-      "views" : 100,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:21.034703"
-    }, {
-      "id" : 11,
-      "category" : {
-        "id" : 38,
-        "name" : "생활가전",
-        "createdAt" : "2023-05-06T14:42:21.231053"
-      },
-      "title" : "제목1",
-      "organizer" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 20,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:21.078734"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.150168"
-      },
-      "content" : "내용1",
-      "img" : "사진",
-      "event" : {
-        "id" : 11,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:21.232068"
-      },
-      "statusCode" : 200,
-      "views" : 100,
-      "recommend" : false,
-      "state" : "부산광역시",
-      "city" : "부산진구",
-      "town" : "부전동",
-      "createdAt" : "2023-05-06T14:42:21.234097"
-    } ]
+    "createdAt" : "2023-05-06T16:05:22.7102382"
   }
 }</code></pre>
 </div>
@@ -2816,86 +2343,12 @@ Content-Length: 14821
 </div>
 </div>
 <div class="sect2">
-<h3 id="_2_나의_결제내역">2. 나의 결제내역</h3>
-<div class="sect4">
-<h5 id="_request_example_25">Request Example</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myPages/payments HTTP/1.1
-Host: localhost:8080</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_response_example_25">Response Example</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Vary: Origin
-Vary: Access-Control-Request-Method
-Vary: Access-Control-Request-Headers
-Content-Type: application/json;charset=UTF-8
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 0
-Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 1145
-
-{
-  "status" : 200,
-  "msg" : "성공",
-  "data" : {
-    "payment" : [ {
-      "id" : 1,
-      "user" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 16,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.078718"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.264839"
-      },
-      "event" : {
-        "id" : 7,
-        "latitude" : 111.111,
-        "longtitude" : 222.222,
-        "qty" : 1,
-        "paymentType" : "직거래",
-        "startAt" : "2023-05-01T13:30:00",
-        "endAt" : "2023-05-02T13:30:00",
-        "price" : 1000,
-        "createdAt" : "2023-05-06T14:42:20.26883"
-      },
-      "paymentInfoId" : null,
-      "paymentType" : "직거래",
-      "statusCode" : null,
-      "confirmed" : false,
-      "createdAt" : "2023-05-06T14:42:20.278573"
-    } ]
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_3_나의_리뷰">3. 나의 리뷰</h3>
+<h3 id="_3_나의_지역_보기">3. 나의 지역 보기</h3>
 <div class="sect4">
 <h5 id="_request_example_26">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myPages/reviews HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myLocations HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -2914,149 +2367,55 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 3661
+Content-Length: 777
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "review" : [ {
+    "myLocation" : {
       "id" : 1,
-      "reviewer" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 18,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.601348"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.787014"
-      },
-      "reviewed" : {
+      "user" : {
         "id" : 1,
         "username" : "ssar@naver.com",
         "nickname" : null,
         "email" : "ssar@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 18,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.601348"
+          "createdAt" : "2023-05-06T16:05:22.73872"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.672563"
+        "createdAt" : "2023-05-06T16:05:22.812797"
       },
-      "score" : 5,
-      "comment" : "굿",
-      "createdAt" : "2023-05-06T14:42:20.274345"
-    }, {
-      "id" : 2,
-      "reviewer" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 18,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.601348"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.787014"
-      },
-      "reviewed" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 18,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.601348"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.672563"
-      },
-      "score" : 5,
-      "comment" : "굿",
-      "createdAt" : "2023-05-06T14:42:20.563443"
-    }, {
-      "id" : 3,
-      "reviewer" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 18,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.601348"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.787014"
-      },
-      "reviewed" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 18,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.601348"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.672563"
-      },
-      "score" : 5,
-      "comment" : "굿",
-      "createdAt" : "2023-05-06T14:42:20.796045"
-    } ]
+      "state" : "창원시",
+      "city" : "성산구",
+      "town" : "남양동",
+      "createdAt" : "2023-05-06T16:05:22.904565"
+    }
   }
 }</code></pre>
 </div>
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_마이페이지_api">마이페이지 API</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_4_나의_신고">4. 나의 신고</h3>
+<h3 id="_1_나의_게시글">1. 나의 게시글</h3>
 <div class="sect4">
 <h5 id="_request_example_27">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myPages/reports HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myPages/boards HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -3075,192 +2434,58 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 5503
+Content-Length: 1420
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "report" : [ {
+    "board" : [ {
       "id" : 1,
-      "reporter" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 17,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.31666"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.556609"
+      "category" : {
+        "id" : 1,
+        "name" : "생활가전",
+        "createdAt" : "2023-05-06T16:05:24.03535"
       },
-      "reported" : {
+      "title" : "제목1",
+      "organizer" : {
         "id" : 1,
         "username" : "ssar@naver.com",
         "nickname" : null,
         "email" : "ssar@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 17,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.31666"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.433274"
-      },
-      "board" : {
-        "id" : 7,
-        "category" : {
-          "id" : 34,
-          "name" : "생활가전",
-          "createdAt" : "2023-05-06T14:42:20.266822"
-        },
-        "title" : "제목1",
-        "organizer" : {
           "id" : 1,
-          "username" : "ssar@naver.com",
-          "nickname" : null,
-          "email" : "ssar@naver.com",
-          "profile" : "사진",
-          "rate" : {
-            "id" : 17,
-            "rateName" : "글레이즈드",
-            "createdAt" : "2023-05-06T14:42:20.31666"
-          },
-          "ratePoint" : 20,
-          "role" : "ROLE_USER",
-          "provider" : null,
-          "providerId" : null,
-          "statusCode" : null,
-          "createdAt" : "2023-05-06T14:42:20.433274"
-        },
-        "content" : "내용1",
-        "img" : "사진",
-        "event" : {
-          "id" : 7,
-          "latitude" : 111.111,
-          "longtitude" : 222.222,
-          "qty" : 1,
-          "paymentType" : "직거래",
-          "startAt" : "2023-05-01T13:30:00",
-          "endAt" : "2023-05-02T13:30:00",
-          "price" : 1000,
-          "createdAt" : "2023-05-06T14:42:20.26883"
-        },
-        "statusCode" : 200,
-        "views" : 100,
-        "recommend" : false,
-        "state" : "부산광역시",
-        "city" : "부산진구",
-        "town" : "부전동",
-        "createdAt" : "2023-05-06T14:42:20.270821"
-      },
-      "title" : "제목",
-      "content" : "내용",
-      "reportType" : "욕설",
-      "statusCode" : null,
-      "createdAt" : "2023-05-06T14:42:20.276512"
-    }, {
-      "id" : 2,
-      "reporter" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 17,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.31666"
+          "createdAt" : "2023-05-06T16:05:23.845794"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.556609"
+        "createdAt" : "2023-05-06T16:05:23.916994"
       },
-      "reported" : {
+      "content" : "내용1",
+      "img" : "사진",
+      "event" : {
         "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 17,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.31666"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.433274"
+        "latitude" : 111.111,
+        "longtitude" : 222.222,
+        "qty" : 1,
+        "paymentType" : "직거래",
+        "startAt" : "2023-05-01T13:30:00",
+        "endAt" : "2023-05-02T13:30:00",
+        "price" : 1000,
+        "createdAt" : "2023-05-06T16:05:24.037343"
       },
-      "board" : {
-        "id" : 8,
-        "category" : {
-          "id" : 35,
-          "name" : "생활가전",
-          "createdAt" : "2023-05-06T14:42:20.557606"
-        },
-        "title" : "제목1",
-        "organizer" : {
-          "id" : 1,
-          "username" : "ssar@naver.com",
-          "nickname" : null,
-          "email" : "ssar@naver.com",
-          "profile" : "사진",
-          "rate" : {
-            "id" : 17,
-            "rateName" : "글레이즈드",
-            "createdAt" : "2023-05-06T14:42:20.31666"
-          },
-          "ratePoint" : 20,
-          "role" : "ROLE_USER",
-          "provider" : null,
-          "providerId" : null,
-          "statusCode" : null,
-          "createdAt" : "2023-05-06T14:42:20.433274"
-        },
-        "content" : "내용1",
-        "img" : "사진",
-        "event" : {
-          "id" : 8,
-          "latitude" : 111.111,
-          "longtitude" : 222.222,
-          "qty" : 1,
-          "paymentType" : "직거래",
-          "startAt" : "2023-05-01T13:30:00",
-          "endAt" : "2023-05-02T13:30:00",
-          "price" : 1000,
-          "createdAt" : "2023-05-06T14:42:20.560743"
-        },
-        "statusCode" : 200,
-        "views" : 100,
-        "recommend" : false,
-        "state" : "부산광역시",
-        "city" : "부산진구",
-        "town" : "부전동",
-        "createdAt" : "2023-05-06T14:42:20.561451"
-      },
-      "title" : "제목",
-      "content" : "내용",
-      "reportType" : "욕설",
-      "statusCode" : null,
-      "createdAt" : "2023-05-06T14:42:20.564738"
+      "statusCode" : 200,
+      "views" : 100,
+      "recommend" : false,
+      "state" : "부산광역시",
+      "city" : "부산진구",
+      "town" : "부전동",
+      "createdAt" : "2023-05-06T16:05:24.039944"
     } ]
   }
 }</code></pre>
@@ -3269,12 +2494,12 @@ Content-Length: 5503
 </div>
 </div>
 <div class="sect2">
-<h3 id="_5_나의_블랙리스트">5. 나의 블랙리스트</h3>
+<h3 id="_2_나의_결제내역">2. 나의 결제내역</h3>
 <div class="sect4">
 <h5 id="_request_example_28">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myPages/blacklists HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myPages/payments HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -3293,207 +2518,48 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 5814
+Content-Length: 1143
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "blacklist" : [ {
-      "id" : 2,
+    "payment" : [ {
+      "id" : 1,
       "user" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 19,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.835681"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.921056"
-      },
-      "blockedUser" : {
         "id" : 2,
         "username" : "cos@naver.com",
         "nickname" : null,
         "email" : "cos@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 19,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.835681"
+          "createdAt" : "2023-05-06T16:05:22.958134"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.031707"
+        "createdAt" : "2023-05-06T16:05:23.12394"
       },
-      "createdAt" : "2023-05-06T14:42:17.81659"
-    }, {
-      "id" : 3,
-      "user" : {
+      "event" : {
         "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 19,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.835681"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.921056"
+        "latitude" : 111.111,
+        "longtitude" : 222.222,
+        "qty" : 1,
+        "paymentType" : "직거래",
+        "startAt" : "2023-05-01T13:30:00",
+        "endAt" : "2023-05-02T13:30:00",
+        "price" : 1000,
+        "createdAt" : "2023-05-06T16:05:23.12584"
       },
-      "blockedUser" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 19,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.835681"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.031707"
-      },
-      "createdAt" : "2023-05-06T14:42:20.272798"
-    }, {
-      "id" : 4,
-      "user" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 19,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.835681"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.921056"
-      },
-      "blockedUser" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 19,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.835681"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.031707"
-      },
-      "createdAt" : "2023-05-06T14:42:20.562447"
-    }, {
-      "id" : 5,
-      "user" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 19,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.835681"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.921056"
-      },
-      "blockedUser" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 19,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.835681"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.031707"
-      },
-      "createdAt" : "2023-05-06T14:42:20.793993"
-    }, {
-      "id" : 6,
-      "user" : {
-        "id" : 1,
-        "username" : "ssar@naver.com",
-        "nickname" : null,
-        "email" : "ssar@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 19,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.835681"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:20.921056"
-      },
-      "blockedUser" : {
-        "id" : 2,
-        "username" : "cos@naver.com",
-        "nickname" : null,
-        "email" : "cos@naver.com",
-        "profile" : "사진",
-        "rate" : {
-          "id" : 19,
-          "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:20.835681"
-        },
-        "ratePoint" : 20,
-        "role" : "ROLE_USER",
-        "provider" : null,
-        "providerId" : null,
-        "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:21.031707"
-      },
-      "createdAt" : "2023-05-06T14:42:21.036689"
+      "paymentInfoId" : null,
+      "paymentType" : "직거래",
+      "statusCode" : null,
+      "confirmed" : false,
+      "createdAt" : "2023-05-06T16:05:23.133489"
     } ]
   }
 }</code></pre>
@@ -3501,20 +2567,14 @@ Content-Length: 5814
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_블랙리스트_api">블랙리스트 API</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_1_블랙리스트_추가">1. 블랙리스트 추가</h3>
+<h3 id="_3_나의_리뷰">3. 나의 리뷰</h3>
 <div class="sect4">
 <h5 id="_request_example_29">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /blacklists/2 HTTP/1.1
-Host: localhost:8080
-Content-Type: application/x-www-form-urlencoded</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myPages/reviews HTTP/1.1
+Host: localhost:8080</code></pre>
 </div>
 </div>
 </div>
@@ -3532,14 +2592,221 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 1226
+Content-Length: 1273
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
-    "blacklist" : {
-      "id" : 2,
+    "review" : [ {
+      "id" : 1,
+      "reviewer" : {
+        "id" : 2,
+        "username" : "cos@naver.com",
+        "nickname" : null,
+        "email" : "cos@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:23.382931"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:23.595924"
+      },
+      "reviewed" : {
+        "id" : 1,
+        "username" : "ssar@naver.com",
+        "nickname" : null,
+        "email" : "ssar@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:23.382931"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:23.485883"
+      },
+      "score" : 5,
+      "comment" : "굿",
+      "createdAt" : "2023-05-06T16:05:23.603302"
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_나의_신고">4. 나의 신고</h3>
+<div class="sect4">
+<h5 id="_request_example_30">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myPages/reports HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_30">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 2789
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "data" : {
+    "report" : [ {
+      "id" : 1,
+      "reporter" : {
+        "id" : 2,
+        "username" : "cos@naver.com",
+        "nickname" : null,
+        "email" : "cos@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:23.167286"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:23.343075"
+      },
+      "reported" : {
+        "id" : 1,
+        "username" : "ssar@naver.com",
+        "nickname" : null,
+        "email" : "ssar@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:23.167286"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:23.243661"
+      },
+      "board" : {
+        "id" : 1,
+        "category" : {
+          "id" : 1,
+          "name" : "생활가전",
+          "createdAt" : "2023-05-06T16:05:23.344084"
+        },
+        "title" : "제목1",
+        "organizer" : {
+          "id" : 1,
+          "username" : "ssar@naver.com",
+          "nickname" : null,
+          "email" : "ssar@naver.com",
+          "profile" : "사진",
+          "rate" : {
+            "id" : 1,
+            "rateName" : "글레이즈드",
+            "createdAt" : "2023-05-06T16:05:23.167286"
+          },
+          "ratePoint" : 20,
+          "role" : "ROLE_USER",
+          "provider" : null,
+          "providerId" : null,
+          "statusCode" : null,
+          "createdAt" : "2023-05-06T16:05:23.243661"
+        },
+        "content" : "내용1",
+        "img" : "사진",
+        "event" : {
+          "id" : 1,
+          "latitude" : 111.111,
+          "longtitude" : 222.222,
+          "qty" : 1,
+          "paymentType" : "직거래",
+          "startAt" : "2023-05-01T13:30:00",
+          "endAt" : "2023-05-02T13:30:00",
+          "price" : 1000,
+          "createdAt" : "2023-05-06T16:05:23.345"
+        },
+        "statusCode" : 200,
+        "views" : 100,
+        "recommend" : false,
+        "state" : "부산광역시",
+        "city" : "부산진구",
+        "town" : "부전동",
+        "createdAt" : "2023-05-06T16:05:23.345994"
+      },
+      "title" : "제목",
+      "content" : "내용",
+      "reportType" : "욕설",
+      "statusCode" : null,
+      "createdAt" : "2023-05-06T16:05:23.348983"
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_나의_블랙리스트">5. 나의 블랙리스트</h3>
+<div class="sect4">
+<h5 id="_request_example_31">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /myPages/blacklists HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_31">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 1227
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "data" : {
+    "blacklist" : [ {
+      "id" : 1,
       "user" : {
         "id" : 1,
         "username" : "ssar@naver.com",
@@ -3547,16 +2814,16 @@ Content-Length: 1226
         "email" : "ssar@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 6,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:17.640783"
+          "createdAt" : "2023-05-06T16:05:23.641158"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:17.731367"
+        "createdAt" : "2023-05-06T16:05:23.727816"
       },
       "blockedUser" : {
         "id" : 2,
@@ -3565,18 +2832,101 @@ Content-Length: 1226
         "email" : "cos@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 6,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:17.640783"
+          "createdAt" : "2023-05-06T16:05:23.641158"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:17.807967"
+        "createdAt" : "2023-05-06T16:05:23.80951"
       },
-      "createdAt" : "2023-05-06T14:42:17.8165902"
+      "createdAt" : "2023-05-06T16:05:23.81351"
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_블랙리스트_api">블랙리스트 API</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_블랙리스트_추가">1. 블랙리스트 추가</h3>
+<div class="sect4">
+<h5 id="_request_example_32">Request Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /blacklists/2 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_32">Response Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 1225
+
+{
+  "status" : 200,
+  "msg" : "성공",
+  "data" : {
+    "blacklist" : {
+      "id" : 1,
+      "user" : {
+        "id" : 1,
+        "username" : "ssar@naver.com",
+        "nickname" : null,
+        "email" : "ssar@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:20.151507"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:20.229742"
+      },
+      "blockedUser" : {
+        "id" : 2,
+        "username" : "cos@naver.com",
+        "nickname" : null,
+        "email" : "cos@naver.com",
+        "profile" : "사진",
+        "rate" : {
+          "id" : 1,
+          "rateName" : "글레이즈드",
+          "createdAt" : "2023-05-06T16:05:20.151507"
+        },
+        "ratePoint" : 20,
+        "role" : "ROLE_USER",
+        "provider" : null,
+        "providerId" : null,
+        "statusCode" : null,
+        "createdAt" : "2023-05-06T16:05:20.308332"
+      },
+      "createdAt" : "2023-05-06T16:05:20.321537"
     }
   }
 }</code></pre>
@@ -3587,7 +2937,7 @@ Content-Length: 1226
 <div class="sect2">
 <h3 id="_2_블랙리스트_삭제">2. 블랙리스트 삭제</h3>
 <div class="sect4">
-<h5 id="_request_example_30">Request Example</h5>
+<h5 id="_request_example_33">Request Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /blacklists/1 HTTP/1.1
@@ -3596,7 +2946,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_response_example_30">Response Example</h5>
+<h5 id="_response_example_33">Response Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3628,7 +2978,7 @@ Content-Length: 88
 <div class="sect2">
 <h3 id="_1_위시리스트_추가">1. 위시리스트 추가</h3>
 <div class="sect4">
-<h5 id="_request_example_31">Request Example</h5>
+<h5 id="_request_example_34">Request Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /wishlist HTTP/1.1
@@ -3643,7 +2993,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect4">
-<h5 id="_response_example_31">Response Example</h5>
+<h5 id="_response_example_34">Response Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3656,14 +3006,14 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 2109
+Content-Length: 2135
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
     "wishlist" : {
-      "id" : 4,
+      "id" : 2,
       "user" : {
         "id" : 2,
         "username" : "cos@naver.com",
@@ -3671,23 +3021,23 @@ Content-Length: 2109
         "email" : "cos@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 34,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:24.28569"
+          "createdAt" : "2023-05-06T16:05:27.071974"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:24.516139"
+        "createdAt" : "2023-05-06T16:05:27.225119"
       },
       "board" : {
         "id" : 1,
         "category" : {
           "id" : 1,
           "name" : "생활가전",
-          "createdAt" : "2023-05-06T14:42:18.028265"
+          "createdAt" : "2023-05-06T16:05:27.227101"
         },
         "title" : "제목1",
         "organizer" : {
@@ -3697,29 +3047,29 @@ Content-Length: 2109
           "email" : "ssar@naver.com",
           "profile" : "사진",
           "rate" : {
-            "id" : 34,
+            "id" : 1,
             "rateName" : "글레이즈드",
-            "createdAt" : "2023-05-06T14:42:24.28569"
+            "createdAt" : "2023-05-06T16:05:27.071974"
           },
           "ratePoint" : 20,
           "role" : "ROLE_USER",
           "provider" : null,
           "providerId" : null,
           "statusCode" : null,
-          "createdAt" : "2023-05-06T14:42:24.406789"
+          "createdAt" : "2023-05-06T16:05:27.149155"
         },
         "content" : "내용1",
-        "img" : null,
+        "img" : "사진",
         "event" : {
           "id" : 1,
           "latitude" : 111.111,
           "longtitude" : 222.222,
-          "qty" : 10,
-          "paymentType" : null,
+          "qty" : 1,
+          "paymentType" : "직거래",
           "startAt" : "2023-05-01T13:30:00",
-          "endAt" : null,
+          "endAt" : "2023-05-02T13:30:00",
           "price" : 1000,
-          "createdAt" : "2023-05-06T14:42:18.030261"
+          "createdAt" : "2023-05-06T16:05:27.22612"
         },
         "statusCode" : 200,
         "views" : 100,
@@ -3727,9 +3077,9 @@ Content-Length: 2109
         "state" : "부산광역시",
         "city" : "부산진구",
         "town" : "부전동",
-        "createdAt" : "2023-05-06T14:42:18.032254"
+        "createdAt" : "2023-05-06T16:05:27.228115"
       },
-      "createdAt" : "2023-05-06T14:42:24.5327412"
+      "createdAt" : "2023-05-06T16:05:27.2437821"
     }
   }
 }</code></pre>
@@ -3740,7 +3090,7 @@ Content-Length: 2109
 <div class="sect2">
 <h3 id="_2_위시리스트_취소">2. 위시리스트 취소</h3>
 <div class="sect4">
-<h5 id="_request_example_32">Request Example</h5>
+<h5 id="_request_example_35">Request Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /wishlist HTTP/1.1
@@ -3755,7 +3105,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect4">
-<h5 id="_response_example_32">Response Example</h5>
+<h5 id="_response_example_35">Response Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3782,7 +3132,7 @@ Content-Length: 88
 <div class="sect2">
 <h3 id="_3_나의_위시리스트">3. 나의 위시리스트</h3>
 <div class="sect4">
-<h5 id="_request_example_33">Request Example</h5>
+<h5 id="_request_example_36">Request Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /wishlist HTTP/1.1
@@ -3791,7 +3141,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_response_example_33">Response Example</h5>
+<h5 id="_response_example_36">Response Example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3804,14 +3154,14 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 2145
+Content-Length: 2141
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
     "wishlistList" : [ {
-      "id" : 2,
+      "id" : 1,
       "user" : {
         "id" : 2,
         "username" : "cos@naver.com",
@@ -3819,23 +3169,23 @@ Content-Length: 2145
         "email" : "cos@naver.com",
         "profile" : "사진",
         "rate" : {
-          "id" : 33,
+          "id" : 1,
           "rateName" : "글레이즈드",
-          "createdAt" : "2023-05-06T14:42:24.09595"
+          "createdAt" : "2023-05-06T16:05:26.883663"
         },
         "ratePoint" : 20,
         "role" : "ROLE_USER",
         "provider" : null,
         "providerId" : null,
         "statusCode" : null,
-        "createdAt" : "2023-05-06T14:42:24.241934"
+        "createdAt" : "2023-05-06T16:05:27.0288"
       },
       "board" : {
-        "id" : 23,
+        "id" : 2,
         "category" : {
-          "id" : 48,
+          "id" : 1,
           "name" : "생활가전",
-          "createdAt" : "2023-05-06T14:42:24.244854"
+          "createdAt" : "2023-05-06T16:05:27.030859"
         },
         "title" : "제목1",
         "organizer" : {
@@ -3845,21 +3195,21 @@ Content-Length: 2145
           "email" : "ssar@naver.com",
           "profile" : "사진",
           "rate" : {
-            "id" : 33,
+            "id" : 1,
             "rateName" : "글레이즈드",
-            "createdAt" : "2023-05-06T14:42:24.09595"
+            "createdAt" : "2023-05-06T16:05:26.883663"
           },
           "ratePoint" : 20,
           "role" : "ROLE_USER",
           "provider" : null,
           "providerId" : null,
           "statusCode" : null,
-          "createdAt" : "2023-05-06T14:42:24.165801"
+          "createdAt" : "2023-05-06T16:05:26.950994"
         },
         "content" : "내용1",
         "img" : "사진",
         "event" : {
-          "id" : 21,
+          "id" : 1,
           "latitude" : 111.111,
           "longtitude" : 222.222,
           "qty" : 1,
@@ -3867,7 +3217,7 @@ Content-Length: 2145
           "startAt" : "2023-05-01T13:30:00",
           "endAt" : "2023-05-02T13:30:00",
           "price" : 1000,
-          "createdAt" : "2023-05-06T14:42:24.243858"
+          "createdAt" : "2023-05-06T16:05:27.030859"
         },
         "statusCode" : 200,
         "views" : 100,
@@ -3875,9 +3225,9 @@ Content-Length: 2145
         "state" : "부산광역시",
         "city" : "부산진구",
         "town" : "부전동",
-        "createdAt" : "2023-05-06T14:42:24.247844"
+        "createdAt" : "2023-05-06T16:05:27.031862"
       },
-      "createdAt" : "2023-05-06T14:42:24.24941"
+      "createdAt" : "2023-05-06T16:05:27.032863"
     } ]
   }
 }</code></pre>
@@ -3891,7 +3241,7 @@ Content-Length: 2145
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-05-06 14:18:29 +0900
+Last updated 2023-05-06 15:59:40 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
