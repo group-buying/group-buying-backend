@@ -184,6 +184,13 @@ include::{snippets}/{my-category}/update_test/http-request.adoc[]
 ===== Response Example
 include::{snippets}/{my-category}/update_test/http-response.adoc[]
 
+=== 3. 나의 카테고리 보기
+===== Request Example
+include::{snippets}/{my-category}/select_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{my-category}/select_test/http-response.adoc[]
+
 == 나의 지역 API
 === 1. 디폴트 지역
 ===== Request Example
