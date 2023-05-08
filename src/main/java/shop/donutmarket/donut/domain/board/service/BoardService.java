@@ -16,6 +16,7 @@ import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSearchReqDto;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardUpdateRespDTO;
@@ -214,4 +215,26 @@ public class BoardService {
             throw new Exception500("게시글 삭제하기 실패 : " + e.getMessage());
         }
     }
+
+    @Transactional(readOnly = true)
+    public List<Board> 검색(BoardSearchReqDto boardSearchReqDto) {
+
+        List<Long> searchIdList = boardRepository.findIdsBySearchWord(boardSearchReqDto.getWord());
+        System.out.println(searchIdList);
+        List<Board> searchResult = new ArrayList<>();
+        for (Long id : searchIdList) {
+            Optional<Board> boardOP = boardRepository.findByIdWithAll(id);
+            if(boardOP.isEmpty()) {
+                continue;
+            } else {
+                Board boardPS = boardOP.get();
+                searchResult.add(boardPS);
+            }	
+        }
+        if (searchResult.isEmpty()) {
+            throw new Exception404("검색에 맞는 결과가 없습니다");
+        }
+        return searchResult;
+    }
+    
 }

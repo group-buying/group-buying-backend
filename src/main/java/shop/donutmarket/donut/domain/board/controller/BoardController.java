@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSearchReqDto;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardDetailRespDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
@@ -66,5 +67,12 @@ public class BoardController {
         boardService.게시글삭제(boardDeleteReqDTO, myUserDetails);
         ResponseDTO<?> responseDTO = new ResponseDTO<>("게시글 삭제 성공");
         return ResponseEntity.ok(responseDTO);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> search(@RequestBody @Valid BoardSearchReqDto boardSearchReqDto, BindingResult bindingResult) {
+	    List<Board> searchresult = boardService.검색(boardSearchReqDto);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(searchresult);
+	    return ResponseEntity.ok(responseDTO);
     }
 }
