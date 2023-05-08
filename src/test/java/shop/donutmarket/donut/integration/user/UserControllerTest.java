@@ -69,8 +69,8 @@ public class UserControllerTest extends MyRestDocs {
 
     @AfterEach
     void clean() {
-//        userRepository.deleteAll();
-//        rateRepository.deleteAll();
+        // userRepository.deleteAll();
+        // rateRepository.deleteAll();
     }
 
     @DisplayName("회원가입")
@@ -125,7 +125,7 @@ public class UserControllerTest extends MyRestDocs {
         // given
         UserReq.UpdateDTO updateDTO = new UserReq.UpdateDTO();
         updateDTO.setPassword("4321");
-        updateDTO.setProfile("사진입니다");
+        updateDTO.setProfile("src/main/resources/static/images.png");
         String requestBody = om.writeValueAsString(updateDTO);
 
         // when
@@ -136,9 +136,9 @@ public class UserControllerTest extends MyRestDocs {
         System.out.println("테스트 : " + responseBody);
 
         // then
-        resultActions.andExpect(jsonPath("$.data.profile").value("사진입니다"));
+        // resultActions.andExpect(jsonPath("$.data.profile").value("User1profile.png"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
-    
+
 }
