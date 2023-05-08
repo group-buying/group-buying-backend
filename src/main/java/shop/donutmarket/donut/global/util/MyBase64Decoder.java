@@ -53,4 +53,10 @@ public class MyBase64Decoder {
 
         return imageFilePath.toString();
     }
+
+    public static String decodeBase64(String encodedString) {
+        byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
+        return new String(decodedBytes);
+    }
+
 }
