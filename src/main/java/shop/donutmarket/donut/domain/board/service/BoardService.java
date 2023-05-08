@@ -16,6 +16,7 @@ import shop.donutmarket.donut.domain.admin.model.Category;
 import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSearchCategoryReqDto;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSearchReqDto;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
@@ -217,7 +218,7 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public List<Board> 검색(BoardSearchReqDto boardSearchReqDto) {
+    public List<Board> 키워드검색(BoardSearchReqDto boardSearchReqDto) {
 
         List<Long> searchIdList = boardRepository.findIdsBySearchWord(boardSearchReqDto.getWord());
         System.out.println(searchIdList);
@@ -231,6 +232,16 @@ public class BoardService {
                 searchResult.add(boardPS);
             }	
         }
+        if (searchResult.isEmpty()) {
+            throw new Exception404("검색에 맞는 결과가 없습니다");
+        }
+        return searchResult;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Board> 카테고리검색(BoardSearchCategoryReqDto boardSearchCategoryReqDto) {
+
+        List<Board> searchResult = boardRepository.findByCategory(boardSearchCategoryReqDto.getCategoryId());
         if (searchResult.isEmpty()) {
             throw new Exception404("검색에 맞는 결과가 없습니다");
         }
