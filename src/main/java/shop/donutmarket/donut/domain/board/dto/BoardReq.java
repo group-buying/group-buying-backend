@@ -89,5 +89,15 @@ public class BoardReq {
         @NotNull(message = "게시글ID를 입력해주세요.")
         private Long boardId;
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class BoardSearchReqDto {
+        // board
+        @NotNull(message = "검색어를 입력해주세요.")
+        private String word;
+    }
 }
 

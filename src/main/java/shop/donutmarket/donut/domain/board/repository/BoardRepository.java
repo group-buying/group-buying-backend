@@ -25,4 +25,8 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 
     @Query("select b from Board b where b.statusCode in(200, 201, 202)")
     List<Board> findBoardAndStatusCode();
+
+    @Query("select b.id FROM Board b where (b.id IN (SELECT b2.id FROM Board b2 WHERE b2.title LIKE %:searchWord%) OR b.id IN (SELECT t.boardId FROM Tag t WHERE t.comment LIKE %:searchWord%)) AND b.statusCode IN (200, 201, 202)")
+    List<Long> findIdsBySearchWord(@Param("searchWord") String searchWord);
+    
 }
