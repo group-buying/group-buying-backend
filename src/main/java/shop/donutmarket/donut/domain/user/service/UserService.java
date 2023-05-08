@@ -18,11 +18,14 @@ import shop.donutmarket.donut.domain.user.dto.UserResp;
 import shop.donutmarket.donut.domain.user.model.User;
 import shop.donutmarket.donut.domain.user.repository.UserRepository;
 import shop.donutmarket.donut.global.auth.MyUserDetails;
+import shop.donutmarket.donut.global.aws.FileLoad;
 import shop.donutmarket.donut.global.dto.ResponseDTO;
 import shop.donutmarket.donut.global.exception.Exception404;
 import shop.donutmarket.donut.global.exception.Exception500;
 import shop.donutmarket.donut.global.jwt.MyJwtProvider;
+import shop.donutmarket.donut.global.util.MyBase64Decoder;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -33,6 +36,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final RateRepository rateRepository;
+    private final FileLoad fileLoad;
 
     @Transactional
     public ResponseEntity<?> 회원가입(UserReq.JoinDTO joinDTO) {
@@ -109,6 +113,15 @@ public class UserService {
             // 회원 수정
             User userPS = userOP.get();
             LocalDateTime localDateTime = LocalDateTime.now();
+
+            String image = MyBase64Decoder.saveImage(updateDTO.getProfile());
+            String imageName = image.split("/")[1];
+            fileLoad.uploadFile(imageName, image);
+            String imglink = fileLoad.downloadObject(imageName);
+            File img = new File(image);
+                if (!(img.delete())) {
+                    throw new Exception500("사진을 처리하는데 실패했습니다.");
+                }
             userPS.updateUser(updateDTO.getPassword(), updateDTO.getProfile(), localDateTime);
 
         } catch (Exception e) {
