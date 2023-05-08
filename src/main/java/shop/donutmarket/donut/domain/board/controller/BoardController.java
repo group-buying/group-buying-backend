@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
+import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSearchCategoryReqDto;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSearchReqDto;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardDetailRespDTO;
@@ -71,7 +72,14 @@ public class BoardController {
 
     @GetMapping("/search")
     public ResponseEntity<?> search(@RequestBody @Valid BoardSearchReqDto boardSearchReqDto, BindingResult bindingResult) {
-	    List<Board> searchresult = boardService.검색(boardSearchReqDto);
+	    List<Board> searchresult = boardService.키워드검색(boardSearchReqDto);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(searchresult);
+	    return ResponseEntity.ok(responseDTO);
+    }
+
+    @GetMapping("/search/category")
+    public ResponseEntity<?> search(@RequestBody @Valid BoardSearchCategoryReqDto boardSearchCategoryReqDto, BindingResult bindingResult) {
+	    List<Board> searchresult = boardService.카테고리검색(boardSearchCategoryReqDto);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(searchresult);
 	    return ResponseEntity.ok(responseDTO);
     }
