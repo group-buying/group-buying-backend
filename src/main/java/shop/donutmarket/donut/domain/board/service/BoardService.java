@@ -50,7 +50,8 @@ public class BoardService {
     private final FileLoad fileLoad;
 
     @Transactional
-    public BoardSaveRespDTO 게시글작성(BoardSaveReqDTO boardSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public BoardSaveRespDTO 게시글작성(BoardSaveReqDTO boardSaveReqDTO,
+            @AuthenticationPrincipal MyUserDetails myUserDetails) {
         Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
 
         if (userOP.isEmpty()) {
@@ -70,7 +71,7 @@ public class BoardService {
             Category category = categoryOP.get();
 
             // image base64화
-            String image;
+
             String imageName;
             String imglink;
             if (boardSaveReqDTO.getImg() == null) {
@@ -80,22 +81,15 @@ public class BoardService {
             } else {
                 // 존재하면 사진 첨가 + s3에 저장
                 // 로컬에 저장해 경로 생성 및 고유화
-                image = MyBase64Decoder.saveImage(boardSaveReqDTO.getImg());
-                // 사진 이름
-                imageName = image.split("/")[1];
-                fileLoad.uploadFile(imageName, image);
+                imageName = boardSaveReqDTO.getTitle() + " boardImg";
+                fileLoad.uploadFile(imageName, boardSaveReqDTO.getImg());
                 imglink = fileLoad.downloadObject(imageName);
-                // 로컬에 남기에 삭제
-                File img = new File(image);
-                if (!(img.delete())) {
-                    throw new Exception500("사진을 처리하는데 실패했습니다.");
-                }
             }
             Board board = boardRepository.save(boardSaveReqDTO.toBoardEntity(event, category, imglink, user));
 
             // tag save
             List<Tag> tagList = new ArrayList<>();
-            if(boardSaveReqDTO.getComment() != null){
+            if (boardSaveReqDTO.getComment() != null) {
                 for (String comment : boardSaveReqDTO.getComment()) {
                     Tag tag = Tag.builder().boardId(board.getId()).comment(comment)
                             .createdAt(LocalDateTime.now()).build();
@@ -127,9 +121,11 @@ public class BoardService {
         try {
             User organizer = boardPS.getOrganizer();
             Event event = boardPS.getEvent();
-            Board board = Board.builder().id(boardPS.getId()).category(boardPS.getCategory()).title(boardPS.getTitle()).img(boardPS.getImg())
+            Board board = Board.builder().id(boardPS.getId()).category(boardPS.getCategory()).title(boardPS.getTitle())
+                    .img(boardPS.getImg())
                     .organizer(organizer).content(boardPS.getContent()).event(event).statusCode(boardPS.getStatusCode())
-                    .state(boardPS.getState()).city(boardPS.getCity()).town(boardPS.getTown()).createdAt(boardPS.getCreatedAt()).build();
+                    .state(boardPS.getState()).city(boardPS.getCity()).town(boardPS.getTown())
+                    .createdAt(boardPS.getCreatedAt()).build();
             return board;
         } catch (Exception e) {
             throw new Exception500("게시글 상세보기 실패 : " + e.getMessage());
@@ -137,7 +133,8 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardUpdateRespDTO 게시글수정(BoardUpdateReqDTO boardUpdateReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public BoardUpdateRespDTO 게시글수정(BoardUpdateReqDTO boardUpdateReqDTO,
+            @AuthenticationPrincipal MyUserDetails myUserDetails) {
         User userOP = myUserDetails.getUser();
         Optional<Board> boardOP = boardRepository.findByIdWithEvent(boardUpdateReqDTO.getId());
         if (boardOP.isEmpty()) {
@@ -156,8 +153,7 @@ public class BoardService {
         try {
             boardPS.getEvent().updateEvent(
                     boardUpdateReqDTO.getQty(), boardUpdateReqDTO.getPaymentType(),
-                    boardUpdateReqDTO.getEndAt(), boardUpdateReqDTO.getPrice()
-            );
+                    boardUpdateReqDTO.getEndAt(), boardUpdateReqDTO.getPrice());
 
             List<String> tagList = new ArrayList<>();
 
@@ -190,7 +186,6 @@ public class BoardService {
         }
     }
 
-
     @Transactional
     public void 게시글삭제(BoardDeleteReqDTO boardDeleteReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
@@ -212,7 +207,7 @@ public class BoardService {
         }
 
         try {
-            //상태코드 삭제로
+            // 상태코드 삭제로
         } catch (Exception e) {
             throw new Exception500("게시글 삭제하기 실패 : " + e.getMessage());
         }
@@ -220,18 +215,18 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<Board> 키워드검색(BoardSearchReqDto boardSearchReqDto) {
-        
+
         List<Board> searchResult = new ArrayList<>();
         try {
             List<Long> searchIdList = boardRepository.findIdsBySearchWord(boardSearchReqDto.getWord());
             for (Long id : searchIdList) {
                 Optional<Board> boardOP = boardRepository.findByIdWithAll(id);
-                if(boardOP.isEmpty()) {
+                if (boardOP.isEmpty()) {
                     continue;
                 } else {
                     Board boardPS = boardOP.get();
                     searchResult.add(boardPS);
-                }	
+                }
             }
         } catch (Exception e) {
             throw new Exception500("검색에 실패했습니다.");
@@ -248,27 +243,25 @@ public class BoardService {
         List<Board> searchResult = new ArrayList<>();
         try {
             List<Long> searchIdList = boardRepository.findByLocation(boardSearchLocationReqDto.getState(),
-            boardSearchLocationReqDto.getCity(), boardSearchLocationReqDto.getTown());
+                    boardSearchLocationReqDto.getCity(), boardSearchLocationReqDto.getTown());
             for (Long id : searchIdList) {
                 Optional<Board> boardOP = boardRepository.findByIdWithAll(id);
-                if(boardOP.isEmpty()) {
+                if (boardOP.isEmpty()) {
                     continue;
                 } else {
                     Board boardPS = boardOP.get();
                     searchResult.add(boardPS);
-                }	
+                }
             }
         } catch (Exception e) {
             throw new Exception500("검색에 실패했습니다.");
         }
-
 
         if (searchResult.isEmpty()) {
             throw new Exception404("검색에 맞는 결과가 없습니다");
         }
         return searchResult;
     }
-
 
     @Transactional(readOnly = true)
     public List<Board> 카테고리검색(BoardSearchCategoryReqDto boardSearchCategoryReqDto) {
@@ -283,5 +276,5 @@ public class BoardService {
         }
         return searchResult;
     }
-    
+
 }

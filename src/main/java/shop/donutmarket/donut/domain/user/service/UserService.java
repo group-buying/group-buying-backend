@@ -63,11 +63,11 @@ public class UserService {
             User userPS = userOP.get(); // 조회하는 객체는 PS
             if (passwordEncoder.matches(rawPassword, userPS.getPassword())) {
                 String jwt = MyJwtProvider.create(userPS);
-                
+
                 // Body 만들기
                 UserResp.JoinDTO body = new UserResp.JoinDTO(userPS);
                 ResponseDTO<?> responseDTO = new ResponseDTO<>(body);
-                
+
                 // ResponseEntity 생성
                 return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(responseDTO);
             }
@@ -108,20 +108,16 @@ public class UserService {
         if (userOP.isEmpty()) {
             throw new Exception404("존재하지 않는 회원입니다");
         }
+        User userPS = userOP.get();
 
         try {
             // 회원 수정
-            User userPS = userOP.get();
             LocalDateTime localDateTime = LocalDateTime.now();
 
-            String image = MyBase64Decoder.saveImage(updateDTO.getProfile());
-            String imgName = "User"+ Long.toString(userPS.getId()) + "profile";
-            fileLoad.uploadFile(imgName, image);
+            String imgName = "User" + Long.toString(userPS.getId()) + "profile";
+            fileLoad.uploadFile(imgName, updateDTO.getProfile());
             String imglink = fileLoad.downloadObject(imgName);
-            File img = new File(image);
-                if (!(img.delete())) {
-                    throw new Exception500("사진을 처리하는데 실패했습니다.");
-                }
+
             userPS.updateUser(updateDTO.getPassword(), imglink, localDateTime);
 
         } catch (Exception e) {
@@ -137,7 +133,8 @@ public class UserService {
 
         try {
             User user = data.get();
-            UserResp.UpdateDTO resp = new UserResp.UpdateDTO(user.getUsername(), user.getEmail(), user.getProfile(), user.getRole());
+            UserResp.UpdateDTO resp = new UserResp.UpdateDTO(user.getUsername(), user.getEmail(), user.getProfile(),
+                    user.getRole());
             return resp;
         } catch (Exception e) {
             throw new Exception500("회원수정 데이터 반환 실패 : " + e.getMessage());
