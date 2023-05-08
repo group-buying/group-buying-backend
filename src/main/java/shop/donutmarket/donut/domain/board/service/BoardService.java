@@ -72,26 +72,26 @@ public class BoardService {
             // image base64화
             String image;
             String imageName;
+            String imglink;
             if (boardSaveReqDTO.getImg() == null) {
-                // 존재하지 않을 경우 s3에 저장된 (카테고리이름) + 디폴트.jpg 사진을 가져옴
+                // 존재하지 않을 경우 s3에 저장된 (카테고리이름) + 디폴트.jpg 사진을 가져오고 해당 링크를 저장
                 imageName = category.getName() + "디폴트.jpg";
-                // 단 티켓/교환권은 "/" 때문에 미적용(s3에는 "티켓교환권디폴트" 라고 되어있음) 수정필요
+                imglink = fileLoad.downloadObject(imageName);
             } else {
                 // 존재하면 사진 첨가 + s3에 저장
-
                 // 로컬에 저장해 경로 생성 및 고유화
                 image = MyBase64Decoder.saveImage(boardSaveReqDTO.getImg());
                 // 사진 이름
                 imageName = image.split("/")[1];
                 fileLoad.uploadFile(imageName, image);
-
+                imglink = fileLoad.downloadObject(imageName);
                 // 로컬에 남기에 삭제
                 File img = new File(image);
                 if (!(img.delete())) {
                     throw new Exception500("사진을 처리하는데 실패했습니다.");
                 }
             }
-            Board board = boardRepository.save(boardSaveReqDTO.toBoardEntity(event, category, imageName, user));
+            Board board = boardRepository.save(boardSaveReqDTO.toBoardEntity(event, category, imglink, user));
 
             // tag save
             List<Tag> tagList = new ArrayList<>();
@@ -125,9 +125,7 @@ public class BoardService {
         try {
             User organizer = boardPS.getOrganizer();
             Event event = boardPS.getEvent();
-            // s3에 저장된 링크를 가져옴
-            // String imglink = fileLoad.downloadObject(boardPS.getImg());
-            Board board = Board.builder().id(boardPS.getId()).category(boardPS.getCategory()).title(boardPS.getTitle())
+            Board board = Board.builder().id(boardPS.getId()).category(boardPS.getCategory()).title(boardPS.getTitle()).img(boardPS.getImg())
                     .organizer(organizer).content(boardPS.getContent()).event(event).statusCode(boardPS.getStatusCode())
                     .state(boardPS.getState()).city(boardPS.getCity()).town(boardPS.getTown()).createdAt(boardPS.getCreatedAt()).build();
             return board;
