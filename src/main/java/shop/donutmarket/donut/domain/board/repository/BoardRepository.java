@@ -34,4 +34,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 
     @Query("select b from Board b where b.category.id = :categoryId and b.statusCode in(200, 201, 202)")
     List<Board> findByCategory(@Param("categoryId") Long categoryId);
+
+    @Query("select b from Board b left join fetch b.category c left join fetch b.event e left join fetch b.organizer o left join fetch o.rate where b.state = :state and b.city = :city and b.town = :town and b.category.id = :categoryId and b.statusCode in(200, 201, 202)")
+    List<Board> findByMain(@Param("state") String state, @Param("city") String city, @Param("town") String town, @Param("categoryId") Long categoryId);
 }
