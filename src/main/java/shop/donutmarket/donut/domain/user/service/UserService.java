@@ -113,9 +113,9 @@ public class UserService {
         try {
             // 회원 수정
             LocalDateTime localDateTime = LocalDateTime.now();
-
+            String decodeLink = MyBase64Decoder.decodeBase64(updateDTO.getProfile());
             String imgName = "User" + Long.toString(userPS.getId()) + "profile";
-            fileLoad.uploadFile(imgName, updateDTO.getProfile());
+            fileLoad.uploadFile(imgName, decodeLink);
             String imglink = fileLoad.downloadObject(imgName);
 
             userPS.updateUser(updateDTO.getPassword(), imglink, localDateTime);
