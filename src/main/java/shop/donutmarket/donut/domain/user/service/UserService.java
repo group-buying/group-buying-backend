@@ -115,14 +115,14 @@ public class UserService {
             LocalDateTime localDateTime = LocalDateTime.now();
 
             String image = MyBase64Decoder.saveImage(updateDTO.getProfile());
-            String imageName = image.split("/")[1];
-            fileLoad.uploadFile(imageName, image);
-            String imglink = fileLoad.downloadObject(imageName);
+            String imgName = "User"+ Long.toString(userPS.getId()) + "profile";
+            fileLoad.uploadFile(imgName, image);
+            String imglink = fileLoad.downloadObject(imgName);
             File img = new File(image);
                 if (!(img.delete())) {
                     throw new Exception500("사진을 처리하는데 실패했습니다.");
                 }
-            userPS.updateUser(updateDTO.getPassword(), updateDTO.getProfile(), localDateTime);
+            userPS.updateUser(updateDTO.getPassword(), imglink, localDateTime);
 
         } catch (Exception e) {
             throw new Exception500("회원수정 실패 : " + e.getMessage());
