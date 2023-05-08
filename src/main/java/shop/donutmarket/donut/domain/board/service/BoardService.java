@@ -220,19 +220,23 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<Board> 키워드검색(BoardSearchReqDto boardSearchReqDto) {
-
-        List<Long> searchIdList = boardRepository.findIdsBySearchWord(boardSearchReqDto.getWord());
-        System.out.println(searchIdList);
+        
         List<Board> searchResult = new ArrayList<>();
-        for (Long id : searchIdList) {
-            Optional<Board> boardOP = boardRepository.findByIdWithAll(id);
-            if(boardOP.isEmpty()) {
-                continue;
-            } else {
-                Board boardPS = boardOP.get();
-                searchResult.add(boardPS);
-            }	
+        try {
+            List<Long> searchIdList = boardRepository.findIdsBySearchWord(boardSearchReqDto.getWord());
+            for (Long id : searchIdList) {
+                Optional<Board> boardOP = boardRepository.findByIdWithAll(id);
+                if(boardOP.isEmpty()) {
+                    continue;
+                } else {
+                    Board boardPS = boardOP.get();
+                    searchResult.add(boardPS);
+                }	
+            }
+        } catch (Exception e) {
+            throw new Exception500("검색에 실패했습니다.");
         }
+
         if (searchResult.isEmpty()) {
             throw new Exception404("검색에 맞는 결과가 없습니다");
         }
@@ -241,18 +245,26 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<Board> 지역별검색(BoardSearchLocationReqDto boardSearchLocationReqDto) {
-
-        List<Long> searchIdList = boardRepository.findByLocation(boardSearchLocationReqDto.getState(),
-            boardSearchLocationReqDto.getCity(), boardSearchLocationReqDto.getTown());
         List<Board> searchResult = new ArrayList<>();
-        for (Long id : searchIdList) {
-            Optional<Board> boardOP = boardRepository.findByIdWithAll(id);
-            if(boardOP.isEmpty()) {
-                continue;
-            } else {
-                Board boardPS = boardOP.get();
-                searchResult.add(boardPS);
-            }	
+        try {
+            List<Long> searchIdList = boardRepository.findByLocation(boardSearchLocationReqDto.getState(),
+            boardSearchLocationReqDto.getCity(), boardSearchLocationReqDto.getTown());
+            for (Long id : searchIdList) {
+                Optional<Board> boardOP = boardRepository.findByIdWithAll(id);
+                if(boardOP.isEmpty()) {
+                    continue;
+                } else {
+                    Board boardPS = boardOP.get();
+                    searchResult.add(boardPS);
+                }	
+            }
+        } catch (Exception e) {
+            throw new Exception500("검색에 실패했습니다.");
+        }
+
+
+        if (searchResult.isEmpty()) {
+            throw new Exception404("검색에 맞는 결과가 없습니다");
         }
         return searchResult;
     }
@@ -260,8 +272,12 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<Board> 카테고리검색(BoardSearchCategoryReqDto boardSearchCategoryReqDto) {
-
-        List<Board> searchResult = boardRepository.findByCategory(boardSearchCategoryReqDto.getCategoryId());
+        List<Board> searchResult = new ArrayList<>();
+        try {
+            searchResult = boardRepository.findByCategory(boardSearchCategoryReqDto.getCategoryId());
+        } catch (Exception e) {
+            throw new Exception500("검색에 실패했습니다.");
+        }
         if (searchResult.isEmpty()) {
             throw new Exception404("검색에 맞는 결과가 없습니다");
         }
