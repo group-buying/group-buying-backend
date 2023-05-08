@@ -17,6 +17,7 @@ import shop.donutmarket.donut.domain.admin.repository.CategoryRepository;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardDeleteReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSaveReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSearchCategoryReqDto;
+import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSearchLocationReqDto;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardSearchReqDto;
 import shop.donutmarket.donut.domain.board.dto.BoardReq.BoardUpdateReqDTO;
 import shop.donutmarket.donut.domain.board.dto.BoardResp.BoardSaveRespDTO;
@@ -237,6 +238,25 @@ public class BoardService {
         }
         return searchResult;
     }
+
+    @Transactional(readOnly = true)
+    public List<Board> 지역별검색(BoardSearchLocationReqDto boardSearchLocationReqDto) {
+
+        List<Long> searchIdList = boardRepository.findByLocation(boardSearchLocationReqDto.getState(),
+            boardSearchLocationReqDto.getCity(), boardSearchLocationReqDto.getTown());
+        List<Board> searchResult = new ArrayList<>();
+        for (Long id : searchIdList) {
+            Optional<Board> boardOP = boardRepository.findByIdWithAll(id);
+            if(boardOP.isEmpty()) {
+                continue;
+            } else {
+                Board boardPS = boardOP.get();
+                searchResult.add(boardPS);
+            }	
+        }
+        return searchResult;
+    }
+
 
     @Transactional(readOnly = true)
     public List<Board> 카테고리검색(BoardSearchCategoryReqDto boardSearchCategoryReqDto) {
