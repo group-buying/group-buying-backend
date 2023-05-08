@@ -95,11 +95,13 @@ public class BoardService {
 
             // tag save
             List<Tag> tagList = new ArrayList<>();
-            for (String comment : boardSaveReqDTO.getComment()) {
-                Tag tag = Tag.builder().boardId(board.getId()).comment(comment)
-                        .createdAt(LocalDateTime.now()).build();
-                tagRepository.save(tag);
-                tagList.add(tag);
+            if(boardSaveReqDTO.getComment() != null){
+                for (String comment : boardSaveReqDTO.getComment()) {
+                    Tag tag = Tag.builder().boardId(board.getId()).comment(comment)
+                            .createdAt(LocalDateTime.now()).build();
+                    tagRepository.save(tag);
+                    tagList.add(tag);
+                }
             }
 
             BoardSaveRespDTO boardSaveRespDTO = new BoardSaveRespDTO(board, tagList);
