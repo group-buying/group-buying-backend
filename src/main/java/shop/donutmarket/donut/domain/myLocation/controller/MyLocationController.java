@@ -30,6 +30,13 @@ public class MyLocationController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    @PostMapping("/default/setting")
+    public ResponseEntity<?> defaultLocationSet(@AuthenticationPrincipal MyUserDetails myUserDetails){
+        DefaultMyLocationRespDTO defaultRespDTO = myLocationService.디폴트지역세팅(myUserDetails);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(defaultRespDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
     @PutMapping
     public ResponseEntity<?> save(@RequestBody @Valid MyLocationSaveReqDTO myLocationSaveReqDTO, @AuthenticationPrincipal MyUserDetails myUserDetails, BindingResult bindingResult) {
         MyLocationSaveRespDTO saveRespDTO = myLocationService.내지역변경(myLocationSaveReqDTO, myUserDetails);
