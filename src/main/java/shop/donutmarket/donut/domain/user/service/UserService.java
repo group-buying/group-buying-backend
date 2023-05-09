@@ -120,6 +120,12 @@ public class UserService {
 
             userPS.updateUser(updateDTO.getPassword(), imglink, localDateTime);
 
+            // 로컬 제거
+            File img = new File(decodeLink);
+            if (!img.delete()) {
+                throw new Exception500("사진을 처리하는데 실패했습니다.");
+            }
+
         } catch (Exception e) {
             throw new Exception500("회원수정 실패 : " + e.getMessage());
         }
