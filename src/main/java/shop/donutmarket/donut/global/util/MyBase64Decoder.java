@@ -1,7 +1,5 @@
 package shop.donutmarket.donut.global.util;
 
-import shop.donutmarket.donut.global.exception.Exception400;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URLConnection;
@@ -10,6 +8,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.UUID;
+
+import com.nimbusds.jose.util.StandardCharset;
+
+import shop.donutmarket.donut.global.exception.Exception400;
 
 public class MyBase64Decoder {
     private static void checkExist(String base64Image) {
@@ -28,8 +30,7 @@ public class MyBase64Decoder {
     }
 
     private static String checkImage(byte[] decodedData) throws IOException {
-        String mimeType = null;
-        mimeType = URLConnection.guessContentTypeFromStream(new ByteArrayInputStream(decodedData));
+        String mimeType = URLConnection.guessContentTypeFromStream(new ByteArrayInputStream(decodedData));
 
         if (!mimeType.startsWith("image/")) {
             throw new Exception400("사진 파일만 업로드가 가능합니다");
@@ -41,7 +42,7 @@ public class MyBase64Decoder {
         checkExist(base64Image);
         byte[] decodedData = decode(base64Image);
         String mimeType = checkImage(decodedData);
-        String staticFolder = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\";
+        String staticFolder = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\image\\";
         UUID uuid = UUID.randomUUID();
         String filePath = "\\images\\" + uuid + "_" + System.currentTimeMillis() + "."
                 + mimeType.split("/")[1];
@@ -54,9 +55,18 @@ public class MyBase64Decoder {
         return imageFilePath.toString();
     }
 
-    public static String decodeBase64(String encodedString) {
-        byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
-        return new String(decodedBytes);
-    }
+    public static String decodeBase64(String encodedString) throws Exception {
+        // base64 디코딩하여 파일 저장
+        byte[] imageBytes = Base64.getDecoder().decode(encodedString.getBytes());
+        String link = new String(imageBytes, StandardCharset.UTF_8);
+        String[] links = link.split("/");
+        String filename = links[links.length - 1];
+        String staticFolder = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\image\\";
+        Path filePath = Paths.get(staticFolder + filename);
+        Files.write(filePath, imageBytes);
 
+        // 파일 경로 반환
+        String filePathString = filePath.toAbsolutePath().toString();
+        return filePathString;
+    }
 }
