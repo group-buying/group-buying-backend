@@ -17,6 +17,8 @@ spring:
       ddl-auto: none
     properties:
       default_batch_fetch_size: 100 # in query 자동 작성
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
   output:
     ansi:
       enabled: always

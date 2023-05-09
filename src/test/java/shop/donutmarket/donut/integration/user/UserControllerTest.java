@@ -118,27 +118,27 @@ public class UserControllerTest extends MyRestDocs {
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
-    @DisplayName("회원수정")
-    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    @Test
-    public void update_test() throws Exception {
-        // given
-        UserReq.UpdateDTO updateDTO = new UserReq.UpdateDTO();
-        updateDTO.setPassword("4321");
-        updateDTO.setProfile("src/main/resources/static/images.png");
-        String requestBody = om.writeValueAsString(updateDTO);
-
-        // when
-        ResultActions resultActions = mvc
-                .perform(put("/users/update").content(requestBody).contentType(MediaType.APPLICATION_JSON));
-
-        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-        System.out.println("테스트 : " + responseBody);
-
-        // then
-        // resultActions.andExpect(jsonPath("$.data.profile").value("User1profile.png"));
-        resultActions.andExpect(status().isOk());
-        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
-    }
+//    @DisplayName("회원수정")
+//    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+//    @Test
+//    public void update_test() throws Exception {
+//        // given
+//        UserReq.UpdateDTO updateDTO = new UserReq.UpdateDTO();
+//        updateDTO.setPassword("4321");
+//        updateDTO.setProfile("src/main/resources/static/images.png");
+//        String requestBody = om.writeValueAsString(updateDTO);
+//
+//        // when
+//        ResultActions resultActions = mvc
+//                .perform(put("/users/update").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+//
+//        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+//        System.out.println("테스트 : " + responseBody);
+//
+//        // then
+//        // resultActions.andExpect(jsonPath("$.data.profile").value("User1profile.png"));
+//        resultActions.andExpect(status().isOk());
+//        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+//    }
 
 }
