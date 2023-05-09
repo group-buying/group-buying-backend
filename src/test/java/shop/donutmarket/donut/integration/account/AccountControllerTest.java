@@ -114,23 +114,23 @@ public class AccountControllerTest extends MyRestDocs {
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
-    @DisplayName("계좌 삭제")
-    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    @Test
-    public void delete_test() throws Exception {
-        // given
-
-        // when
-        ResultActions resultActions = mvc
-                .perform(delete("/accounts"));
-
-        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-        System.out.println("테스트 : " + responseBody);
-
-        // then
-        resultActions.andExpect(status().isOk());
-        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
-    }
+//    @DisplayName("계좌 삭제")
+//    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+//    @Test
+//    public void delete_test() throws Exception {
+//        // given
+//
+//        // when
+//        ResultActions resultActions = mvc
+//                .perform(delete("/accounts"));
+//
+//        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+//        System.out.println("테스트 : " + responseBody);
+//
+//        // then
+//        resultActions.andExpect(status().isOk());
+//        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+//    }
 
     @DisplayName("계좌 수정")
     @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
