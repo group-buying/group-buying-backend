@@ -125,7 +125,8 @@ public class UserControllerTest extends MyRestDocs {
         // given
         UserReq.UpdateDTO updateDTO = new UserReq.UpdateDTO();
         updateDTO.setPassword("4321");
-        updateDTO.setProfile("src/main/resources/static/images.png");
+        updateDTO.setProfile("c3JjL21haW4vcmVzb3VyY2VzL3N0YXRpYy9pbWFnZS/ri6TsmrTroZzrk5wucG5n");
+        // src/main/resources/static/image/다운로드.png 해당 경로에 사진을 넣고 테스트 필요!
         String requestBody = om.writeValueAsString(updateDTO);
 
         // when

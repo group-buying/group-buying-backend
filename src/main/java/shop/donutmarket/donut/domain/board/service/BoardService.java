@@ -82,9 +82,15 @@ public class BoardService {
                 // 존재하면 사진 첨가 + s3에 저장
                 // 로컬에 저장해 경로 생성 및 고유화
                 String decodeLink = MyBase64Decoder.decodeBase64(boardSaveReqDTO.getImg());
-                imageName = boardSaveReqDTO.getTitle() + " boardImg";
+                imageName = boardSaveReqDTO.getTitle() + "boardImg";
                 fileLoad.uploadFile(imageName, decodeLink);
                 imglink = fileLoad.downloadObject(imageName);
+
+                // 로컬 제거
+                File img = new File(decodeLink);
+                if (!img.delete()) {
+                    throw new Exception500("사진을 처리하는데 실패했습니다.");
+                }
             }
             Board board = boardRepository.save(boardSaveReqDTO.toBoardEntity(event, category, imglink, user));
 

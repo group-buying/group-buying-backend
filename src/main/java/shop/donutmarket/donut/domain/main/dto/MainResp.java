@@ -18,8 +18,8 @@ public class MainResp {
     private List<BoardDTO> boards;
 
     public MainResp(List<MyCategory> myCategories,
-                    MyLocationDTO myLocation,
-                    List<Board> boards) {
+            MyLocationDTO myLocation,
+            List<Board> boards) {
         this.myCategories = myCategories
                 .stream().map(myCategory -> new MyCategoryDTO(myCategory))
                 .collect(Collectors.toList());
@@ -34,6 +34,7 @@ public class MainResp {
     public static class BoardDTO {
         private Long id;
         private String title;
+        private String img;
         private String state;
         private String city;
         private String town;
@@ -48,6 +49,7 @@ public class MainResp {
         public BoardDTO(Board board) {
             this.id = board.getId();
             this.title = board.getTitle();
+            this.img = board.getImg();
             this.state = board.getState();
             this.city = board.getCity();
             this.town = board.getTown();
