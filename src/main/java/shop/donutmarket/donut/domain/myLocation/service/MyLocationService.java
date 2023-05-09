@@ -49,6 +49,41 @@ public class MyLocationService {
             }
 
             // 내 지역이 없을 경우, 디폴트로 저장
+            MyLocation myLocation = MyLocation.builder().user(userPS).state("state")
+                    .city("city").town("town").createdAt(LocalDateTime.now()).build();
+            myLocationRepository.save(myLocation);
+
+            DefaultMyLocationRespDTO defaultLocationDTO = new DefaultMyLocationRespDTO(
+                    "state", "city", "town", userPS, LocalDateTime.now());
+            return defaultLocationDTO;
+
+        } catch (Exception e) {
+            throw new Exception500("디폴트 지역 설정 실패 : " + e.getMessage());
+        }
+    }
+
+    @Transactional
+    public DefaultMyLocationRespDTO 디폴트지역세팅(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Optional<User> userOP = userRepository.findByIdJoinFetch(myUserDetails.getUser().getId());
+        if (userOP.isEmpty()) {
+            throw new Exception404("존재하지 않는 유저입니다");
+        }
+
+        Optional<MyLocation> myLocationOP = myLocationRepository.findByUserId(myUserDetails.getUser().getId());
+
+        try {
+            User userPS = userOP.get();
+
+            // 내 지역이 있을 경우, 디폴트로 업데이트
+            if (myLocationOP.isPresent()) {
+                MyLocation myLocationPS = myLocationOP.get();
+                myLocationPS.defaultLocation();
+                DefaultMyLocationRespDTO defaultLocationDTO = new DefaultMyLocationRespDTO(
+                        myLocationPS.getState(), myLocationPS.getCity(), myLocationPS.getTown(), userPS, myLocationPS.getCreatedAt());
+                return defaultLocationDTO;
+            }
+
+            // 내 지역이 없을 경우, 디폴트로 저장
             MyLocation myLocation = MyLocation.builder().user(userPS).state("부산광역시")
                     .city("부산진구").town("부전동").createdAt(LocalDateTime.now()).build();
             myLocationRepository.save(myLocation);
