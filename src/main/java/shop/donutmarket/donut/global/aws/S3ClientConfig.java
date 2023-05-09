@@ -1,6 +1,7 @@
 package shop.donutmarket.donut.global.aws;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,14 +14,21 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class S3ClientConfig {
 
-    private String accessKey = System.getenv("S3_ACCESS_KEY");
-    private String secretKey = System.getenv("S3_SECRET_KEY");
-    private String region = "ap-northeast-2";
+//    private String accessKey = System.getenv("S3_ACCESS_KEY");
+//    private String secretKey = System.getenv("S3_SECRET_KEY");
+//    private String region = "ap-northeast-2";
+
+    @Value("${cloud.aws.credentials.access-key}")
+    private String accessKey;
+    @Value("${cloud.aws.credentials.secret-key}")
+    private String secretKey;
+    @Value("${cloud.aws.region.static}")
+    private String region;
 
     @Bean
-    AmazonS3 amazonS3Client() {
+    public AmazonS3 amazonS3Client() {
         
-        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 
         return AmazonS3ClientBuilder
                 .standard()
