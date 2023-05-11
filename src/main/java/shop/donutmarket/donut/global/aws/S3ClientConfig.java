@@ -14,16 +14,9 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class S3ClientConfig {
 
-//    private String accessKey = System.getenv("S3_ACCESS_KEY");
-//    private String secretKey = System.getenv("S3_SECRET_KEY");
-//    private String region = "ap-northeast-2";
-
-    @Value("${cloud.aws.credentials.access-key}")
-    private String accessKey;
-    @Value("${cloud.aws.credentials.secret-key}")
-    private String secretKey;
-    @Value("${cloud.aws.region.static}")
-    private String region;
+    private String accessKey = System.getenv("S3_ACCESS_KEY");
+    private String secretKey = System.getenv("S3_SECRET_KEY");
+    private String region = "ap-northeast-2";
 
     @Bean
     public AmazonS3 amazonS3Client() {
